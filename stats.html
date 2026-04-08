@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TuneFry — Stats & Revenue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <!-- ─── Sidebar ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
+      </div>
+      <div class="logo-text">Tune<span>Fry</span></div>
+    </a>
+
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="nav-label">Overview</span>
+      </a>
+      <a href="stats.html" class="nav-item active">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span>
+        <span class="nav-label">Stats & Revenue</span>
+      </a>
+      <a href="marketplace.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        <span class="nav-label">Marketplace</span>
+      </a>
+      <a href="connect.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="nav-label">Connect</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─── Top Bar ─────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="search-box">
+      <span class="search-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <button class="btn-create">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Create Release</span>
+      </button>
+      <div class="user-avatar" title="Profile">V</div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ────────────────────────────────────────── -->
+  <main class="content">
+
+    <div class="page-label animate-in">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg>
+      Analytics
+    </div>
+
+    <div class="page-header animate-in animate-in-delay-1">
+      <h1 class="page-title">Stats & Revenue</h1>
+      <div class="page-header-actions">
+        <button class="btn btn-outline">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Last 12 Months
+        </button>
+        <button class="btn btn-outline">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- Mini Stat Cards -->
+    <div class="stats-grid-4 animate-in animate-in-delay-2">
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Total Streams</div>
+        <div class="mini-stat-value" data-count="230797">230,797</div>
+        <div class="mini-stat-change text-green">+12.4%</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Total Revenue</div>
+        <div class="mini-stat-value">$2,641</div>
+        <div class="mini-stat-change text-green">+18.2%</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Active Listeners</div>
+        <div class="mini-stat-value" data-count="14823">14,823</div>
+        <div class="mini-stat-change text-green">+8.7%</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Avg. Per Stream</div>
+        <div class="mini-stat-value">$0.0038</div>
+        <div class="mini-stat-change text-red">-2.1%</div>
+      </div>
+    </div>
+
+    <!-- Revenue Chart -->
+    <div class="glass-card chart-card animate-in animate-in-delay-3">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Revenue Over Time</div>
+          <div class="chart-subtitle">Monthly earnings breakdown</div>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-sm btn-outline">Weekly</button>
+          <button class="btn btn-sm btn-primary">Monthly</button>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Two Column: Streams Chart + Platform Breakdown -->
+    <div class="two-col">
+      <div class="glass-card chart-card animate-in animate-in-delay-4">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Monthly Streams</div>
+            <div class="chart-subtitle">Stream volume over time</div>
+          </div>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="streamsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="glass-card chart-card animate-in animate-in-delay-5">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Platform Split</div>
+            <div class="chart-subtitle">Distribution by platform</div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 32px;">
+          <div class="chart-canvas-wrap" style="width: 180px; height: 180px; flex-shrink: 0;">
+            <canvas id="platformChart"></canvas>
+          </div>
+          <div class="platform-legend" style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: #1DB954; flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">Spotify</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">42%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: #FC3C44; flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">Apple Music</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">24%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: #FF0000; flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">YouTube Music</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">15%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: #FF9900; flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">Amazon</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">9%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: #00FFFF; flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">Tidal</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">6%</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 10px; height: 10px; border-radius: 2px; background: rgba(255,255,255,0.15); flex-shrink: 0;"></span>
+              <span style="font-size: 13px; flex: 1;">Other</span>
+              <span style="font-size: 13px; font-weight: 700; font-family: var(--font-display);">4%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Tracks Table -->
+    <div class="glass-card chart-card animate-in animate-in-delay-6">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top Performing Tracks</div>
+          <div class="chart-subtitle">Your most streamed releases this period</div>
+        </div>
+        <button class="btn btn-sm btn-outline">View All</button>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Track</th>
+              <th>Streams</th>
+              <th>Revenue</th>
+              <th>Trend</th>
+              <th>Top Platform</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">01</td>
+              <td>
+                <div class="song-cell">
+                  <div class="song-thumb"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                  <div>
+                    <div class="song-name">Midnight Echoes</div>
+                    <div class="song-artist">Original Release</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-weight: 600;">68,432</td>
+              <td style="font-weight: 600; color: var(--accent);">$65.21</td>
+              <td class="trend-up">+24.3%</td>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(29,185,84,0.12); border-radius: 20px; font-size: 12px; font-weight: 600; color: #1DB954;">
+                  Spotify
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">02</td>
+              <td>
+                <div class="song-cell">
+                  <div class="song-thumb"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                  <div>
+                    <div class="song-name">Neon Dreams</div>
+                    <div class="song-artist">Original Release</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-weight: 600;">52,108</td>
+              <td style="font-weight: 600; color: var(--accent);">$49.87</td>
+              <td class="trend-up">+18.7%</td>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(252,60,68,0.12); border-radius: 20px; font-size: 12px; font-weight: 600; color: #FC3C44;">
+                  Apple Music
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">03</td>
+              <td>
+                <div class="song-cell">
+                  <div class="song-thumb"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                  <div>
+                    <div class="song-name">Urban Pulse</div>
+                    <div class="song-artist">Ft. DJ Phantom</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-weight: 600;">41,290</td>
+              <td style="font-weight: 600; color: var(--accent);">$39.44</td>
+              <td class="trend-up">+9.2%</td>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(29,185,84,0.12); border-radius: 20px; font-size: 12px; font-weight: 600; color: #1DB954;">
+                  Spotify
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">04</td>
+              <td>
+                <div class="song-cell">
+                  <div class="song-thumb"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                  <div>
+                    <div class="song-name">Golden Hour</div>
+                    <div class="song-artist">Original Release</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-weight: 600;">38,651</td>
+              <td style="font-weight: 600; color: var(--accent);">$36.92</td>
+              <td class="trend-down">-3.1%</td>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(255,0,0,0.12); border-radius: 20px; font-size: 12px; font-weight: 600; color: #FF4444;">
+                  YouTube Music
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--text-muted); font-weight: 600;">05</td>
+              <td>
+                <div class="song-cell">
+                  <div class="song-thumb"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                  <div>
+                    <div class="song-name">Velvet Skyline</div>
+                    <div class="song-artist">Ft. Aria Rose</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-weight: 600;">30,316</td>
+              <td style="font-weight: 600; color: var(--accent);">$28.28</td>
+              <td class="trend-up">+5.6%</td>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(29,185,84,0.12); border-radius: 20px; font-size: 12px; font-weight: 600; color: #1DB954;">
+                  Spotify
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Geographic Distribution -->
+    <div class="glass-card chart-card animate-in" style="animation-delay: 0.7s;">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Geographic Reach</div>
+          <div class="chart-subtitle">Where your listeners are located</div>
+        </div>
+      </div>
+      <div class="geo-map-placeholder">
+        <div class="geo-dot" style="top: 35%; left: 25%;"></div>
+        <div class="geo-dot" style="top: 30%; left: 48%; animation-delay: 0.5s;"></div>
+        <div class="geo-dot" style="top: 45%; left: 52%; animation-delay: 1s;"></div>
+        <div class="geo-dot" style="top: 32%; left: 72%; animation-delay: 0.3s;"></div>
+        <div class="geo-dot" style="top: 55%; left: 78%; animation-delay: 0.8s;"></div>
+        <div class="geo-dot" style="top: 65%; left: 30%; animation-delay: 1.2s;"></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px;">
+        <div style="text-align: center;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;">United States</div>
+          <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700;">38%</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;">United Kingdom</div>
+          <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700;">18%</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;">Germany</div>
+          <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700;">12%</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;">India</div>
+          <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700;">9%</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

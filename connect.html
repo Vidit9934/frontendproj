@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TuneFry — Connect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <!-- ─── Sidebar ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
+      </div>
+      <div class="logo-text">Tune<span>Fry</span></div>
+    </a>
+
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="nav-label">Overview</span>
+      </a>
+      <a href="stats.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span>
+        <span class="nav-label">Stats & Revenue</span>
+      </a>
+      <a href="marketplace.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        <span class="nav-label">Marketplace</span>
+      </a>
+      <a href="connect.html" class="nav-item active">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="nav-label">Connect</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─── Top Bar ─────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="search-box">
+      <span class="search-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" placeholder="Search artists & collaborators...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <button class="btn-create">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Create Release</span>
+      </button>
+      <div class="user-avatar" title="Profile">V</div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ────────────────────────────────────────── -->
+  <main class="content">
+
+    <div class="page-label animate-in">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Network
+    </div>
+
+    <div class="page-header animate-in animate-in-delay-1">
+      <h1 class="page-title">Connect</h1>
+      <div class="page-header-actions">
+        <button class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Connection
+        </button>
+      </div>
+    </div>
+
+    <!-- Connected Platforms -->
+    <div class="section-header animate-in animate-in-delay-2">
+      <h2 class="section-title">Linked Platforms</h2>
+      <button class="btn btn-sm btn-ghost">Manage All</button>
+    </div>
+
+    <div class="connect-grid animate-in animate-in-delay-2">
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(29,185,84,0.15);">
+          <span style="font-size: 22px;">&#x1F7E2;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">Spotify for Artists</div>
+          <div class="conn-status connected">Connected</div>
+        </div>
+        <button class="conn-action connected-btn">Connected</button>
+      </div>
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(252,60,68,0.15);">
+          <span style="font-size: 22px;">&#x1F534;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">Apple Music</div>
+          <div class="conn-status connected">Connected</div>
+        </div>
+        <button class="conn-action connected-btn">Connected</button>
+      </div>
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(255,0,0,0.12);">
+          <span style="font-size: 22px;">&#x25B6;&#xFE0F;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">YouTube Music</div>
+          <div class="conn-status connected">Connected</div>
+        </div>
+        <button class="conn-action connected-btn">Connected</button>
+      </div>
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(131,58,180,0.15);">
+          <span style="font-size: 22px;">&#x1F4F7;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">Instagram</div>
+          <div class="conn-status">Not connected</div>
+        </div>
+        <button class="conn-action">Connect</button>
+      </div>
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(29,161,242,0.15);">
+          <span style="font-size: 22px;">&#x1D54F;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">X (Twitter)</div>
+          <div class="conn-status">Not connected</div>
+        </div>
+        <button class="conn-action">Connect</button>
+      </div>
+
+      <div class="glass-card connection-card">
+        <div class="conn-icon" style="background: rgba(0,255,255,0.1);">
+          <span style="font-size: 22px;">&#x1F3B5;</span>
+        </div>
+        <div class="conn-info">
+          <div class="conn-name">Tidal</div>
+          <div class="conn-status connected">Connected</div>
+        </div>
+        <button class="conn-action connected-btn">Connected</button>
+      </div>
+
+    </div>
+
+    <!-- Social Stats -->
+    <div class="section-header animate-in animate-in-delay-3">
+      <h2 class="section-title">Social Stats</h2>
+    </div>
+
+    <div class="stats-grid-4 animate-in animate-in-delay-3" style="margin-bottom: 32px;">
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Spotify Followers</div>
+        <div class="mini-stat-value" data-count="4823">4,823</div>
+        <div class="mini-stat-change text-green">+342 this month</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Monthly Listeners</div>
+        <div class="mini-stat-value" data-count="14823">14,823</div>
+        <div class="mini-stat-change text-green">+2.1k this month</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">YouTube Subs</div>
+        <div class="mini-stat-value" data-count="2190">2,190</div>
+        <div class="mini-stat-change text-green">+89 this month</div>
+      </div>
+      <div class="glass-card mini-stat-card">
+        <div class="mini-stat-label">Shazam Discoveries</div>
+        <div class="mini-stat-value" data-count="1847">1,847</div>
+        <div class="mini-stat-change text-green">+156 this month</div>
+      </div>
+    </div>
+
+    <!-- Discover Artists -->
+    <div class="section-header animate-in animate-in-delay-4">
+      <h2 class="section-title">Discover Collaborators</h2>
+      <button class="btn btn-sm btn-ghost">See More</button>
+    </div>
+
+    <div class="collab-grid animate-in animate-in-delay-4">
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">KL</div>
+        <div class="collab-name">Kai Luna</div>
+        <div class="collab-role">Producer & Songwriter</div>
+        <div class="collab-tags">
+          <span class="collab-tag">Hip-Hop</span>
+          <span class="collab-tag">R&B</span>
+          <span class="collab-tag">Beats</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">AR</div>
+        <div class="collab-name">Aria Rose</div>
+        <div class="collab-role">Vocalist & Topliner</div>
+        <div class="collab-tags">
+          <span class="collab-tag">Pop</span>
+          <span class="collab-tag">Electronic</span>
+          <span class="collab-tag">Vocals</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">DJ</div>
+        <div class="collab-name">DJ Phantom</div>
+        <div class="collab-role">DJ & Remix Artist</div>
+        <div class="collab-tags">
+          <span class="collab-tag">EDM</span>
+          <span class="collab-tag">House</span>
+          <span class="collab-tag">Remix</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">MV</div>
+        <div class="collab-name">Maya Vex</div>
+        <div class="collab-role">Mixing Engineer</div>
+        <div class="collab-tags">
+          <span class="collab-tag">Mixing</span>
+          <span class="collab-tag">Mastering</span>
+          <span class="collab-tag">Studio</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">NX</div>
+        <div class="collab-name">Nex Waves</div>
+        <div class="collab-role">Electronic Producer</div>
+        <div class="collab-tags">
+          <span class="collab-tag">Synth</span>
+          <span class="collab-tag">Ambient</span>
+          <span class="collab-tag">Lo-fi</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+      <div class="glass-card collab-card">
+        <div class="collab-avatar">SR</div>
+        <div class="collab-name">Sol Rhythm</div>
+        <div class="collab-role">Guitarist & Composer</div>
+        <div class="collab-tags">
+          <span class="collab-tag">Indie</span>
+          <span class="collab-tag">Folk</span>
+          <span class="collab-tag">Guitar</span>
+        </div>
+        <button class="btn btn-sm btn-outline" style="width: 100%;">Invite to Collab</button>
+      </div>
+
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="section-header animate-in animate-in-delay-5">
+      <h2 class="section-title">Recent Activity</h2>
+    </div>
+
+    <div class="glass-card animate-in animate-in-delay-5" style="padding: 0; overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border-subtle);">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--green-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">Spotify for Artists linked successfully</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Your artist profile is now synced with TuneFry</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">2 hours ago</div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border-subtle);">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(242,101,34,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">Aria Rose accepted your collaboration invite</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">You can now share projects and tracks</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">1 day ago</div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border-subtle);">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(59,130,246,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg>
+        </div>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">New track "Midnight Echoes" added to playlist</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Added to "Fresh Finds" on Spotify — 24K followers</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">3 days ago</div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px; padding: 18px 24px;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(168,85,247,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div style="flex: 1;">
+          <div style="font-weight: 600; font-size: 14px;">Reached 4,000 Spotify followers milestone</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Your audience is growing steadily</div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">1 week ago</div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
