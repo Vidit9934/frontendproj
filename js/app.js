@@ -248,13 +248,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Category tab switching (Marketplace page) ──────────────
-  document.querySelectorAll('.category-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  // ── Category tab switching + filtering (Marketplace page) ──
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  if (categoryTabs.length) {
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+        const cards = document.querySelectorAll('.service-card[data-platform]');
+
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.platform === filter;
+          card.style.display = match ? '' : 'none';
+        });
+
+        // Hide section headers if their grid has no visible cards
+        document.querySelectorAll('.section-header').forEach(header => {
+          const grid = header.nextElementSibling;
+          if (grid && grid.classList.contains('service-grid')) {
+            const anyVisible = [...grid.querySelectorAll('.service-card')].some(c => c.style.display !== 'none');
+            header.style.display = anyVisible ? '' : 'none';
+          }
+        });
+      });
     });
-  });
+  }
 
   // ── Platform bar animation on load ─────────────────────────
   document.querySelectorAll('.platform-bar').forEach(bar => {

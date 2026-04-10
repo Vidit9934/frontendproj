@@ -35,6 +35,10 @@
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
         <span class="nav-label">Marketplace</span>
       </a>
+      <a href="daily.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+        <span class="nav-label">TuneFry Daily</span>
+      </a>
       <a href="connect.html" class="nav-item">
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
         <span class="nav-label">Connect</span>
@@ -83,13 +87,11 @@
 
     <!-- Category Tabs -->
     <div class="category-tabs animate-in animate-in-delay-2">
-      <button class="category-tab active">All Services</button>
-      <button class="category-tab">Playlist Pitching</button>
-      <button class="category-tab">Social Promotion</button>
-      <button class="category-tab">Radio Submission</button>
-      <button class="category-tab">PR & Press</button>
-      <button class="category-tab">Music Videos</button>
-      <button class="category-tab">Mixing & Mastering</button>
+      <button class="category-tab active" data-filter="all">All Services</button>
+      <button class="category-tab" data-filter="youtube">YouTube</button>
+      <button class="category-tab" data-filter="spotify">Spotify</button>
+      <button class="category-tab" data-filter="instagram-reels">Instagram Reels</button>
+      <button class="category-tab" data-filter="instagram-audio">Instagram Audio Trending</button>
     </div>
 
     <!-- Featured Banner -->
@@ -111,118 +113,66 @@
 
     <div class="service-grid">
 
-      <div class="glass-card service-card animate-in animate-in-delay-4">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(29,185,84,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F3B5;</span>
+      <!-- YouTube -->
+      <div class="glass-card service-card animate-in animate-in-delay-4" data-platform="youtube">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(255,0,0,0.22) 0%, rgba(255,255,255,0.02) 100%);">
+          <span class="service-emoji">&#x1F534;</span>
           <span class="service-badge-top">Popular</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">YouTube Channel Promo</div>
+          <div class="service-provider">by ViralView Media</div>
+          <div class="service-footer">
+            <div class="service-price">$89</div>
+            <button class="service-buy-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spotify -->
+      <div class="glass-card service-card animate-in animate-in-delay-5" data-platform="spotify">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(29,185,84,0.22) 0%, rgba(255,255,255,0.02) 100%);">
+          <span class="service-emoji">&#x1F3B5;</span>
+          <span class="service-badge-top">Hot</span>
         </div>
         <div class="service-body">
           <div class="service-title">Spotify Playlist Pitch</div>
           <div class="service-provider">by PlaylistPush Pro</div>
           <div class="service-footer">
             <div class="service-price">$49</div>
-            <div class="service-rating">&#9733; 4.8</div>
+            <button class="service-buy-btn">Buy Now</button>
           </div>
         </div>
       </div>
 
-      <div class="glass-card service-card animate-in animate-in-delay-5">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(252,60,68,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F4F1;</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">TikTok Promo Package</div>
-          <div class="service-provider">by ViralWave Media</div>
-          <div class="service-footer">
-            <div class="service-price">$129</div>
-            <div class="service-rating">&#9733; 4.6</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in animate-in-delay-6">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(168,85,247,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F399;</span>
-          <span class="service-badge-top">New</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">Radio Submission</div>
-          <div class="service-provider">by RadioReach Network</div>
-          <div class="service-footer">
-            <div class="service-price">$79</div>
-            <div class="service-rating">&#9733; 4.5</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.5s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F4F0;</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">PR & Blog Coverage</div>
-          <div class="service-provider">by MusicPress Agency</div>
-          <div class="service-footer">
-            <div class="service-price">$199</div>
-            <div class="service-rating">&#9733; 4.9</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.55s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(236,72,153,0.2) 0%, rgba(255,255,255,0.02) 100%);">
+      <!-- Instagram Reels -->
+      <div class="glass-card service-card animate-in animate-in-delay-6" data-platform="instagram-reels">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(193,53,132,0.22) 0%, rgba(255,120,0,0.1) 100%);">
           <span class="service-emoji">&#x1F3AC;</span>
-          <span class="service-badge-top">Hot</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">Lyric Video Production</div>
-          <div class="service-provider">by VisualBeats Studio</div>
-          <div class="service-footer">
-            <div class="service-price">$249</div>
-            <div class="service-rating">&#9733; 4.7</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.6s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(234,179,8,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F3A7;</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">Professional Mixing</div>
-          <div class="service-provider">by SoundForge Studios</div>
-          <div class="service-footer">
-            <div class="service-price">$149</div>
-            <div class="service-rating">&#9733; 4.8</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.65s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(6,182,212,0.2) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F30D;</span>
-        </div>
-        <div class="service-body">
-          <div class="service-title">Global Distribution</div>
-          <div class="service-provider">by WorldStream Digital</div>
-          <div class="service-footer">
-            <div class="service-price">$29</div>
-            <div class="service-rating">&#9733; 4.4</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.7s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(242,101,34,0.25) 0%, rgba(255,255,255,0.02) 100%);">
-          <span class="service-emoji">&#x1F4CA;</span>
           <span class="service-badge-top">Trending</span>
         </div>
         <div class="service-body">
-          <div class="service-title">Instagram Growth Kit</div>
-          <div class="service-provider">by SocialBeat Agency</div>
+          <div class="service-title">Instagram Reels Boost</div>
+          <div class="service-provider">by ReelRocket Agency</div>
           <div class="service-footer">
-            <div class="service-price">$89</div>
-            <div class="service-rating">&#9733; 4.6</div>
+            <div class="service-price">$129</div>
+            <button class="service-buy-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instagram Audio Trending -->
+      <div class="glass-card service-card animate-in" style="animation-delay: 0.5s" data-platform="instagram-audio">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(168,85,247,0.22) 0%, rgba(193,53,132,0.12) 100%);">
+          <span class="service-emoji">&#x1F3A7;</span>
+          <span class="service-badge-top">New</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Instagram Audio Trending</div>
+          <div class="service-provider">by SoundWave Social</div>
+          <div class="service-footer">
+            <div class="service-price">$79</div>
+            <button class="service-buy-btn">Buy Now</button>
           </div>
         </div>
       </div>
@@ -230,52 +180,73 @@
     </div>
 
     <!-- Premium Services Section -->
-    <div class="section-header animate-in" style="animation-delay: 0.7s; margin-top: 12px;">
+    <div class="section-header animate-in" style="animation-delay: 0.55s; margin-top: 12px;">
       <h2 class="section-title">Premium Services</h2>
       <button class="btn btn-sm btn-ghost">View All</button>
     </div>
 
     <div class="service-grid">
 
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.75s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(242,101,34,0.3) 0%, rgba(168,85,247,0.15) 100%);">
-          <span class="service-emoji">&#x1F451;</span>
+      <!-- YouTube Premium -->
+      <div class="glass-card service-card animate-in" style="animation-delay: 0.6s" data-platform="youtube">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(255,0,0,0.3) 0%, rgba(234,179,8,0.12) 100%);">
+          <span class="service-emoji">&#x1F3A5;</span>
           <span class="service-badge-top">Elite</span>
         </div>
         <div class="service-body">
-          <div class="service-title">Full Campaign Launch</div>
-          <div class="service-provider">by TuneFry Premium</div>
+          <div class="service-title">YouTube Shorts Campaign</div>
+          <div class="service-provider">by ShortsBurst Studio</div>
           <div class="service-footer">
-            <div class="service-price">$999</div>
-            <div class="service-rating">&#9733; 5.0</div>
+            <div class="service-price">$249</div>
+            <button class="service-buy-btn">Buy Now</button>
           </div>
         </div>
       </div>
 
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.8s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(234,179,8,0.25) 0%, rgba(242,101,34,0.1) 100%);">
-          <span class="service-emoji">&#x1F3A4;</span>
+      <!-- Spotify Premium -->
+      <div class="glass-card service-card animate-in" style="animation-delay: 0.65s" data-platform="spotify">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(29,185,84,0.3) 0%, rgba(6,182,212,0.1) 100%);">
+          <span class="service-emoji">&#x1F4CA;</span>
+          <span class="service-badge-top">Elite</span>
         </div>
         <div class="service-body">
-          <div class="service-title">Studio Session Booking</div>
-          <div class="service-provider">by StudioConnect</div>
+          <div class="service-title">Spotify Editorial Pitch</div>
+          <div class="service-provider">by CurateStream Pro</div>
           <div class="service-footer">
-            <div class="service-price">$399</div>
-            <div class="service-rating">&#9733; 4.9</div>
+            <div class="service-price">$199</div>
+            <button class="service-buy-btn">Buy Now</button>
           </div>
         </div>
       </div>
 
-      <div class="glass-card service-card animate-in" style="animation-delay: 0.85s">
-        <div class="service-banner" style="background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(6,182,212,0.15) 100%);">
-          <span class="service-emoji">&#x1F4DD;</span>
+      <!-- Instagram Reels Premium -->
+      <div class="glass-card service-card animate-in" style="animation-delay: 0.7s" data-platform="instagram-reels">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(193,53,132,0.3) 0%, rgba(168,85,247,0.15) 100%);">
+          <span class="service-emoji">&#x2728;</span>
+          <span class="service-badge-top">Elite</span>
         </div>
         <div class="service-body">
-          <div class="service-title">Sync Licensing Pitch</div>
-          <div class="service-provider">by SyncDeal Agency</div>
+          <div class="service-title">Premium Reels Campaign</div>
+          <div class="service-provider">by VisualBeats Social</div>
           <div class="service-footer">
             <div class="service-price">$349</div>
-            <div class="service-rating">&#9733; 4.7</div>
+            <button class="service-buy-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instagram Audio Trending Premium -->
+      <div class="glass-card service-card animate-in" style="animation-delay: 0.75s" data-platform="instagram-audio">
+        <div class="service-banner" style="background: linear-gradient(135deg, rgba(168,85,247,0.3) 0%, rgba(242,101,34,0.12) 100%);">
+          <span class="service-emoji">&#x1F525;</span>
+          <span class="service-badge-top">Elite</span>
+        </div>
+        <div class="service-body">
+          <div class="service-title">Viral Audio Push</div>
+          <div class="service-provider">by TrendAudio Agency</div>
+          <div class="service-footer">
+            <div class="service-price">$399</div>
+            <button class="service-buy-btn">Buy Now</button>
           </div>
         </div>
       </div>
