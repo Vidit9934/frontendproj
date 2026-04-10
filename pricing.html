@@ -1,490 +1,1006 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing — TuneFry</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/landing.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pricing — TuneFry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   VARIABLES
+   ================================================================ */
+:root{
+  --or:#FF6B00;
+  --or-d:rgba(255,107,0,0.11);
+  --or-b:rgba(255,107,0,0.28);
+  --bg:#0C0C0C;
+  --s1:#111111;
+  --s2:#181818;
+  --s3:#202020;
+  --bd:rgba(255,255,255,0.07);
+  --bd2:rgba(255,255,255,0.13);
+  --t1:#FFFFFF;
+  --t2:rgba(255,255,255,0.62);
+  --t3:rgba(255,255,255,0.35);
+  --gr:#2DCA72;
+  --gr-d:rgba(45,202,114,0.11);
+  --gr-b:rgba(45,202,114,0.28);
+  --font-d:'Syne',sans-serif;
+  --font-b:'DM Sans',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ================================================================
+   RESET
+   ================================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-b);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.6;font-weight:400}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit;border:none;outline:none;background:none;color:inherit}
+
+/* ================================================================
+   ANIMATE-UP (.au)
+   ================================================================ */
+.au{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.au.vis{opacity:1;transform:translateY(0)}
+.au-d1{transition-delay:.08s}
+.au-d2{transition-delay:.16s}
+.au-d3{transition-delay:.24s}
+.au-d4{transition-delay:.32s}
+.au-d5{transition-delay:.40s}
+
+/* ================================================================
+   NAVBAR (62px, sticky)
+   ================================================================ */
+.nav{
+  position:sticky;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  height:62px;padding:0 40px;
+  background:rgba(12,12,12,.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:.5px solid var(--bd);
+  transition:background .3s,box-shadow .3s;
+}
+.nav.scrolled{background:rgba(12,12,12,.96);box-shadow:0 1px 24px rgba(0,0,0,.45)}
+
+/* Logo */
+.nav-logo{display:flex;align-items:center;gap:10px}
+.logo-sq{width:33px;height:33px;border-radius:8px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:17px;color:#fff;line-height:1}
+.logo-txt{font-family:var(--font-d);font-size:1.22rem;font-weight:700;letter-spacing:-.4px;color:var(--t1)}
+.logo-txt b{color:var(--or);font-weight:700}
+
+/* Center links */
+.nav-ctr{display:flex;align-items:center;gap:6px}
+.nav-ctr a{font-size:13px;font-weight:400;color:var(--t2);padding:7px 14px;border-radius:8px;transition:background .25s,color .25s}
+.nav-ctr a:hover{background:rgba(255,255,255,.05);color:var(--t1)}
+.nav-ctr a.act{color:var(--or);background:var(--or-d)}
+.nav-refer{color:var(--or)!important}
+.nav-refer:hover{background:rgba(255,107,0,.08)!important}
+
+/* Right buttons */
+.nav-rt{display:flex;align-items:center;gap:10px}
+.btn-ghost{font-size:13px;font-weight:500;color:var(--t2);padding:7px 18px;border-radius:8px;border:.5px solid var(--bd2);transition:background .25s,color .25s,border-color .25s}
+.btn-ghost:hover{background:rgba(255,255,255,.04);color:var(--t1);border-color:rgba(255,255,255,.2)}
+.btn-or{font-size:13px;font-weight:500;color:#fff;padding:8px 20px;border-radius:8px;background:var(--or);box-shadow:0 0 20px rgba(255,107,0,.25),0 0 60px rgba(255,107,0,.08);transition:transform .25s,box-shadow .25s}
+.btn-or:hover{transform:translateY(-1px);box-shadow:0 0 28px rgba(255,107,0,.35),0 0 80px rgba(255,107,0,.12)}
+
+/* Mobile hamburger */
+.nav-ham{display:none;flex-direction:column;gap:5px;padding:6px}
+.nav-ham span{display:block;width:20px;height:1.5px;background:var(--t2);border-radius:2px;transition:transform .3s,opacity .3s}
+
+/* Mobile menu overlay */
+.mob-menu{
+  display:none;position:fixed;top:62px;left:0;right:0;bottom:0;z-index:999;
+  background:rgba(12,12,12,.97);backdrop-filter:blur(20px);
+  flex-direction:column;padding:32px 28px;gap:8px;
+}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:15px;color:var(--t2);padding:14px 0;border-bottom:.5px solid var(--bd);transition:color .2s}
+.mob-menu a:hover,.mob-menu a.act{color:var(--or)}
+.mob-menu .mob-btns{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.mob-menu .mob-btns a{text-align:center;border-bottom:none}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{
+  position:relative;
+  padding:80px 40px 68px;
+  text-align:center;
+  border-bottom:.5px solid var(--bd);
+  overflow:hidden;
+}
+
+/* Grid background */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.03) .5px,transparent .5px),
+    linear-gradient(90deg,rgba(255,255,255,.03) .5px,transparent .5px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 100%);
+  pointer-events:none;
+}
+
+/* Orange orb */
+.hero::after{
+  content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse at center,rgba(255,107,0,.12) 0%,rgba(255,107,0,.04) 40%,transparent 70%);
+  pointer-events:none;
+}
+
+.hero>*{position:relative;z-index:1}
+
+/* Eyebrow pill */
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 18px 7px 14px;border-radius:100px;
+  background:var(--s2);border:.5px solid var(--bd2);
+  font-size:12.5px;font-weight:400;color:var(--t2);
+  margin-bottom:24px;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--or);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+.hero h1{
+  font-family:var(--font-d);font-size:clamp(2.1rem,4.5vw,3.4rem);font-weight:800;
+  letter-spacing:-.5px;line-height:1.15;margin-bottom:18px;
+}
+.hero h1 em{font-style:normal;color:var(--or)}
+.hero .sub{font-size:15px;color:var(--t2);max-width:520px;margin:0 auto 36px;line-height:1.7}
+
+/* Billing toggle */
+.toggle-row{display:inline-flex;align-items:center;gap:12px}
+.toggle-track{
+  position:relative;width:44px;height:24px;border-radius:12px;
+  background:var(--s3);border:.5px solid var(--bd2);
+  cursor:pointer;transition:background .3s,border-color .3s;
+  flex-shrink:0;
+}
+.toggle-track .knob{
+  position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;
+  background:var(--t2);transition:transform .3s var(--ease),background .3s;
+}
+.toggle-track.on{background:var(--or);border-color:var(--or)}
+.toggle-track.on .knob{transform:translateX(20px);background:#fff}
+.toggle-lbl{font-size:13px;color:var(--t2);font-weight:400}
+.best-badge{
+  font-size:10.5px;font-weight:500;color:var(--gr);
+  padding:3px 10px;border-radius:100px;
+  background:var(--gr-d);border:.5px solid var(--gr-b);
+}
+
+/* ================================================================
+   PLANS SECTION — HORIZONTAL CAROUSEL
+   ================================================================ */
+.plans-sec{padding:68px 0 72px;border-bottom:.5px solid var(--bd);overflow:hidden}
+.plans-sec-head{max-width:1280px;margin:0 auto 40px;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.carousel-arrows{display:flex;gap:8px}
+.carr-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--s2);border:.5px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.carr-btn:hover{background:var(--s3);border-color:rgba(255,255,255,.2)}
+.carr-btn svg{width:14px;height:14px;stroke:var(--t2);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.carr-btn:disabled{opacity:.3;cursor:default}
+
+.plans-track-wrap{position:relative;width:100%;padding:0 40px}
+.plans-grid{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:12px;
+  cursor:grab;
+}
+.plans-grid:active{cursor:grabbing}
+.plans-grid::-webkit-scrollbar{height:4px}
+.plans-grid::-webkit-scrollbar-track{background:transparent}
+.plans-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+.plans-grid::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18)}
+
+/* Plan card */
+.plan{
+  background:var(--s1);border:.5px solid var(--bd);border-radius:14px;
+  padding:28px 22px 24px;display:flex;flex-direction:column;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;
+  position:relative;
+  flex:0 0 260px;
+  scroll-snap-align:start;
+}
+.plan:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+
+/* Popular plan */
+.plan.pop{
+  border-color:var(--or-b);
+  box-shadow:0 0 40px rgba(255,107,0,.08),0 0 80px rgba(255,107,0,.04);
+}
+.plan.pop:hover{box-shadow:0 0 50px rgba(255,107,0,.14),0 0 100px rgba(255,107,0,.06)}
+.pop-badge{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  font-size:10.5px;font-weight:500;color:#fff;padding:4px 14px;
+  border-radius:100px;background:var(--or);
+  box-shadow:0 4px 16px rgba(255,107,0,.3);
+  white-space:nowrap;letter-spacing:.3px;
+}
+
+.plan-icon{font-size:26px;margin-bottom:14px}
+.plan-name{font-family:var(--font-d);font-size:16px;font-weight:700;margin-bottom:4px}
+.plan-tag{font-size:12.5px;color:var(--t3);margin-bottom:18px;line-height:1.5}
+
+/* Price */
+.plan-price{margin-bottom:6px;display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.price-cur{font-size:20px;font-weight:500;color:var(--t2)}
+.price-val{font-family:var(--font-d);font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1}
+.price-per{font-size:12px;color:var(--t3);margin-left:2px}
+
+/* Royalty badge */
+.royalty{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:500;
+  padding:5px 12px;border-radius:8px;
+  margin-bottom:18px;width:fit-content;
+}
+.royalty.or{color:var(--or);background:var(--or-d);border:.5px solid var(--or-b)}
+.royalty.gr{color:var(--gr);background:var(--gr-d);border:.5px solid var(--gr-b)}
+
+.plan-div{height:.5px;background:var(--bd);margin-bottom:18px}
+
+/* Features list */
+.plan-feats{flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.plan-feats li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--t2);line-height:1.5}
+.plan-feats li .ck{flex-shrink:0;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.plan-feats li .ck svg{width:10px;height:10px;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.plan-feats li .ck.faded{background:rgba(255,255,255,.05)}
+.plan-feats li .ck.faded svg{stroke:var(--t3)}
+.plan-feats li .ck.orange{background:var(--or-d)}
+.plan-feats li .ck.orange svg{stroke:var(--or)}
+.plan-feats li .ck.green{background:var(--gr-d)}
+.plan-feats li .ck.green svg{stroke:var(--gr)}
+.plan-feats li .ck.cross{background:rgba(239,68,68,.10)}
+.plan-feats li .ck.cross svg{stroke:rgba(239,68,68,.65)}
+.plan-feats li.excluded{color:var(--t3);text-decoration:line-through;opacity:.55}
+
+/* CTA */
+.plan-cta{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;height:42px;border-radius:10px;
+  font-size:13px;font-weight:500;
+  transition:transform .25s,background .25s,box-shadow .25s,border-color .25s;
+}
+.plan-cta.out{
+  background:transparent;color:var(--t2);
+  border:.5px solid var(--bd2);
+}
+.plan-cta.out:hover{border-color:rgba(255,255,255,.25);color:var(--t1);transform:translateY(-1px)}
+.plan-cta.solid{
+  background:var(--or);color:#fff;border:none;
+  box-shadow:0 0 20px rgba(255,107,0,.25),0 0 60px rgba(255,107,0,.08);
+}
+.plan-cta.solid:hover{transform:translateY(-1px);box-shadow:0 0 28px rgba(255,107,0,.35),0 0 80px rgba(255,107,0,.12)}
+
+.plan-info{font-size:11px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.5}
+
+/* ================================================================
+   COMPARISON TABLE
+   ================================================================ */
+.compare-sec{padding:80px 40px;border-bottom:.5px solid var(--bd);text-align:center}
+.compare-sec .eyebrow{
+  font-size:12px;font-weight:500;color:var(--or);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;
+}
+.compare-sec h2{font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:10px;letter-spacing:-.3px}
+.compare-sec .sub{font-size:14px;color:var(--t2);margin-bottom:40px}
+
+.cmp-wrap{max-width:900px;margin:0 auto;overflow-x:auto;border-radius:14px;border:.5px solid var(--bd);background:var(--s1)}
+.cmp-tbl{width:100%;border-collapse:collapse;text-align:left}
+.cmp-tbl th,.cmp-tbl td{padding:16px 22px;font-size:13.5px;border-bottom:.5px solid var(--bd)}
+.cmp-tbl thead th{font-family:var(--font-d);font-weight:700;font-size:13px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;background:var(--s2)}
+.cmp-tbl thead th:first-child{border-radius:14px 0 0 0}
+.cmp-tbl thead th:last-child{border-radius:0 14px 0 0}
+.cmp-tbl thead th.hl{color:var(--or)}
+.cmp-tbl tbody tr:last-child td{border-bottom:none}
+.cmp-tbl tbody td{color:var(--t2);font-weight:400}
+.cmp-tbl tbody td:first-child{color:var(--t1);font-weight:500}
+.cmp-tbl tbody td.hl{color:var(--t1);font-weight:500}
+
+/* Circle icons */
+.ico-yes,.ico-no{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%}
+.ico-yes{background:var(--gr-d)}
+.ico-yes svg{width:12px;height:12px;stroke:var(--gr);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ico-no{background:rgba(255,255,255,.05)}
+.ico-no svg{width:12px;height:12px;stroke:var(--t3);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ================================================================
+   FAQ
+   ================================================================ */
+.faq-sec{padding:80px 40px;border-bottom:.5px solid var(--bd)}
+.faq-sec .sec-head{text-align:center;margin-bottom:48px}
+.faq-sec .eyebrow{font-size:12px;font-weight:500;color:var(--or);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.faq-sec h2{font-family:var(--font-d);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.3px}
+
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:960px;margin:0 auto}
+.faq-item{
+  background:var(--s1);border:.5px solid var(--bd);border-radius:12px;
+  overflow:hidden;transition:border-color .3s;
+}
+.faq-item.open{border-color:var(--bd2)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;cursor:pointer;gap:12px;
+  transition:background .25s;
+}
+.faq-q:hover{background:rgba(255,255,255,.02)}
+.faq-q span{font-size:14px;font-weight:500;color:var(--t1)}
+.faq-q .faq-icon{
+  flex-shrink:0;width:24px;height:24px;border-radius:6px;
+  background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--t3);
+  transition:transform .35s var(--ease),color .3s,background .3s;
+  line-height:1;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--or);background:var(--or-d)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s var(--ease),padding .4s var(--ease);
+  padding:0 20px;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 20px 18px}
+.faq-a p{font-size:13px;color:var(--t2);line-height:1.7}
+
+/* ================================================================
+   CONTACT
+   ================================================================ */
+.contact-sec{padding:80px 40px}
+.contact-card{
+  max-width:720px;margin:0 auto;
+  background:var(--s1);border:.5px solid var(--bd);border-radius:18px;
+  padding:48px 44px;position:relative;overflow:hidden;
+}
+.contact-card::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:400px;height:200px;
+  background:radial-gradient(ellipse at center,rgba(255,107,0,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-card>*{position:relative;z-index:1}
+.contact-card .eyebrow{font-size:12px;font-weight:500;color:var(--or);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;text-align:center}
+.contact-card h2{font-family:var(--font-d);font-size:clamp(1.5rem,3vw,2rem);font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-.3px}
+.contact-card .sub{font-size:13.5px;color:var(--t2);text-align:center;margin-bottom:32px}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.form-group label{font-size:12px;font-weight:500;color:var(--t3);letter-spacing:.3px}
+.form-group input,.form-group textarea{
+  width:100%;padding:11px 14px;border-radius:10px;
+  background:var(--s2);border:.5px solid var(--bd2);
+  font-size:13.5px;color:var(--t1);
+  transition:border-color .25s,box-shadow .25s;
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--t3)}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--or-b);box-shadow:0 0 0 3px var(--or-d)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-submit{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;height:44px;border-radius:10px;
+  background:var(--or);color:#fff;font-size:13.5px;font-weight:500;
+  border:none;cursor:pointer;margin-top:6px;
+  box-shadow:0 0 20px rgba(255,107,0,.2);
+  transition:transform .25s,box-shadow .25s;
+}
+.form-submit:hover{transform:translateY(-1px);box-shadow:0 0 28px rgba(255,107,0,.35)}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer{border-top:.5px solid var(--bd);background:var(--bg)}
+.footer-inner{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:40px;padding:60px 40px 40px;
+  max-width:1200px;margin:0 auto;
+}
+.footer-brand .logo-txt{font-family:var(--font-d);font-size:1.15rem;font-weight:700;margin-bottom:12px}
+.footer-brand .logo-txt b{color:var(--or)}
+.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:18px;max-width:280px}
+.footer-socials{display:flex;gap:10px}
+.footer-socials a{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--s2);border:.5px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .25s,border-color .25s;
+}
+.footer-socials a:hover{background:var(--s3);border-color:var(--bd2)}
+.footer-socials a svg{width:15px;height:15px;stroke:var(--t3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+.footer-col h4{font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--t1);margin-bottom:16px;letter-spacing:.3px}
+.footer-col a{display:block;font-size:13px;color:var(--t3);padding:5px 0;transition:color .25s}
+.footer-col a:hover{color:var(--or)}
+
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;border-top:.5px solid var(--bd);
+  font-size:12px;color:var(--t3);
+  max-width:1200px;margin:0 auto;
+}
+
+/* ================================================================
+   RESPONSIVE: 1100px
+   ================================================================ */
+@media(max-width:1100px){
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+}
+
+/* ================================================================
+   RESPONSIVE: 800px
+   ================================================================ */
+@media(max-width:800px){
+  .nav-ctr,.nav-rt{display:none}
+  .nav-ham{display:flex}
+  .nav{padding:0 20px}
+
+  .hero{padding:60px 20px 52px}
+  .hero h1{font-size:1.8rem}
+
+  .plans-sec{padding:48px 0 60px}
+  .plans-track-wrap{padding:0 20px}
+  .plan{flex:0 0 230px}
+
+  .compare-sec{padding:60px 20px}
+  .cmp-tbl th,.cmp-tbl td{padding:12px 14px;font-size:12px}
+
+  .faq-sec{padding:60px 20px}
+  .faq-grid{grid-template-columns:1fr}
+
+  .contact-sec{padding:60px 20px}
+  .contact-card{padding:32px 24px}
+  .form-row{grid-template-columns:1fr}
+
+  .footer-inner{grid-template-columns:1fr;gap:28px;padding:40px 20px 28px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;padding:16px 20px}
+}
+
+@media(max-width:500px){
+  .plan{flex:0 0 200px}
+  .toggle-row{flex-wrap:wrap;justify-content:center}
+}
+</style>
 </head>
 <body>
 
-<!-- ── Public Navbar ──────────────────────────────────────────────── -->
-<nav class="pub-nav">
+<!-- ================================================================
+     NAVBAR
+     ================================================================ -->
+<nav class="nav" id="nav">
   <a href="home.html" class="nav-logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    </div>
-    <div class="logo-text">Tune<span>Fry</span></div>
+    <div class="logo-sq">T</div>
+    <div class="logo-txt">Tune<b>Fry</b></div>
   </a>
-  <div class="nav-links">
-    <a href="home.html" class="nav-link">Home</a>
-    <a href="daily.html" class="nav-link">TuneFry Daily</a>
-    <a href="services.html" class="nav-link">Artist Services</a>
-    <a href="pricing.html" class="nav-link active">Pricing</a>
-    <a href="index.html" class="nav-cta">Login</a>
+
+  <div class="nav-ctr">
+    <a href="home.html">Home</a>
+    <a href="daily.html">TuneFry Daily</a>
+    <a href="services.html">Artist Services</a>
+    <a href="pricing.html" class="act">Pricing</a>
+    <a href="#" onclick="alert('Kindly login'); return false;" class="nav-refer">Refer &amp; Earn</a>
   </div>
-  <button class="nav-toggle" aria-label="Menu">
-    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+
+  <div class="nav-rt">
+    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or">Start Distributing</a>
+  </div>
+
+  <button class="nav-ham" id="navHam" aria-label="Menu" onclick="document.getElementById('mobMenu').classList.toggle('open');this.classList.toggle('open')">
+    <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ── Page Wrapper ──────────────────────────────────────────────── -->
-<div class="pub-page">
+<!-- Mobile menu -->
+<div class="mob-menu" id="mobMenu">
+  <a href="home.html">Home</a>
+  <a href="daily.html">TuneFry Daily</a>
+  <a href="services.html">Artist Services</a>
+  <a href="pricing.html" class="act">Pricing</a>
+  <a href="#" onclick="alert('Kindly login'); return false;" style="color:var(--or)">Refer &amp; Earn</a>
+  <div class="mob-btns">
+    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or" style="text-align:center">Start Distributing</a>
+  </div>
+</div>
 
-  <!-- ── Hero Area ─────────────────────────────────────────────── -->
-  <section class="pub-section" style="text-align:center; padding-top:120px; padding-bottom:60px;">
-    <div class="animate-in">
-      <div class="section-label" style="justify-content:center;">
-        <span class="label-line"></span>
-        Pricing
-        <span class="label-line"></span>
-      </div>
+<!-- ================================================================
+     HERO
+     ================================================================ -->
+<section class="hero">
+  <div class="pill au"><span class="pill-dot"></span> Simple, transparent pricing</div>
+
+  <h1 class="au au-d1">Choose your <em>plan</em></h1>
+
+  <p class="sub au au-d2">One flat fee. Zero commission. Keep every rupee your music earns &mdash; forever.</p>
+
+  <div class="toggle-row au au-d3">
+    <div class="toggle-track" id="billingToggle" onclick="toggleBilling()">
+      <div class="knob"></div>
     </div>
-    <h1 class="section-heading large animate-in animate-in-delay-1" style="max-width:700px; margin-left:auto; margin-right:auto;">
-      Simple, Transparent <span class="highlight">Pricing</span>
-    </h1>
-    <p class="section-desc animate-in animate-in-delay-2" style="max-width:580px; margin-left:auto; margin-right:auto;">
-      Honest pricing built for indie artists. No hidden fees, no surprises — just straightforward plans that grow with your music career.
-    </p>
-  </section>
+    <span class="toggle-lbl">Annual billing</span>
+    <span class="best-badge">Best value</span>
+  </div>
+</section>
 
-  <!-- ── Pricing Grid ──────────────────────────────────────────── -->
-  <section class="pub-section" style="padding-top:0;">
-    <div class="pricing-grid">
+<!-- ================================================================
+     PLANS
+     ================================================================ -->
+<section class="plans-sec">
 
-      <!-- Free Plan -->
-      <div class="pricing-card animate-in">
-        <div class="pricing-badge" style="background:var(--green);">Free Forever</div>
-        <div class="pricing-name">Free Plan</div>
-        <div class="pricing-price">
-          <span class="price-amount"><span class="price-currency">&#8377;</span>0</span>
-          <span class="price-period">/Year</span>
-        </div>
-        <p class="pricing-desc">Get started with music distribution at zero cost.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100+ DSPs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Customised release date
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            75% Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Performing Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Spotify verification
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            72hrs approval
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Live within 7 days
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Lifetime legacy
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Customer support via mail
-          </li>
-        </ul>
-        <a href="index.html" class="pricing-cta outline">Get Started Free</a>
-      </div>
+<div class="plans-sec-head au">
+  <div style="font-family:var(--font-d);font-size:13px;font-weight:600;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase">All Plans</div>
+  <div class="carousel-arrows">
+    <button class="carr-btn" id="carrPrev" onclick="slidePlans(-1)" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="carr-btn" id="carrNext" onclick="slidePlans(1)" aria-label="Next">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+  </div>
+</div>
 
-      <!-- Single Song -->
-      <div class="pricing-card animate-in animate-in-delay-1">
-        <div class="pricing-name">Single Song</div>
-        <div class="pricing-price">
-          <span class="price-amount"><span class="price-currency">&#8377;</span>299</span>
-          <span class="price-period">/Song</span>
-        </div>
-        <p class="pricing-desc">Perfect for releasing individual tracks.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100+ DSPs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Customised caller tune
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Custom release date
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            85% Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Performing Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Spotify verification
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            48hrs approval
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Live within 4 days
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Lifetime legacy
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Make Urgent Releases
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Mail support
-          </li>
-        </ul>
-        <a href="index.html" class="pricing-cta outline">Choose Plan</a>
-      </div>
+<div class="plans-track-wrap">
+<div class="plans-grid" id="plansGrid">
 
-      <!-- Single Artist (FEATURED) -->
-      <div class="pricing-card featured animate-in animate-in-delay-2">
-        <div class="pricing-badge">Most Popular</div>
-        <div class="pricing-name">Single Artist</div>
-        <div class="pricing-price">
-          <span class="price-amount"><span class="price-currency">&#8377;</span>1,599</span>
-          <span class="price-period">/Year</span>
-        </div>
-        <p class="pricing-desc">Everything you need for a thriving music career.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Unlimited releases
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100+ DSPs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Customised caller tune
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Performing Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Playlist &amp; Radio Pitching
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Spotify verification
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Instagram linking
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Official Artist Channel (YouTube)
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            24hrs approval
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Live within 48hrs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Content ID
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Lifetime legacy
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Support via mail/call/WhatsApp
-          </li>
-        </ul>
-        <a href="index.html" class="pricing-cta solid">Get Started</a>
-      </div>
-
-      <!-- Double Artist -->
-      <div class="pricing-card animate-in animate-in-delay-3">
-        <div class="pricing-name">Double Artist</div>
-        <div class="pricing-price">
-          <span class="price-amount"><span class="price-currency">&#8377;</span>2,999</span>
-          <span class="price-period">/Year</span>
-        </div>
-        <p class="pricing-desc">Ideal for duos and collaborative projects.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Custom label name
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Unlimited releases (2 artists)
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100+ DSPs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Performing Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Playlist &amp; Radio Pitching
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Spotify verification
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Official Artist Channel (YouTube)
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Content ID
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Lifetime legacy
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            24hrs approval
-          </li>
-        </ul>
-        <a href="index.html" class="pricing-cta outline">Choose Plan</a>
-      </div>
-
-      <!-- Label Plan -->
-      <div class="pricing-card animate-in animate-in-delay-4">
-        <div class="pricing-name">Label Plan</div>
-        <div class="pricing-price">
-          <span class="price-amount"><span class="price-currency">&#8377;</span>7,000</span>
-          <span class="price-period">/Year</span>
-        </div>
-        <p class="pricing-desc">For labels managing multiple artists at scale.</p>
-        <ul class="pricing-features">
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Custom label name
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Unlimited releases (5 artists)
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100+ DSPs
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            100% Performing Royalties
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Playlist &amp; Radio Pitching
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Spotify verification
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Content ID
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Lifetime legacy
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            24hrs approval
-          </li>
-          <li>
-            <span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-            Priority support
-          </li>
-        </ul>
-        <a href="index.html" class="pricing-cta outline">Contact Sales</a>
-      </div>
-
+  <!-- FREE -->
+  <div class="plan au">
+    <div class="plan-icon">&#127925;</div>
+    <div class="plan-name">Free</div>
+    <div class="plan-tag">Get started at zero cost</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">0</span>
     </div>
-  </section>
+    <div class="price-per" style="margin-bottom:12px">forever free</div>
+    <div class="royalty or">&#9733; 75% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Customised caller tune</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom release date</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Performing royalties</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li>
+    </ul>
+    <a href="index.html" class="plan-cta out">Get Started Free</a>
+    <div class="plan-info">72 hrs approval &middot; Live within 7 days</div>
+  </div>
 
-  <!-- ── Comparison Section ────────────────────────────────────── -->
-  <section class="pub-section narrow" style="text-align:center;">
-    <div class="section-label animate-in" style="justify-content:center;">
-      <span class="label-line"></span>
-      Compare
-      <span class="label-line"></span>
+  <!-- SINGLE SONG -->
+  <div class="plan au au-d1">
+    <div class="plan-icon">&#127926;</div>
+    <div class="plan-name">Single Song</div>
+    <div class="plan-tag">Perfect for one release</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">299</span>
     </div>
-    <h2 class="section-heading animate-in animate-in-delay-1">TuneFry vs Others</h2>
-    <div class="compare-table-wrap animate-in animate-in-delay-2">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th class="highlight-col">TuneFry</th>
-            <th>DistroKid</th>
-            <th>TuneCore</th>
-            <th>CD Baby</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Royalties</td>
-            <td class="highlight-col"><strong>100%</strong></td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>91%</td>
-          </tr>
-          <tr>
-            <td>Performing Royalties</td>
-            <td class="highlight-col"><span class="check">&#10003;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-          </tr>
-          <tr>
-            <td>Playlist Pitching</td>
-            <td class="highlight-col"><span class="check">&#10003;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-          </tr>
-          <tr>
-            <td>Content ID</td>
-            <td class="highlight-col"><span class="check">&#10003;</span></td>
-            <td><span class="check">&#10003;</span></td>
-            <td><span class="check">&#10003;</span></td>
-            <td><span class="check">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td>Lifetime Legacy</td>
-            <td class="highlight-col"><span class="check">&#10003;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="check">&#10003;</span></td>
-            <td><span class="check">&#10003;</span></td>
-          </tr>
-          <tr>
-            <td>Free Plan</td>
-            <td class="highlight-col"><span class="check">&#10003;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-            <td><span class="cross">&#10005;</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <div class="price-per" style="margin-bottom:12px">per song</div>
+    <div class="royalty or">&#9733; 85% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Customised caller tune</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom release date</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Performing royalties</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Urgent releases</li>
+    </ul>
+    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <div class="plan-info">48 hrs approval &middot; Live within 4 days</div>
+  </div>
 
-  <!-- ── CTA Section ───────────────────────────────────────────── -->
-  <section class="cta-section pub-section">
-    <h2 class="section-heading large animate-in">Start Distributing <span class="highlight">Today</span></h2>
-    <p class="section-desc animate-in animate-in-delay-1">
-      Join thousands of independent artists who trust TuneFry to deliver their music to the world. No credit card required to get started.
-    </p>
-    <div class="cta-actions animate-in animate-in-delay-2">
-      <a href="index.html" class="pricing-cta solid" style="width:auto; padding:16px 36px;">Get Started Free</a>
-      <a href="services.html" class="pricing-cta outline" style="width:auto; padding:16px 36px;">Explore Services</a>
+  <!-- STARTER -->
+  <div class="plan au au-d2">
+    <div class="plan-icon">&#127897;&#65039;</div>
+    <div class="plan-name">Starter</div>
+    <div class="plan-tag">More releases, growing control</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">999</span>
     </div>
-  </section>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
+    <div class="royalty or">&#9733; 90% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Performing royalties</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Content ID</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Customised caller tune</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instagram account linking</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>No Official Artist Channel</li>
+      <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>No playlist pitching</li>
+      <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>3-day support response</li>
+    </ul>
+    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <div class="plan-info">48 hrs approval &middot; Live within 4 days</div>
+  </div>
 
-  <!-- ── Footer ────────────────────────────────────────────────── -->
-  <footer class="pub-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo-text">Tune<span>Fry</span></div>
-        <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="#" aria-label="Twitter">
-            <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
+  <!-- SINGLE ARTIST (POPULAR) -->
+  <div class="plan pop au au-d3">
+    <div class="pop-badge">Most Popular</div>
+    <div class="plan-icon">&#11088;</div>
+    <div class="plan-name">Single Artist</div>
+    <div class="plan-tag">For serious independent artists</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">1,599</span>
+    </div>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
+    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Playlist &amp; radio pitching</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instagram account linking</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Official YouTube Artist Channel</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Content ID</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
+    </ul>
+    <a href="index.html" class="plan-cta solid">Start Distributing</a>
+    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+  </div>
+
+  <!-- DOUBLE ARTIST -->
+  <div class="plan au au-d3">
+    <div class="plan-icon">&#128101;</div>
+    <div class="plan-name">Double Artist</div>
+    <div class="plan-tag">For duos &amp; collaborators</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">2,999</span>
+    </div>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; 2 artists</div>
+    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (2 artists)</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Playlist &amp; radio pitching</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Official YouTube Artist Channel</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Content ID</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
+    </ul>
+    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+  </div>
+
+  <!-- LABEL PLAN -->
+  <div class="plan au au-d4">
+    <div class="plan-icon">&#127991;&#65039;</div>
+    <div class="plan-name">Label Plan</div>
+    <div class="plan-tag">Scale your roster</div>
+    <div class="plan-price">
+      <span class="price-cur">&#8377;</span>
+      <span class="price-val">7,000</span>
+    </div>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; up to 5 artists</div>
+    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="plan-div"></div>
+    <ul class="plan-feats">
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (5 artists)</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Playlist &amp; radio pitching</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Official YouTube Artist Channel</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Content ID</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Spotify verification</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Priority mail / call / WhatsApp</li>
+    </ul>
+    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- ================================================================
+     COMPARISON TABLE
+     ================================================================ -->
+<section class="compare-sec">
+  <div class="eyebrow au">Why TuneFry wins</div>
+  <h2 class="au au-d1">TuneFry vs. everyone else</h2>
+  <p class="sub au au-d2">See how we stack up against other distributors</p>
+
+  <div class="cmp-wrap au au-d3">
+    <table class="cmp-tbl">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="hl">TuneFry</th>
+          <th>Others</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Royalty rate</td>
+          <td class="hl"><strong>100%</strong></td>
+          <td>70 &ndash; 85%</td>
+        </tr>
+        <tr>
+          <td>Indian platforms</td>
+          <td class="hl"><span class="ico-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+          <td>International only</td>
+        </tr>
+        <tr>
+          <td>Callertune</td>
+          <td class="hl">Customised</td>
+          <td><span class="ico-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></td>
+        </tr>
+        <tr>
+          <td>Playlist pitching</td>
+          <td class="hl">Included</td>
+          <td>Paid add-on</td>
+        </tr>
+        <tr>
+          <td>Scheduled release</td>
+          <td class="hl">All plans</td>
+          <td>Premium only</td>
+        </tr>
+        <tr>
+          <td>Lifetime availability</td>
+          <td class="hl">Free</td>
+          <td>Paid annually</td>
+        </tr>
+        <tr>
+          <td>Customer support</td>
+          <td class="hl">Mail / call / WhatsApp</td>
+          <td>Limited</td>
+        </tr>
+        <tr>
+          <td>Starting price</td>
+          <td class="hl"><strong>&#8377;0 Free</strong></td>
+          <td>$24.99/yr+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================================================================
+     FAQ
+     ================================================================ -->
+<section class="faq-sec">
+  <div class="sec-head">
+    <div class="eyebrow au">FAQ</div>
+    <h2 class="au au-d1">Frequently asked questions</h2>
+  </div>
+
+  <div class="faq-grid">
+
+    <div class="faq-item au" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>What is TuneFry?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>TuneFry is India's fastest-growing music distribution platform. We help independent artists and labels distribute their music to 100+ streaming services worldwide, including Spotify, Apple Music, JioSaavn, Wynk, and more &mdash; all while letting you keep the maximum share of your royalties.</p></div>
+    </div>
+
+    <div class="faq-item au au-d1" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>What does 100% Royalties mean?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>With our Single Artist, Double Artist, and Label plans, you keep 100% of the royalties your music earns on every platform. We charge a flat annual fee instead of taking a cut of your earnings &mdash; so every rupee your listeners generate goes straight to you.</p></div>
+    </div>
+
+    <div class="faq-item au au-d2" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>How fast does music go live?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>Approval times depend on your plan: 72 hours for the Free plan, 48 hours for Single Song, and just 24 hours for premium plans. After approval, music typically goes live on major platforms within 48 hours to 7 days, depending on the store and plan.</p></div>
+    </div>
+
+    <div class="faq-item au au-d3" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>Can I upgrade later?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>Absolutely. You can start with the Free plan and upgrade anytime. When you upgrade, you'll immediately unlock all the benefits of your new plan. Your existing releases remain live, and there's no disruption to your music or earnings.</p></div>
+    </div>
+
+    <div class="faq-item au au-d4" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>What is the Label Plan?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>The Label Plan is designed for record labels and managers handling multiple artists. It covers up to 5 artist profiles with unlimited releases each, a custom label name, and all premium features including Content ID, YouTube OAC, and priority support.</p></div>
+    </div>
+
+    <div class="faq-item au au-d5" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <span>How do I join?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a"><p>Getting started is easy. Create a free account, choose a plan that fits your needs, upload your music with artwork and metadata, and we handle the rest. Your first release can be live on stores in as little as 48 hours.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     CONTACT
+     ================================================================ -->
+<section class="contact-sec">
+  <div class="contact-card au">
+    <div class="eyebrow">Still have questions?</div>
+    <h2>Get in touch</h2>
+    <p class="sub">We're a real team based in Delhi.</p>
+
+    <form onsubmit="event.preventDefault();">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="you@email.com">
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Platform</h4>
-        <a href="home.html">Home</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="services.html">Artist Services</a>
-        <a href="daily.html">TuneFry Daily</a>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="What's this about?">
       </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <a href="#">Help Center</a>
-        <a href="#">Release Guide</a>
-        <a href="#">Royalty Calculator</a>
-        <a href="#">API Docs</a>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us more..."></textarea>
       </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#">About Us</a>
-        <a href="#">Careers</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+      <button type="submit" class="form-submit">Send Message &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================================================================
+     FOOTER
+     ================================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-txt">Tune<b>Fry</b></div>
+      <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 TuneFry. All rights reserved.</span>
-      <span>Made with love in India</span>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="home.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="services.html">Artist Services</a>
+      <a href="daily.html">TuneFry Daily</a>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Release Guide</a>
+      <a href="#">Royalty Calculator</a>
+      <a href="#">API Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span>
+    <span>Made with love in India</span>
+  </div>
+</footer>
 
-</div><!-- /.pub-page -->
-
-<!-- ── Navbar scroll effect ──────────────────────────────────────── -->
+<!-- ================================================================
+     SCRIPTS
+     ================================================================ -->
 <script>
-  window.addEventListener('scroll', () => {
-    document.querySelector('.pub-nav').classList.toggle('scrolled', window.scrollY > 20);
+/* Carousel */
+function slidePlans(dir){
+  var grid=document.getElementById('plansGrid');
+  var cardW=grid.querySelector('.plan').offsetWidth+12;
+  grid.scrollBy({left:dir*cardW*2,behavior:'smooth'});
+}
+(function(){
+  var grid=document.getElementById('plansGrid');
+  if(!grid)return;
+  /* drag-to-scroll */
+  var isDown=false,startX,scrollLeft;
+  grid.addEventListener('mousedown',function(e){isDown=true;startX=e.pageX-grid.offsetLeft;scrollLeft=grid.scrollLeft;grid.style.userSelect='none'});
+  document.addEventListener('mouseup',function(){isDown=false;grid.style.userSelect=''});
+  grid.addEventListener('mousemove',function(e){if(!isDown)return;e.preventDefault();var x=e.pageX-grid.offsetLeft;grid.scrollLeft=scrollLeft-(x-startX)*1.2});
+  /* update arrow states */
+  function updateArrows(){
+    var prev=document.getElementById('carrPrev');
+    var next=document.getElementById('carrNext');
+    if(!prev||!next)return;
+    prev.disabled=grid.scrollLeft<10;
+    next.disabled=grid.scrollLeft+grid.offsetWidth>=grid.scrollWidth-10;
+  }
+  grid.addEventListener('scroll',updateArrows);
+  updateArrows();
+})();
+
+/* IntersectionObserver for .au */
+(function(){
+  var els=document.querySelectorAll('.au');
+  if(!els.length)return;
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('vis');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){obs.observe(el)});
+})();
+
+/* Navbar scroll */
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+});
+
+/* FAQ accordion */
+function toggleFaq(el){
+  var wasOpen=el.classList.contains('open');
+  /* close all in same grid */
+  el.parentNode.querySelectorAll('.faq-item.open').forEach(function(item){
+    item.classList.remove('open');
   });
+  if(!wasOpen) el.classList.add('open');
+}
+
+/* Billing toggle */
+function toggleBilling(){
+  var track=document.getElementById('billingToggle');
+  track.classList.toggle('on');
+}
 </script>
 
 </body>

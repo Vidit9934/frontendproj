@@ -1,321 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artist Services — TuneFry</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/landing.css">
-  <style>
-    /* ── How It Works Grid ─────────────────────────────────────────── */
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      margin-top: 48px;
-    }
-    .how-card {
-      padding: 36px 28px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-top-color: rgba(255,255,255,0.13);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
-      text-align: center;
-      transition: all 0.35s ease;
-      position: relative;
-    }
-    .how-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255,255,255,0.16);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .how-step {
-      font-family: var(--font-display);
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 16px;
-      opacity: 0.9;
-    }
-    .how-title {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .how-desc {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artist Services — TuneFry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0A; --s1: #111111; --s2: #181818; --s3: #202020; --s4: #282828;
+  --or: #FF6B00; --or-d: rgba(255,107,0,0.10); --or-b: rgba(255,107,0,0.25);
+  --bd: rgba(255,255,255,0.07); --bd2: rgba(255,255,255,0.13);
+  --t1: #FFFFFF; --t2: rgba(255,255,255,0.62); --t3: rgba(255,255,255,0.36);
+  --gr: #2DCA72; --gr-d: rgba(45,202,114,0.11); --gr-b: rgba(45,202,114,0.28);
+  --ease: cubic-bezier(.22,1,.36,1);
+  --font-d: 'Syne', sans-serif; --font-b: 'DM Sans', sans-serif;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+body { font-family:var(--font-b); background:var(--bg); color:var(--t1); overflow-x:hidden; line-height:1.6; }
+a { text-decoration:none; color:inherit; }
+ul { list-style:none; }
 
-    /* ── Responsive for How Grid ───────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .how-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .how-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-    }
-  </style>
+/* ── ANIMATE ── */
+.au { opacity:0; transform:translateY(22px); transition:opacity .65s var(--ease), transform .65s var(--ease); }
+.au.vis { opacity:1; transform:none; }
+.au-d1 { transition-delay:.08s; }
+.au-d2 { transition-delay:.16s; }
+.au-d3 { transition-delay:.24s; }
+.au-d4 { transition-delay:.32s; }
+
+/* ── NAV ── */
+.nav {
+  position:sticky; top:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  height:64px; padding:0 40px;
+  background:rgba(10,10,10,0.90);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:0.5px solid var(--bd);
+  transition:background .3s;
+}
+.nav.scrolled { background:rgba(10,10,10,0.98); box-shadow:0 1px 28px rgba(0,0,0,.5); }
+.nav-logo { display:flex; align-items:center; gap:10px; }
+.logo-sq { width:34px; height:34px; border-radius:9px; background:var(--or); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:16px; color:#fff; flex-shrink:0; }
+.logo-txt { font-family:var(--font-d); font-size:1.15rem; font-weight:700; color:var(--t1); }
+.logo-txt b { color:var(--or); }
+.nav-ctr { display:flex; align-items:center; gap:2px; }
+.nav-ctr a { font-size:13px; font-weight:400; color:var(--t2); padding:7px 14px; border-radius:8px; transition:all .2s; }
+.nav-ctr a:hover { color:var(--t1); background:rgba(255,255,255,.05); }
+.nav-ctr a.act { color:var(--t1); background:rgba(255,255,255,.07); }
+.nav-refer { color:var(--or) !important; }
+.nav-refer:hover { background:rgba(255,107,0,.08) !important; }
+.nav-rt { display:flex; align-items:center; gap:10px; }
+.btn-ghost { font-size:13px; color:var(--t2); padding:8px 18px; border-radius:8px; border:0.5px solid var(--bd2); transition:all .2s; }
+.btn-ghost:hover { color:var(--t1); border-color:rgba(255,255,255,.25); }
+.btn-or { font-size:13px; font-weight:600; color:#fff; background:var(--or); padding:9px 20px; border-radius:8px; box-shadow:0 0 20px rgba(255,107,0,.3); transition:all .2s; font-family:var(--font-d); }
+.btn-or:hover { box-shadow:0 0 32px rgba(255,107,0,.5); transform:translateY(-1px); }
+.nav-ham { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
+.nav-ham span { display:block; width:20px; height:1.5px; background:var(--t2); border-radius:2px; transition:transform .3s, opacity .3s; }
+.nav-ham.open span:nth-child(1) { transform:rotate(45deg) translate(3px,3px); }
+.nav-ham.open span:nth-child(2) { opacity:0; }
+.nav-ham.open span:nth-child(3) { transform:rotate(-45deg) translate(3px,-3px); }
+.mob-menu {
+  display:none; position:fixed; top:64px; left:0; right:0; bottom:0; z-index:999;
+  background:rgba(10,10,10,.97); backdrop-filter:blur(20px);
+  flex-direction:column; padding:32px 28px; gap:4px;
+}
+.mob-menu.open { display:flex; }
+.mob-menu a { font-size:15px; color:var(--t2); padding:14px 0; border-bottom:0.5px solid var(--bd); transition:color .2s; }
+.mob-menu a:hover { color:var(--or); }
+.mob-btns { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+.mob-btns a { border-bottom:none; text-align:center; padding:12px; border-radius:10px; }
+.mob-btns .btn-ghost { border:0.5px solid var(--bd2); }
+.mob-btns .btn-or { background:var(--or); color:#fff; font-family:var(--font-d); font-weight:700; }
+
+/* ── HERO ── */
+.hero {
+  position:relative; padding:90px 40px 72px;
+  overflow:hidden; text-align:center;
+}
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent);
+}
+.hero-orb {
+  position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+  width:680px; height:480px; z-index:0;
+  background:radial-gradient(ellipse at 50% 30%, rgba(255,107,0,.13) 0%, rgba(255,107,0,.05) 50%, transparent 70%);
+  pointer-events:none;
+}
+.hero-content {
+  position:relative; z-index:1;
+  max-width:680px; margin:0 auto;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--or-d); border:0.5px solid var(--or-b);
+  padding:6px 16px; border-radius:100px;
+  font-size:11.5px; font-weight:500; color:var(--or);
+  letter-spacing:.5px; text-transform:uppercase;
+  margin-bottom:24px;
+}
+.eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--or); animation:blink 1.8s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.hero h1 {
+  font-family:var(--font-d); font-size:clamp(38px,5.5vw,68px);
+  font-weight:800; letter-spacing:-2.5px; line-height:1.1; margin-bottom:18px;
+}
+.hero h1 em { font-style:normal; color:var(--or); text-shadow:0 0 40px rgba(255,107,0,.35); }
+.hero-sub { font-size:17px; color:var(--t2); font-weight:300; max-width:520px; margin:0 auto; line-height:1.75; }
+
+/* ── SERVICES GRID ── */
+.services-section { padding:0 40px 80px; }
+.sec-inner { max-width:1200px; margin:0 auto; }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.svc-card {
+  background:var(--s1); border-radius:16px;
+  border:0.5px solid var(--bd);
+  padding:28px 26px 26px;
+  position:relative; overflow:hidden;
+  transition:transform .3s var(--ease), border-color .3s, box-shadow .3s;
+  display:flex; flex-direction:column; gap:12px;
+}
+.svc-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  border-radius:16px 16px 0 0;
+  transition:opacity .3s;
+}
+.svc-card:hover { transform:translateY(-5px); border-color:var(--bd2); }
+/* Each card has a distinct accent */
+.svc-card:nth-child(1) { --accent: rgba(59,130,246,0.85); }
+.svc-card:nth-child(2) { --accent: rgba(255,107,0,0.85); }
+.svc-card:nth-child(3) { --accent: rgba(45,202,114,0.85); }
+.svc-card:nth-child(4) { --accent: rgba(6,182,212,0.85); }
+.svc-card:nth-child(5) { --accent: rgba(234,179,8,0.85); }
+.svc-card:nth-child(6) { --accent: rgba(168,85,247,0.85); }
+.svc-card:nth-child(7) { --accent: rgba(239,68,68,0.85); }
+.svc-card:nth-child(8) { --accent: rgba(236,72,153,0.85); }
+.svc-card:nth-child(9) { --accent: rgba(45,202,114,0.85); }
+.svc-card::before { background:var(--accent); }
+.svc-card:hover { box-shadow:0 16px 48px rgba(0,0,0,.3), 0 0 0 0.5px rgba(255,255,255,.08); }
+.svc-icon-wrap {
+  width:48px; height:48px; border-radius:13px;
+  background:rgba(255,255,255,.04); border:0.5px solid var(--bd2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; flex-shrink:0; margin-bottom:4px;
+  transition:background .25s;
+}
+.svc-card:hover .svc-icon-wrap { background:rgba(255,255,255,.07); }
+.svc-name { font-family:var(--font-d); font-size:16px; font-weight:700; color:var(--t1); }
+.svc-desc { font-size:13.5px; color:var(--t2); line-height:1.7; flex:1; }
+.svc-link {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:12px; font-weight:500; color:var(--t3);
+  transition:color .2s, gap .2s;
+  margin-top:4px;
+}
+.svc-card:hover .svc-link { color:var(--or); gap:8px; }
+
+/* ── HOW IT WORKS ── */
+.how-section { padding:80px 40px; background:var(--s1); }
+.sec-eyebrow { font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--or); font-weight:600; margin-bottom:12px; }
+.sec-title { font-family:var(--font-d); font-size:clamp(28px,4vw,48px); font-weight:800; letter-spacing:-1.5px; margin-bottom:16px; }
+.sec-sub { font-size:16px; color:var(--t2); font-weight:300; }
+.sec-head { margin-bottom:56px; text-align:center; }
+.steps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+.step-card {
+  background:var(--bg); padding:40px 32px; position:relative; overflow:hidden;
+  transition:background .2s;
+}
+.step-card:hover { background:#0f0f0f; }
+.step-card:first-child { border-radius:16px 0 0 16px; }
+.step-card:last-child { border-radius:0 16px 16px 0; }
+.step-num-bg {
+  font-family:var(--font-d); font-size:72px; font-weight:800;
+  color:rgba(255,107,0,.05); position:absolute; top:8px; right:12px; line-height:1;
+  pointer-events:none; user-select:none;
+}
+.step-icon-sm {
+  width:44px; height:44px; border-radius:11px;
+  background:var(--or-d); border:0.5px solid var(--or-b);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:18px; font-size:20px;
+}
+.step-card h3 { font-family:var(--font-d); font-size:18px; font-weight:700; margin-bottom:8px; }
+.step-card p { font-size:13.5px; color:var(--t2); line-height:1.75; }
+
+/* ── CTA SECTION ── */
+.cta-section { padding:96px 40px; text-align:center; position:relative; overflow:hidden; background:var(--bg); }
+.cta-glow {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:600px; height:400px;
+  background:radial-gradient(ellipse, rgba(255,107,0,.10) 0%, transparent 65%);
+  pointer-events:none;
+}
+.cta-section h2 {
+  font-family:var(--font-d); font-size:clamp(32px,4.5vw,60px);
+  font-weight:800; letter-spacing:-2px; margin-bottom:16px;
+  position:relative; z-index:1;
+}
+.cta-section h2 em { font-style:normal; color:var(--or); }
+.cta-section p { font-size:17px; color:var(--t2); max-width:520px; margin:0 auto 36px; line-height:1.75; font-weight:300; position:relative; z-index:1; }
+.cta-buttons { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; position:relative; z-index:1; }
+.btn-primary {
+  background:var(--or); color:#fff; border:none;
+  padding:14px 32px; border-radius:11px; font-family:var(--font-d); font-size:14px; font-weight:700;
+  cursor:pointer; transition:all .25s; box-shadow:0 0 28px rgba(255,107,0,.4);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 44px rgba(255,107,0,.55); }
+.btn-secondary {
+  color:var(--t1); background:var(--s2); border:0.5px solid var(--bd2);
+  padding:14px 32px; border-radius:11px; font-family:var(--font-d); font-size:14px; font-weight:600;
+  cursor:pointer; transition:all .25s;
+}
+.btn-secondary:hover { border-color:rgba(255,255,255,.25); background:var(--s3); }
+
+/* ── FOOTER ── */
+footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40px 0; }
+.footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:52px; margin-bottom:52px; }
+.footer-logo-row { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+.footer-logo-sq { width:30px; height:30px; border-radius:8px; background:var(--or); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:14px; color:#fff; }
+.footer-logo-txt { font-family:var(--font-d); font-size:1.05rem; font-weight:700; color:var(--t1); }
+.footer-logo-txt b { color:var(--or); }
+.footer-brand p { font-size:13px; color:var(--t3); margin:14px 0 22px; line-height:1.8; max-width:280px; }
+.footer-socials { display:flex; gap:8px; }
+.social-btn { width:34px; height:34px; border-radius:9px; background:var(--s2); border:0.5px solid var(--bd); display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.social-btn:hover { border-color:var(--or-b); background:var(--or-d); }
+.social-btn svg { width:14px; height:14px; stroke:var(--t3); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+.social-btn:hover svg { stroke:var(--or); }
+.footer-col h4 { font-family:var(--font-d); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--t3); margin-bottom:18px; }
+.footer-col a { display:block; font-size:13.5px; color:var(--t2); padding:5px 0; transition:color .2s; }
+.footer-col a:hover { color:var(--or); }
+.footer-bottom { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:24px 0; border-top:0.5px solid var(--bd); font-size:12.5px; color:var(--t3); }
+.footer-bottom a { color:var(--t3); transition:color .2s; }
+.footer-bottom a:hover { color:var(--t1); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+  .services-grid { grid-template-columns:repeat(2,1fr); }
+  .steps-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+  .step-card:first-child,.step-card:last-child,.step-card { border-radius:14px; }
+  .footer-inner { grid-template-columns:1fr 1fr; gap:32px; }
+}
+@media(max-width:768px) {
+  .nav-ctr, .nav-rt { display:none; }
+  .nav-ham { display:flex; }
+  .nav { padding:0 20px; }
+  .hero { padding:72px 20px 56px; }
+  .hero h1 { font-size:clamp(32px,9vw,52px); }
+  .services-section, .how-section, .cta-section { padding:64px 20px; }
+  .services-grid { grid-template-columns:1fr; }
+  .steps-grid { grid-template-columns:1fr; }
+  .footer-inner { grid-template-columns:1fr; gap:28px; }
+  .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+}
+</style>
 </head>
 <body>
 
-<!-- ── Public Navbar ──────────────────────────────────────────────── -->
-<nav class="pub-nav">
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
   <a href="home.html" class="nav-logo">
-    <div class="logo-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
-    </div>
-    <div class="logo-text">Tune<span>Fry</span></div>
+    <div class="logo-sq">T</div>
+    <div class="logo-txt">Tune<b>Fry</b></div>
   </a>
-  <div class="nav-links">
-    <a href="home.html" class="nav-link">Home</a>
-    <a href="daily.html" class="nav-link">TuneFry Daily</a>
-    <a href="services.html" class="nav-link active">Artist Services</a>
-    <a href="pricing.html" class="nav-link">Pricing</a>
-    <a href="index.html" class="nav-cta">Login</a>
+  <div class="nav-ctr">
+    <a href="home.html">Home</a>
+    <a href="daily.html">TuneFry Daily</a>
+    <a href="services.html" class="act">Artist Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="#" onclick="alert('Kindly login'); return false;" class="nav-refer">Refer &amp; Earn</a>
   </div>
-  <button class="nav-toggle" aria-label="Menu">
-    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  <div class="nav-rt">
+    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or">Start Distributing</a>
+  </div>
+  <button class="nav-ham" id="navHam" aria-label="Menu">
+    <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ── Page Wrapper ──────────────────────────────────────────────── -->
-<div class="pub-page">
+<div class="mob-menu" id="mobMenu">
+  <a href="home.html">Home</a>
+  <a href="daily.html">TuneFry Daily</a>
+  <a href="services.html">Artist Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="#" onclick="alert('Kindly login'); return false;" style="color:var(--or)">Refer &amp; Earn</a>
+  <div class="mob-btns">
+    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or">Start Distributing</a>
+  </div>
+</div>
 
-  <!-- ── Hero Area ─────────────────────────────────────────────── -->
-  <section class="pub-section observe-animate" style="text-align:center; padding-top:120px; padding-bottom:60px;">
-    <div class="animate-in">
-      <div class="section-label" style="justify-content:center;">
-        <span class="label-line"></span>
-        Artist Services
-        <span class="label-line"></span>
-      </div>
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Artist Services
     </div>
-    <h1 class="section-heading large animate-in animate-in-delay-1" style="max-width:700px; margin-left:auto; margin-right:auto;">
-      Tools to <span class="highlight">Amplify</span> Your Career
-    </h1>
-    <p class="section-desc animate-in animate-in-delay-2" style="max-width:580px; margin-left:auto; margin-right:auto;">
-      From distribution to marketing — everything an independent artist needs to grow.
-    </p>
-  </section>
+    <h1>Tools to <em>Amplify</em><br>Your Career</h1>
+    <p class="hero-sub">From distribution to marketing consultation, playlist pitching to merchandise — real services built for independent artists since 2020.</p>
+  </div>
+</section>
 
-  <!-- ── Service Grid ──────────────────────────────────────────── -->
-  <section class="pub-section observe-animate" style="padding-top:0;">
-    <div class="svc-grid">
+<!-- ── SERVICES GRID ── -->
+<div class="services-section" style="padding-top:60px;">
+  <div class="sec-inner">
+    <div class="services-grid">
 
-      <!-- 1. Digital Distribution -->
-      <div class="svc-card animate-in" style="--svc-glow: rgba(59,130,246,0.1);">
-        <div class="svc-icon">&#127757;</div>
-        <div class="svc-title">Digital Distribution</div>
-        <div class="svc-desc">Distribute your music to 150+ streaming platforms including Spotify, Apple Music, YouTube Music, and more.</div>
+      <!-- 1 -->
+      <div class="svc-card au">
+        <div class="svc-icon-wrap">🌍</div>
+        <div class="svc-name">Digital Distribution</div>
+        <div class="svc-desc">Reliable distribution across 100+ major streaming platforms — Spotify, Wynk Music, JioSaavn, Amazon Music, and more — all from one dashboard.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 2. Music Marketing -->
-      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(236,72,153,0.1);">
-        <div class="svc-icon">&#128227;</div>
-        <div class="svc-title">Music Marketing</div>
-        <div class="svc-desc">Strategic promotion campaigns to increase your visibility and reach new audiences worldwide.</div>
+      <!-- 2 -->
+      <div class="svc-card au au-d1">
+        <div class="svc-icon-wrap">📣</div>
+        <div class="svc-name">Free Marketing Consultation</div>
+        <div class="svc-desc">In partnership with KMFMedia.com, get expert promotional guidance and song promotion services at no extra cost — exclusively for TuneFry artists.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 3. Playlist Pitching -->
-      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(34,197,94,0.1);">
-        <div class="svc-icon">&#127911;</div>
-        <div class="svc-title">Playlist Pitching</div>
-        <div class="svc-desc">Get your tracks pitched to editorial and independent playlist curators across all major platforms.</div>
+      <!-- 3 -->
+      <div class="svc-card au au-d2">
+        <div class="svc-icon-wrap">🤝</div>
+        <div class="svc-name">One-on-One Artist Relations</div>
+        <div class="svc-desc">Personalized support with direct access to TuneFry's administration. Your growth is our priority — not just a ticket in a queue.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 4. Caller Tune (CRBT) -->
-      <div class="svc-card animate-in" style="--svc-glow: rgba(242,101,34,0.1);">
-        <div class="svc-icon">&#128241;</div>
-        <div class="svc-title">Caller Tune (CRBT)</div>
-        <div class="svc-desc">Set your song as a caller tune on Jio, Airtel, Vi, and BSNL. Earn extra royalties from telecom.</div>
+      <!-- 4 -->
+      <div class="svc-card au au-d3">
+        <div class="svc-icon-wrap">🎧</div>
+        <div class="svc-name">Playlist Pitching</div>
+        <div class="svc-desc">Pitch your tracks to auditorial playlists targeting niche audiences on Spotify. Get featured in trending playlists to boost streams and discovery.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 5. Artist Services -->
-      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(234,179,8,0.1);">
-        <div class="svc-icon">&#11088;</div>
-        <div class="svc-title">Artist Services</div>
-        <div class="svc-desc">Spotify verification, Instagram linking, YouTube Official Artist Channel setup and more.</div>
+      <!-- 5 -->
+      <div class="svc-card au">
+        <div class="svc-icon-wrap">📊</div>
+        <div class="svc-name">Real-Time Dashboard</div>
+        <div class="svc-desc">Live streaming analytics with direct song access — track your plays, earnings, and audience growth across every platform in real time.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 6. Song Transfer -->
-      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(168,85,247,0.1);">
-        <div class="svc-icon">&#128260;</div>
-        <div class="svc-title">Song Transfer</div>
-        <div class="svc-desc">Seamlessly transfer your catalog from any other distributor to TuneFry without losing streams.</div>
+      <!-- 6 -->
+      <div class="svc-card au au-d1">
+        <div class="svc-icon-wrap">💰</div>
+        <div class="svc-name">Royalty Payments</div>
+        <div class="svc-desc">Earn regular payments based on your stream counts across all platforms. Every play counts — your earnings are distributed transparently and on time.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 7. Content ID -->
-      <div class="svc-card animate-in" style="--svc-glow: rgba(239,68,68,0.1);">
-        <div class="svc-icon">&#128737;&#65039;</div>
-        <div class="svc-title">Content ID</div>
-        <div class="svc-desc">Protect your music on YouTube and other platforms. Automatically claim revenue from unauthorized uploads.</div>
+      <!-- 7 -->
+      <div class="svc-card au au-d2">
+        <div class="svc-icon-wrap">▶️</div>
+        <div class="svc-name">YouTube Monetization</div>
+        <div class="svc-desc">Start earning every time your music is played on YouTube. We handle Content ID registration so you capture revenue from every stream and video use.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 8. Lyrics Distribution -->
-      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(6,182,212,0.1);">
-        <div class="svc-icon">&#9999;&#65039;</div>
-        <div class="svc-title">Lyrics Distribution</div>
-        <div class="svc-desc">Distribute synced lyrics to Spotify, Apple Music, Amazon, and other platforms that support lyrics.</div>
+      <!-- 8 -->
+      <div class="svc-card au au-d3">
+        <div class="svc-icon-wrap">🌐</div>
+        <div class="svc-name">Artist Website Creation</div>
+        <div class="svc-desc">Build a professional online presence with dedicated artist tools. Showcase your music, bio, and releases with a site built for your brand.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
-      <!-- 9. Reports & Analytics -->
-      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(59,130,246,0.1);">
-        <div class="svc-icon">&#128202;</div>
-        <div class="svc-title">Reports &amp; Analytics</div>
-        <div class="svc-desc">Real-time dashboards showing streams, revenue, listener demographics, and platform breakdown.</div>
-      </div>
-
-      <!-- 10. Copyright Protection -->
-      <div class="svc-card animate-in" style="--svc-glow: rgba(242,101,34,0.1);">
-        <div class="svc-icon">&#128274;</div>
-        <div class="svc-title">Copyright Protection</div>
-        <div class="svc-desc">Full copyright protection with legal support for takedown notices against unauthorized usage.</div>
-      </div>
-
-      <!-- 11. Illegal Takedown -->
-      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(239,68,68,0.1);">
-        <div class="svc-icon">&#9878;&#65039;</div>
-        <div class="svc-title">Illegal Takedown</div>
-        <div class="svc-desc">Swift removal of unauthorized copies of your music across the internet and social platforms.</div>
-      </div>
-
-      <!-- 12. Lifetime Availability -->
-      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(34,197,94,0.1);">
-        <div class="svc-icon">&#9854;&#65039;</div>
-        <div class="svc-title">Lifetime Availability</div>
-        <div class="svc-desc">Your music stays live on all platforms forever. No annual renewals, no hidden fees, no takedowns.</div>
+      <!-- 9 -->
+      <div class="svc-card au">
+        <div class="svc-icon-wrap">👕</div>
+        <div class="svc-name">Merchandise Launch</div>
+        <div class="svc-desc">Launch and sell merchandise tied to your music and live shows. Create an additional revenue stream directly connected to your fanbase.</div>
+        <div class="svc-link">Learn more &rarr;</div>
       </div>
 
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- ── How It Works ──────────────────────────────────────────── -->
-  <section class="pub-section observe-animate" style="text-align:center;">
-    <div class="section-label animate-in" style="justify-content:center;">
-      <span class="label-line"></span>
-      Process
-      <span class="label-line"></span>
+<!-- ── HOW IT WORKS ── -->
+<section class="how-section">
+  <div class="sec-inner">
+    <div class="sec-head au">
+      <div class="sec-eyebrow">Process</div>
+      <h2 class="sec-title">How It Works</h2>
+      <p class="sec-sub">From sign-up to streaming in four simple steps.</p>
     </div>
-    <h2 class="section-heading animate-in animate-in-delay-1">How It <span class="highlight">Works</span></h2>
-    <div class="how-grid">
-      <div class="how-card animate-in">
-        <div class="how-step">1</div>
-        <div class="how-title">Sign Up</div>
-        <div class="how-desc">Create your free account in 2 minutes</div>
+    <div class="steps-grid">
+      <div class="step-card au">
+        <div class="step-num-bg">1</div>
+        <div class="step-icon-sm">👤</div>
+        <h3>Sign Up</h3>
+        <p>Create your free TuneFry account in under 2 minutes. No credit card required to get started.</p>
       </div>
-      <div class="how-card animate-in animate-in-delay-1">
-        <div class="how-step">2</div>
-        <div class="how-title">Upload</div>
-        <div class="how-desc">Upload your track, add metadata and artwork</div>
+      <div class="step-card au au-d1">
+        <div class="step-num-bg">2</div>
+        <div class="step-icon-sm">⬆️</div>
+        <h3>Upload</h3>
+        <p>Upload your track, add artwork and metadata, choose your release date, and select your target platforms.</p>
       </div>
-      <div class="how-card animate-in animate-in-delay-2">
-        <div class="how-step">3</div>
-        <div class="how-title">Distribute</div>
-        <div class="how-desc">We deliver to 150+ platforms within days</div>
+      <div class="step-card au au-d2">
+        <div class="step-num-bg">3</div>
+        <div class="step-icon-sm">🌐</div>
+        <h3>Distribute</h3>
+        <p>We deliver your music to 150+ platforms worldwide within 24–48 hours. Fully automated, zero hassle.</p>
       </div>
-      <div class="how-card animate-in animate-in-delay-3">
-        <div class="how-step">4</div>
-        <div class="how-title">Earn</div>
-        <div class="how-desc">Track streams and collect 100% royalties</div>
+      <div class="step-card au au-d3">
+        <div class="step-num-bg">4</div>
+        <div class="step-icon-sm">💰</div>
+        <h3>Earn</h3>
+        <p>Track your streams in real-time and collect 100% of your royalties directly to your bank account.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── CTA Section ───────────────────────────────────────────── -->
-  <section class="cta-section pub-section observe-animate">
-    <h2 class="section-heading large animate-in">Ready to Take Your Music <span class="highlight">Further</span>?</h2>
-    <p class="section-desc animate-in animate-in-delay-1">
-      Join thousands of independent artists who trust TuneFry to amplify their careers. Start distributing, promoting, and earning today.
-    </p>
-    <div class="cta-actions animate-in animate-in-delay-2">
-      <a href="index.html" class="pricing-cta solid" style="width:auto; padding:16px 36px;">Get Started Free</a>
-      <a href="pricing.html" class="pricing-cta outline" style="width:auto; padding:16px 36px;">View Pricing</a>
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="au">
+    <h2>Ready to Take Your Music <em>Further</em>?</h2>
+    <p>Join thousands of independent artists who trust TuneFry to amplify their careers. Start distributing, promoting, and earning today.</p>
+    <div class="cta-buttons">
+      <a href="index.html" class="btn-primary">Get Started Free</a>
+      <a href="pricing.html" class="btn-secondary">View Pricing</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── Footer ────────────────────────────────────────────────── -->
-  <footer class="pub-footer observe-animate">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo-text">Tune<span>Fry</span></div>
-        <p>India's fastest-growing music distribution platform. Get your music heard on 150+ streaming services worldwide.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="#" aria-label="Twitter">
-            <svg viewBox="0 0 24 24"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768"/><path d="M20 4l-6.768 6.768"/></svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2 29 29 0 00-.46 5.25 29 29 0 00.46 5.25 2.78 2.78 0 001.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.25z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-          </a>
-          <a href="#" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
-        </div>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <div class="footer-logo-sq">T</div>
+        <div class="footer-logo-txt">Tune<b>Fry</b></div>
       </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <a href="home.html">Home</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="services.html">Artist Services</a>
-        <a href="daily.html">TuneFry Daily</a>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="services.html">Distribution</a>
-        <a href="services.html">Playlist Pitching</a>
-        <a href="services.html">Content ID</a>
-        <a href="services.html">Caller Tune</a>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Refund Policy</a>
+      <p>India's fastest-growing music distribution platform. Get your music heard on 150+ streaming services worldwide.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 11.75a29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 TuneFry. All rights reserved.</span>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="home.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="services.html">Artist Services</a>
+      <a href="daily.html">TuneFry Daily</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="services.html">Distribution</a>
+      <a href="services.html">Playlist Pitching</a>
+      <a href="services.html">Content ID</a>
+      <a href="services.html">Caller Tune</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Refund Policy</a>
       <a href="mailto:support@tunefry.com">support@tunefry.com</a>
     </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span>
+    <a href="mailto:support@tunefry.com">support@tunefry.com</a>
+  </div>
+</footer>
 
-</div><!-- /.pub-page -->
-
-<!-- ── Scripts ────────────────────────────────────────────────────── -->
 <script>
-  // Navbar scroll effect
-  window.addEventListener('scroll', function() {
-    document.querySelector('.pub-nav').classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  // IntersectionObserver for observe-animate elements
-  document.addEventListener('DOMContentLoaded', function() {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
+(function(){
+  var els = document.querySelectorAll('.au');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('vis');}); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('vis'); io.unobserve(en.target); }
     });
+  }, {threshold:0.07, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){ io.observe(e); });
+  /* trigger hero immediately */
+  document.querySelectorAll('.hero .au').forEach(function(e){ e.classList.add('vis'); });
+})();
 
-    document.querySelectorAll('.observe-animate').forEach(function(el) {
-      observer.observe(el);
-    });
-  });
+window.addEventListener('scroll', function(){
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+document.getElementById('navHam').addEventListener('click', function(){
+  this.classList.toggle('open');
+  document.getElementById('mobMenu').classList.toggle('open');
+});
 </script>
-
 </body>
 </html>
