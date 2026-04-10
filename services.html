@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Services — TuneFry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <style>
+    /* ── How It Works Grid ─────────────────────────────────────────── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .how-card {
+      padding: 36px 28px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(165deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-top-color: rgba(255,255,255,0.13);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+      text-align: center;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+    .how-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.16);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .how-step {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+    .how-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .how-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ── Responsive for How Grid ───────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .how-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .how-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Public Navbar ──────────────────────────────────────────────── -->
+<nav class="pub-nav">
+  <a href="home.html" class="nav-logo">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
+    </div>
+    <div class="logo-text">Tune<span>Fry</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="daily.html" class="nav-link">TuneFry Daily</a>
+    <a href="services.html" class="nav-link active">Artist Services</a>
+    <a href="pricing.html" class="nav-link">Pricing</a>
+    <a href="index.html" class="nav-cta">Login</a>
+  </div>
+  <button class="nav-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- ── Page Wrapper ──────────────────────────────────────────────── -->
+<div class="pub-page">
+
+  <!-- ── Hero Area ─────────────────────────────────────────────── -->
+  <section class="pub-section observe-animate" style="text-align:center; padding-top:120px; padding-bottom:60px;">
+    <div class="animate-in">
+      <div class="section-label" style="justify-content:center;">
+        <span class="label-line"></span>
+        Artist Services
+        <span class="label-line"></span>
+      </div>
+    </div>
+    <h1 class="section-heading large animate-in animate-in-delay-1" style="max-width:700px; margin-left:auto; margin-right:auto;">
+      Tools to <span class="highlight">Amplify</span> Your Career
+    </h1>
+    <p class="section-desc animate-in animate-in-delay-2" style="max-width:580px; margin-left:auto; margin-right:auto;">
+      From distribution to marketing — everything an independent artist needs to grow.
+    </p>
+  </section>
+
+  <!-- ── Service Grid ──────────────────────────────────────────── -->
+  <section class="pub-section observe-animate" style="padding-top:0;">
+    <div class="svc-grid">
+
+      <!-- 1. Digital Distribution -->
+      <div class="svc-card animate-in" style="--svc-glow: rgba(59,130,246,0.1);">
+        <div class="svc-icon">&#127757;</div>
+        <div class="svc-title">Digital Distribution</div>
+        <div class="svc-desc">Distribute your music to 150+ streaming platforms including Spotify, Apple Music, YouTube Music, and more.</div>
+      </div>
+
+      <!-- 2. Music Marketing -->
+      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(236,72,153,0.1);">
+        <div class="svc-icon">&#128227;</div>
+        <div class="svc-title">Music Marketing</div>
+        <div class="svc-desc">Strategic promotion campaigns to increase your visibility and reach new audiences worldwide.</div>
+      </div>
+
+      <!-- 3. Playlist Pitching -->
+      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(34,197,94,0.1);">
+        <div class="svc-icon">&#127911;</div>
+        <div class="svc-title">Playlist Pitching</div>
+        <div class="svc-desc">Get your tracks pitched to editorial and independent playlist curators across all major platforms.</div>
+      </div>
+
+      <!-- 4. Caller Tune (CRBT) -->
+      <div class="svc-card animate-in" style="--svc-glow: rgba(242,101,34,0.1);">
+        <div class="svc-icon">&#128241;</div>
+        <div class="svc-title">Caller Tune (CRBT)</div>
+        <div class="svc-desc">Set your song as a caller tune on Jio, Airtel, Vi, and BSNL. Earn extra royalties from telecom.</div>
+      </div>
+
+      <!-- 5. Artist Services -->
+      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(234,179,8,0.1);">
+        <div class="svc-icon">&#11088;</div>
+        <div class="svc-title">Artist Services</div>
+        <div class="svc-desc">Spotify verification, Instagram linking, YouTube Official Artist Channel setup and more.</div>
+      </div>
+
+      <!-- 6. Song Transfer -->
+      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(168,85,247,0.1);">
+        <div class="svc-icon">&#128260;</div>
+        <div class="svc-title">Song Transfer</div>
+        <div class="svc-desc">Seamlessly transfer your catalog from any other distributor to TuneFry without losing streams.</div>
+      </div>
+
+      <!-- 7. Content ID -->
+      <div class="svc-card animate-in" style="--svc-glow: rgba(239,68,68,0.1);">
+        <div class="svc-icon">&#128737;&#65039;</div>
+        <div class="svc-title">Content ID</div>
+        <div class="svc-desc">Protect your music on YouTube and other platforms. Automatically claim revenue from unauthorized uploads.</div>
+      </div>
+
+      <!-- 8. Lyrics Distribution -->
+      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(6,182,212,0.1);">
+        <div class="svc-icon">&#9999;&#65039;</div>
+        <div class="svc-title">Lyrics Distribution</div>
+        <div class="svc-desc">Distribute synced lyrics to Spotify, Apple Music, Amazon, and other platforms that support lyrics.</div>
+      </div>
+
+      <!-- 9. Reports & Analytics -->
+      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(59,130,246,0.1);">
+        <div class="svc-icon">&#128202;</div>
+        <div class="svc-title">Reports &amp; Analytics</div>
+        <div class="svc-desc">Real-time dashboards showing streams, revenue, listener demographics, and platform breakdown.</div>
+      </div>
+
+      <!-- 10. Copyright Protection -->
+      <div class="svc-card animate-in" style="--svc-glow: rgba(242,101,34,0.1);">
+        <div class="svc-icon">&#128274;</div>
+        <div class="svc-title">Copyright Protection</div>
+        <div class="svc-desc">Full copyright protection with legal support for takedown notices against unauthorized usage.</div>
+      </div>
+
+      <!-- 11. Illegal Takedown -->
+      <div class="svc-card animate-in animate-in-delay-1" style="--svc-glow: rgba(239,68,68,0.1);">
+        <div class="svc-icon">&#9878;&#65039;</div>
+        <div class="svc-title">Illegal Takedown</div>
+        <div class="svc-desc">Swift removal of unauthorized copies of your music across the internet and social platforms.</div>
+      </div>
+
+      <!-- 12. Lifetime Availability -->
+      <div class="svc-card animate-in animate-in-delay-2" style="--svc-glow: rgba(34,197,94,0.1);">
+        <div class="svc-icon">&#9854;&#65039;</div>
+        <div class="svc-title">Lifetime Availability</div>
+        <div class="svc-desc">Your music stays live on all platforms forever. No annual renewals, no hidden fees, no takedowns.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── How It Works ──────────────────────────────────────────── -->
+  <section class="pub-section observe-animate" style="text-align:center;">
+    <div class="section-label animate-in" style="justify-content:center;">
+      <span class="label-line"></span>
+      Process
+      <span class="label-line"></span>
+    </div>
+    <h2 class="section-heading animate-in animate-in-delay-1">How It <span class="highlight">Works</span></h2>
+    <div class="how-grid">
+      <div class="how-card animate-in">
+        <div class="how-step">1</div>
+        <div class="how-title">Sign Up</div>
+        <div class="how-desc">Create your free account in 2 minutes</div>
+      </div>
+      <div class="how-card animate-in animate-in-delay-1">
+        <div class="how-step">2</div>
+        <div class="how-title">Upload</div>
+        <div class="how-desc">Upload your track, add metadata and artwork</div>
+      </div>
+      <div class="how-card animate-in animate-in-delay-2">
+        <div class="how-step">3</div>
+        <div class="how-title">Distribute</div>
+        <div class="how-desc">We deliver to 150+ platforms within days</div>
+      </div>
+      <div class="how-card animate-in animate-in-delay-3">
+        <div class="how-step">4</div>
+        <div class="how-title">Earn</div>
+        <div class="how-desc">Track streams and collect 100% royalties</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Section ───────────────────────────────────────────── -->
+  <section class="cta-section pub-section observe-animate">
+    <h2 class="section-heading large animate-in">Ready to Take Your Music <span class="highlight">Further</span>?</h2>
+    <p class="section-desc animate-in animate-in-delay-1">
+      Join thousands of independent artists who trust TuneFry to amplify their careers. Start distributing, promoting, and earning today.
+    </p>
+    <div class="cta-actions animate-in animate-in-delay-2">
+      <a href="index.html" class="pricing-cta solid" style="width:auto; padding:16px 36px;">Get Started Free</a>
+      <a href="pricing.html" class="pricing-cta outline" style="width:auto; padding:16px 36px;">View Pricing</a>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <footer class="pub-footer observe-animate">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">Tune<span>Fry</span></div>
+        <p>India's fastest-growing music distribution platform. Get your music heard on 150+ streaming services worldwide.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768"/><path d="M20 4l-6.768 6.768"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2 29 29 0 00-.46 5.25 29 29 0 00.46 5.25 2.78 2.78 0 001.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.25z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="services.html">Artist Services</a>
+        <a href="daily.html">TuneFry Daily</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Distribution</a>
+        <a href="services.html">Playlist Pitching</a>
+        <a href="services.html">Content ID</a>
+        <a href="services.html">Caller Tune</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 TuneFry. All rights reserved.</span>
+      <a href="mailto:support@tunefry.com">support@tunefry.com</a>
+    </div>
+  </footer>
+
+</div><!-- /.pub-page -->
+
+<!-- ── Scripts ────────────────────────────────────────────────────── -->
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    document.querySelector('.pub-nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // IntersectionObserver for observe-animate elements
+  document.addEventListener('DOMContentLoaded', function() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.observe-animate').forEach(function(el) {
+      observer.observe(el);
+    });
+  });
+</script>
+
+</body>
+</html>

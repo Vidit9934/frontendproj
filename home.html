@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuneFry — Get Your Music Heard Worldwide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #141210;
+            color: #e8e4df;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; }
+
+        .pub-page { width: 100%; min-height: 100vh; }
+
+        /* ── Animations ── */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+        }
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Public Navbar ── */
+        .pub-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            height: 72px;
+            background: rgba(20, 18, 16, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(242, 101, 34, 0.08);
+        }
+        .pub-nav-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        .pub-nav-logo .fry { color: #F26522; }
+        .pub-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+        .pub-nav-links a {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #a89f94;
+            transition: color 0.25s;
+            position: relative;
+        }
+        .pub-nav-links a:hover,
+        .pub-nav-links a.active {
+            color: #F26522;
+        }
+        .pub-nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 2px;
+            background: #F26522;
+            border-radius: 2px;
+        }
+        .pub-nav-login {
+            background: #F26522;
+            color: #fff !important;
+            padding: 10px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.25s, transform 0.2s;
+        }
+        .pub-nav-login:hover {
+            background: #e05a1a;
+            transform: translateY(-1px);
+        }
+        .pub-nav-login.active::after { display: none; }
+
+        /* ── Hero Section ── */
+        .hero {
+            padding: 160px 48px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 64px;
+            max-width: 1320px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        .hero-content { flex: 1; max-width: 600px; }
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .title-accent {
+            background: linear-gradient(135deg, #F26522 0%, #ff9a44 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.12rem;
+            color: #a89f94;
+            margin-bottom: 36px;
+            max-width: 460px;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .btn-primary {
+            background: #F26522;
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: #e05a1a;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: rgba(242, 101, 34, 0.1);
+            color: #F26522;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid rgba(242, 101, 34, 0.25);
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            background: rgba(242, 101, 34, 0.18);
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        .hero-stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .hero-stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .hero-stat-label {
+            font-size: 0.82rem;
+            color: #7a7268;
+            font-weight: 500;
+        }
+
+        /* Hero Visual */
+        .hero-visual { flex: 1; display: flex; justify-content: center; position: relative; }
+        .hero-visual-card {
+            width: 340px;
+            height: 360px;
+            background: linear-gradient(145deg, #1e1b18 0%, #191714 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(242, 101, 34, 0.12);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 12px;
+            padding: 48px 40px;
+            position: relative;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+        }
+        .eq-bar {
+            width: 24px;
+            border-radius: 8px 8px 4px 4px;
+            animation: eqBounce 1.4s ease-in-out infinite alternate;
+        }
+        .eq-bar:nth-child(1) { height: 60px;  background: #F26522; animation-delay: 0s; }
+        .eq-bar:nth-child(2) { height: 100px; background: #F26522; opacity: 0.85; animation-delay: 0.15s; }
+        .eq-bar:nth-child(3) { height: 140px; background: #F26522; opacity: 0.7; animation-delay: 0.3s; }
+        .eq-bar:nth-child(4) { height: 180px; background: #F26522; animation-delay: 0.45s; }
+        .eq-bar:nth-child(5) { height: 120px; background: #a89f94; opacity: 0.5; animation-delay: 0.6s; }
+        .eq-bar:nth-child(6) { height: 160px; background: #F26522; opacity: 0.75; animation-delay: 0.75s; }
+        .eq-bar:nth-child(7) { height: 90px;  background: #a89f94; opacity: 0.4; animation-delay: 0.9s; }
+        .eq-bar:nth-child(8) { height: 50px;  background: #F26522; opacity: 0.6; animation-delay: 1.05s; }
+
+        @keyframes eqBounce {
+            0%   { transform: scaleY(0.4); }
+            100% { transform: scaleY(1); }
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: rgba(30, 27, 24, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(242, 101, 34, 0.15);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: floatBadge 3s ease-in-out infinite alternate;
+        }
+        .floating-badge.top-right {
+            top: -20px; right: -40px;
+        }
+        .floating-badge.bottom-left {
+            bottom: -20px; left: -40px;
+            animation-delay: 1.5s;
+        }
+        @keyframes floatBadge {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .badge-icon {
+            width: 36px; height: 36px;
+            background: rgba(242, 101, 34, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .badge-icon svg { width: 18px; height: 18px; }
+        .badge-text { display: flex; flex-direction: column; }
+        .badge-value {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+        .badge-label {
+            font-size: 0.72rem;
+            color: #7a7268;
+        }
+
+        /* ── Platform Strip ── */
+        .platform-strip {
+            padding: 48px;
+            border-top: 1px solid rgba(242, 101, 34, 0.06);
+            border-bottom: 1px solid rgba(242, 101, 34, 0.06);
+            background: rgba(20, 18, 16, 0.6);
+        }
+        .platform-strip-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .platform-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #4a453e;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+        .platform-logo:hover {
+            color: #7a7268;
+        }
+
+        /* ── Section Commons ── */
+        .section {
+            padding: 100px 48px;
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #F26522;
+            margin-bottom: 12px;
+        }
+        .section-heading {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-bottom: 56px;
+            line-height: 1.15;
+        }
+        .section-heading .highlight {
+            background: linear-gradient(135deg, #F26522 0%, #ff9a44 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Features ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background: linear-gradient(145deg, #1e1b18 0%, #191714 100%);
+            border: 1px solid rgba(242, 101, 34, 0.08);
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .feature-card:hover {
+            border-color: rgba(242, 101, 34, 0.25);
+            transform: translateY(-4px);
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 18px;
+            display: block;
+        }
+        .feature-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .feature-desc {
+            font-size: 0.92rem;
+            color: #7a7268;
+            line-height: 1.65;
+        }
+
+        /* ── Testimonials ── */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: linear-gradient(145deg, #1e1b18 0%, #191714 100%);
+            border: 1px solid rgba(242, 101, 34, 0.08);
+            border-radius: 20px;
+            padding: 36px 32px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .testimonial-card:hover {
+            border-color: rgba(242, 101, 34, 0.25);
+            transform: translateY(-4px);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .testimonial-avatar {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            background: rgba(242, 101, 34, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #F26522;
+        }
+        .testimonial-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .testimonial-role {
+            font-size: 0.78rem;
+            color: #7a7268;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: #a89f94;
+            line-height: 1.7;
+            font-style: italic;
+        }
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+        .testimonial-stars svg {
+            width: 16px; height: 16px;
+            fill: #F26522;
+        }
+
+        /* ── CTA Section ── */
+        .cta-section {
+            padding: 100px 48px;
+            text-align: center;
+        }
+        .cta-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #1e1b18 0%, #191714 100%);
+            border: 1px solid rgba(242, 101, 34, 0.12);
+            border-radius: 28px;
+            padding: 72px 56px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-inner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(242, 101, 34, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .cta-heading {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            position: relative;
+        }
+        .cta-heading .highlight {
+            background: linear-gradient(135deg, #F26522 0%, #ff9a44 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .cta-desc {
+            font-size: 1.05rem;
+            color: #7a7268;
+            margin-bottom: 36px;
+            position: relative;
+            line-height: 1.7;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+        }
+
+        /* ── Footer ── */
+        .pub-footer {
+            border-top: 1px solid rgba(242, 101, 34, 0.08);
+            padding: 72px 48px 0;
+            background: #121010;
+        }
+        .footer-top {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 56px;
+        }
+        .footer-brand-desc {
+            font-size: 0.9rem;
+            color: #7a7268;
+            line-height: 1.7;
+            margin: 16px 0 24px;
+            max-width: 280px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+        .footer-social-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(242, 101, 34, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.25s;
+        }
+        .footer-social-icon:hover {
+            background: rgba(242, 101, 34, 0.2);
+        }
+        .footer-social-icon svg {
+            width: 18px; height: 18px;
+        }
+        .footer-col-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .footer-col-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .footer-col-links a {
+            font-size: 0.88rem;
+            color: #7a7268;
+            transition: color 0.25s;
+        }
+        .footer-col-links a:hover {
+            color: #F26522;
+        }
+        .footer-bottom {
+            max-width: 1320px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(242, 101, 34, 0.06);
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-copy {
+            font-size: 0.82rem;
+            color: #4a453e;
+        }
+        .footer-email {
+            font-size: 0.82rem;
+            color: #7a7268;
+        }
+        .footer-email:hover { color: #F26522; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1024px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; min-height: auto; }
+            .hero-content { max-width: 100%; }
+            .hero-subtitle { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .features-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 680px) {
+            .pub-nav { padding: 0 20px; }
+            .pub-nav-links { gap: 16px; }
+            .pub-nav-links a { font-size: 0.8rem; }
+            .hero { padding: 120px 20px 60px; }
+            .hero-title { font-size: 2.6rem; }
+            .section { padding: 64px 20px; }
+            .section-heading { font-size: 2rem; }
+            .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            .platform-strip { padding: 32px 20px; }
+            .platform-strip-inner { justify-content: center; }
+            .cta-section { padding: 64px 20px; }
+            .cta-inner { padding: 48px 28px; }
+            .cta-heading { font-size: 1.8rem; }
+            .hero-visual-card { width: 280px; height: 300px; }
+            .floating-badge.top-right { right: -16px; }
+            .floating-badge.bottom-left { left: -16px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="pub-page">
+
+    <!-- ═══════ PUBLIC NAVBAR ═══════ -->
+    <nav class="pub-nav">
+        <a href="home.html" class="pub-nav-logo">Tune<span class="fry">Fry</span></a>
+        <div class="pub-nav-links">
+            <a href="home.html" class="active">Home</a>
+            <a href="daily.html">TuneFry Daily</a>
+            <a href="services.html">Artist Services</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="index.html" class="pub-nav-login">Login</a>
+        </div>
+    </nav>
+
+    <!-- ═══════ HERO SECTION ═══════ -->
+    <section class="hero">
+        <div class="hero-content animate-in">
+            <h1 class="hero-title">
+                Get Your Music<br>
+                <span class="title-accent">Heard Worldwide</span>
+            </h1>
+            <p class="hero-subtitle">
+                Distribute your music to 150+ streaming platforms, keep 100% of your royalties, and grow your fanbase with powerful analytics and promotion tools.
+            </p>
+            <div class="hero-buttons">
+                <a href="index.html" class="btn-primary">Get Started</a>
+                <a href="pricing.html" class="btn-secondary">View Pricing</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat-item">
+                    <span class="hero-stat-value">150+</span>
+                    <span class="hero-stat-label">Platforms</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-value">100%</span>
+                    <span class="hero-stat-label">Royalties</span>
+                </div>
+                <div class="hero-stat-item">
+                    <span class="hero-stat-value">10K+</span>
+                    <span class="hero-stat-label">Artists</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual animate-in">
+            <div class="hero-visual-card">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+
+                <!-- Floating Badge: Streams -->
+                <div class="floating-badge top-right">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="badge-text">
+                        <span class="badge-value">230K+</span>
+                        <span class="badge-label">Streams</span>
+                    </div>
+                </div>
+
+                <!-- Floating Badge: Revenue -->
+                <div class="floating-badge bottom-left">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="badge-text">
+                        <span class="badge-value">$219</span>
+                        <span class="badge-label">Revenue</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ PLATFORM STRIP ═══════ -->
+    <div class="platform-strip animate-in">
+        <div class="platform-strip-inner">
+            <span class="platform-logo">Spotify</span>
+            <span class="platform-logo">Apple Music</span>
+            <span class="platform-logo">YouTube Music</span>
+            <span class="platform-logo">Amazon Music</span>
+            <span class="platform-logo">Tidal</span>
+            <span class="platform-logo">Deezer</span>
+            <span class="platform-logo">Instagram</span>
+            <span class="platform-logo">JioSaavn</span>
+        </div>
+    </div>
+
+    <!-- ═══════ FEATURES SECTION ═══════ -->
+    <section class="section animate-in">
+        <p class="section-label">Why TuneFry</p>
+        <h2 class="section-heading">Everything You Need to <span class="highlight">Succeed</span></h2>
+        <div class="features-grid">
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#127760;</span>
+                <h3 class="feature-title">Digital Distribution</h3>
+                <p class="feature-desc">Reach 150+ streaming platforms worldwide and get your music in front of millions of listeners across the globe.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#128176;</span>
+                <h3 class="feature-title">100% Royalties</h3>
+                <p class="feature-desc">Keep every penny you earn. No hidden fees, no commission cuts — your music, your money.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#128200;</span>
+                <h3 class="feature-title">Real-time Analytics</h3>
+                <p class="feature-desc">Track streams, revenue, and listeners live with our powerful real-time analytics dashboard.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#127911;</span>
+                <h3 class="feature-title">Playlist Pitching</h3>
+                <p class="feature-desc">Get featured on editorial playlists and boost your visibility across all major platforms.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#128737;</span>
+                <h3 class="feature-title">Content ID</h3>
+                <p class="feature-desc">Protect your music from unauthorized use with automated content identification across platforms.</p>
+            </div>
+            <div class="feature-card animate-in">
+                <span class="feature-icon">&#9854;</span>
+                <h3 class="feature-title">Lifetime Availability</h3>
+                <p class="feature-desc">Your music stays live forever. No annual renewals, no takedowns — publish once, stream eternally.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ TESTIMONIALS SECTION ═══════ -->
+    <section class="section animate-in">
+        <p class="section-label">Artists Love Us</p>
+        <h2 class="section-heading">Trusted by <span class="highlight">Thousands</span></h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate-in">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">KV</div>
+                    <div>
+                        <div class="testimonial-name">Krantiveer</div>
+                        <div class="testimonial-role">Independent Artist</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"TuneFry made distributing my music incredibly easy. Within days I was on every major platform."</p>
+            </div>
+            <div class="testimonial-card animate-in">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">GD</div>
+                    <div>
+                        <div class="testimonial-name">Gold Doz</div>
+                        <div class="testimonial-role">Hip-Hop Artist</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"The playlist pitching service alone was worth it. My streams tripled in the first month."</p>
+            </div>
+            <div class="testimonial-card animate-in">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">JS</div>
+                    <div>
+                        <div class="testimonial-name">Jerry Soni</div>
+                        <div class="testimonial-role">Singer-Songwriter</div>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"100% royalties and transparent reporting — finally a distributor that respects artists."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ CTA SECTION ═══════ -->
+    <section class="cta-section animate-in">
+        <div class="cta-inner">
+            <h2 class="cta-heading">Ready to Share Your Music with the <span class="highlight">World</span>?</h2>
+            <p class="cta-desc">Join thousands of independent artists who trust TuneFry to get their music on every major platform. No hidden fees, no contracts — just music.</p>
+            <div class="cta-buttons">
+                <a href="index.html" class="btn-primary">Start Free</a>
+                <a href="pricing.html" class="btn-secondary">View Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ FOOTER ═══════ -->
+    <footer class="pub-footer animate-in">
+        <div class="footer-top">
+            <!-- Brand Column -->
+            <div>
+                <a href="home.html" class="pub-nav-logo" style="font-size:1.4rem;">Tune<span class="fry">Fry</span></a>
+                <p class="footer-brand-desc">Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
+                <div class="footer-socials">
+                    <!-- Instagram -->
+                    <a href="#" class="footer-social-icon" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="5"/>
+                            <circle cx="17.5" cy="6.5" r="1.5" fill="#F26522" stroke="none"/>
+                        </svg>
+                    </a>
+                    <!-- Twitter / X -->
+                    <a href="#" class="footer-social-icon" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-6.8-8.5L20 4h-2l-5.2 6.3L8 4H4z"/>
+                        </svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="footer-social-icon" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="4" ry="4"/>
+                            <polygon points="10,8 16,12 10,16" fill="#F26522" stroke="none"/>
+                        </svg>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="#" class="footer-social-icon" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="footer-col-title">Quick Links</h4>
+                <div class="footer-col-links">
+                    <a href="home.html">Home</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="services.html">Artist Services</a>
+                    <a href="daily.html">TuneFry Daily</a>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div>
+                <h4 class="footer-col-title">Services</h4>
+                <div class="footer-col-links">
+                    <a href="services.html">Distribution</a>
+                    <a href="services.html">Playlist Pitching</a>
+                    <a href="services.html">Content ID</a>
+                    <a href="services.html">Caller Tune</a>
+                </div>
+            </div>
+
+            <!-- Legal -->
+            <div>
+                <h4 class="footer-col-title">Legal</h4>
+                <div class="footer-col-links">
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span class="footer-copy">&copy; 2025 TuneFry. All rights reserved.</span>
+            <a href="mailto:support@tunefry.com" class="footer-email">support@tunefry.com</a>
+        </div>
+    </footer>
+
+</div><!-- .pub-page -->
+
+<script>
+    // Intersection Observer for animate-in elements
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.animate-in').forEach(function(el) {
+            observer.observe(el);
+        });
+    });
+</script>
+</body>
+</html>
