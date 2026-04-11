@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — AI Blog Writer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <!-- ─── Sidebar ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
+      </div>
+      <div class="logo-text">Tune<span>fry</span></div>
+    </a>
+
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="nav-label">Overview</span>
+      </a>
+      <a href="stats.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span>
+        <span class="nav-label">Stats & Revenue</span>
+      </a>
+      <a href="marketplace.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        <span class="nav-label">Marketplace</span>
+      </a>
+      <div class="nav-item nav-dropdown-trigger open" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+        <span class="nav-label">Tunefry Daily</span>
+        <span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="nav-sub-menu open" id="dailySubMenu">
+        <a href="ai-blog.html" class="nav-sub-item active"><span class="nav-sub-dot"></span>Write a Blog</a>
+        <a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a>
+      </div>
+      <a href="connect.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="nav-label">Connect</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ─── Top Bar ─────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="search-box">
+      <span class="search-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Create Release</span>
+        </button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#F26522"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Song Upload</span>
+              <span class="create-dropdown-sub">Single track release</span>
+            </div>
+          </a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#3B82F6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Album Upload</span>
+              <span class="create-dropdown-sub">Multi-track project</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="user-avatar" title="Profile">V</div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ────────────────────────────────────────── -->
+  <main class="content blog-writer-page">
+
+    <div class="page-label animate-in">
+      <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      AI Tools
+    </div>
+
+    <div class="page-header animate-in animate-in-delay-1">
+      <h1 class="page-title">Blog Writer</h1>
+      <div class="page-header-actions">
+        <a href="daily.html" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Tunefry Daily
+        </a>
+      </div>
+    </div>
+
+    <!-- AI Writer Form -->
+    <div class="glass-card blog-form-card animate-in animate-in-delay-2">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+        <div style="width:40px; height:40px; border-radius:10px; background:rgba(242,101,34,0.15); border:0.5px solid rgba(242,101,34,0.3); display:flex; align-items:center; justify-content:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div style="font-family:var(--font-display); font-size:15px; font-weight:700;">AI Article Generator</div>
+          <div style="font-size:12px; color:var(--text-secondary);">Create music industry blog posts in seconds</div>
+        </div>
+        <div style="margin-left:auto; font-size:11px; color:var(--accent); background:rgba(242,101,34,0.1); border:0.5px solid rgba(242,101,34,0.2); border-radius:100px; padding:4px 10px;">Beta</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+
+        <div class="blog-form-group" style="grid-column:1/-1;">
+          <label class="blog-form-label">Article Topic *</label>
+          <input type="text" class="blog-form-input" id="blogTopic" placeholder="e.g. How to pitch your music to Spotify playlists" />
+        </div>
+
+        <div class="blog-form-group">
+          <label class="blog-form-label">Keywords (comma separated)</label>
+          <input type="text" class="blog-form-input" id="blogKeywords" placeholder="e.g. Spotify, playlist pitching, independent artists" />
+        </div>
+
+        <div class="blog-form-group">
+          <label class="blog-form-label">Article Length</label>
+          <div class="length-selector">
+            <button class="tone-btn" onclick="selectLength(this,'short')">Short</button>
+            <button class="tone-btn active" onclick="selectLength(this,'medium')">Medium</button>
+            <button class="tone-btn" onclick="selectLength(this,'long')">Long</button>
+          </div>
+          <input type="hidden" id="blogLength" value="medium">
+        </div>
+
+        <div class="blog-form-group" style="grid-column:1/-1;">
+          <label class="blog-form-label">Writing Tone</label>
+          <div class="tone-selector">
+            <button class="tone-btn active" onclick="selectTone(this,'professional')">Professional</button>
+            <button class="tone-btn" onclick="selectTone(this,'casual')">Casual</button>
+            <button class="tone-btn" onclick="selectTone(this,'inspirational')">Inspirational</button>
+            <button class="tone-btn" onclick="selectTone(this,'educational')">Educational</button>
+          </div>
+          <input type="hidden" id="blogTone" value="professional">
+        </div>
+
+      </div>
+
+      <button class="blog-generate-btn" id="generateBtn" onclick="generateArticle()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:8px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Generate Article
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="glass-card blog-output-card animate-in animate-in-delay-3" id="outputCard" style="display:none;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <div style="font-family:var(--font-display); font-size:14px; font-weight:700;">Generated Article</div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-sm btn-outline" onclick="copyArticle()" title="Copy to clipboard">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+          <button class="btn btn-sm btn-outline" onclick="clearOutput()" title="Clear">Clear</button>
+        </div>
+      </div>
+      <textarea class="blog-output-area" id="blogOutput" placeholder="Your generated article will appear here..."></textarea>
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; flex-wrap:wrap; gap:12px;">
+        <p style="font-size:11px; color:var(--text-secondary);">Review and edit the article before publishing. AI-generated content may require human review.</p>
+        <button class="blog-publish-btn" title="Backend integration required to publish">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline; margin-right:6px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Publish to Tunefry Daily
+        </button>
+      </div>
+    </div>
+
+    <!-- Article History -->
+    <div class="glass-card animate-in animate-in-delay-4" style="padding:20px; margin-top:16px;">
+      <div style="font-family:var(--font-display); font-size:14px; font-weight:700; margin-bottom:16px;">Recent Articles</div>
+      <div id="articleHistory">
+        <div class="blog-history-item">
+          <div class="blog-history-title">How to Pitch Your Music to Spotify Playlists</div>
+          <div class="blog-history-date">April 10, 2026 · Professional · Medium</div>
+        </div>
+        <div class="blog-history-item">
+          <div class="blog-history-title">Understanding Music Royalties in India</div>
+          <div class="blog-history-date">April 8, 2026 · Educational · Long</div>
+        </div>
+        <div class="blog-history-item">
+          <div class="blog-history-title">5 Tips for Independent Artists in 2026</div>
+          <div class="blog-history-date">April 5, 2026 · Inspirational · Medium</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+function toggleCreateDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('createDropdown');
+  if (dd) dd.classList.toggle('open');
+}
+document.addEventListener('click', function() {
+  var dd = document.getElementById('createDropdown');
+  if (dd) dd.classList.remove('open');
+});
+
+function toggleDailyDropdown(el) {
+  el.classList.toggle('open');
+  var menu = document.getElementById('dailySubMenu');
+  if (menu) menu.classList.toggle('open');
+}
+
+function selectTone(btn, val) {
+  document.querySelectorAll('.tone-selector .tone-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('blogTone').value = val;
+}
+
+function selectLength(btn, val) {
+  btn.closest('.length-selector').querySelectorAll('.tone-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('blogLength').value = val;
+}
+
+function generateArticle() {
+  var topic = document.getElementById('blogTopic').value.trim();
+  if (!topic) {
+    document.getElementById('blogTopic').focus();
+    document.getElementById('blogTopic').style.borderColor = 'var(--red)';
+    setTimeout(function(){ document.getElementById('blogTopic').style.borderColor = ''; }, 2000);
+    return;
+  }
+
+  var btn = document.getElementById('generateBtn');
+  btn.classList.add('loading');
+  btn.textContent = '⚡ Generating...';
+  btn.disabled = true;
+
+  var tone = document.getElementById('blogTone').value;
+  var length = document.getElementById('blogLength').value;
+  var keywords = document.getElementById('blogKeywords').value;
+
+  /* Simulate AI generation with a realistic placeholder */
+  setTimeout(function() {
+    var article = generatePlaceholderArticle(topic, tone, length, keywords);
+    document.getElementById('blogOutput').value = article;
+    document.getElementById('outputCard').style.display = 'block';
+    document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    btn.classList.remove('loading');
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-right:8px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Generate Article';
+    btn.disabled = false;
+
+    /* Add to history */
+    var hist = document.getElementById('articleHistory');
+    var item = document.createElement('div');
+    item.className = 'blog-history-item';
+    item.innerHTML = '<div class="blog-history-title">' + topic + '</div><div class="blog-history-date">Just now · ' + capitalize(tone) + ' · ' + capitalize(length) + '</div>';
+    hist.insertBefore(item, hist.firstChild);
+  }, 1800);
+}
+
+function generatePlaceholderArticle(topic, tone, length, keywords) {
+  var intro = '# ' + topic + '\n\n';
+  var toneNote = tone === 'professional' ? 'In the music industry today,' : tone === 'casual' ? 'Let\'s talk about something every artist needs to know —' : tone === 'inspirational' ? 'Every great artist starts with a dream.' : 'Understanding the music industry is essential for every creator.';
+
+  intro += toneNote + ' ' + topic.toLowerCase() + ' is one of the most important skills you can develop as an independent artist.\n\n';
+  intro += 'Whether you\'re just starting out or already have releases on major platforms, knowing how to navigate this aspect of the music business can make a significant difference in your career.\n\n';
+
+  var body = '## Why This Matters\n\nThe music industry has evolved dramatically over the past decade. With streaming platforms now dominating how music is consumed, independent artists have more opportunities than ever — but also more competition.\n\n';
+  body += '## Getting Started\n\nHere are the key steps every artist should follow:\n\n';
+  body += '**1. Build Your Foundation**\nBefore anything else, ensure your music is professionally produced and your artist profile is complete on all major platforms.\n\n';
+  body += '**2. Understand the Process**\nTake time to learn the specifics of ' + topic.toLowerCase() + '. Research, connect with other artists, and seek guidance from industry experts.\n\n';
+  body += '**3. Take Action Consistently**\nSuccess in music doesn\'t happen overnight. Consistent effort, strategic planning, and genuine artistic expression are the keys to long-term growth.\n\n';
+
+  if (length === 'long') {
+    body += '## Advanced Strategies\n\nOnce you have the basics down, consider these advanced approaches:\n\n';
+    body += '- Leverage data analytics to understand your audience\n- Collaborate with other artists in complementary genres\n- Build a direct relationship with your fans through social media\n- Explore sync licensing opportunities for additional revenue\n\n';
+    body += '## Common Mistakes to Avoid\n\nMany artists make these mistakes — learn from them:\n\n';
+    body += '1. Rushing the release without proper planning\n2. Ignoring the importance of metadata and artwork\n3. Neglecting to register with performing rights organizations\n4. Underestimating the value of playlisting and radio promotion\n\n';
+  }
+
+  var conclusion = '## Final Thoughts\n\n';
+  if (tone === 'inspirational') {
+    conclusion += 'Remember, every successful artist was once where you are now. The journey is the destination. Keep creating, keep sharing, and trust the process.\n\n';
+  } else {
+    conclusion += 'By following these guidelines and staying consistent, you\'ll be well on your way to achieving your goals as an independent artist. The music industry rewards those who are prepared and persistent.\n\n';
+  }
+
+  if (keywords) {
+    conclusion += '*Keywords: ' + keywords + '*\n';
+  }
+  conclusion += '\n---\n*Published on Tunefry Daily — India\'s Music Industry Blog*';
+
+  return intro + body + conclusion;
+}
+
+function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function copyArticle() {
+  var text = document.getElementById('blogOutput').value;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { alert('Article copied to clipboard!'); });
+  } else {
+    document.getElementById('blogOutput').select();
+    document.execCommand('copy');
+    alert('Article copied to clipboard!');
+  }
+}
+
+function clearOutput() {
+  document.getElementById('blogOutput').value = '';
+  document.getElementById('outputCard').style.display = 'none';
+}
+
+/* Animation */
+(function(){
+  var els = document.querySelectorAll('.animate-in, .animate-in-delay-1, .animate-in-delay-2, .animate-in-delay-3, .animate-in-delay-4');
+  els.forEach(function(el, i){ el.style.animationDelay = (i * 0.1) + 's'; });
+})();
+</script>
+
+</body>
+</html>

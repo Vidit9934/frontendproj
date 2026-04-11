@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TuneFry Daily - Music Industry Insights</title>
+<title>Tunefry Daily - Music Industry Insights</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -188,7 +188,7 @@ color:var(--t3);
 
 /* ===== FEATURED CARD ===== */
 .feat{
-position:relative;height:420px;border-radius:14px;overflow:hidden;
+position:relative;height:260px;border-radius:14px;overflow:hidden;
 border:0.5px solid var(--bd);
 margin-bottom:44px;
 cursor:pointer;
@@ -196,6 +196,7 @@ cursor:pointer;
 .feat:hover .feat-img{transform:scale(1.03)}
 .feat-img{
 position:absolute;inset:0;
+max-height:260px;overflow:hidden;
 transition:transform .6s cubic-bezier(.23,1,.32,1);
 }
 .feat-img img{width:100%;height:100%;object-fit:cover}
@@ -210,7 +211,7 @@ color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;
 }
 .feat-body{
 position:absolute;bottom:0;left:0;right:0;
-padding:32px 36px;
+padding:20px 28px;
 }
 .tag{
 display:inline-block;
@@ -435,7 +436,7 @@ border-bottom:0.5px solid var(--bd);
   .main{padding:28px 0 0}
   .aside{border-left:none;border-top:0.5px solid var(--bd);padding:28px 0 0;margin-top:36px}
   .card-grid{grid-template-columns:1fr}
-  .feat{height:320px}
+  .feat{height:240px}
   .feat-title{font-size:17px}
   .row-card{flex-direction:column}
   .row-card-img{width:100%;min-height:160px}
@@ -452,17 +453,17 @@ border-bottom:0.5px solid var(--bd);
 <nav class="nav" id="nav">
   <a href="home.html" class="nav-logo">
     <div class="logo-sq">T</div>
-    <div class="logo-txt">Tune<b>Fry</b></div>
+    <div class="logo-txt">Tune<b>fry</b></div>
   </a>
   <div class="nav-ctr">
     <a href="home.html">Home</a>
-    <a href="daily.html" class="on">TuneFry Daily</a>
+    <a href="daily.html" class="on">Tunefry Daily</a>
     <a href="services.html">Artist Services</a>
     <a href="pricing.html">Pricing</a>
-    <a href="#" onclick="alert('Kindly login'); return false;" class="nav-refer">Refer &amp; Earn</a>
+    <a href="refer-earn.html" class="nav-refer">Refer &amp; Earn</a>
   </div>
   <div class="nav-rt">
-    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="login.html" class="btn-ghost">Log in</a>
     <a href="index.html" class="btn-or">Start Distributing</a>
   </div>
   <div class="nav-ham" id="ham">
@@ -471,12 +472,12 @@ border-bottom:0.5px solid var(--bd);
 </nav>
 <div class="mobile-menu" id="mobMenu">
   <a href="home.html">Home</a>
-  <a href="daily.html" class="on">TuneFry Daily</a>
+  <a href="daily.html" class="on">Tunefry Daily</a>
   <a href="services.html">Artist Services</a>
   <a href="pricing.html">Pricing</a>
-  <a href="#" onclick="alert('Kindly login'); return false;" style="color:var(--or)">Refer &amp; Earn</a>
+  <a href="refer-earn.html" style="color:var(--or)">Refer &amp; Earn</a>
   <div class="mob-btns">
-    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="login.html" class="btn-ghost">Log in</a>
     <a href="index.html" class="btn-or">Start Distributing</a>
   </div>
 </div>
@@ -509,6 +510,7 @@ border-bottom:0.5px solid var(--bd);
       <div class="tab on" data-filter="all">All <span class="tab-ct">15</span></div>
       <div class="tab" data-filter="tunefry-daily">Tunefry Daily <span class="tab-ct">7</span></div>
       <div class="tab" data-filter="guides">Guides <span class="tab-ct">1</span></div>
+      <button class="tab" data-tab="artist-blog" onclick="window.location.href='ai-blog.html'">Artist Blog</button>
       <div class="tab" data-filter="new-release">New Release <span class="tab-ct">6</span></div>
       <div class="tab" data-filter="events">Events <span class="tab-ct">1</span></div>
     </div>
@@ -545,7 +547,7 @@ border-bottom:0.5px solid var(--bd);
           </div>
           <div class="card-title">The Beginner's Roadmap to Playlist Pitching Through an Indian Music Distribution Platform</div>
           <div class="card-foot">
-            <span class="card-author">TuneFry Team</span>
+            <span class="card-author">Tunefry Team</span>
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
@@ -562,7 +564,7 @@ border-bottom:0.5px solid var(--bd);
           </div>
           <div class="card-title">The Truth About Unlimited Upload Plans When You Distribute Music Online</div>
           <div class="card-foot">
-            <span class="card-author">TuneFry Team</span>
+            <span class="card-author">Tunefry Team</span>
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
@@ -579,7 +581,7 @@ border-bottom:0.5px solid var(--bd);
           </div>
           <div class="card-title">Chote Se Bada &mdash; Out Soon</div>
           <div class="card-foot">
-            <span class="card-author">TuneFry Team</span>
+            <span class="card-author">Tunefry Team</span>
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
@@ -749,7 +751,7 @@ border-bottom:0.5px solid var(--bd);
       <div>
         <a href="home.html" class="logo">
           <div class="logo-box">T</div>
-          <span>Tune<b>Fry</b></span>
+          <span>Tune<b>fry</b></span>
         </a>
         <p class="footer-brand-desc">Empowering independent artists with the tools, distribution, and insights they need to build sustainable music careers.</p>
         <div class="footer-socials">
@@ -774,7 +776,7 @@ border-bottom:0.5px solid var(--bd);
           <li><a href="home.html">Home</a></li>
           <li><a href="pricing.html">Pricing</a></li>
           <li><a href="services.html">Artist Services</a></li>
-          <li><a href="daily.html">TuneFry Daily</a></li>
+          <li><a href="daily.html">Tunefry Daily</a></li>
         </ul>
       </div>
       <!-- Services -->

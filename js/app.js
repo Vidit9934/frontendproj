@@ -326,4 +326,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Restore body opacity on load ────────────────────────────
   document.body.style.opacity = '1';
   document.body.style.transition = 'opacity 0.3s ease';
+
+  // ── Tunefry Daily nav dropdown ───────────────────────────────
+  // Auto-open if current page is ai-blog.html or daily.html context
+  const page = window.location.pathname.split('/').pop();
+  if (page === 'ai-blog.html' || page === 'daily.html') {
+    const trigger = document.getElementById('dailyNavTrigger');
+    const menu = document.getElementById('dailySubMenu');
+    if (trigger && menu) {
+      trigger.classList.add('open');
+      menu.classList.add('open');
+    }
+  }
+});
+
+// ── Toggle Tunefry Daily sidebar dropdown ───────────────────────
+function toggleDailyDropdown(el) {
+  el.classList.toggle('open');
+  const menu = document.getElementById('dailySubMenu');
+  if (menu) menu.classList.toggle('open');
+}
+
+// ── Create Release topbar dropdown ──────────────────────────────
+function toggleCreateDropdown(e) {
+  e.stopPropagation();
+  const dd = document.getElementById('createDropdown');
+  if (!dd) return;
+  dd.classList.toggle('open');
+}
+document.addEventListener('click', function() {
+  const dd = document.getElementById('createDropdown');
+  if (dd) dd.classList.remove('open');
 });

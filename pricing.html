@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Pricing — TuneFry</title>
+<title>Pricing — Tunefry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -156,31 +156,11 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 .hero h1 em{font-style:normal;color:var(--or)}
 .hero .sub{font-size:15px;color:var(--t2);max-width:520px;margin:0 auto 36px;line-height:1.7}
 
-/* Billing toggle */
-.toggle-row{display:inline-flex;align-items:center;gap:12px}
-.toggle-track{
-  position:relative;width:44px;height:24px;border-radius:12px;
-  background:var(--s3);border:.5px solid var(--bd2);
-  cursor:pointer;transition:background .3s,border-color .3s;
-  flex-shrink:0;
-}
-.toggle-track .knob{
-  position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;
-  background:var(--t2);transition:transform .3s var(--ease),background .3s;
-}
-.toggle-track.on{background:var(--or);border-color:var(--or)}
-.toggle-track.on .knob{transform:translateX(20px);background:#fff}
-.toggle-lbl{font-size:13px;color:var(--t2);font-weight:400}
-.best-badge{
-  font-size:10.5px;font-weight:500;color:var(--gr);
-  padding:3px 10px;border-radius:100px;
-  background:var(--gr-d);border:.5px solid var(--gr-b);
-}
 
 /* ================================================================
    PLANS SECTION — HORIZONTAL CAROUSEL
    ================================================================ */
-.plans-sec{padding:68px 0 72px;border-bottom:.5px solid var(--bd);overflow:hidden}
+.plans-sec{padding:68px 0 72px;border-bottom:.5px solid var(--bd);overflow:visible}
 .plans-sec-head{max-width:1280px;margin:0 auto 40px;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
 .carousel-arrows{display:flex;gap:8px}
 .carr-btn{
@@ -201,6 +181,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
+  padding-top:16px;
   padding-bottom:12px;
   cursor:grab;
 }
@@ -212,30 +193,60 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 
 /* Plan card */
 .plan{
-  background:var(--s1);border:.5px solid var(--bd);border-radius:14px;
+  background: linear-gradient(165deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border:.5px solid rgba(255,255,255,0.12);
+  border-radius:16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 0 0 0.5px rgba(255,255,255,0.04);
   padding:28px 22px 24px;display:flex;flex-direction:column;
   transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;
   position:relative;
+  overflow:visible;
   flex:0 0 260px;
   scroll-snap-align:start;
 }
-.plan:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.plan::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  border-radius:16px 16px 0 0;
+  opacity:0;transition:opacity .35s;
+}
+.plan:hover::before{opacity:1;}
+.plan:hover{
+  transform:translateY(-5px) perspective(800px) rotateX(1deg);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.18);
+}
 
 /* Popular plan */
 .plan.pop{
-  border-color:var(--or-b);
-  box-shadow:0 0 40px rgba(255,107,0,.08),0 0 80px rgba(255,107,0,.04);
+  background: linear-gradient(165deg, rgba(255,107,0,0.15) 0%, rgba(255,107,0,0.06) 40%, rgba(255,255,255,0.03) 100%);
+  border-color: rgba(255,107,0,0.4);
+  box-shadow: 0 0 60px rgba(255,107,0,.18), 0 20px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,107,0,0.2);
+  padding-top: 36px;
 }
-.plan.pop:hover{box-shadow:0 0 50px rgba(255,107,0,.14),0 0 100px rgba(255,107,0,.06)}
+.plan.pop::before{
+  background:linear-gradient(90deg, transparent, rgba(255,107,0,0.7), transparent);
+  opacity:1;
+}
+.plan.pop:hover{
+  box-shadow: 0 0 80px rgba(255,107,0,.25), 0 30px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,107,0,0.25);
+  border-color: rgba(255,107,0,0.5);
+}
 .pop-badge{
-  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
-  font-size:10.5px;font-weight:500;color:#fff;padding:4px 14px;
-  border-radius:100px;background:var(--or);
-  box-shadow:0 4px 16px rgba(255,107,0,.3);
-  white-space:nowrap;letter-spacing:.3px;
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  font-size:10.5px;font-weight:600;color:#fff;padding:5px 16px;
+  border-radius:100px;background:linear-gradient(90deg, var(--or), #ff8a40);
+  box-shadow:0 4px 20px rgba(255,107,0,.45);
+  white-space:nowrap;letter-spacing:.5px;
+  z-index:2;
 }
 
-.plan-icon{font-size:26px;margin-bottom:14px}
+.plan-icon{width:40px;height:40px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);}
+.plan-icon svg{width:22px;height:22px;stroke:rgba(255,255,255,0.7);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.plan.pop .plan-icon{background:rgba(255,107,0,0.15);border-color:rgba(255,107,0,0.3);}
+.plan.pop .plan-icon svg{stroke:var(--or);}
 .plan-name{font-family:var(--font-d);font-size:16px;font-weight:700;margin-bottom:4px}
 .plan-tag{font-size:12.5px;color:var(--t3);margin-bottom:18px;line-height:1.5}
 
@@ -473,7 +484,6 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 
 @media(max-width:500px){
   .plan{flex:0 0 200px}
-  .toggle-row{flex-wrap:wrap;justify-content:center}
 }
 </style>
 </head>
@@ -485,19 +495,19 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 <nav class="nav" id="nav">
   <a href="home.html" class="nav-logo">
     <div class="logo-sq">T</div>
-    <div class="logo-txt">Tune<b>Fry</b></div>
+    <div class="logo-txt"><b>Tune</b>fry</div>
   </a>
 
   <div class="nav-ctr">
     <a href="home.html">Home</a>
-    <a href="daily.html">TuneFry Daily</a>
+    <a href="daily.html">Tunefry Daily</a>
     <a href="services.html">Artist Services</a>
     <a href="pricing.html" class="act">Pricing</a>
-    <a href="#" onclick="alert('Kindly login'); return false;" class="nav-refer">Refer &amp; Earn</a>
+    <a href="refer-earn.html" class="nav-refer">Refer &amp; Earn</a>
   </div>
 
   <div class="nav-rt">
-    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="login.html" class="btn-ghost">Log in</a>
     <a href="index.html" class="btn-or">Start Distributing</a>
   </div>
 
@@ -509,12 +519,12 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 <!-- Mobile menu -->
 <div class="mob-menu" id="mobMenu">
   <a href="home.html">Home</a>
-  <a href="daily.html">TuneFry Daily</a>
+  <a href="daily.html">Tunefry Daily</a>
   <a href="services.html">Artist Services</a>
   <a href="pricing.html" class="act">Pricing</a>
-  <a href="#" onclick="alert('Kindly login'); return false;" style="color:var(--or)">Refer &amp; Earn</a>
+  <a href="refer-earn.html" style="color:var(--or)">Refer &amp; Earn</a>
   <div class="mob-btns">
-    <a href="index.html" class="btn-ghost">Log in</a>
+    <a href="login.html" class="btn-ghost">Log in</a>
     <a href="index.html" class="btn-or" style="text-align:center">Start Distributing</a>
   </div>
 </div>
@@ -527,15 +537,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 
   <h1 class="au au-d1">Choose your <em>plan</em></h1>
 
-  <p class="sub au au-d2">One flat fee. Zero commission. Keep every rupee your music earns &mdash; forever.</p>
-
-  <div class="toggle-row au au-d3">
-    <div class="toggle-track" id="billingToggle" onclick="toggleBilling()">
-      <div class="knob"></div>
-    </div>
-    <span class="toggle-lbl">Annual billing</span>
-    <span class="best-badge">Best value</span>
-  </div>
+  <p class="sub au au-d2">Simple and flexible pricing for every artist.</p>
 </section>
 
 <!-- ================================================================
@@ -555,13 +557,26 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   </div>
 </div>
 
+<div style="max-width:1280px; margin:0 auto 28px; padding:0 40px;">
+  <div style="background:linear-gradient(135deg, rgba(255,107,0,0.12) 0%, rgba(255,107,0,0.06) 100%); border:0.5px solid rgba(255,107,0,0.3); border-radius:14px; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="font-size:24px;">🎉</div>
+      <div>
+        <div style="font-family:var(--font-d); font-size:15px; font-weight:700; color:var(--or);">4th Year Anniversary Special — Flat 10% Off All Plans!</div>
+        <div style="font-size:12.5px; color:var(--t2); margin-top:2px;">Discount automatically applied at checkout. Limited time offer.</div>
+      </div>
+    </div>
+    <div style="font-family:var(--font-d); font-size:20px; font-weight:800; color:var(--or); background:rgba(255,107,0,0.15); padding:8px 20px; border-radius:10px; white-space:nowrap;">10% OFF</div>
+  </div>
+</div>
+
 <div class="plans-track-wrap">
 <div class="plans-grid" id="plansGrid">
 
   <!-- FREE -->
   <div class="plan au">
-    <div class="plan-icon">&#127925;</div>
-    <div class="plan-name">Free</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+    <div class="plan-name">Free <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="Free forever plan with 75% royalties">i</span></div>
     <div class="plan-tag">Get started at zero cost</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
@@ -580,17 +595,18 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li>
     </ul>
     <a href="index.html" class="plan-cta out">Get Started Free</a>
-    <div class="plan-info">72 hrs approval &middot; Live within 7 days</div>
+    <div class="plan-info">72 working hrs approval &middot; Live within 10 working days*</div>
   </div>
 
   <!-- SINGLE SONG -->
   <div class="plan au au-d1">
-    <div class="plan-icon">&#127926;</div>
-    <div class="plan-name">Single Song</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3z"/><path d="M3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></div>
+    <div class="plan-name">Single Song <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="One-time payment for a single song release with 85% royalties">i</span></div>
     <div class="plan-tag">Perfect for one release</div>
+    <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;299</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
-      <span class="price-val">299</span>
+      <span class="price-val">269</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per song</div>
     <div class="royalty or">&#9733; 85% royalties</div>
@@ -606,17 +622,19 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Urgent releases</li>
     </ul>
     <a href="index.html" class="plan-cta out">Choose Plan</a>
-    <div class="plan-info">48 hrs approval &middot; Live within 4 days</div>
+    <div class="plan-info">48 working hrs approval &middot; Live within 4 working days*</div>
   </div>
 
   <!-- STARTER -->
   <div class="plan au au-d2">
-    <div class="plan-icon">&#127897;&#65039;</div>
-    <div class="plan-name">Starter</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+    <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(45,202,114,0.12); border:0.5px solid rgba(45,202,114,0.3); border-radius:100px; padding:4px 12px; font-size:10.5px; font-weight:600; color:#2DCA72; margin-bottom:8px; width:fit-content;">✦ Newly Added</div>
+    <div class="plan-name">Starter <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="Annual plan with unlimited releases and 90% royalties">i</span></div>
     <div class="plan-tag">More releases, growing control</div>
+    <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;999</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
-      <span class="price-val">999</span>
+      <span class="price-val">899</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
     <div class="royalty or">&#9733; 90% royalties</div>
@@ -632,21 +650,22 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
       <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>No Official Artist Channel</li>
       <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>No playlist pitching</li>
-      <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>3-day support response</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>3-day support response</li>
     </ul>
     <a href="index.html" class="plan-cta out">Choose Plan</a>
-    <div class="plan-info">48 hrs approval &middot; Live within 4 days</div>
+    <div class="plan-info">48 working hrs approval &middot; Live within 4 working days*</div>
   </div>
 
   <!-- SINGLE ARTIST (POPULAR) -->
   <div class="plan pop au au-d3">
     <div class="pop-badge">Most Popular</div>
-    <div class="plan-icon">&#11088;</div>
-    <div class="plan-name">Single Artist</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 013 3v7a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+    <div class="plan-name">Single Artist <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="Best for serious independent artists — 100% royalties, unlimited releases">i</span></div>
     <div class="plan-tag">For serious independent artists</div>
+    <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;1,599</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
-      <span class="price-val">1,599</span>
+      <span class="price-val">1,439</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
     <div class="royalty gr">&#10003; 100% royalties</div>
@@ -664,23 +683,25 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
     </ul>
     <a href="index.html" class="plan-cta solid">Start Distributing</a>
-    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+    <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
   <!-- DOUBLE ARTIST -->
   <div class="plan au au-d3">
-    <div class="plan-icon">&#128101;</div>
-    <div class="plan-name">Double Artist</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+    <div class="plan-name">Double Artist <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="For duos and collaborators — covers 2 artists with 100% royalties">i</span></div>
     <div class="plan-tag">For duos &amp; collaborators</div>
+    <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;2,999</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
-      <span class="price-val">2,999</span>
+      <span class="price-val">2,699</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; 2 artists</div>
     <div class="royalty gr">&#10003; 100% royalties</div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instagram account linking</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (2 artists)</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
@@ -692,24 +713,26 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
     </ul>
     <a href="index.html" class="plan-cta out">Choose Plan</a>
-    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+    <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
   <!-- LABEL PLAN -->
   <div class="plan au au-d4">
-    <div class="plan-icon">&#127991;&#65039;</div>
-    <div class="plan-name">Label Plan</div>
+    <div class="plan-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg></div>
+    <div class="plan-name">Label Plan <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="For record labels — minimum 5 artists, unlimited max, 100% royalties">i</span></div>
     <div class="plan-tag">Scale your roster</div>
+    <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;7,000</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
-      <span class="price-val">7,000</span>
+      <span class="price-val">6,300</span>
     </div>
-    <div class="price-per" style="margin-bottom:12px">per year &middot; up to 5 artists</div>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; min. 5 artists, unlimited max</div>
     <div class="royalty gr">&#10003; 100% royalties</div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
-      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (5 artists)</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instagram account linking</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (min. 5 artists)</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Playlist &amp; radio pitching</li>
@@ -720,7 +743,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Priority mail / call / WhatsApp</li>
     </ul>
     <a href="index.html" class="plan-cta out">Choose Plan</a>
-    <div class="plan-info">24 hrs approval &middot; Live within 48 hrs</div>
+    <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
 </div>
@@ -731,8 +754,8 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
      COMPARISON TABLE
      ================================================================ -->
 <section class="compare-sec">
-  <div class="eyebrow au">Why TuneFry wins</div>
-  <h2 class="au au-d1">TuneFry vs. everyone else</h2>
+  <div class="eyebrow au">Why Tunefry wins</div>
+  <h2 class="au au-d1">Tunefry vs. everyone else</h2>
   <p class="sub au au-d2">See how we stack up against other distributors</p>
 
   <div class="cmp-wrap au au-d3">
@@ -740,7 +763,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <thead>
         <tr>
           <th>Feature</th>
-          <th class="hl">TuneFry</th>
+          <th class="hl">Tunefry</th>
           <th>Others</th>
         </tr>
       </thead>
@@ -803,10 +826,10 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 
     <div class="faq-item au" onclick="toggleFaq(this)">
       <div class="faq-q">
-        <span>What is TuneFry?</span>
+        <span>What is Tunefry?</span>
         <div class="faq-icon">+</div>
       </div>
-      <div class="faq-a"><p>TuneFry is India's fastest-growing music distribution platform. We help independent artists and labels distribute their music to 100+ streaming services worldwide, including Spotify, Apple Music, JioSaavn, Wynk, and more &mdash; all while letting you keep the maximum share of your royalties.</p></div>
+      <div class="faq-a"><p>Tunefry is India's fastest-growing music distribution platform. We help independent artists and labels distribute their music to 100+ streaming services worldwide, including Spotify, Apple Music, JioSaavn, Wynk, and more &mdash; all while letting you keep the maximum share of your royalties.</p></div>
     </div>
 
     <div class="faq-item au au-d1" onclick="toggleFaq(this)">
@@ -838,7 +861,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
         <span>What is the Label Plan?</span>
         <div class="faq-icon">+</div>
       </div>
-      <div class="faq-a"><p>The Label Plan is designed for record labels and managers handling multiple artists. It covers up to 5 artist profiles with unlimited releases each, a custom label name, and all premium features including Content ID, YouTube OAC, and priority support.</p></div>
+      <div class="faq-a"><p>The Label Plan is designed for record labels and managers handling multiple artists. It covers a minimum of 5 artist profiles (with unlimited max) with unlimited releases each, a custom label name, and all premium features including Content ID, YouTube OAC, and priority support.</p></div>
     </div>
 
     <div class="faq-item au au-d5" onclick="toggleFaq(this)">
@@ -891,7 +914,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="logo-txt">Tune<b>Fry</b></div>
+      <div class="logo-txt"><b>Tune</b>fry</div>
       <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
       <div class="footer-socials">
         <a href="#" aria-label="Instagram">
@@ -913,7 +936,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
       <a href="home.html">Home</a>
       <a href="pricing.html">Pricing</a>
       <a href="services.html">Artist Services</a>
-      <a href="daily.html">TuneFry Daily</a>
+      <a href="daily.html">Tunefry Daily</a>
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
@@ -996,11 +1019,6 @@ function toggleFaq(el){
   if(!wasOpen) el.classList.add('open');
 }
 
-/* Billing toggle */
-function toggleBilling(){
-  var track=document.getElementById('billingToggle');
-  track.classList.toggle('on');
-}
 </script>
 
 </body>

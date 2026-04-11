@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TuneFry — Connect</title>
+  <title>Tunefry — Connect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <div class="logo-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12V8l6 4-6 4v-4z"/></svg>
       </div>
-      <div class="logo-text">Tune<span>Fry</span></div>
+      <div class="logo-text">Tune<span>fry</span></div>
     </a>
 
     <nav class="sidebar-nav">
@@ -35,10 +35,15 @@
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
         <span class="nav-label">Marketplace</span>
       </a>
-      <a href="daily.html" class="nav-item">
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)">
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
-        <span class="nav-label">TuneFry Daily</span>
-      </a>
+        <span class="nav-label">Tunefry Daily</span>
+        <span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="nav-sub-menu" id="dailySubMenu">
+        <a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a>
+        <a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a>
+      </div>
       <a href="connect.html" class="nav-item active">
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
         <span class="nav-label">Connect</span>
@@ -59,10 +64,33 @@
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         <span class="notif-dot"></span>
       </button>
-      <button class="btn-create">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span>Create Release</span>
-      </button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Create Release</span>
+        </button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#F26522"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Song Upload</span>
+              <span class="create-dropdown-sub">Single track release</span>
+            </div>
+          </a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#3B82F6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Album Upload</span>
+              <span class="create-dropdown-sub">Multi-track project</span>
+            </div>
+          </a>
+        </div>
+      </div>
       <div class="user-avatar" title="Profile">V</div>
     </div>
   </header>
@@ -82,6 +110,104 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add Connection
         </button>
+      </div>
+    </div>
+
+    <!-- Tunefry Socials -->
+    <div class="tunefry-socials-section animate-in animate-in-delay-2">
+      <div class="section-header" style="margin-bottom:16px;">
+        <div>
+          <div class="section-title">Follow Tunefry</div>
+          <div class="section-subtitle">Stay connected with us on social media</div>
+        </div>
+      </div>
+
+      <div class="social-platform-grid">
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/tunefry" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(193,53,132,0.08), rgba(255,107,0,0.06), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(193,53,132,0.15); border:0.5px solid rgba(193,53,132,0.3);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C13584" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">Instagram</div>
+              <div class="social-platform-handle">@tunefry</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:linear-gradient(135deg,#C13584,#E1306C);">Follow</button>
+        </a>
+
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@tunefry" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(255,0,0,0.08), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(255,0,0,0.12); border:0.5px solid rgba(255,0,0,0.25);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">YouTube</div>
+              <div class="social-platform-handle">Tunefry Official</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:#FF0000;">Subscribe</button>
+        </a>
+
+        <!-- Twitter/X -->
+        <a href="https://www.twitter.com/tunefry" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(29,161,242,0.08), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(29,161,242,0.12); border:0.5px solid rgba(29,161,242,0.25);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#1DA1F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">Twitter / X</div>
+              <div class="social-platform-handle">@tunefry</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:#1DA1F2;">Follow</button>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/tunefry" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(24,119,242,0.08), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(24,119,242,0.12); border:0.5px solid rgba(24,119,242,0.25);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">Facebook</div>
+              <div class="social-platform-handle">Tunefry</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:#1877F2;">Like Page</button>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/tunefry" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(10,102,194,0.08), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(10,102,194,0.12); border:0.5px solid rgba(10,102,194,0.25);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0A66C2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">LinkedIn</div>
+              <div class="social-platform-handle">Tunefry Artist Services Pvt. Ltd.</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:#0A66C2;">Follow</button>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/message/TUNEFRY_WHATSAPP_LINK" target="_blank" rel="noopener" class="glass-card social-platform-card" style="text-decoration:none; background:linear-gradient(135deg, rgba(37,211,102,0.08), rgba(255,255,255,0.02));">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="social-platform-icon" style="background:rgba(37,211,102,0.12); border:0.5px solid rgba(37,211,102,0.25);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            </div>
+            <div>
+              <div class="social-platform-name">WhatsApp</div>
+              <div class="social-platform-handle">Business Support</div>
+            </div>
+          </div>
+          <button class="social-follow-btn" style="background:#25D366;">Message</button>
+        </a>
+
       </div>
     </div>
 
@@ -283,7 +409,7 @@
         </div>
         <div style="flex: 1;">
           <div style="font-weight: 600; font-size: 14px;">Spotify for Artists linked successfully</div>
-          <div style="font-size: 12px; color: var(--text-secondary);">Your artist profile is now synced with TuneFry</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Your artist profile is now synced with Tunefry</div>
         </div>
         <div style="font-size: 12px; color: var(--text-muted);">2 hours ago</div>
       </div>

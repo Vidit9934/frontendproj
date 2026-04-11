@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — Tunefry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#090807; --s1:#111009; --s2:#161410;
+  --t1:#fff; --t2:rgba(255,255,255,0.62); --t3:rgba(255,255,255,0.38);
+  --or:#FF6B00; --or-d:rgba(255,107,0,0.12); --or-b:rgba(255,107,0,0.28);
+  --bd:rgba(255,255,255,0.08); --bd2:rgba(255,255,255,0.13);
+  --green:#22C55E; --red:#EF4444;
+  --font-d:'Syne',sans-serif; --font-b:'DM Sans',sans-serif;
+}
+body{
+  font-family:var(--font-b); background:var(--bg); color:var(--t1);
+  min-height:100vh; display:flex; flex-direction:column;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 70% 0%, rgba(255,107,0,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(168,85,247,0.05) 0%, transparent 55%);
+}
+a{text-decoration:none;color:inherit}
+
+/* ── Top nav strip ── */
+.top-nav{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 40px; flex-shrink:0;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.logo-sq{width:34px;height:34px;border-radius:9px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:16px;color:#fff;}
+.logo-txt{font-family:var(--font-d);font-size:1.1rem;font-weight:700;}
+.logo-txt b{color:var(--or);}
+.nav-right{font-size:13px;color:var(--t2);}
+.nav-right a{color:var(--or);font-weight:600;margin-left:6px;transition:opacity .2s;}
+.nav-right a:hover{opacity:.8;}
+
+/* ── Main layout ── */
+.main{
+  flex:1; display:grid;
+  grid-template-columns:1fr 480px 1fr;
+  align-items:center; padding:20px 40px 48px;
+}
+.card-col{grid-column:2;}
+
+/* ── Glass card ── */
+.auth-card{
+  background:linear-gradient(165deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 60%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border:0.5px solid rgba(255,255,255,0.12);
+  border-radius:22px;
+  box-shadow:0 24px 80px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+  padding:40px 40px 36px;
+}
+.auth-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--or);margin-bottom:10px;
+}
+.auth-title{font-family:var(--font-d);font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.auth-sub{font-size:13.5px;color:var(--t2);margin-bottom:32px;line-height:1.55;}
+
+/* ── Divider ── */
+.auth-divider{
+  display:flex;align-items:center;gap:12px;margin:24px 0;
+}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:0.5px;background:var(--bd);}
+.auth-divider span{font-size:11px;color:var(--t3);white-space:nowrap;}
+
+/* ── Form ── */
+.form-group{margin-bottom:16px;}
+.form-label{
+  display:block;font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.8px;
+  color:var(--t2);margin-bottom:7px;
+}
+.form-input{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,0.05);
+  border:0.5px solid rgba(255,255,255,0.10);
+  border-radius:12px;font-size:14px;color:var(--t1);
+  font-family:var(--font-b);outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.form-input:focus{border-color:rgba(255,107,0,0.55);box-shadow:0 0 0 3px rgba(255,107,0,0.1);}
+.form-input::placeholder{color:var(--t3);}
+
+/* Password wrapper */
+.pw-wrap{position:relative;}
+.pw-toggle{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:var(--t3);
+  padding:4px;transition:color .2s;
+}
+.pw-toggle:hover{color:var(--t1);}
+.pw-toggle svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Forgot */
+.forgot-row{display:flex;justify-content:flex-end;margin-top:6px;}
+.forgot-link{font-size:12px;color:var(--or);transition:opacity .2s;}
+.forgot-link:hover{opacity:.75;}
+
+/* ── Error message ── */
+.auth-error{
+  display:none;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:10px;
+  background:rgba(59,130,246,0.1);border:0.5px solid rgba(59,130,246,0.3);
+  font-size:12.5px;color:#60a5fa;margin-bottom:16px;line-height:1.5;
+}
+.auth-error.show{display:flex;}
+.auth-error svg{width:15px;height:15px;stroke:#60a5fa;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
+
+/* ── Submit button ── */
+.btn-submit{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,#FF8A50,var(--or),#CC5500);
+  color:#fff;border:none;border-radius:12px;
+  font-family:var(--font-d);font-size:15px;font-weight:800;
+  letter-spacing:.02em;cursor:pointer;
+  box-shadow:0 6px 24px rgba(255,107,0,0.38), inset 0 1px 0 rgba(255,255,255,0.18);
+  transition:opacity .2s, transform .2s, box-shadow .2s;
+  margin-top:8px;
+}
+.btn-submit:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 10px 32px rgba(255,107,0,0.45);}
+.btn-submit:active{transform:none;}
+
+/* ── Bottom link ── */
+.auth-bottom{text-align:center;margin-top:24px;font-size:13px;color:var(--t2);}
+.auth-bottom a{color:var(--or);font-weight:600;margin-left:5px;transition:opacity .2s;}
+.auth-bottom a:hover{opacity:.8;}
+
+/* ── Social proof strip ── */
+.social-proof{
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  margin-top:32px;padding-top:24px;border-top:0.5px solid var(--bd);
+  flex-wrap:wrap;
+}
+.proof-item{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.proof-val{font-family:var(--font-d);font-size:18px;font-weight:800;color:var(--or);}
+.proof-label{font-size:11px;color:var(--t3);}
+
+/* ── Footer strip ── */
+.auth-footer{
+  text-align:center;padding:16px 40px 24px;
+  font-size:12px;color:var(--t3);
+}
+.auth-footer a{color:var(--t3);margin:0 8px;transition:color .2s;}
+.auth-footer a:hover{color:var(--t1);}
+
+/* ── Responsive ── */
+@media(max-width:560px){
+  .main{grid-template-columns:1fr;padding:16px 20px 40px;}
+  .card-col{grid-column:1;}
+  .auth-card{padding:28px 22px 24px;}
+  .top-nav{padding:16px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="top-nav">
+  <a href="home.html" class="nav-logo">
+    <div class="logo-sq">T</div>
+    <div class="logo-txt">Tune<b>fry</b></div>
+  </a>
+  <div class="nav-right">
+    Don't have an account?<a href="signup.html">Sign up free</a>
+  </div>
+</nav>
+
+<!-- Main -->
+<div class="main">
+  <div class="card-col">
+    <div class="auth-card">
+
+      <div class="auth-eyebrow">Welcome Back</div>
+      <h1 class="auth-title">Log in to Tunefry</h1>
+      <p class="auth-sub">Access your dashboard, releases, and earnings.</p>
+
+      <!-- Error message (blue, not red) -->
+      <div class="auth-error" id="loginError">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="loginErrorText">Please fill in all fields.</span>
+      </div>
+
+      <form onsubmit="handleLogin(event)" novalidate>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="you@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="loginPw" class="form-input" placeholder="Enter your password" autocomplete="current-password" style="padding-right:46px;">
+            <button type="button" class="pw-toggle" onclick="togglePw('loginPw',this)" title="Show password">
+              <svg id="eyeIcon1" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="forgot-row"><a href="#" class="forgot-link">Forgot password?</a></div>
+        </div>
+
+        <button type="submit" class="btn-submit">Log In to Dashboard</button>
+
+      </form>
+
+      <div class="auth-divider"><span>New to Tunefry?</span></div>
+
+      <div class="auth-bottom" style="margin-top:0;">
+        <span style="color:var(--t2);">Create your free account</span>
+        <a href="signup.html">Sign up →</a>
+      </div>
+
+      <!-- Social proof -->
+      <div class="social-proof">
+        <div class="proof-item"><span class="proof-val">10K+</span><span class="proof-label">Artists</span></div>
+        <div style="width:0.5px;height:30px;background:var(--bd);"></div>
+        <div class="proof-item"><span class="proof-val">150+</span><span class="proof-label">Platforms</span></div>
+        <div style="width:0.5px;height:30px;background:var(--bd);"></div>
+        <div class="proof-item"><span class="proof-val">100%</span><span class="proof-label">Royalties</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="auth-footer">
+  &copy; 2026 Tunefry Artist Services Pvt. Ltd.
+  <a href="home.html">Home</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="mailto:support@tunefry.com">Support</a>
+</footer>
+
+<script>
+function handleLogin(e) {
+  e.preventDefault();
+  var email = document.getElementById('loginEmail').value.trim();
+  var pw    = document.getElementById('loginPw').value;
+  var errBox  = document.getElementById('loginError');
+  var errText = document.getElementById('loginErrorText');
+
+  if (!email || !pw) {
+    errText.textContent = 'Please enter your email and password.';
+    errBox.classList.add('show');
+    return;
+  }
+  if (!email.includes('@')) {
+    errText.textContent = 'Please enter a valid email address.';
+    errBox.classList.add('show');
+    return;
+  }
+  if (pw.length < 4) {
+    errText.textContent = 'Password is too short.';
+    errBox.classList.add('show');
+    return;
+  }
+
+  errBox.classList.remove('show');
+  // Simulate login — redirect to dashboard
+  var btn = e.target.querySelector('.btn-submit');
+  btn.textContent = 'Logging in…';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+  setTimeout(function(){ window.location.href = 'index.html'; }, 800);
+}
+
+function togglePw(id, btn) {
+  var inp = document.getElementById(id);
+  var isText = inp.type === 'text';
+  inp.type = isText ? 'password' : 'text';
+  btn.querySelector('svg').innerHTML = isText
+    ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+    : '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+}
+
+// Auto-hide error on input
+document.querySelectorAll('.form-input').forEach(function(inp){
+  inp.addEventListener('input', function(){
+    document.getElementById('loginError').classList.remove('show');
+  });
+});
+</script>
+</body>
+</html>
