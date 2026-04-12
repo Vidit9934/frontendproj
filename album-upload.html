@@ -1,716 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tunefry — Album Upload</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    /* ── Upload Page Specific ─────────────────────────────── */
-    .upload-form {
+    .upload-option-grid {
       display: flex;
-      flex-direction: column;
-      gap: 24px;
-      max-width: 900px;
-    }
-
-    /* Step progress bar */
-    .steps-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      margin-bottom: 8px;
-    }
-    .step-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-    }
-    .step-item:last-child { flex: none; }
-    .step-badge {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--font-display);
-      flex-shrink: 0;
-      transition: all 0.3s;
-    }
-    .step-badge.active {
-      background: linear-gradient(145deg, var(--accent-light), var(--accent));
-      color: #fff;
-      box-shadow: 0 0 16px rgba(242,101,34,0.4);
-    }
-    .step-badge.inactive {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      color: var(--text-muted);
-    }
-    .step-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      white-space: nowrap;
-    }
-    .step-label.active { color: var(--accent); }
-    .step-connector {
-      flex: 1;
-      height: 1px;
-      background: rgba(255,255,255,0.09);
-      margin: 0 12px;
-    }
-
-    /* Section card */
-    .section-card {
-      padding: 28px 32px;
-    }
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .section-step-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(145deg, rgba(59,130,246,0.2), rgba(59,130,246,0.08));
-      border: 1px solid rgba(59,130,246,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      font-family: var(--font-display);
-      color: #3B82F6;
-      flex-shrink: 0;
-    }
-    .section-title-wrap { display: flex; flex-direction: column; gap: 2px; }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .section-subtitle {
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-
-    /* Form grid */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 20px;
-    }
-    .form-grid.single { grid-template-columns: 1fr; }
-    .form-full { grid-column: 1 / -1; }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-    .form-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .form-label .req {
-      color: var(--accent);
-      font-size: 14px;
-      line-height: 1;
-    }
-    .form-label .opt-tag {
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.04);
-      border: 0.5px solid rgba(255,255,255,0.09);
-      border-radius: 4px;
-      padding: 1px 6px;
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
-      background: rgba(255,255,255,0.05);
-      border: 0.5px solid rgba(255,255,255,0.09);
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 13px;
-      font-family: var(--font-body);
-      font-weight: 500;
-      color: var(--text-primary);
-      width: 100%;
-      box-sizing: border-box;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    .form-input::placeholder,
-    .form-textarea::placeholder { color: var(--text-muted); }
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-      border-color: rgba(59,130,246,0.45);
-      background: rgba(255,255,255,0.07);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.08), 0 2px 8px rgba(0,0,0,0.3);
-    }
-    .form-select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8A8A' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-      cursor: pointer;
-    }
-    .form-select option {
-      background: #1a1512;
-      color: var(--text-primary);
-    }
-    .form-textarea {
-      resize: vertical;
-      min-height: 90px;
-      line-height: 1.6;
-    }
-
-    /* Toggle switch */
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.03);
-      border: 0.5px solid rgba(255,255,255,0.07);
-      border-radius: 10px;
-    }
-    .toggle-info { display: flex; flex-direction: column; gap: 2px; }
-    .toggle-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-    .toggle-desc { font-size: 11px; color: var(--text-muted); }
-    .toggle-switch {
-      position: relative;
-      width: 44px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.08);
-      border: 0.5px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.25s;
-    }
-    .toggle-track::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      transition: all 0.25s;
-    }
-    .toggle-switch input:checked ~ .toggle-track {
-      background: linear-gradient(145deg, var(--accent-light), var(--accent));
-      border-color: var(--accent);
-      box-shadow: 0 0 10px rgba(242,101,34,0.3);
-    }
-    .toggle-switch input:checked ~ .toggle-track::after {
-      left: 23px;
-      background: #fff;
-    }
-
-    /* Drop zone */
-    .drop-zone {
-      border: 1.5px dashed rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 32px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      background: rgba(255,255,255,0.02);
-      text-align: center;
-    }
-    .drop-zone:hover,
-    .drop-zone.dragover {
-      border-color: rgba(59,130,246,0.5);
-      background: rgba(59,130,246,0.04);
-    }
-    .drop-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-    .drop-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 4px;
-    }
-    .drop-icon svg {
-      width: 24px;
-      height: 24px;
-      stroke-width: 1.5;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .drop-label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-    .drop-sub { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
-
-    /* Cover art preview */
-    .cover-art-wrap {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto;
       align-items: stretch;
     }
-    .cover-preview {
-      width: 180px;
-      height: 180px;
-      border-radius: 12px;
-      border: 0.5px solid rgba(255,255,255,0.09);
-      background: rgba(255,255,255,0.03);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .cover-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      display: none;
-    }
-    .cover-preview-placeholder {
+    .upload-option-card {
+      flex: 1;
+      background: var(--bg-card);
+      border: 0.5px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .cover-preview-placeholder svg {
-      width: 32px;
-      height: 32px;
-      stroke: var(--text-muted);
-      fill: none;
-      stroke-width: 1.5;
-    }
-    .cover-preview-placeholder span { font-size: 11px; color: var(--text-muted); }
-
-    /* Info note */
-    .info-note {
-      display: flex;
       align-items: flex-start;
-      gap: 7px;
-      padding: 8px 12px;
-      background: rgba(255,255,255,0.03);
-      border: 0.5px solid rgba(255,255,255,0.07);
-      border-radius: 7px;
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-top: 4px;
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+      box-shadow: var(--shadow-3d);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .info-note svg {
-      width: 13px;
-      height: 13px;
-      fill: none;
-      stroke: var(--text-muted);
-      stroke-width: 2;
-      flex-shrink: 0;
-      margin-top: 1px;
+    .upload-option-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
+      border-color: var(--border-hover);
     }
-
-    /* Platform pills */
-    .platform-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .platform-pill { position: relative; }
-    .platform-pill input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
-    .platform-pill label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      background: rgba(255,255,255,0.04);
-      border: 0.5px solid rgba(255,255,255,0.09);
-      color: var(--text-secondary);
-      transition: all 0.2s;
-      user-select: none;
-    }
-    .platform-pill label:hover { border-color: rgba(255,255,255,0.2); color: var(--text-primary); }
-    .platform-pill input:checked + label {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.2);
-      color: var(--text-primary);
-    }
-    .platform-check {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.2);
+    .upload-option-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      margin-bottom: 24px;
       flex-shrink: 0;
     }
-    .platform-pill input:checked + label .platform-check {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .platform-pill input:checked + label .platform-check::after {
-      content: '';
-      width: 7px;
-      height: 5px;
-      border-left: 1.5px solid #fff;
-      border-bottom: 1.5px solid #fff;
-      transform: rotate(-45deg) translate(1px, -1px);
-      display: block;
-    }
-    .platforms-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .platforms-select-all {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      font-family: var(--font-body);
-    }
-    .platforms-select-all:hover { color: var(--accent-light); }
-
-    /* ── Track List Builder ─────────────────────────────────── */
-    .track-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .track-row {
-      display: grid;
-      grid-template-columns: 40px 1fr 1fr 140px auto auto;
-      gap: 10px;
-      align-items: center;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.03);
-      border: 0.5px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      transition: border-color 0.2s;
-    }
-    .track-row:hover { border-color: rgba(255,255,255,0.12); }
-    .track-num {
+    .upload-option-icon svg {
       width: 32px;
       height: 32px;
-      border-radius: 8px;
-      background: rgba(59,130,246,0.1);
-      border: 0.5px solid rgba(59,130,246,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--font-display);
-      color: #3B82F6;
-      flex-shrink: 0;
-    }
-    .track-input {
-      background: rgba(255,255,255,0.04);
-      border: 0.5px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 12px;
-      font-family: var(--font-body);
-      font-weight: 500;
-      color: var(--text-primary);
-      width: 100%;
-      box-sizing: border-box;
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .track-input::placeholder { color: var(--text-muted); font-size: 12px; }
-    .track-input:focus {
-      border-color: rgba(59,130,246,0.4);
-      background: rgba(255,255,255,0.06);
-    }
-    .track-upload-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 12px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      font-family: var(--font-body);
-      cursor: pointer;
-      background: rgba(59,130,246,0.08);
-      border: 0.5px solid rgba(59,130,246,0.2);
-      color: #3B82F6;
-      transition: all 0.2s;
-      position: relative;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .track-upload-btn:hover {
-      background: rgba(59,130,246,0.15);
-      border-color: rgba(59,130,246,0.4);
-    }
-    .track-upload-btn.has-file {
-      background: rgba(34,197,94,0.08);
-      border-color: rgba(34,197,94,0.3);
-      color: var(--green);
-    }
-    .track-upload-btn input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-    }
-    .track-upload-btn svg {
-      width: 13px;
-      height: 13px;
       fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      flex-shrink: 0;
-    }
-    .track-remove-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.03);
-      border: 0.5px solid rgba(255,255,255,0.07);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-    .track-remove-btn:hover:not(:disabled) {
-      background: rgba(239,68,68,0.1);
-      border-color: rgba(239,68,68,0.3);
-    }
-    .track-remove-btn:disabled {
-      opacity: 0.25;
-      cursor: not-allowed;
-    }
-    .track-remove-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: #EF4444;
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
-
-    /* Track list header + add button */
-    .track-list-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .track-count-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-    .track-count-badge span {
-      font-size: 11px;
-      background: rgba(59,130,246,0.12);
-      border: 0.5px solid rgba(59,130,246,0.25);
-      border-radius: 5px;
-      padding: 2px 8px;
-      color: #3B82F6;
-      font-weight: 700;
-    }
-    .btn-add-track {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 16px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 700;
-      font-family: var(--font-body);
-      cursor: pointer;
-      background: rgba(242,101,34,0.05);
-      border: 1px solid rgba(242,101,34,0.3);
-      color: var(--accent);
-      transition: all 0.2s;
-    }
-    .btn-add-track:hover {
-      background: rgba(242,101,34,0.1);
-      border-color: rgba(242,101,34,0.5);
-      box-shadow: 0 0 12px rgba(242,101,34,0.15);
-    }
-    .btn-add-track:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-    .btn-add-track svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-    }
-
-    /* Column labels for track row */
-    .track-cols-label {
-      display: grid;
-      grid-template-columns: 40px 1fr 1fr 140px auto auto;
-      gap: 10px;
-      margin-bottom: 6px;
-      padding: 0 16px;
-    }
-    .track-col-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* Submit area */
-    .submit-area { padding: 28px 32px; }
-    .btn-submit {
-      width: 100%;
-      padding: 16px 28px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: var(--font-display);
-      letter-spacing: 0.02em;
-      background: linear-gradient(145deg, var(--accent-light), var(--accent));
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.25s;
-      box-shadow: 0 4px 20px rgba(242,101,34,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .btn-submit:hover {
-      background: linear-gradient(145deg, #FF9A60, var(--accent-light));
-      box-shadow: 0 6px 28px rgba(242,101,34,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-    .btn-submit:active { transform: translateY(0); }
-    .btn-submit svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.5;
+      stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .submit-note {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 12px;
-      line-height: 1.5;
+    .upload-option-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
     }
-    .submit-note strong { color: var(--text-secondary); }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      background: linear-gradient(145deg, rgba(34,197,94,0.18), rgba(34,197,94,0.08));
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(34,197,94,0.35);
-      border-radius: 14px;
-      padding: 16px 20px;
+    .upload-option-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .upload-option-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 32px;
+      width: 100%;
+    }
+    .upload-pill {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       font-size: 13px;
-      font-weight: 600;
       color: var(--text-primary);
-      z-index: 9999;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      pointer-events: none;
-      max-width: 360px;
+      opacity: 0.85;
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast-icon { font-size: 22px; flex-shrink: 0; }
-    .toast-text { display: flex; flex-direction: column; gap: 2px; }
-    .toast-title { font-weight: 700; }
-    .toast-sub { font-size: 11px; font-weight: 500; color: var(--text-secondary); }
-
-    @media (max-width: 768px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .cover-art-wrap { grid-template-columns: 1fr; }
-      .cover-preview { width: 100%; height: 200px; }
-      .section-card { padding: 20px; }
-      .track-row { grid-template-columns: 36px 1fr 1fr; grid-template-rows: auto auto; gap: 8px; }
-      .track-upload-btn, .track-remove-btn { grid-column: span 1; }
-      .track-cols-label { display: none; }
-      .steps-indicator { flex-wrap: wrap; gap: 12px; }
+    .upload-pill-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.15);
+      border: 0.5px solid rgba(34, 197, 94, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .upload-pill-check svg {
+      width: 10px;
+      height: 10px;
+      stroke: var(--green);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .upload-option-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 24px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-base);
+      width: 100%;
+      margin-top: auto;
+    }
+    .upload-option-cta.orange {
+      background: linear-gradient(135deg, #ff8a50, #F26522, #D4520F);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(242,101,34,0.3);
+    }
+    .upload-option-cta.orange:hover {
+      box-shadow: 0 6px 24px rgba(242,101,34,0.45);
+      transform: translateY(-1px);
+    }
+    .upload-option-cta.blue {
+      background: linear-gradient(135deg, #60a5fa, #3B82F6, #1d4ed8);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+    }
+    .upload-option-cta.blue:hover {
+      box-shadow: 0 6px 24px rgba(59,130,246,0.45);
+      transform: translateY(-1px);
+    }
+    @media (max-width: 700px) {
+      .upload-option-grid { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-
 <div class="app no-right-panel">
 
-  <!-- ─── Sidebar ─────────────────────────────────────────────── -->
   <aside class="sidebar">
-    <a href="home.html" class="sidebar-logo">
-      <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
-    </a>
+    <a href="home.html" class="sidebar-logo"><img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;"></a>
     <nav class="sidebar-nav">
       <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
-      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats & Revenue</span></a>
+      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
       <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
@@ -718,506 +149,81 @@
     </nav>
   </aside>
 
-  <!-- ─── Top Bar ─────────────────────────────────────────────── -->
   <header class="topbar">
-    <div class="search-box">
-      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-      <input type="text" placeholder="Search catalog...">
-    </div>
+    <div class="search-box"><span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><input type="text" placeholder="Search catalog..."></div>
     <div class="topbar-actions">
-      <button class="icon-btn" title="Notifications">
-        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-        <span class="notif-dot"></span>
-      </button>
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
       <div class="create-release-wrap">
-        <button class="btn-create" onclick="toggleCreateDropdown(event)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span>Create Release</span>
-        </button>
+        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
         <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
-          <a href="song-upload.html" class="create-dropdown-item">
-            <div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-            <div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div>
-          </a>
+          <a href="song-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
           <div class="create-dropdown-divider"></div>
-          <a href="album-upload.html" class="create-dropdown-item">
-            <div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
-            <div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div>
-          </a>
+          <a href="album-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
         </div>
       </div>
-      <div class="user-avatar" title="Profile">V</div>
+      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
     </div>
   </header>
 
-  <!-- ─── Main Content ────────────────────────────────────────── -->
   <main class="content">
-
-    <div class="page-label animate-in">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-      Releases
-    </div>
-
-    <div class="page-header animate-in animate-in-delay-1">
-      <h1 class="page-title">Album Upload</h1>
-    </div>
-
-    <!-- Steps Indicator -->
-    <div class="steps-indicator animate-in animate-in-delay-2">
-      <div class="step-item">
-        <div class="step-badge active">1</div>
-        <span class="step-label active">Album Details</span>
+    <div class="page-header">
+      <div class="page-header-left">
+        <span class="page-label">Releases</span>
+        <h1 class="page-title">Album Upload</h1>
       </div>
-      <div class="step-connector"></div>
-      <div class="step-item">
-        <div class="step-badge inactive">2</div>
-        <span class="step-label">Cover Art</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-item">
-        <div class="step-badge inactive">3</div>
-        <span class="step-label">Tracks</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-item">
-        <div class="step-badge inactive">4</div>
-        <span class="step-label">Distribution</span>
+      <div class="page-header-actions">
+        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Overview</a>
+        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
       </div>
     </div>
 
-    <form class="upload-form" id="albumUploadForm" onsubmit="handleAlbumSubmit(event)" novalidate>
+    <p style="font-size:15px;color:var(--text-secondary);margin-bottom:40px;">Choose how you'd like to submit your album.</p>
 
-      <!-- ── Step 1: Album Details ──────────────────────────── -->
-      <div class="glass-card section-card animate-in animate-in-delay-3">
-        <div class="section-header">
-          <div class="section-step-num">1</div>
-          <div class="section-title-wrap">
-            <span class="section-title">Album Details</span>
-            <span class="section-subtitle">Set up the core details for your album or EP</span>
-          </div>
-        </div>
+    <div class="upload-option-grid">
 
-        <div class="form-grid">
-          <div class="form-group form-full">
-            <label class="form-label">Album Title <span class="req">*</span></label>
-            <input type="text" class="form-input" id="albumTitleInput" placeholder="e.g. Midnight Echoes" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Album Type <span class="req">*</span></label>
-            <select class="form-select" required>
-              <option value="" disabled selected>Select type</option>
-              <option>Album</option>
-              <option>EP</option>
-              <option>Mixtape</option>
-              <option>Compilation</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Primary Artist <span class="req">*</span></label>
-            <input type="text" class="form-input" id="primaryArtistInput" placeholder="e.g. Arijit Singh" required oninput="syncArtistFields(this.value)">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Featured Artists <span class="opt-tag">Optional</span></label>
-            <input type="text" class="form-input" placeholder="e.g. Shreya Ghoshal, Jubin Nautiyal">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Genre <span class="req">*</span></label>
-            <select class="form-select" required>
-              <option value="" disabled selected>Select genre</option>
-              <option>Pop</option>
-              <option>Hip-Hop/Rap</option>
-              <option>R&B/Soul</option>
-              <option>Electronic/Dance</option>
-              <option>Rock</option>
-              <option>Classical</option>
-              <option>Jazz</option>
-              <option>Folk/Country</option>
-              <option>Devotional/Bhakti</option>
-              <option>Indie</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Language <span class="req">*</span></label>
-            <select class="form-select" required>
-              <option value="" disabled selected>Select language</option>
-              <option>Hindi</option>
-              <option>English</option>
-              <option>Punjabi</option>
-              <option>Tamil</option>
-              <option>Telugu</option>
-              <option>Bengali</option>
-              <option>Marathi</option>
-              <option>Kannada</option>
-              <option>Malayalam</option>
-              <option>Other</option>
-            </select>
-          </div>
+      <!-- Card 1: New Album Submission -->
+      <div class="upload-option-card">
+        <div class="upload-option-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);">
+          <svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M3 9h18"/>
+            <path d="M9 21V9"/>
+          </svg>
         </div>
-
-        <!-- Explicit Content -->
-        <div style="margin-top: 20px;">
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <span class="toggle-title">Explicit Content</span>
-              <span class="toggle-desc">Mark this release as containing explicit lyrics or themes</span>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" id="explicitToggle">
-              <span class="toggle-track"></span>
-            </label>
-          </div>
+        <h2 class="upload-option-title">New Album Submission</h2>
+        <p class="upload-option-desc">Submit a full album or EP for distribution. Add multiple tracks, custom artwork, and set your release date.</p>
+        <div class="upload-option-pills">
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Multi-track support</div>
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Full album metadata</div>
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Up to 20 tracks</div>
         </div>
+        <a href="new-album.html" class="upload-option-cta orange">Start Album Submission →</a>
       </div>
 
-      <!-- ── Step 2: Cover Art ──────────────────────────────── -->
-      <div class="glass-card section-card animate-in animate-in-delay-4">
-        <div class="section-header">
-          <div class="section-step-num">2</div>
-          <div class="section-title-wrap">
-            <span class="section-title">Cover Art & Metadata</span>
-            <span class="section-subtitle">Upload your album artwork and set copyright details</span>
-          </div>
+      <!-- Card 2: Transfer Existing Album -->
+      <div class="upload-option-card">
+        <div class="upload-option-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);">
+          <svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 16V4m0 0L3 8m4-4l4 4"/>
+            <path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+          </svg>
         </div>
-
-        <!-- Cover Art Upload -->
-        <div class="form-group form-full" style="margin-bottom: 24px;">
-          <label class="form-label">Cover Art <span class="req">*</span></label>
-          <div class="cover-art-wrap">
-            <div class="cover-preview" id="albumCoverPreviewBox">
-              <img id="albumCoverPreviewImg" src="" alt="Album Cover Preview">
-              <div class="cover-preview-placeholder" id="albumCoverPlaceholder">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                <span>Preview</span>
-              </div>
-            </div>
-            <div class="drop-zone" id="albumCoverDropZone">
-              <input type="file" accept="image/jpeg,image/png" id="albumCoverFileInput" onchange="handleAlbumCoverPreview(event)">
-              <div class="drop-icon" style="background:rgba(59,130,246,0.1);border:0.5px solid rgba(59,130,246,0.2);">
-                <svg viewBox="0 0 24 24" stroke="#3B82F6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              </div>
-              <span class="drop-label">Drag & drop your album cover</span>
-              <span class="drop-sub">JPG or PNG — Minimum 3000 × 3000 px<br>Square format required</span>
-            </div>
-          </div>
+        <h2 class="upload-option-title">Transfer Existing Album</h2>
+        <p class="upload-option-desc">Move your existing album from DistroKid, TuneCore, CD Baby, or any other distributor to Tunefry.</p>
+        <div class="upload-option-pills">
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>All tracks transferred</div>
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Stream history preserved</div>
+          <div class="upload-pill"><div class="upload-pill-check"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Expert migration</div>
         </div>
-
-        <!-- Description -->
-        <div class="form-group form-full" style="margin-bottom: 20px;">
-          <label class="form-label">Album Description <span class="opt-tag">Optional</span></label>
-          <textarea class="form-textarea" rows="4" placeholder="Describe your album — the story behind it, themes, or a note to your listeners..."></textarea>
-        </div>
-
-        <div class="form-grid">
-          <!-- Label Name -->
-          <div class="form-group">
-            <label class="form-label">Label Name <span class="opt-tag">Optional</span></label>
-            <input type="text" class="form-input" placeholder="Leave blank to use your artist name">
-          </div>
-          <!-- UPC Code -->
-          <div class="form-group">
-            <label class="form-label">UPC Code <span class="opt-tag">Optional</span></label>
-            <input type="text" class="form-input" placeholder="Auto-generated if blank" maxlength="14">
-          </div>
-          <!-- Copyright Year -->
-          <div class="form-group">
-            <label class="form-label">Copyright Year</label>
-            <input type="number" class="form-input" id="albumCopyrightYear" min="1900" max="2100" placeholder="2026">
-          </div>
-          <!-- Copyright Holder -->
-          <div class="form-group">
-            <label class="form-label">Copyright Holder</label>
-            <input type="text" class="form-input" placeholder="e.g. Your Name / Label Name">
-          </div>
-        </div>
+        <a href="transfer-album.html" class="upload-option-cta blue">Transfer My Album →</a>
       </div>
 
-      <!-- ── Step 3: Tracks ─────────────────────────────────── -->
-      <div class="glass-card section-card animate-in animate-in-delay-5">
-        <div class="section-header">
-          <div class="section-step-num">3</div>
-          <div class="section-title-wrap">
-            <span class="section-title">Tracks</span>
-            <span class="section-subtitle">Add all tracks in order — up to 20 tracks supported</span>
-          </div>
-        </div>
+    </div>
 
-        <div class="track-list-header">
-          <div class="track-count-badge">
-            Track List <span id="trackCountBadge">2</span>
-          </div>
-          <button type="button" class="btn-add-track" id="addTrackBtn" onclick="addTrack()">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Track
-          </button>
-        </div>
-
-        <!-- Column labels -->
-        <div class="track-cols-label">
-          <div class="track-col-label">#</div>
-          <div class="track-col-label">Track Title</div>
-          <div class="track-col-label">Artist</div>
-          <div class="track-col-label">ISRC (Optional)</div>
-          <div class="track-col-label">Audio</div>
-          <div class="track-col-label"></div>
-        </div>
-
-        <div class="track-list" id="trackList">
-          <!-- Track rows injected by JS -->
-        </div>
-
-      </div>
-
-      <!-- ── Step 4: Distribution ───────────────────────────── -->
-      <div class="glass-card section-card animate-in animate-in-delay-6">
-        <div class="section-header">
-          <div class="section-step-num">4</div>
-          <div class="section-title-wrap">
-            <span class="section-title">Distribution</span>
-            <span class="section-subtitle">Choose your release date and target platforms</span>
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Release Date <span class="req">*</span></label>
-            <input type="date" class="form-input" id="albumReleaseDateInput" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Release Time</label>
-            <input type="time" class="form-input" value="00:00">
-          </div>
-        </div>
-
-        <!-- Platforms -->
-        <div class="form-group form-full" style="margin: 20px 0 24px;">
-          <div class="platforms-header">
-            <label class="form-label" style="margin-bottom: 0;">Platforms</label>
-            <button type="button" class="platforms-select-all" onclick="toggleAllAlbumPlatforms(this)">Deselect All</button>
-          </div>
-          <div class="platform-pills" id="albumPlatformPills">
-            <div class="platform-pill"><input type="checkbox" id="aplat-spotify" name="platforms" value="Spotify" checked><label for="aplat-spotify"><span class="platform-check"></span>Spotify</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-apple" name="platforms" value="Apple Music" checked><label for="aplat-apple"><span class="platform-check"></span>Apple Music</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-youtube" name="platforms" value="YouTube Music" checked><label for="aplat-youtube"><span class="platform-check"></span>YouTube Music</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-jiosaavn" name="platforms" value="JioSaavn" checked><label for="aplat-jiosaavn"><span class="platform-check"></span>JioSaavn</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-wynk" name="platforms" value="Wynk" checked><label for="aplat-wynk"><span class="platform-check"></span>Wynk</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-amazon" name="platforms" value="Amazon Music" checked><label for="aplat-amazon"><span class="platform-check"></span>Amazon Music</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-hungama" name="platforms" value="Hungama" checked><label for="aplat-hungama"><span class="platform-check"></span>Hungama</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-tidal" name="platforms" value="Tidal" checked><label for="aplat-tidal"><span class="platform-check"></span>Tidal</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-deezer" name="platforms" value="Deezer" checked><label for="aplat-deezer"><span class="platform-check"></span>Deezer</label></div>
-            <div class="platform-pill"><input type="checkbox" id="aplat-instagram" name="platforms" value="Instagram Music" checked><label for="aplat-instagram"><span class="platform-check"></span>Instagram Music</label></div>
-          </div>
-        </div>
-
-        <!-- Pre-order toggle -->
-        <div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <span class="toggle-title">Enable Pre-order</span>
-              <span class="toggle-desc">Let fans pre-order your album before the release date</span>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" id="preorderToggle">
-              <span class="toggle-track"></span>
-            </label>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ── Submit ───────────────────────────────────────────── -->
-      <div class="glass-card submit-area animate-in animate-in-delay-6">
-        <button type="submit" class="btn-submit">
-          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-          Submit Album
-        </button>
-        <p class="submit-note">
-          <strong>Our team will review your release within 24–72 working hours.</strong><br>
-          You'll receive a confirmation email once submitted. Ensure all tracks are uploaded before submitting.
-        </p>
-      </div>
-
-    </form>
+    <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:24px;">Not sure which to choose? <a href="help.html" style="color:var(--accent);">Visit the Help Center →</a></p>
 
   </main>
 
 </div>
-
-<!-- Toast Notification -->
-<div class="toast" id="albumSuccessToast">
-  <span class="toast-icon">🎉</span>
-  <div class="toast-text">
-    <span class="toast-title">Album submitted!</span>
-    <span class="toast-sub">We'll review it within 24–72 working hours.</span>
-  </div>
-</div>
-
 <script src="js/app.js"></script>
-<script>
-  var trackCounter = 0;
-  var MAX_TRACKS = 20;
-
-  // ── Set default dates ──────────────────────────────────────────
-  (function() {
-    var d = new Date();
-    d.setDate(d.getDate() + 14);
-    var yyyy = d.getFullYear(), mm = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
-    var relDate = document.getElementById('albumReleaseDateInput');
-    if (relDate) relDate.value = yyyy + '-' + mm + '-' + dd;
-    var cyear = document.getElementById('albumCopyrightYear');
-    if (cyear) cyear.value = new Date().getFullYear();
-  })();
-
-  // ── Initial 2 tracks ──────────────────────────────────────────
-  (function() {
-    addTrack();
-    addTrack();
-  })();
-
-  // ── Add a track row ───────────────────────────────────────────
-  function addTrack() {
-    var list = document.getElementById('trackList');
-    var rows = list.querySelectorAll('.track-row');
-    if (rows.length >= MAX_TRACKS) {
-      document.getElementById('addTrackBtn').disabled = true;
-      return;
-    }
-    trackCounter++;
-    var num = rows.length + 1;
-    var artistVal = (document.getElementById('primaryArtistInput') || {}).value || '';
-    var uid = 'track-' + trackCounter;
-
-    var row = document.createElement('div');
-    row.className = 'track-row';
-    row.id = uid;
-    row.innerHTML =
-      '<div class="track-num">' + num + '</div>' +
-      '<input type="text" class="track-input" placeholder="Track title" />' +
-      '<input type="text" class="track-input track-artist-field" placeholder="Artist" value="' + escapeAttr(artistVal) + '" />' +
-      '<input type="text" class="track-input" placeholder="ISRC (optional)" maxlength="15" />' +
-      '<label class="track-upload-btn" id="upbtn-' + uid + '">' +
-        '<input type="file" accept=".wav,.flac,.mp3" onchange="handleTrackFile(this, \'' + uid + '\')">' +
-        '<svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>' +
-        '<span id="upbtn-label-' + uid + '">Upload</span>' +
-      '</label>' +
-      '<button type="button" class="track-remove-btn" ' + (num === 1 ? 'disabled' : '') + ' onclick="removeTrack(\'' + uid + '\')" title="Remove track">' +
-        '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>' +
-      '</button>';
-
-    list.appendChild(row);
-    updateTrackNumbers();
-    updateAddButtonState();
-  }
-
-  // ── Remove a track row ────────────────────────────────────────
-  function removeTrack(uid) {
-    var row = document.getElementById(uid);
-    if (row) {
-      row.style.opacity = '0';
-      row.style.transform = 'translateX(-8px)';
-      row.style.transition = 'all 0.2s';
-      setTimeout(function() {
-        row.parentNode && row.parentNode.removeChild(row);
-        updateTrackNumbers();
-        updateAddButtonState();
-      }, 200);
-    }
-  }
-
-  // ── Renumber tracks after add/remove ─────────────────────────
-  function updateTrackNumbers() {
-    var rows = document.querySelectorAll('#trackList .track-row');
-    rows.forEach(function(row, i) {
-      var numEl = row.querySelector('.track-num');
-      if (numEl) numEl.textContent = i + 1;
-      var removeBtn = row.querySelector('.track-remove-btn');
-      if (removeBtn) removeBtn.disabled = (i === 0);
-    });
-    var badge = document.getElementById('trackCountBadge');
-    if (badge) badge.textContent = rows.length;
-  }
-
-  // ── Enable/disable Add Track button ──────────────────────────
-  function updateAddButtonState() {
-    var rows = document.querySelectorAll('#trackList .track-row');
-    var btn = document.getElementById('addTrackBtn');
-    if (btn) btn.disabled = rows.length >= MAX_TRACKS;
-  }
-
-  // ── Handle track audio file selection ────────────────────────
-  function handleTrackFile(input, uid) {
-    var file = input.files[0];
-    if (!file) return;
-    var btn = document.getElementById('upbtn-' + uid);
-    var lbl = document.getElementById('upbtn-label-' + uid);
-    var name = file.name.length > 18 ? file.name.substring(0, 16) + '...' : file.name;
-    if (lbl) lbl.textContent = name;
-    if (btn) btn.classList.add('has-file');
-  }
-
-  // ── Sync primary artist to track artist fields ────────────────
-  function syncArtistFields(val) {
-    document.querySelectorAll('.track-artist-field').forEach(function(f) {
-      if (!f.dataset.userEdited) f.value = val;
-    });
-  }
-  document.addEventListener('input', function(e) {
-    if (e.target && e.target.classList.contains('track-artist-field')) {
-      e.target.dataset.userEdited = '1';
-    }
-  });
-
-  // ── Cover art preview ──────────────────────────────────────────
-  function handleAlbumCoverPreview(e) {
-    var file = e.target.files[0];
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function(ev) {
-      var img = document.getElementById('albumCoverPreviewImg');
-      var ph  = document.getElementById('albumCoverPlaceholder');
-      img.src = ev.target.result;
-      img.style.display = 'block';
-      if (ph) ph.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  }
-
-  // ── Drag & drop visual feedback ───────────────────────────────
-  document.querySelectorAll('.drop-zone').forEach(function(zone) {
-    zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.classList.add('dragover'); });
-    zone.addEventListener('dragleave', function() { zone.classList.remove('dragover'); });
-    zone.addEventListener('drop', function(e) {
-      e.preventDefault(); zone.classList.remove('dragover');
-      var input = zone.querySelector('input[type="file"]');
-      if (input && e.dataTransfer.files.length) {
-        var dt = new DataTransfer();
-        dt.items.add(e.dataTransfer.files[0]);
-        input.files = dt.files;
-        input.dispatchEvent(new Event('change'));
-      }
-    });
-  });
-
-  // ── Platform select / deselect all ────────────────────────────
-  function toggleAllAlbumPlatforms(btn) {
-    var checkboxes = document.querySelectorAll('#albumPlatformPills input[type="checkbox"]');
-    var allChecked = Array.from(checkboxes).every(function(c) { return c.checked; });
-    checkboxes.forEach(function(c) { c.checked = !allChecked; });
-    btn.textContent = allChecked ? 'Select All' : 'Deselect All';
-  }
-
-  // ── Form submit → success toast ───────────────────────────────
-  function handleAlbumSubmit(e) {
-    e.preventDefault();
-    var toast = document.getElementById('albumSuccessToast');
-    toast.classList.add('show');
-    setTimeout(function() { toast.classList.remove('show'); }, 4500);
-  }
-
-  // ── Utility: escape attribute value ───────────────────────────
-  function escapeAttr(str) {
-    return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  }
-</script>
-</body>
-</html>
+</body></html>

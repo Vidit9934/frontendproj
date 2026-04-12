@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Current Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Plan Hero Card */
+    .plan-hero-card {
+      padding: 36px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(242,101,34,0.3);
+      background: linear-gradient(165deg, rgba(242,101,34,0.1) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.015) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      background: radial-gradient(ellipse, rgba(242,101,34,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .plan-hero-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+    }
+    .plan-name-wrap { display: flex; align-items: center; gap: 14px; }
+    .plan-icon {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(242,101,34,0.3) 0%, rgba(242,101,34,0.15) 100%);
+      border: 0.5px solid rgba(242,101,34,0.4);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .plan-icon svg { width:24px; height:24px; stroke:#F26522; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .plan-name {
+      font-family: var(--font-display);
+      font-size: 26px; font-weight: 800;
+      color: var(--text-primary); line-height: 1.1; margin-bottom: 6px;
+    }
+    .plan-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px;
+      background: rgba(234,179,8,0.12);
+      border: 0.5px solid rgba(234,179,8,0.3);
+      border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+      color: #EAB308;
+    }
+    .plan-badge svg { width:11px; height:11px; stroke:#EAB308; fill:#EAB308; }
+    .plan-right { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .plan-price-wrap {}
+    .plan-price-original {
+      font-size: 14px; color: var(--text-muted);
+      text-decoration: line-through;
+      text-align: right; margin-bottom: 2px;
+    }
+    .plan-price {
+      font-family: var(--font-display);
+      font-size: 36px; font-weight: 800;
+      color: var(--text-primary); line-height: 1;
+    }
+    .plan-price span { font-size: 15px; font-weight: 500; color: var(--text-secondary); }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px;
+      background: rgba(34,197,94,0.12);
+      border: 0.5px solid rgba(34,197,94,0.3);
+      border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 700; color: #22C55E;
+    }
+    .status-pill-dot { width:6px; height:6px; border-radius:50%; background:#22C55E; }
+
+    /* Renewal + Countdown */
+    .plan-meta-row {
+      display: flex; align-items: center; gap: 32px;
+      margin-bottom: 22px; flex-wrap: wrap;
+    }
+    .plan-meta-item { }
+    .plan-meta-label { font-size: 11px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+    .plan-meta-value { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .plan-meta-value.orange { color: var(--accent); }
+
+    .countdown-wrap { flex: 1; min-width: 200px; }
+    .countdown-label { font-size: 11px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .countdown-label span { color: var(--accent); font-weight: 700; }
+    .progress-track {
+      height: 6px; background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-full); overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-light) 0%, var(--accent) 100%);
+      border-radius: var(--radius-full);
+      box-shadow: 0 0 10px rgba(242,101,34,0.4);
+    }
+
+    /* Features List */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 700px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+    .feature-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px;
+      background: rgba(34,197,94,0.05);
+      border: 0.5px solid rgba(34,197,94,0.12);
+      border-radius: 8px;
+      font-size: 12.5px; font-weight: 500; color: var(--text-primary);
+    }
+    .feature-item svg { width:14px; height:14px; stroke:#22C55E; fill:none; stroke-width:2.5; flex-shrink:0; }
+
+    /* Actions Row */
+    .plan-actions-row {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 20px;
+      border-top: 0.5px solid rgba(255,255,255,0.07);
+      flex-wrap: wrap;
+    }
+    .btn-renew {
+      padding: 12px 28px;
+      background: linear-gradient(145deg, var(--accent-light) 0%, var(--accent) 50%, #D4520F 100%);
+      border: none; border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(242,101,34,0.35);
+      transition: all 0.25s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-renew:hover {
+      box-shadow: 0 6px 28px rgba(242,101,34,0.5);
+      transform: translateY(-1px);
+    }
+    .btn-renew svg, .btn-upgrade svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .btn-upgrade {
+      padding: 12px 28px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--text-primary); cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-upgrade:hover {
+      border-color: var(--border-hover);
+      background: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.04) 100%);
+      transform: translateY(-1px);
+    }
+
+    /* Comparison Table */
+    .compare-card { padding: 32px; margin-bottom: 20px; }
+    .compare-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 6px;
+    }
+    .compare-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      padding: 12px 16px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      text-align: left; color: var(--text-secondary);
+      border-bottom: 0.5px solid rgba(255,255,255,0.09);
+    }
+    .compare-table th:not(:first-child) { text-align: center; }
+    .compare-table th.current-col { color: var(--accent); }
+    .compare-table td {
+      padding: 12px 16px;
+      font-size: 13px; color: var(--text-secondary);
+      border-bottom: 0.5px solid rgba(255,255,255,0.05);
+      vertical-align: middle;
+    }
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: var(--text-primary); font-weight: 500; }
+    .check-yes { color: #22C55E; }
+    .check-yes svg { width:16px; height:16px; stroke:#22C55E; fill:none; stroke-width:2.5; }
+    .check-no { color: var(--text-muted); font-size: 18px; line-height: 1; }
+    .check-partial {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; color: #EAB308; font-weight: 600;
+    }
+    .current-col-data { font-weight: 600; color: var(--text-primary); }
+    .next-col-data { font-weight: 600; color: var(--accent); }
+
+    .plan-col-header {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .plan-col-name { font-size: 13px; font-weight: 700; }
+    .plan-col-badge {
+      padding: 2px 8px;
+      background: rgba(242,101,34,0.12);
+      border: 0.5px solid rgba(242,101,34,0.25);
+      border-radius: var(--radius-full);
+      font-size: 10px; font-weight: 700; color: var(--accent);
+    }
+
+    /* Billing Card */
+    .billing-card { padding: 28px 32px; }
+    .billing-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 6px;
+    }
+    .billing-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 22px; }
+    .billing-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .billing-row:last-of-type { border-bottom: none; }
+    .billing-label { font-size: 13px; color: var(--text-secondary); }
+    .billing-value { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .billing-value.green { color: #22C55E; }
+    .billing-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 20px;
+      border-top: 0.5px solid rgba(255,255,255,0.07);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .btn-invoice {
+      padding: 10px 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--text-primary); cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .btn-invoice:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+    .btn-invoice svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .payment-method {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--text-secondary);
+    }
+    .payment-method .pm-badge {
+      padding: 3px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 700; color: var(--text-primary);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      padding: 14px 20px; border-radius: 12px;
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 9999;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.toast-success { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.35); color: #22C55E; }
+    .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  </style>
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+    </a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
+      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+      <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
+      <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <div class="search-box">
+      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
+        </div>
+      </div>
+      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="page-label">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Account
+    </div>
+    <div class="page-header">
+      <h1 class="page-title">Current Plan</h1>
+      <div class="page-header-actions">
+        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Overview</a>
+      </div>
+    </div>
+
+    <!-- Plan Hero Card -->
+    <div class="glass-card plan-hero-card">
+      <div class="plan-hero-top">
+        <div class="plan-name-wrap">
+          <div class="plan-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="plan-name">Single Artist</div>
+            <div class="plan-badge">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Gold Plan
+            </div>
+          </div>
+        </div>
+        <div class="plan-right">
+          <div class="plan-price-wrap">
+            <div class="plan-price-original">₹1,599</div>
+            <div class="plan-price">₹1,439 <span>/ year</span></div>
+          </div>
+          <div class="status-pill">
+            <div class="status-pill-dot"></div>
+            Active
+          </div>
+        </div>
+      </div>
+
+      <div class="plan-meta-row">
+        <div class="plan-meta-item">
+          <div class="plan-meta-label">Renewal Date</div>
+          <div class="plan-meta-value">October 15, 2026</div>
+        </div>
+        <div class="plan-meta-item">
+          <div class="plan-meta-label">Days Remaining</div>
+          <div class="plan-meta-value orange">185 days</div>
+        </div>
+        <div class="countdown-wrap">
+          <div class="countdown-label">
+            Plan Validity
+            <span>50% remaining</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:50%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="features-grid">
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Unlimited Releases</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>100% Royalties</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Playlist &amp; Radio Pitching</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Instagram Linking</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>YouTube OAC</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Content ID</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Spotify Verification</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mail / Call / WhatsApp Support</div>
+        <div class="feature-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>24hr Approval</div>
+      </div>
+
+      <div class="plan-actions-row">
+        <button class="btn-renew" onclick="showToast('success','Renewal initiated! You\'ll be redirected to payment.')">
+          <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          Renew Plan
+        </button>
+        <button class="btn-upgrade" onclick="showToast('success','Redirecting to upgrade options...')">
+          <svg viewBox="0 0 24 24"><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+          Upgrade Plan
+        </button>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="glass-card compare-card">
+      <div class="compare-title">Plan Comparison</div>
+      <div class="compare-sub">See how your current plan compares to the next tier</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="current-col">
+              <div class="plan-col-header">
+                <span class="plan-col-name">Single Artist</span>
+                <span class="plan-col-badge">Current</span>
+              </div>
+            </th>
+            <th>
+              <div class="plan-col-header">
+                <span class="plan-col-name">Double Artist</span>
+                <span style="padding:2px 8px;background:rgba(59,130,246,0.12);border:0.5px solid rgba(59,130,246,0.25);border-radius:9999px;font-size:10px;font-weight:700;color:#3B82F6;display:inline-block;margin-top:2px;">Upgrade</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Artist Profiles</td>
+            <td class="current-col-data">1 Artist</td>
+            <td class="next-col-data">2 Artists</td>
+          </tr>
+          <tr>
+            <td>Annual Price</td>
+            <td class="current-col-data">₹1,439/yr</td>
+            <td class="next-col-data">₹2,499/yr</td>
+          </tr>
+          <tr>
+            <td>Unlimited Releases</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>100% Royalties</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Content ID</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Priority Support</td>
+            <td class="check-no">—</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Dedicated Account Manager</td>
+            <td class="check-no">—</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Advanced Analytics</td>
+            <td class="check-partial">Basic</td>
+            <td class="check-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>Faster Approvals</td>
+            <td class="check-partial">24hrs</td>
+            <td class="next-col-data">12hrs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Billing Card -->
+    <div class="glass-card billing-card">
+      <div class="billing-title">Billing &amp; Invoices</div>
+      <div class="billing-sub">Payment history and upcoming charges</div>
+
+      <div class="billing-row">
+        <span class="billing-label">Last Payment</span>
+        <span class="billing-value">₹1,439 — October 15, 2025</span>
+      </div>
+      <div class="billing-row">
+        <span class="billing-label">Next Payment</span>
+        <span class="billing-value">₹1,439 — October 15, 2026</span>
+      </div>
+      <div class="billing-row">
+        <span class="billing-label">Payment Status</span>
+        <span class="billing-value green">Paid in Full</span>
+      </div>
+      <div class="billing-row">
+        <span class="billing-label">Payment Method</span>
+        <span class="billing-value">UPI</span>
+      </div>
+
+      <div class="billing-bottom">
+        <div class="payment-method">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:#8A8A8A;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Paid via <span class="pm-badge" style="margin-left:4px;">UPI</span>
+        </div>
+        <button class="btn-invoice" onclick="showToast('success','Invoice downloaded successfully!')">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Invoice
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg id="toastIcon" viewBox="0 0 24 24"></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  function showToast(type, msg) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const toastIcon = document.getElementById('toastIcon');
+    toastMsg.textContent = msg;
+    toast.className = 'toast toast-success';
+    toastIcon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

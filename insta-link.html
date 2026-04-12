@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Instagram Linking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Status Card */
+    .status-card {
+      padding: 32px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .status-left { display: flex; align-items: center; gap: 20px; }
+    .insta-icon-wrap {
+      width: 64px; height: 64px; flex-shrink: 0;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(193,53,132,0.2) 0%, rgba(253,29,29,0.1) 50%, rgba(252,176,69,0.15) 100%);
+      border: 0.5px solid rgba(193,53,132,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .insta-icon-wrap svg { width:30px; height:30px; }
+    .status-info {}
+    .status-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 6px;
+    }
+    .status-desc { font-size: 13px; color: var(--text-secondary); max-width: 480px; line-height: 1.6; }
+    .connection-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: 13px; font-weight: 700;
+    }
+    .connection-badge.disconnected {
+      background: rgba(239,68,68,0.1);
+      border: 0.5px solid rgba(239,68,68,0.25);
+      color: #EF4444;
+    }
+    .connection-badge.connected {
+      background: rgba(34,197,94,0.1);
+      border: 0.5px solid rgba(34,197,94,0.25);
+      color: #22C55E;
+    }
+    .connection-badge svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+    }
+
+    /* Instructions Card */
+    .instructions-card {
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .instructions-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .instructions-title svg { width:16px; height:16px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .steps-list { display: flex; flex-direction: column; gap: 0; }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 14px 0;
+      position: relative;
+    }
+    .step-item:not(:last-child) {
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .step-number {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(242,101,34,0.2) 0%, rgba(242,101,34,0.1) 100%);
+      border: 0.5px solid rgba(242,101,34,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 800; color: var(--accent);
+    }
+    .step-content { flex: 1; padding-top: 5px; }
+    .step-heading {
+      font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;
+    }
+    .step-detail { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Link Form Card */
+    .link-form-card {
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    .link-form-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 22px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .form-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .form-label .req { color: var(--accent); font-size: 14px; line-height: 1; }
+    .input-with-prefix {
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .input-with-prefix:focus-within { border-color: var(--accent); }
+    .input-prefix {
+      padding: 11px 14px;
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      background: rgba(242,101,34,0.08);
+      border-right: 0.5px solid rgba(255,255,255,0.09);
+      flex-shrink: 0;
+    }
+    .input-with-prefix input {
+      flex: 1; padding: 11px 14px;
+      background: transparent; border: none; outline: none;
+      font-size: 13px; color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .input-with-prefix input::placeholder { color: var(--text-muted); }
+
+    .url-row {
+      display: flex; align-items: stretch; gap: 10px;
+    }
+    .url-input-wrap { flex: 1; }
+    .form-input {
+      padding: 11px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      font-size: 13px; color: #fff; outline: none; width: 100%;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: border-color 0.2s ease;
+    }
+    .form-input:focus { border-color: var(--accent); }
+    .form-input:disabled {
+      opacity: 0.5; cursor: not-allowed;
+      background: rgba(255,255,255,0.02);
+    }
+    .form-input::placeholder { color: var(--text-muted); }
+    .input-error { border-color: #3B82F6 !important; }
+
+    .btn-copy {
+      padding: 0 16px;
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      font-size: 12px; font-weight: 600; color: var(--text-secondary);
+      cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s ease;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .btn-copy:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text-primary);
+    }
+    .btn-copy.copied {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.3);
+      color: #22C55E;
+    }
+    .btn-copy svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    .verify-note {
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;
+      margin-bottom: 22px;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .verify-note svg { width:14px; height:14px; stroke:#EAB308; fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
+
+    .btn-verify {
+      padding: 13px 36px;
+      background: linear-gradient(145deg, var(--accent-light) 0%, var(--accent) 50%, #D4520F 100%);
+      border: none; border-radius: 12px;
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(242,101,34,0.35);
+      transition: all 0.25s ease;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-verify:hover {
+      box-shadow: 0 6px 28px rgba(242,101,34,0.5);
+      transform: translateY(-1px);
+    }
+    .btn-verify svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* Benefits */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 700px) { .benefits-grid { grid-template-columns: 1fr; } }
+    .benefit-card {
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .benefit-icon {
+      width: 44px; height: 44px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .benefit-icon svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .benefit-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .benefit-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    .benefits-section-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 14px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      padding: 14px 20px; border-radius: 12px;
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 9999;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.toast-success { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.35); color: #22C55E; }
+    .toast.toast-error { background: rgba(59,130,246,0.15); border: 0.5px solid rgba(59,130,246,0.35); color: #3B82F6; }
+    .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  </style>
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+    </a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
+      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+      <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
+      <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <div class="search-box">
+      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
+        </div>
+      </div>
+      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="page-label">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      Account
+    </div>
+    <div class="page-header">
+      <h1 class="page-title">Link Instagram</h1>
+      <div class="page-header-actions">
+        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Overview</a>
+      </div>
+    </div>
+
+    <!-- Status Card -->
+    <div class="glass-card status-card">
+      <div class="status-left">
+        <div class="insta-icon-wrap">
+          <!-- Instagram gradient icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="instaGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FCAF45"/>
+                <stop offset="30%" stop-color="#F77737"/>
+                <stop offset="60%" stop-color="#F56040"/>
+                <stop offset="80%" stop-color="#C13584"/>
+                <stop offset="100%" stop-color="#833AB4"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#instaGrad)" stroke-width="1.8" fill="none"/>
+            <circle cx="12" cy="12" r="4" stroke="url(#instaGrad)" stroke-width="1.8" fill="none"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="url(#instaGrad)"/>
+          </svg>
+        </div>
+        <div class="status-info">
+          <div class="status-title">Instagram Connection</div>
+          <div class="status-desc">Link your Instagram account to show your music on your Instagram profile and get verified artist features.</div>
+        </div>
+      </div>
+      <div class="connection-badge disconnected" id="connectionBadge">
+        <span class="status-dot"></span>
+        Not Connected
+      </div>
+    </div>
+
+    <!-- Instructions Card -->
+    <div class="glass-card instructions-card">
+      <div class="instructions-title">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        How to Link Your Instagram
+      </div>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-heading">Enter your Instagram username below</div>
+            <div class="step-detail">Use your exact Instagram handle without the @ symbol.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-heading">Go to your Instagram profile settings</div>
+            <div class="step-detail">Open Instagram app → Profile → Edit Profile → Bio section.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-heading">Add your Tunefry artist page URL to your Bio/Website</div>
+            <div class="step-detail">Copy the URL below and paste it in your Instagram website or bio field.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <div class="step-heading">Click Verify below — our system will check the link</div>
+            <div class="step-detail">Once verified, your accounts will be linked and Instagram features will unlock.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link Form Card -->
+    <div class="glass-card link-form-card">
+      <div class="link-form-title">Link Your Account</div>
+
+      <div class="form-group">
+        <label class="form-label">Instagram Username <span class="req">*</span></label>
+        <div class="input-with-prefix" id="usernameWrap">
+          <span class="input-prefix">@</span>
+          <input type="text" id="instagramUsername" placeholder="yourhandle" value="">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Tunefry Artist URL</label>
+        <div class="url-row">
+          <div class="url-input-wrap">
+            <input type="text" class="form-input" id="artistUrl" value="https://tunefry.com/artist/vasusharma" disabled>
+          </div>
+          <button class="btn-copy" id="copyBtn" onclick="copyUrl()">
+            <svg viewBox="0 0 24 24" id="copyIcon"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span id="copyLabel">Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="verify-note">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Verification may take up to 24 hours. Make sure your Instagram profile is set to <strong style="color:var(--text-primary);">Public</strong> before clicking Verify.</span>
+      </div>
+
+      <button class="btn-verify" onclick="verifyInstagram()">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Verify &amp; Link Account
+      </button>
+    </div>
+
+    <!-- Benefits Section -->
+    <div style="margin-bottom:8px;">
+      <div class="benefits-section-title">What you unlock after linking</div>
+      <div class="benefits-grid">
+        <div class="glass-card benefit-card">
+          <div class="benefit-icon" style="background:rgba(242,101,34,0.12);border:0.5px solid rgba(242,101,34,0.22);color:#F26522;">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <div class="benefit-title">Music on Instagram Reels</div>
+          <div class="benefit-desc">Your tracks appear in the Instagram music library for Reels and Stories</div>
+        </div>
+        <div class="glass-card benefit-card">
+          <div class="benefit-icon" style="background:rgba(193,53,132,0.12);border:0.5px solid rgba(193,53,132,0.22);color:#C13584;">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="benefit-title">Verified Badge Connection</div>
+          <div class="benefit-desc">Connect your Tunefry artist page to your Instagram verified profile</div>
+        </div>
+        <div class="glass-card benefit-card">
+          <div class="benefit-icon" style="background:rgba(59,130,246,0.12);border:0.5px solid rgba(59,130,246,0.22);color:#3B82F6;">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="benefit-title">Reach More Fans</div>
+          <div class="benefit-desc">Drive Instagram followers directly to your music on all streaming platforms</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg id="toastIcon" viewBox="0 0 24 24"></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  function copyUrl() {
+    const url = document.getElementById('artistUrl').value;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const lbl = document.getElementById('copyLabel');
+      const icon = document.getElementById('copyIcon');
+      btn.classList.add('copied');
+      lbl.textContent = 'Copied!';
+      icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        lbl.textContent = 'Copy';
+        icon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>';
+      }, 2000);
+    });
+  }
+
+  function verifyInstagram() {
+    const username = document.getElementById('instagramUsername').value.trim();
+    const wrap = document.getElementById('usernameWrap');
+    if (!username) {
+      wrap.style.borderColor = '#3B82F6';
+      showToast('error', 'Please enter your Instagram username.');
+      return;
+    }
+    wrap.style.borderColor = '';
+    // Simulate verification request
+    showToast('success', 'Verification request sent! We\'ll check your Instagram link within 24 hours.');
+    setTimeout(() => {
+      const badge = document.getElementById('connectionBadge');
+      badge.className = 'connection-badge connected';
+      badge.innerHTML = '<span class="status-dot"></span>Pending Verification';
+    }, 1000);
+  }
+
+  document.getElementById('instagramUsername').addEventListener('input', function() {
+    document.getElementById('usernameWrap').style.borderColor = '';
+  });
+
+  function showToast(type, msg) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const toastIcon = document.getElementById('toastIcon');
+    toastMsg.textContent = msg;
+    toast.className = 'toast';
+    if (type === 'success') {
+      toast.classList.add('toast-success');
+      toastIcon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+    } else {
+      toast.classList.add('toast-error');
+      toastIcon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
