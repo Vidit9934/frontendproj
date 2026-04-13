@@ -828,7 +828,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
         <span>What is Tunefry?</span>
         <div class="faq-icon">+</div>
       </div>
-      <div class="faq-a"><p>Tunefry is India's fastest-growing music distribution platform. We help independent artists and labels distribute their music to 100+ streaming services worldwide, including Spotify, Apple Music, JioSaavn, Wynk, and more &mdash; all while letting you keep the maximum share of your royalties.</p></div>
+      <div class="faq-a"><p>Tunefry is India's fastest-growing music distribution platform. We help independent artists and labels distribute their music to 100+ streaming services worldwide, including Spotify, Apple Music, JioSaavn, and more &mdash; all while letting you keep the maximum share of your royalties.</p></div>
     </div>
 
     <div class="faq-item au au-d1" onclick="toggleFaq(this)">
@@ -1017,6 +1017,27 @@ function toggleFaq(el){
   });
   if(!wasOpen) el.classList.add('open');
 }
+
+
+// Auto-scroll plans carousel to show Label plan when section visible
+(function(){
+  var grid = document.getElementById('plansGrid');
+  if (!grid) return;
+  var observed = false;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting && !observed) {
+        observed = true;
+        // Small delay then smooth scroll to end (Label plan)
+        setTimeout(function(){
+          grid.scrollTo({ left: grid.scrollWidth, behavior: 'smooth' });
+        }, 800);
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  io.observe(grid);
+})();
 
 </script>
 
