@@ -133,6 +133,10 @@ a{text-decoration:none;color:inherit;}
   .form-row{grid-template-columns:1fr;}
   .top-nav{padding:16px 20px;}
 }
+
+/* Disable text selection */
+* { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
 </head>
 <body>

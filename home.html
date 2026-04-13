@@ -606,6 +606,10 @@ footer {
 @media(max-width:900px){ .home-svc-grid{ grid-template-columns:repeat(3,1fr); } }
 @media(max-width:600px){ .home-svc-grid{ grid-template-columns:repeat(2,1fr); } }
 
+
+/* Disable text selection */
+* { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
 </head>
 <body>

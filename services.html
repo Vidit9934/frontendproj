@@ -349,6 +349,10 @@ footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40
   .footer-inner { grid-template-columns:1fr; gap:28px; }
   .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
 }
+
+/* Disable text selection */
+* { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
 </head>
 <body>

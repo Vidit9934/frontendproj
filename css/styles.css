@@ -5,6 +5,10 @@
 
 /* ── Reset ─────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Disable text selection site-wide */
+* { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+/* Re-enable selection only in form inputs and textareas */
+input, textarea, [contenteditable] { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
 html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body {
   background: var(--bg-primary);

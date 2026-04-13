@@ -446,6 +446,10 @@ border-bottom:0.5px solid var(--bd);
   .tabs{gap:0}
   .tab{padding:8px 10px 10px;font-size:12px}
 }
+
+/* Disable text selection */
+* { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
 </head>
 <body>
