@@ -252,6 +252,7 @@
 
 <div class="app no-right-panel">
 
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <aside class="sidebar">
     <a href="home.html" class="sidebar-logo">
       <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
@@ -267,6 +268,9 @@
   </aside>
 
   <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="search-box">
       <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
       <input type="text" placeholder="Search catalog...">

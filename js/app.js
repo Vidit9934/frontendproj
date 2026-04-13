@@ -314,6 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const href = item.getAttribute('href');
       if (href && !href.startsWith('#')) {
         e.preventDefault();
+        closeSidebar();
         document.body.style.opacity = '0';
         document.body.style.transition = 'opacity 0.2s ease';
         setTimeout(() => {
@@ -326,6 +327,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── Restore body opacity on load ────────────────────────────
   document.body.style.opacity = '1';
   document.body.style.transition = 'opacity 0.3s ease';
+
+  // ── Close mobile sidebar on ESC ─────────────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSidebar();
+  });
 
   // ── Tunefry Daily nav dropdown ───────────────────────────────
   // Auto-open if current page is ai-blog.html or daily.html context
@@ -358,3 +364,22 @@ document.addEventListener('click', function() {
   const dd = document.getElementById('createDropdown');
   if (dd) dd.classList.remove('open');
 });
+
+// ── Mobile Sidebar Drawer ────────────────────────────────────────
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar) return;
+  const isOpen = sidebar.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('visible', isOpen);
+  document.body.classList.toggle('sidebar-open', isOpen);
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sidebar) return;
+  sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('visible');
+  document.body.classList.remove('sidebar-open');
+}

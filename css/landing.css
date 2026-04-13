@@ -987,3 +987,22 @@
   .cta-section { padding: 80px 20px; }
   .pub-footer { padding: 40px 20px 24px; }
 }
+
+/* ── Extra Small Screens (≤480px) ─────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title { font-size: 30px; line-height: 1.1; }
+  .section-heading { font-size: 26px; }
+  .section-heading.large { font-size: 30px; }
+  .hero-subtitle { font-size: 15px; }
+  .section-desc { font-size: 15px; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary { text-align: center; justify-content: center; }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
+  .pub-section { padding: 48px 16px; }
+  .hero { padding: 28px 16px 48px; }
+  .pub-footer { padding: 32px 16px 20px; }
+  .pub-nav { padding: 0 16px; }
+  .pricing-grid { max-width: 100%; }
+  .compare-table { font-size: 13px; }
+}

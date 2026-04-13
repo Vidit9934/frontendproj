@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.tunefry.com)",
+      "Bash(ls -la \"/c/Users/ViditVaibhav/Desktop/frontend 11/\"*.html)",
+      "Bash(python3:*)",
+      "Bash(ls *.html)",
+      "Bash(grep -rn \"TuneFry\" *.html)",
+      "Bash(grep -rn \"Pvt\\\\. Ltd\\\\|company name\\\\|Artist Services\" *.html)",
+      "Bash(grep -rn \"Editoral\\\\|editorail\\\\|Editorail\" *.html)",
+      "Bash(grep -rn \"2026 Tunefry\\\\|copyright.*Tunefry\\\\|Tunefry\\\\.\" *.html)",
+      "Bash(grep -rn \"copy.*2026\\\\|&copy;\\\\|© 2026\" *.html)",
+      "Bash(sed:*)",
+      "Bash(grep -rn \"logo-sq\\\\|logo-icon\\\\|logo-txt\\\\|logo-text\\\\|footer-logo\\\\|footer-brand\\\\|sidebar-logo\" *.html)",
+      "Bash(grep -rn \"logo-sq\\\\\">T\\\\|logo-txt.*Tune\\\\|logo-text.*Tune.*span.*fry\\\\|logo-icon.*svg.*circle.*r=\\\\\"10\\\\\"\" *.html)",
+      "Bash(grep -rn \"tunefry-logo.png\" *.html)",
+      "Bash(grep -rl \"tunefry-logo.png\" *.html)"
+    ]
+  }
+}

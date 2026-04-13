@@ -14,6 +14,7 @@
 <div class="app no-right-panel">
 
   <!-- ─── Sidebar ─────────────────────────────────────────────── -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <aside class="sidebar">
     <a href="home.html" class="sidebar-logo">
       <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
@@ -50,6 +51,9 @@
 
   <!-- ─── Top Bar ─────────────────────────────────────────────── -->
   <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="search-box">
       <span class="search-icon">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -89,7 +93,7 @@
           </a>
         </div>
       </div>
-      <div class="user-avatar" title="Profile">V</div>
+      <a href="profile.html" class="user-avatar" title="My Profile" style="text-decoration:none;">V</a>
     </div>
   </header>
 
@@ -124,7 +128,7 @@
         <div style="margin-left:auto; font-size:11px; color:var(--accent); background:rgba(242,101,34,0.1); border:0.5px solid rgba(242,101,34,0.2); border-radius:100px; padding:4px 10px;">Beta</div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div class="blog-form-grid">
 
         <div class="blog-form-group" style="grid-column:1/-1;">
           <label class="blog-form-label">Article Topic *</label>
@@ -210,6 +214,7 @@
 
 </div>
 
+<script src="js/app.js"></script>
 <script>
 function toggleCreateDropdown(e) {
   e.stopPropagation();

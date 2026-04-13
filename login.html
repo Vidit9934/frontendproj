@@ -43,7 +43,7 @@ a{text-decoration:none;color:inherit}
 /* ── Main layout ── */
 .main{
   flex:1; display:grid;
-  grid-template-columns:1fr 480px 1fr;
+  grid-template-columns:1fr min(480px, 100% - 32px) 1fr;
   align-items:center; padding:20px 40px 48px;
 }
 .card-col{grid-column:2;}
