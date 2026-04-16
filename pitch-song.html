@@ -9,21 +9,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .inp{width:100%;padding:11px 14px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.09);border-radius:10px;font-size:13px;color:#fff;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s,box-shadow .2s;}
+    .inp{width:100%;padding:12px 14px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.09);border-radius:12px;font-size:13px;color:#fff;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s,box-shadow .2s;}
     .inp:focus{border-color:rgba(34,197,94,0.6);box-shadow:0 0 0 3px rgba(34,197,94,0.1);}
     .inp::placeholder{color:var(--text-muted);}
-    .lbl{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-secondary);margin-bottom:7px;}
-    .fg{margin-bottom:16px;}
-    .fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
-    .mood-grid{display:flex;flex-wrap:wrap;gap:8px;}
-    .mood-pill{padding:6px 14px;border-radius:100px;border:0.5px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;user-select:none;}
-    .mood-pill.active{background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.4);color:#22C55E;}
-    .char-count{font-size:10.5px;color:var(--text-muted);text-align:right;margin-top:4px;}
-    .submit-btn{width:100%;padding:14px;border-radius:12px;font-size:14px;font-family:'Syne',sans-serif;font-weight:800;color:#fff;background:linear-gradient(135deg,#4ade80,#22C55E,#15803d);border:none;cursor:pointer;box-shadow:0 6px 24px rgba(34,197,94,0.35),inset 0 1px 0 rgba(255,255,255,0.15);transition:opacity .2s,transform .2s;margin-top:8px;}
-    .submit-btn:hover{opacity:.9;transform:translateY(-1px);}
-    .step-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#22C55E;margin-bottom:6px;}
+    .lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-secondary);margin-bottom:7px;}
+    .fg{margin-bottom:18px;}
+    .fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+    .step-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#22C55E;margin-bottom:8px;}
     .step-dot{width:6px;height:6px;border-radius:50%;background:#22C55E;box-shadow:0 0 6px rgba(34,197,94,0.6);}
-    textarea.inp{resize:vertical;}
+    .submit-btn{width:100%;padding:14px;border-radius:12px;font-size:14px;font-family:'Syne',sans-serif;font-weight:800;color:#fff;background:linear-gradient(135deg,#4ade80,#22C55E,#15803d);border:none;cursor:pointer;box-shadow:0 6px 24px rgba(34,197,94,0.35),inset 0 1px 0 rgba(255,255,255,0.15);transition:opacity .2s,transform .2s;margin-top:8px;}
+    .submit-btn:hover{opacity:.92;transform:translateY(-1px);}
+    textarea.inp{resize:vertical;min-height:160px;}
+    .char-count{font-size:10.5px;color:var(--text-muted);text-align:right;margin-top:6px;}
+    .guide-card{padding:16px 18px;border-radius:14px;border:1px solid rgba(242,101,34,0.22);background:linear-gradient(165deg,rgba(242,101,34,0.12),rgba(255,255,255,0.03));margin-bottom:18px;}
+    .guide-title{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:10px;}
+    .guide-icon{width:28px;height:28px;border-radius:9px;background:rgba(242,101,34,0.18);border:1px solid rgba(242,101,34,0.24);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .pitch-highlight{padding:16px 18px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);margin-bottom:18px;}
+    .pitch-highlight p{font-size:12.5px;line-height:1.8;color:var(--text-secondary);margin:0;}
+    .tip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+    .tip-card{padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);}
+    .tip-card strong{display:block;font-size:12px;margin-bottom:4px;color:#fff;}
+    .tip-card span{font-size:11.5px;color:var(--text-secondary);line-height:1.65;display:block;}
+    .req-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+    .req-card{padding:18px;border-radius:16px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.08);min-height:100%;}
+    .req-icon{width:38px;height:38px;border-radius:12px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.26);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+    .req-card h3{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:6px;}
+    .req-card p{font-size:12px;color:var(--text-secondary);line-height:1.7;margin:0 0 10px;}
+    .req-list{margin:0;padding-left:18px;color:var(--text-secondary);font-size:11.5px;line-height:1.7;}
+    .req-list li+li{margin-top:4px;}
+    .drive-box{padding:16px 18px;border-radius:14px;background:linear-gradient(165deg,rgba(59,130,246,0.1),rgba(255,255,255,0.03));border:1px solid rgba(59,130,246,0.2);margin-bottom:18px;}
+    .drive-box p{font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin:0;}
+    .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .check-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);}
+    .check-item input{margin-top:2px;accent-color:#22C55E;}
+    .check-item span{font-size:12px;color:var(--text-secondary);line-height:1.65;}
+    .helper-note{font-size:11.5px;color:var(--text-muted);line-height:1.7;margin-top:6px;}
+    @media(max-width:900px){.tip-grid,.req-grid,.check-grid{grid-template-columns:1fr;}}
     @media(max-width:600px){.fg2{grid-template-columns:1fr;}}
   </style>
 </head>
@@ -33,15 +54,17 @@
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <aside class="sidebar">
     <a href="home.html" class="sidebar-logo">
-      <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+      <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
     </a>
     <nav class="sidebar-nav">
       <a href="index.html" class="nav-item active"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
       <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="withdrawal.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="nav-label">Withdraw Earnings</span></a>
       <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -81,185 +104,159 @@
       </div>
     </div>
 
-    <!-- Info banner -->
     <div class="glass-card animate-in animate-in-delay-2" style="padding:18px 22px;margin-bottom:20px;border-color:rgba(34,197,94,0.25);background:linear-gradient(165deg,rgba(34,197,94,0.07),rgba(255,255,255,0.02));">
       <div style="display:flex;gap:14px;align-items:flex-start;">
         <div style="width:36px;height:36px;border-radius:10px;background:rgba(34,197,94,0.15);border:0.5px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
         </div>
         <div>
-          <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px;">How Playlist Pitching Works</div>
-          <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;margin:0;">Submit your pitch at least <strong style="color:#fff;">7 days before</strong> your release date. Our team reviews your submission and forwards it to editorial playlist curators. Pitching is available for songs releasing within <strong style="color:#fff;">7–28 days</strong>. Only available on Single Artist, Double Artist &amp; Label plans.</p>
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:700;margin-bottom:4px;">Updated Pitch Flow</div>
+          <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.7;margin:0;">This form now collects only what your team actually needs: <strong style="color:#fff;">the song</strong>, <strong style="color:#fff;">a strong written pitch</strong>, and <strong style="color:#fff;">one Google Drive link</strong> containing all required photos, videos, and Spotify Canvas assets. That keeps the website light while still giving your team everything needed to download and pitch fast.</p>
         </div>
       </div>
     </div>
 
-    <!-- Step 1: Song Selection -->
     <div class="glass-card animate-in animate-in-delay-2" style="padding:28px;margin-bottom:20px;">
       <div class="step-badge"><span class="step-dot"></span>Step 01</div>
-      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Select Your Song</div>
-
-      <div class="fg">
-        <label class="lbl">Select Release *</label>
-        <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          <option value="" style="background:#111;">— Choose a release —</option>
-          <option style="background:#111;">Midnight Echoes (Single · releases in 15 days)</option>
-          <option style="background:#111;">Neon Dreams (Single · releases in 18 days)</option>
-        </select>
-        <p style="font-size:11px;color:var(--text-muted);margin-top:5px;">Only releases within the 7–28 day window are eligible.</p>
-      </div>
+      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Song Selection</div>
 
       <div class="fg2">
         <div>
-          <label class="lbl">Release Date *</label>
-          <input type="date" class="inp" style="color-scheme:dark;" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
+          <label class="lbl" for="songSelect">Choose Song *</label>
+          <select id="songSelect" class="inp">
+            <option value="">Select song for pitching</option>
+            <option>Midnight Echoes</option>
+            <option>Neon Dreams</option>
+            <option>Closer To The Fire</option>
+          </select>
+          <p class="helper-note">Pick the exact unreleased track you want us to pitch.</p>
         </div>
         <div>
-          <label class="lbl">Spotify Track / Pre-save URL</label>
-          <input type="url" class="inp" placeholder="https://open.spotify.com/track/..." onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
+          <label class="lbl" for="releaseDate">Release Date *</label>
+          <input id="releaseDate" type="date" class="inp" style="color-scheme:dark;">
+          <p class="helper-note">Recommended pitching window: 7 to 28 days before release.</p>
         </div>
+      </div>
+
+      <div class="fg">
+        <label class="lbl" for="spotifyLink">Spotify / Pre-save Link</label>
+        <input id="spotifyLink" type="url" class="inp" placeholder="https://open.spotify.com/... or pre-save link">
       </div>
     </div>
 
-    <!-- Step 2: Song Details -->
     <div class="glass-card animate-in animate-in-delay-3" style="padding:28px;margin-bottom:20px;">
       <div class="step-badge"><span class="step-dot"></span>Step 02</div>
-      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Song Details</div>
+      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Your Pitch</div>
 
-      <div class="fg2">
-        <div>
-          <label class="lbl">Primary Genre *</label>
-          <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option value="" style="background:#111;">Select genre</option>
-            <option style="background:#111;">Pop</option>
-            <option style="background:#111;">Hip-Hop / Rap</option>
-            <option style="background:#111;">R&amp;B / Soul</option>
-            <option style="background:#111;">Electronic / Dance</option>
-            <option style="background:#111;">Rock</option>
-            <option style="background:#111;">Indie</option>
-            <option style="background:#111;">Classical</option>
-            <option style="background:#111;">Jazz</option>
-            <option style="background:#111;">Folk / Country</option>
-            <option style="background:#111;">Devotional / Bhakti</option>
-            <option style="background:#111;">Bollywood</option>
-            <option style="background:#111;">Punjabi</option>
-            <option style="background:#111;">Other</option>
-          </select>
+      <div class="guide-card">
+        <div class="guide-title">
+          <span class="guide-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+          </span>
+          Write a curator-friendly story
         </div>
-        <div>
-          <label class="lbl">Sub-Genre</label>
-          <input type="text" class="inp" placeholder="e.g. Chillwave, Drill, Bedroom Pop" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-        </div>
+        <p style="font-size:12.5px;color:var(--text-secondary);line-height:1.75;margin:0;">Tell the story behind the song in a clear, human way. Mention the emotion, artist story, theme, sound, and where the track fits. Avoid one-line promo copy. Write it like a strong editorial pitch.</p>
       </div>
 
-      <div class="fg2">
-        <div>
-          <label class="lbl">Language *</label>
-          <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option value="" style="background:#111;">Select language</option>
-            <option style="background:#111;">Hindi</option>
-            <option style="background:#111;">English</option>
-            <option style="background:#111;">Punjabi</option>
-            <option style="background:#111;">Tamil</option>
-            <option style="background:#111;">Telugu</option>
-            <option style="background:#111;">Bengali</option>
-            <option style="background:#111;">Marathi</option>
-            <option style="background:#111;">Kannada</option>
-            <option style="background:#111;">Malayalam</option>
-            <option style="background:#111;">Other</option>
-          </select>
-        </div>
-        <div>
-          <label class="lbl">Tempo / BPM</label>
-          <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option value="" style="background:#111;">Select tempo</option>
-            <option style="background:#111;">Very Slow (under 60 BPM)</option>
-            <option style="background:#111;">Slow (60–80 BPM)</option>
-            <option style="background:#111;">Medium (80–110 BPM)</option>
-            <option style="background:#111;">Fast (110–140 BPM)</option>
-            <option style="background:#111;">Very Fast (140+ BPM)</option>
-          </select>
-        </div>
+      <div class="pitch-highlight">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F26522;margin-bottom:8px;">Highlighted Example Pitch</div>
+        <p>"Midnight Echoes" is a late-night Hindi pop record built around heartbreak, reflection, and quiet confidence. The production stays cinematic and modern, with airy synths, intimate vocals, and a hook designed to stay with the listener after the first play. The song works especially well for emotional pop, late-night drive, heartbreak, and mood playlists. If you like tracks that balance vulnerability with polish, this release lands in that zone.</p>
       </div>
 
       <div class="fg">
-        <label class="lbl">Mood / Vibe *</label>
-        <p style="font-size:11.5px;color:var(--text-secondary);margin-bottom:10px;">Select all that apply (max 5)</p>
-        <div class="mood-grid" id="moodGrid">
-          <span class="mood-pill" onclick="toggleMood(this)">Happy</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Sad / Melancholic</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Romantic</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Energetic</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Chill / Relaxed</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Motivational</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Party / Upbeat</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Dark / Intense</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Nostalgic</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Peaceful</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Hopeful</span>
-          <span class="mood-pill" onclick="toggleMood(this)">Devotional</span>
-        </div>
+        <label class="lbl" for="pitchText">Write Your Pitch *</label>
+        <textarea id="pitchText" class="inp" placeholder="Write the final pitch text here. Mention the artist, song story, emotion, sound, and which kind of playlists or listeners it fits." oninput="updatePitchCount()"></textarea>
+        <div class="char-count"><span id="pitchCount">0</span> characters</div>
       </div>
 
-      <div class="fg">
-        <label class="lbl">Key Instruments / Production Style</label>
-        <input type="text" class="inp" placeholder="e.g. Acoustic guitar, synth bass, live drums, trap beats" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
+      <div class="tip-grid">
+        <div class="tip-card">
+          <strong>Include the story</strong>
+          <span>Why was the song made, and what should a curator feel while listening?</span>
+        </div>
+        <div class="tip-card">
+          <strong>Describe the sound</strong>
+          <span>Call out genre, vibe, instrumentation, or energy in plain language.</span>
+        </div>
+        <div class="tip-card">
+          <strong>Name the fit</strong>
+          <span>Say what listeners or playlist moments this record is best for.</span>
+        </div>
       </div>
     </div>
 
-    <!-- Step 3: Your Pitch -->
     <div class="glass-card animate-in animate-in-delay-4" style="padding:28px;margin-bottom:20px;">
       <div class="step-badge"><span class="step-dot"></span>Step 03</div>
-      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Your Pitch</div>
+      <div style="font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:20px;">Artist Media Requirements</div>
+
+      <div class="drive-box">
+        <p>Instead of uploading heavy files on the website, ask the artist to place everything in <strong style="color:#fff;">one shareable Google Drive folder</strong>. Your team can directly download from there, which keeps this page lightweight and avoids server load.</p>
+      </div>
+
+      <div class="req-grid">
+        <div class="req-card">
+          <div class="req-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+          <h3>4 HD / 4K Photos</h3>
+          <p>Clear artist photos for pitching and platform support.</p>
+          <ul class="req-list">
+            <li>Total 4 photos required.</li>
+            <li>Front-facing shots only.</li>
+            <li>At least 90% face visibility.</li>
+            <li>No side-view or heavily covered face shots.</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <div class="req-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3>4 to 5 Video Samples</h3>
+          <p>Artist should introduce themselves, their song, and platform mentions on camera.</p>
+          <ul class="req-list">
+            <li>Total 4 to 5 short videos.</li>
+            <li>Artist should mention their own name.</li>
+            <li>Artist should mention the song name.</li>
+            <li>Artist should mention target platforms where needed.</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <div class="req-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15V6a2 2 0 00-2-2H8"/><rect x="3" y="8" width="13" height="13" rx="2" ry="2"/><path d="M10 12l3 2-3 2v-4z"/></svg>
+          </div>
+          <h3>Spotify Canvas</h3>
+          <p>One vertical looping visual for Spotify.</p>
+          <ul class="req-list">
+            <li>Duration: 7 to 9 seconds max.</li>
+            <li>Format: 9:16 vertical.</li>
+            <li>Should be clean, branded, and ready to publish.</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="fg">
-        <label class="lbl">Tell Us About This Song * <span style="font-weight:400;color:var(--text-muted);">(min 100 characters)</span></label>
-        <textarea id="pitchText" class="inp" rows="5" placeholder="Describe what makes this song special — its story, the emotion behind it, the production, the message. What kind of listener is it for? What moments would it fit? Be genuine and specific." oninput="updateChar(this,500)" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'"></textarea>
-        <div class="char-count"><span id="pitchCount">0</span> / 500</div>
+        <label class="lbl" for="driveLink">Google Drive Link *</label>
+        <input id="driveLink" type="url" class="inp" placeholder="Paste the shareable Drive folder link here">
+        <p class="helper-note">Make sure the folder permission is set so the Tunefry team can open and download files.</p>
       </div>
 
-      <div class="fg2">
-        <div>
-          <label class="lbl">Similar / Reference Artists</label>
-          <input type="text" class="inp" placeholder="e.g. Arijit Singh, The Weeknd, AP Dhillon" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          <p style="font-size:11px;color:var(--text-muted);margin-top:4px;">Artists your sound compares to (helps curators find the right playlists)</p>
-        </div>
-        <div>
-          <label class="lbl">Target Audience</label>
-          <input type="text" class="inp" placeholder="e.g. 18–25 year olds, gym-goers, heartbreak listeners" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-        </div>
-      </div>
-
-      <div class="fg2">
-        <div>
-          <label class="lbl">Playlist Context — Best Fits For</label>
-          <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option value="" style="background:#111;">Select context</option>
-            <option style="background:#111;">Morning / Wake Up</option>
-            <option style="background:#111;">Workout / Gym</option>
-            <option style="background:#111;">Late Night / Sleep</option>
-            <option style="background:#111;">Road Trip / Drive</option>
-            <option style="background:#111;">Party / Dance</option>
-            <option style="background:#111;">Heartbreak / Emotional</option>
-            <option style="background:#111;">Focus / Study</option>
-            <option style="background:#111;">Romance / Date Night</option>
-            <option style="background:#111;">Festival / Cultural</option>
-            <option style="background:#111;">Any / Multiple</option>
-          </select>
-        </div>
-        <div>
-          <label class="lbl">Has This Song Been Pitched Before?</label>
-          <select class="inp" onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option style="background:#111;">No — first time pitching</option>
-            <option style="background:#111;">Yes — on another platform</option>
-            <option style="background:#111;">Yes — on Tunefry previously</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="fg">
-        <label class="lbl">Additional Notes for Curators</label>
-        <textarea class="inp" rows="3" placeholder="Any other context — upcoming performances, press coverage, social buzz, collaborations, or anything you feel the curator should know." onfocus="this.style.borderColor='rgba(34,197,94,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'"></textarea>
+      <div class="check-grid">
+        <label class="check-item">
+          <input id="photosCheck" type="checkbox">
+          <span>I confirm the Drive folder includes 4 front-facing HD / 4K artist photos with strong face visibility.</span>
+        </label>
+        <label class="check-item">
+          <input id="videosCheck" type="checkbox">
+          <span>I confirm the Drive folder includes 4 to 5 artist video samples mentioning the artist, song, or relevant platforms.</span>
+        </label>
+        <label class="check-item">
+          <input id="canvasCheck" type="checkbox">
+          <span>I confirm the folder includes one Spotify Canvas in 9:16 format and 7 to 9 seconds duration.</span>
+        </label>
+        <label class="check-item">
+          <input id="accessCheck" type="checkbox">
+          <span>I confirm the Google Drive link is accessible for direct review and download by the Tunefry team.</span>
+        </label>
       </div>
     </div>
 
@@ -272,9 +269,9 @@
       </div>
       <button class="submit-btn" onclick="submitPitch()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline;margin-right:8px;vertical-align:middle;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        Submit Pitch to Curators
+        Submit Pitch Request
       </button>
-      <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:12px;line-height:1.6;">Our team reviews every pitch within <strong style="color:#fff;">3–5 working days</strong>. You'll receive an email with the curator's response. Not all pitches result in placement — but a strong, detailed pitch significantly improves your chances.</p>
+      <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:12px;line-height:1.6;">Once submitted, your team gets the written pitch plus the Drive handoff link in one place. That makes it easy to review, download, and move fast without hosting all media on the website.</p>
     </div>
 
   </main>
@@ -284,42 +281,99 @@
 <div id="toast" style="position:fixed;bottom:28px;right:28px;background:rgba(18,14,10,0.97);border:0.5px solid rgba(34,197,94,0.35);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;z-index:9999;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none;max-width:340px;">
   <span style="font-size:22px;">🎵</span>
   <div>
-    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;">Pitch Submitted!</div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Our team will review and respond within 3–5 working days.</div>
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;">Pitch Request Submitted!</div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Your song, pitch, and Drive link are ready for internal review.</div>
   </div>
 </div>
 
 <script>
-function toggleMood(el) {
-  var active = document.querySelectorAll('.mood-pill.active');
-  if (!el.classList.contains('active') && active.length >= 5) return;
-  el.classList.toggle('active');
+function updatePitchCount() {
+  var pitch = document.getElementById('pitchText');
+  var display = document.getElementById('pitchCount');
+  var count = pitch.value.trim().length;
+  display.textContent = count;
+  display.style.color = count > 350 ? '#EAB308' : '';
 }
-function updateChar(el, max) {
-  var count = el.value.length;
-  var display = document.getElementById(el.id + 'Count') || document.getElementById('pitchCount');
-  if (display) { display.textContent = count; display.style.color = count > max * 0.9 ? '#EAB308' : ''; }
+
+function isValidUrl(value) {
+  try {
+    var url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (error) {
+    return false;
+  }
 }
+
 function submitPitch() {
   var errBox = document.getElementById('errBox');
   var errText = document.getElementById('errText');
+  var songSelect = document.getElementById('songSelect');
+  var releaseDate = document.getElementById('releaseDate');
   var pitch = document.getElementById('pitchText').value.trim();
-  if (pitch.length < 100) {
-    errText.textContent = 'Please write at least 100 characters in your pitch description.';
+  var driveLink = document.getElementById('driveLink').value.trim();
+  var requiredChecks = ['photosCheck', 'videosCheck', 'canvasCheck', 'accessCheck'];
+
+  if (!songSelect.value) {
+    errText.textContent = 'Please select the song you want to pitch.';
+    errBox.style.display = 'flex';
+    songSelect.style.borderColor = 'rgba(59,130,246,0.7)';
+    songSelect.focus();
+    return;
+  }
+  songSelect.style.borderColor = 'rgba(255,255,255,0.09)';
+
+  if (!releaseDate.value) {
+    errText.textContent = 'Please add the release date for this song.';
+    errBox.style.display = 'flex';
+    releaseDate.style.borderColor = 'rgba(59,130,246,0.7)';
+    releaseDate.focus();
+    return;
+  }
+  releaseDate.style.borderColor = 'rgba(255,255,255,0.09)';
+
+  if (pitch.length < 120) {
+    errText.textContent = 'Please write a stronger pitch with at least 120 characters.';
     errBox.style.display = 'flex';
     document.getElementById('pitchText').style.borderColor = 'rgba(59,130,246,0.7)';
     document.getElementById('pitchText').focus();
     return;
   }
+  document.getElementById('pitchText').style.borderColor = 'rgba(255,255,255,0.09)';
+
+  if (!isValidUrl(driveLink)) {
+    errText.textContent = 'Please paste a valid Google Drive link for the media folder.';
+    errBox.style.display = 'flex';
+    document.getElementById('driveLink').style.borderColor = 'rgba(59,130,246,0.7)';
+    document.getElementById('driveLink').focus();
+    return;
+  }
+  document.getElementById('driveLink').style.borderColor = 'rgba(255,255,255,0.09)';
+
+  for (var index = 0; index < requiredChecks.length; index += 1) {
+    if (!document.getElementById(requiredChecks[index]).checked) {
+      errText.textContent = 'Please confirm all required media checklist items before submitting.';
+      errBox.style.display = 'flex';
+      document.getElementById(requiredChecks[index]).focus();
+      return;
+    }
+  }
+
   errBox.style.display = 'none';
   var btn = document.querySelector('.submit-btn');
-  btn.textContent = 'Submitting…'; btn.style.opacity = '0.7'; btn.disabled = true;
+  btn.innerHTML = 'Submitting...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
   setTimeout(function() {
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline;margin-right:8px;vertical-align:middle;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Submit Pitch to Curators';
-    btn.style.opacity = '1'; btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline;margin-right:8px;vertical-align:middle;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Submit Pitch Request';
+    btn.style.opacity = '1';
+    btn.disabled = false;
     var t = document.getElementById('toast');
-    t.style.opacity = '1'; t.style.transform = 'translateY(0)';
-    setTimeout(function() { t.style.opacity = '0'; t.style.transform = 'translateY(10px)'; }, 5000);
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+    setTimeout(function() {
+      t.style.opacity = '0';
+      t.style.transform = 'translateY(10px)';
+    }, 5000);
   }, 1000);
 }
 </script>

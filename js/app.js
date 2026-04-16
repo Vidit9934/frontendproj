@@ -248,6 +248,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Notifications dropdown (global) ───────────────────────
+  const notifBtn = document.querySelector('.icon-btn[title="Notifications"]');
+  if (notifBtn) {
+    const demoNotifications = [
+      { text: 'Your release "Midnight Echoes" was sent to stores.', time: '2m ago', read: false },
+      { text: 'Spotify artist profile claim approved successfully.', time: '1h ago', read: false },
+      { text: 'Payout report for March is now available.', time: 'Yesterday', read: false },
+      { text: 'Cover art passed quality checks.', time: '2d ago', read: true }
+    ];
+
+    let notifOpen = false;
+    const notifDot = notifBtn.querySelector('.notif-dot');
+    const menu = document.createElement('div');
+    menu.className = 'notif-menu';
+    menu.innerHTML = [
+      '<div class="notif-head">',
+      '  <div class="notif-title">Notifications</div>',
+      '  <button class="notif-clear" type="button">Mark all read</button>',
+      '</div>',
+      '<div class="notif-list"></div>'
+    ].join('');
+    document.body.appendChild(menu);
+
+    const listEl = menu.querySelector('.notif-list');
+    const clearBtn = menu.querySelector('.notif-clear');
+
+    function unreadCount() {
+      return demoNotifications.filter(n => !n.read).length;
+    }
+
+    function renderNotifications() {
+      if (!listEl) return;
+      if (!demoNotifications.length) {
+        listEl.innerHTML = '<div class="notif-empty">No notifications yet.</div>';
+      } else {
+        listEl.innerHTML = demoNotifications.map((n, i) => {
+          const readClass = n.read ? ' read' : '';
+          return [
+            '<div class="notif-item' + readClass + '" data-index="' + i + '">',
+            '  <span class="notif-dot-sm"></span>',
+            '  <div>',
+            '    <div class="notif-text">' + n.text + '</div>',
+            '    <div class="notif-time">' + n.time + '</div>',
+            '  </div>',
+            '</div>'
+          ].join('');
+        }).join('');
+      }
+
+      if (notifDot) {
+        notifDot.style.display = unreadCount() > 0 ? '' : 'none';
+      }
+    }
+
+    function positionMenu() {
+      const rect = notifBtn.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const width = Math.min(360, vw - 24);
+      let left = rect.right - width;
+      if (left < 12) left = 12;
+      menu.style.width = width + 'px';
+      menu.style.left = left + 'px';
+      menu.style.top = (rect.bottom + 10) + 'px';
+    }
+
+    function closeMenu() {
+      notifOpen = false;
+      menu.classList.remove('open');
+    }
+
+    function openMenu() {
+      notifOpen = true;
+      positionMenu();
+      menu.classList.add('open');
+    }
+
+    notifBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (notifOpen) closeMenu(); else openMenu();
+    });
+
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const item = e.target.closest('.notif-item');
+      if (item) {
+        const idx = Number(item.getAttribute('data-index'));
+        if (!Number.isNaN(idx) && demoNotifications[idx]) {
+          demoNotifications[idx].read = true;
+          renderNotifications();
+        }
+      }
+    });
+
+    clearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      demoNotifications.forEach(n => n.read = true);
+      renderNotifications();
+    });
+
+    document.addEventListener('click', closeMenu);
+    window.addEventListener('resize', () => {
+      if (notifOpen) positionMenu();
+    });
+
+    renderNotifications();
+  }
+
   // ── Category tab switching + filtering (Marketplace page) ──
   const categoryTabs = document.querySelectorAll('.category-tab');
   if (categoryTabs.length) {

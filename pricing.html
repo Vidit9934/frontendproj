@@ -422,8 +422,9 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   gap:40px;padding:60px 40px 40px;
   max-width:1200px;margin:0 auto;
 }
-.footer-brand .logo-txt{font-family:var(--font-d);font-size:1.15rem;font-weight:700;margin-bottom:12px}
-.footer-brand .logo-txt b{color:var(--or)}
+.footer-brand{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.footer-brand-logo{display:inline-flex;align-items:center;font-size:0;line-height:0;margin-bottom:14px}
+.footer-brand-logo img{height:30px;width:auto;max-width:160px;display:block;object-fit:contain}
 .footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:18px;max-width:280px}
 .footer-socials{display:flex;gap:10px}
 .footer-socials a{
@@ -479,6 +480,7 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   .form-row{grid-template-columns:1fr}
 
   .footer-inner{grid-template-columns:1fr;gap:28px;padding:40px 20px 28px}
+  .footer-brand-logo{margin-bottom:12px}
   .footer-bottom{flex-direction:column;gap:8px;text-align:center;padding:16px 20px}
 }
 
@@ -498,7 +500,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
      ================================================================ -->
 <nav class="nav" id="nav">
   <a href="home.html" class="nav-logo">
-    <img src="tunefry-logo.png" alt="Tunefry" style="height:38px;width:auto;display:block;object-fit:contain;">
+    <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:38px;width:auto;display:block;object-fit:contain;">
   </a>
 
   <div class="nav-ctr">
@@ -917,7 +919,9 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="tunefry-logo.png" alt="Tunefry" style="height:30px;width:auto;display:block;object-fit:contain;">
+      <a href="home.html" class="footer-brand-logo" aria-label="Tunefry home">
+        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry">
+      </a>
       <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
       <div class="footer-socials">
         <a href="#" aria-label="Instagram">

@@ -297,6 +297,104 @@ img { max-width: 100%; display: block; }
   border: 2px solid var(--bg-primary);
 }
 
+/* ── Notifications Dropdown ───────────────────────────────────── */
+.notif-menu {
+  position: fixed;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(460px, calc(100vh - 90px));
+  overflow: auto;
+  background: linear-gradient(165deg, rgba(26,22,18,0.98) 0%, rgba(18,15,12,0.99) 100%);
+  border: 0.5px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.98);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.notif-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+.notif-head {
+  padding: 12px 14px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.notif-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.notif-clear {
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(242,101,34,0.08);
+  border: 0.5px solid rgba(242,101,34,0.2);
+  padding: 5px 9px;
+  border-radius: 999px;
+}
+.notif-clear:hover { background: rgba(242,101,34,0.14); }
+
+.notif-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 6px;
+}
+.notif-item {
+  display: grid;
+  grid-template-columns: 8px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 0.5px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  cursor: pointer;
+}
+.notif-item:hover { background: rgba(255,255,255,0.05); }
+.notif-item.read {
+  opacity: 0.78;
+  border-color: rgba(255,255,255,0.03);
+}
+.notif-dot-sm {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(242,101,34,0.45);
+}
+.notif-item.read .notif-dot-sm {
+  background: rgba(255,255,255,0.18);
+  box-shadow: none;
+}
+.notif-text {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.notif-time {
+  margin-top: 4px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.notif-empty {
+  padding: 24px 14px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
 .btn-create {
   height: 44px;
   padding: 0 24px;
@@ -944,6 +1042,11 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.06em;
   color: var(--text-secondary);
   line-height: 1.3;
+}
+
+/* Hidden on desktop; used as fallback when right panel collapses */
+.mobile-overview-panels {
+  display: none;
 }
 
 /* ── Link Button (Instagram, Help) ─────────────────────────────── */
@@ -1632,6 +1735,24 @@ body::after {
   .right-panel {
     display: none;
   }
+  .overview-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .overview-content .mobile-overview-panels {
+    display: contents;
+  }
+  .overview-content .mobile-overview-panels .panel-section {
+    margin-bottom: 20px;
+  }
+  .overview-content .mobile-management-panel { order: 1; }
+  .overview-content .stats-row { order: 2; }
+  .overview-content .pitch-song-section { order: 3; }
+  .overview-content .velocity-section { order: 4; }
+  .overview-content .mobile-utility-panel {
+    order: 5;
+    margin-top: 10px;
+  }
   .stats-grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1705,6 +1826,21 @@ body::after {
   }
   .page-title {
     font-size: 28px;
+  }
+  .page-header {
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .page-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .page-header-actions .btn {
+    width: 100%;
+  }
+  .stats-grid-2 {
+    grid-template-columns: 1fr;
   }
   .stat-card .stat-value {
     font-size: 32px;
@@ -2063,6 +2199,12 @@ body.sidebar-open {
 @media (max-width: 480px) {
   .page-title {
     font-size: 22px;
+  }
+  .page-header-actions {
+    gap: 8px;
+  }
+  .page-header-actions .btn {
+    padding: 10px 16px;
   }
   .stats-grid-4 {
     grid-template-columns: 1fr;

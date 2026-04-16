@@ -17,7 +17,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <aside class="sidebar">
     <a href="home.html" class="sidebar-logo">
-      <img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+      <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
     </a>
 
     <nav class="sidebar-nav">
@@ -28,6 +28,10 @@
       <a href="stats.html" class="nav-item active">
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span>
         <span class="nav-label">Stats & Revenue</span>
+      </a>
+      <a href="withdrawal.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+        <span class="nav-label">Withdraw Earnings</span>
       </a>
       <a href="marketplace.html" class="nav-item">
         <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
@@ -42,10 +46,8 @@
         <a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a>
         <a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a>
       </div>
-      <a href="connect.html" class="nav-item">
-        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
-        <span class="nav-label">Connect</span>
-      </a>
+      <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -111,6 +113,10 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Last 12 Months
         </button>
+        <a href="withdrawal.html" class="btn btn-primary" style="text-decoration:none;">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          Withdraw Earnings
+        </a>
       </div>
     </div>
 
@@ -366,47 +372,11 @@
       </div>
     </div>
 
-    <!-- Withdrawal Section -->
-    <div class="withdrawal-section animate-in animate-in-delay-4">
-      <div class="glass-card withdrawal-card">
-        <div class="withdrawal-header">
-          <h3>Withdraw Earnings</h3>
-          <span class="badge-min">Min. ₹1,500</span>
-        </div>
-        <div class="withdrawal-balance">
-          <span class="balance-label">Available Balance</span>
-          <span class="balance-amount">₹2,641.00</span>
-        </div>
-        <button class="withdrawal-btn" id="withdrawBtn" onclick="handleWithdraw()">Withdraw Now</button>
-        <div class="bank-form" id="bankForm">
-          <input type="text" placeholder="Account Holder Name" style="border-radius:10px;border:0.5px solid var(--border-subtle);background:var(--bg-input);padding:11px 14px;font-size:13px;color:var(--text-primary);outline:none;width:100%;">
-          <input type="text" placeholder="Account Number" style="border-radius:10px;border:0.5px solid var(--border-subtle);background:var(--bg-input);padding:11px 14px;font-size:13px;color:var(--text-primary);outline:none;width:100%;">
-          <input type="text" placeholder="IFSC Code" style="border-radius:10px;border:0.5px solid var(--border-subtle);background:var(--bg-input);padding:11px 14px;font-size:13px;color:var(--text-primary);outline:none;width:100%;">
-          <input type="text" placeholder="Bank Name" style="border-radius:10px;border:0.5px solid var(--border-subtle);background:var(--bg-input);padding:11px 14px;font-size:13px;color:var(--text-primary);outline:none;width:100%;">
-          <button class="bank-submit-btn" onclick="alert('Withdrawal request submitted! We will process it within 3–5 working days.')">Submit Withdrawal Request</button>
-        </div>
-        <p style="font-size:11px; color:var(--text-secondary); margin-top:12px; line-height:1.5;">Minimum withdrawal amount is ₹1,500. Payments are processed within 3–5 working days to your registered bank account.</p>
-      </div>
-    </div>
-
   </main>
 
 </div>
 
-<script>
-function handleWithdraw() {
-  var balance = 2641;
-  var minWithdraw = 1500;
-  if (balance < minWithdraw) {
-    alert('Minimum withdrawal amount is ₹1,500. Your current balance is ₹' + balance.toFixed(2));
-    return;
-  }
-  var form = document.getElementById('bankForm');
-  form.classList.toggle('open');
-  var btn = document.getElementById('withdrawBtn');
-  btn.textContent = form.classList.contains('open') ? 'Cancel' : 'Withdraw Now';
-}
-</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="js/app.js"></script>

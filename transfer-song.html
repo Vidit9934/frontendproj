@@ -1,307 +1,322 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tunefry — Transfer Song</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Transfer Existing Song</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
-    .transfer-intro-card {
-      background: var(--bg-card);
-      border: 0.5px solid var(--border-subtle);
+    .transfer-section { padding: 28px 32px; margin-bottom: 24px; }
+    .section-eyebrow {
+      font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: #3B82F6; margin-bottom: 4px; font-family: var(--font-display);
+    }
+    .section-heading {
+      font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: -.02em;
+      color: var(--text-primary); margin-bottom: 24px;
+    }
+    .transfer-note {
+      background: rgba(59,130,246,0.08);
+      border: .5px solid rgba(59,130,246,0.28);
       border-left: 3px solid #3B82F6;
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      font-size: 14px;
+      border-radius: 12px;
+      padding: 14px 16px;
       color: var(--text-secondary);
-      line-height: 1.7;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      max-width: 720px;
+      font-size: 12px;
+      line-height: 1.65;
+      margin-bottom: 18px;
     }
-    .transfer-form-card {
-      background: var(--bg-card);
-      border: 0.5px solid var(--border-subtle);
-      border-radius: var(--radius-xl);
-      padding: 32px;
-      max-width: 720px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: var(--shadow-3d);
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.col-span-2 { grid-column: 1 / -1; }
     .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 7px;
-      letter-spacing: 0.01em;
-    }
-    .form-label .req {
-      color: var(--accent);
-      margin-left: 2px;
-    }
-    .form-label .opt {
+      font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
       color: var(--text-secondary);
-      font-weight: 400;
-      margin-left: 4px;
-      font-size: 12px;
     }
-    .form-hint {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 6px;
-      line-height: 1.5;
+    .form-label .req { color: var(--accent); margin-left: 2px; }
+    .opt-tag { font-size: 10px; text-transform: none; letter-spacing: 0; color: var(--text-muted); margin-left: 4px; font-weight: 400; }
+    .form-input {
+      width: 100%; padding: 11px 14px; background: rgba(255,255,255,0.05);
+      border: .5px solid rgba(255,255,255,0.09); border-radius: 10px;
+      font-size: 13px; color: #fff; outline: none; font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      box-sizing: border-box; appearance: none; -webkit-appearance: none;
     }
-    .form-input, .form-select, .form-textarea {
-      padding: 11px 14px;
-      background: rgba(255,255,255,0.05);
-      border: 0.5px solid rgba(255,255,255,0.09);
-      border-radius: 10px;
-      font-size: 13px;
-      color: #fff;
-      outline: none;
-      width: 100%;
-      font-family: var(--font-body);
-      transition: border-color 0.15s ease;
-      -webkit-appearance: none;
-      appearance: none;
+    .form-input:focus {
+      border-color: rgba(59,130,246,.55);
+      background: rgba(255,255,255,0.07);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.12);
     }
-    .form-select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8A8A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 38px;
-      cursor: pointer;
+    .form-input::placeholder { color: var(--text-muted); }
+    select.form-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A8A8A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer;
     }
-    .form-select option {
-      background: #1a1612;
-      color: #fff;
+    select.form-input option { background: #1a1510; color: #fff; }
+    textarea.form-input { min-height: 95px; resize: vertical; line-height: 1.6; }
+    .form-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
+
+    .yn-toggle {
+      display: flex; border-radius: 10px; overflow: hidden; border: .5px solid rgba(255,255,255,0.09);
     }
-    .form-textarea {
-      resize: vertical;
-      min-height: 72px;
+    .yn-btn {
+      flex: 1; padding: 10px 0; font-size: 12px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; border: none;
+      background: rgba(255,255,255,0.04); color: var(--text-muted); cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif; transition: all .18s ease;
     }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: rgba(242,101,34,0.6);
+    .yn-btn:first-child { border-right: .5px solid rgba(255,255,255,.09); }
+    .yn-btn.active-yes { background: rgba(34,197,94,.12); color: #22C55E; }
+    .yn-btn.active-no { background: rgba(239,68,68,.12); color: #EF4444; }
+
+    .check-card {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 14px 15px; border-radius: 11px;
+      background: rgba(255,255,255,.03); border: .5px solid rgba(255,255,255,.08);
+      margin-bottom: 10px;
     }
-    .form-input.error, .form-select.error, .form-textarea.error {
-      border-color: rgba(59,130,246,0.7);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    .check-card input[type='checkbox'] { width: 17px; height: 17px; margin-top: 1px; accent-color: #3B82F6; }
+    .check-card span { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+    .submit-btn {
+      width: 100%; padding: 16px; border-radius: 14px;
+      font-size: 15px; font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: .03em;
+      color: #fff; border: none; cursor: pointer;
+      background: linear-gradient(135deg,#60a5fa,#3B82F6,#1d4ed8);
+      box-shadow: 0 6px 28px rgba(59,130,246,.38), inset 0 1px 0 rgba(255,255,255,.15);
+      transition: transform .2s;
     }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .btn-submit-blue {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #60a5fa, #3B82F6, #1d4ed8);
-      border: none;
-      cursor: pointer;
-      transition: all var(--transition-base);
-      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
-      font-family: var(--font-body);
-      margin-top: 8px;
-    }
-    .btn-submit-blue:hover {
-      box-shadow: 0 6px 24px rgba(59,130,246,0.45);
-      transform: translateY(-1px);
-    }
-    /* Toast */
+    .submit-btn:hover { transform: translateY(-2px); }
+
     .toast {
-      position: fixed;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(34, 197, 94, 0.15);
-      border: 0.5px solid rgba(34, 197, 94, 0.35);
-      color: var(--green);
-      padding: 14px 24px;
-      border-radius: var(--radius-md);
-      font-size: 14px;
-      font-weight: 500;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      pointer-events: none;
-      max-width: 480px;
-      text-align: center;
+      position: fixed; bottom: 28px; right: 28px;
+      background: linear-gradient(135deg,rgba(34,197,94,.16),rgba(34,197,94,.08));
+      border: .5px solid rgba(34,197,94,.3); border-radius: 14px;
+      padding: 16px 18px; display: flex; align-items: center; gap: 10px;
+      color: #fff; z-index: 9999; opacity: 0; transform: translateY(12px);
+      transition: opacity .3s, transform .3s; pointer-events: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45); max-width: 360px;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
+
+    @media(max-width:700px){ .form-grid{grid-template-columns:1fr;} .form-group.col-span-2{grid-column:1;} }
   </style>
 </head>
 <body>
 <div class="app no-right-panel">
-
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <aside class="sidebar">
-    <a href="home.html" class="sidebar-logo"><img src="tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;"></a>
+    <a href="home.html" class="sidebar-logo"><img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;"></a>
     <nav class="sidebar-nav">
       <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
       <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="withdrawal.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="nav-label">Withdraw Earnings</span></a>
       <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
-      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
-      <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+        <span class="nav-label">Tunefry Daily</span>
+        <span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="nav-sub-menu" id="dailySubMenu">
+        <a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a>
+        <a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a>
+      </div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
   <header class="topbar">
-    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     <div class="search-box"><span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><input type="text" placeholder="Search catalog..."></div>
-    <div class="topbar-actions">
-      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
-      <div class="create-release-wrap">
-        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
-        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
-          <a href="song-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
-          <div class="create-dropdown-divider"></div>
-          <a href="album-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
-        </div>
-      </div>
-      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
-    </div>
+    <div class="topbar-actions"><a href="profile.html" class="user-avatar" style="text-decoration:none;" title="Profile">V</a></div>
   </header>
 
   <main class="content">
-    <div class="page-header">
-      <div class="page-header-left">
-        <span class="page-label">Releases</span>
-        <h1 class="page-title">Transfer Existing Song</h1>
+    <div class="page-label animate-in"><svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>Releases</div>
+    <div class="page-header animate-in animate-in-delay-1">
+      <div><h1 class="page-title">Transfer Existing Song</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px;">Move a released song from another distributor without losing momentum.</p></div>
+      <div class="page-header-actions"><a href="index.html" class="btn btn-outline">&#8592; Overview</a></div>
+    </div>
+
+    <div class="glass-card transfer-section animate-in animate-in-delay-2">
+      <div class="section-eyebrow">Step 01</div>
+      <div class="section-heading">Current Release Details</div>
+      <div class="transfer-note">Keep your ISRC and release date unchanged when possible to preserve existing streams and playlists across platforms.</div>
+      <div class="form-grid">
+        <div class="form-group col-span-2">
+          <label class="form-label">Current Distributor <span class="req">*</span></label>
+          <select class="form-input" id="distributor"><option value="" selected disabled>Select distributor</option><option>DistroKid</option><option>TuneCore</option><option>CD Baby</option><option>Amuse</option><option>RouteNote</option><option>Believe</option><option>United Masters</option><option>Other</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Song Title <span class="req">*</span></label><input class="form-input" id="songTitle" type="text" placeholder="e.g. Midnight Echoes"></div>
+        <div class="form-group"><label class="form-label">Artist Name <span class="req">*</span></label><input class="form-input" id="artistName" type="text" placeholder="e.g. Luna Waves"></div>
+        <div class="form-group col-span-2"><label class="form-label">Label Name <span class="req">*</span></label><div id="labelNameWrapTransferSong"></div><span class="form-hint">Free to 1599 plans are locked to Tunefry. 2999 and Label plans can use one custom label name, then choose from dropdown.</span></div>
+        <div class="form-group"><label class="form-label">ISRC Code <span class="opt-tag">(optional)</span></label><input class="form-input" type="text" placeholder="e.g. USRC12345678"></div>
+        <div class="form-group"><label class="form-label">Original Release Date <span class="opt-tag">(optional)</span></label><input class="form-input" type="date" id="releaseDate" style="color-scheme:dark;"></div>
       </div>
-      <div class="page-header-actions">
-        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Overview</a>
-        <a href="song-upload.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
+    </div>
+
+    <div class="glass-card transfer-section animate-in animate-in-delay-3">
+      <div class="section-eyebrow">Step 02</div>
+      <div class="section-heading">Store &amp; Profile Links</div>
+      <div class="form-grid">
+        <div class="form-group col-span-2"><label class="form-label">Spotify Track URL</label><input class="form-input" type="url" id="spotifyLink" placeholder="https://open.spotify.com/track/..."></div>
+        <div class="form-group"><label class="form-label">Apple Music URL</label><input class="form-input" type="url" placeholder="https://music.apple.com/..." ></div>
+        <div class="form-group"><label class="form-label">YouTube Music URL</label><input class="form-input" type="url" placeholder="https://music.youtube.com/..." ></div>
+        <div class="form-group col-span-2"><label class="form-label">Other Streaming Links <span class="opt-tag">(optional)</span></label><textarea class="form-input" rows="3" placeholder="Paste one link per line"></textarea></div>
       </div>
     </div>
 
-    <!-- Intro info card -->
-    <div class="transfer-intro-card">
-      Our team will contact your previous distributor and handle the full migration. Your stream count, playlist positions, and release date will be preserved wherever possible. The process typically takes <strong style="color:var(--text-primary);">7–14 working days</strong>.
+    <div class="glass-card transfer-section animate-in animate-in-delay-4">
+      <div class="section-eyebrow">Step 03</div>
+      <div class="section-heading">Transfer Preferences</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Preserve Existing Stats?</label>
+          <div class="yn-toggle"><button class="yn-btn active-yes" id="preserveYes" onclick="setYN('preserve', true)">Yes</button><button class="yn-btn" id="preserveNo" onclick="setYN('preserve', false)">No</button></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Need Fast-Track?</label>
+          <div class="yn-toggle"><button class="yn-btn" id="fastNo" onclick="setYN('fast', false)">No</button><button class="yn-btn" id="fastYes" onclick="setYN('fast', true)">Yes</button></div>
+        </div>
+        <div class="form-group col-span-2"><label class="form-label">Additional Notes <span class="opt-tag">(optional)</span></label><textarea class="form-input" rows="4" placeholder="Any details that may help the migration team..."></textarea></div>
+      </div>
     </div>
 
-    <!-- Form card -->
-    <div class="transfer-form-card">
-      <form id="transferSongForm" novalidate>
-
-        <div class="form-group">
-          <label class="form-label" for="distributor">Current Distributor <span class="req">*</span></label>
-          <select class="form-select" id="distributor" name="distributor">
-            <option value="" disabled selected>Select your distributor...</option>
-            <option value="distrokid">DistroKid</option>
-            <option value="tunecore">TuneCore</option>
-            <option value="cdbaby">CD Baby</option>
-            <option value="amuse">Amuse</option>
-            <option value="routenote">RouteNote</option>
-            <option value="believe">Believe</option>
-            <option value="unitedmasters">United Masters</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="songTitle">Song Title <span class="req">*</span></label>
-            <input class="form-input" type="text" id="songTitle" name="songTitle" placeholder="e.g. Midnight Echoes">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="artistName">Artist Name <span class="req">*</span></label>
-            <input class="form-input" type="text" id="artistName" name="artistName" placeholder="e.g. Luna Waves">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="isrcCode">ISRC Code <span class="opt">(optional)</span></label>
-            <input class="form-input" type="text" id="isrcCode" name="isrcCode" placeholder="e.g. USRC12345678">
-            <p class="form-hint">Find this on your current distributor's dashboard</p>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="releaseDate">Release Date <span class="opt">(optional)</span></label>
-            <input class="form-input" type="date" id="releaseDate" name="releaseDate">
-            <p class="form-hint">When was this song originally released?</p>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="streamingLinks">Streaming Links</label>
-          <textarea class="form-textarea" id="streamingLinks" name="streamingLinks" rows="2" placeholder="Paste links to the song on Spotify, Apple Music, etc. (one per line)"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="notes">Additional Notes <span class="opt">(optional)</span></label>
-          <textarea class="form-textarea" id="notes" name="notes" rows="3" placeholder="Any other details that may help us with the transfer..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit-blue">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
-          Submit Transfer Request
-        </button>
-
-      </form>
+    <div class="glass-card transfer-section animate-in animate-in-delay-5">
+      <div class="section-eyebrow">Step 04</div>
+      <div class="section-heading">Review &amp; Submit</div>
+      <label class="check-card"><input type="checkbox" id="ownership"><span>I confirm I own or control the rights for this recording and metadata.</span></label>
+      <label class="check-card"><input type="checkbox" id="permission"><span>I authorize Tunefry to communicate with my previous distributor for migration activities.</span></label>
+      <button class="submit-btn" onclick="submitTransferSong()">Submit Transfer Request</button>
+      <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:12px;line-height:1.6;">Typical migration timeline: 7–14 working days.</p>
     </div>
-
   </main>
-
 </div>
 
-<!-- Toast -->
-<div class="toast" id="successToast">Transfer request submitted! Our team will contact you within 2 working days to begin the migration.</div>
+<div class="toast" id="successToast"><span style="font-size:20px;">🎉</span><div><strong style="font-family:'Syne',sans-serif;">Transfer Request Submitted!</strong><br><span style="font-size:12px;color:rgba(255,255,255,0.7);">Our migration team will reach out within 2 business days.</span></div></div>
 
+<script src="js/app.js"></script>
 <script>
-  document.getElementById('transferSongForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  function setYN(prefix, yes) {
+    var y = document.getElementById(prefix + 'Yes');
+    var n = document.getElementById(prefix + 'No');
+    if (!y || !n) return;
+    y.className = yes ? 'yn-btn active-yes' : 'yn-btn';
+    n.className = yes ? 'yn-btn' : 'yn-btn active-no';
+  }
+
+  function markError(el) {
+    el.style.borderColor = 'rgba(59,130,246,.7)';
+    el.style.boxShadow = '0 0 0 3px rgba(59,130,246,.14)';
+  }
+  function clearError(el) {
+    el.style.borderColor = '';
+    el.style.boxShadow = '';
+  }
+
+  function getLabelPlanTier() {
+    var urlPlan = new URLSearchParams(window.location.search).get('plan');
+    var saved = localStorage.getItem('tunefryPlanTier');
+    var raw = (urlPlan || saved || '1599').toLowerCase().trim();
+    if (raw.indexOf('label') > -1) return 'label';
+    if (raw.indexOf('2999') > -1 || raw.indexOf('double') > -1) return '2999';
+    return '1599';
+  }
+
+  function isCustomLabelAllowed() {
+    var tier = getLabelPlanTier();
+    return tier === '2999' || tier === 'label';
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function saveCustomLabelName(inputId, wrapId, selectId) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    var value = input.value.trim();
+    if (value.length < 2) {
+      input.focus();
+      input.style.borderColor = 'rgba(59,130,246,.7)';
+      return;
+    }
+    localStorage.setItem('tunefryCustomLabelName', value);
+    renderLabelNameField(wrapId, selectId);
+  }
+
+  function renderLabelNameField(wrapId, selectId) {
+    var wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    var savedLabel = (localStorage.getItem('tunefryCustomLabelName') || '').trim();
+
+    if (!isCustomLabelAllowed()) {
+      wrap.innerHTML = '<input type="text" class="form-input" id="' + selectId + '" value="Tunefry" readonly>';
+      return;
+    }
+
+    if (!savedLabel) {
+      wrap.innerHTML = '' +
+        '<div style="display:flex;gap:10px;align-items:center;">' +
+          '<input type="text" class="form-input" id="' + selectId + 'Setup" placeholder="Enter your label name (one-time setup)">' +
+          '<button type="button" onclick="saveCustomLabelName(\'' + selectId + 'Setup\',\'' + wrapId + '\',\'' + selectId + '\')" style="padding:10px 14px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Save</button>' +
+        '</div>';
+      return;
+    }
+
+    var safe = escapeHtml(savedLabel);
+    wrap.innerHTML = '' +
+      '<select class="form-input" id="' + selectId + '">' +
+        '<option value="Tunefry">Tunefry</option>' +
+        '<option value="' + safe + '" selected>' + safe + '</option>' +
+      '</select>';
+  }
+
+  function submitTransferSong() {
     var required = ['distributor', 'songTitle', 'artistName'];
-    var hasError = false;
+    var bad = false;
     required.forEach(function(id) {
       var el = document.getElementById(id);
-      el.classList.remove('error');
-      if (!el.value || el.value === '') {
-        el.classList.add('error');
-        el.style.borderColor = 'rgba(59,130,246,0.7)';
-        el.style.boxShadow = '0 0 0 3px rgba(59,130,246,0.12)';
-        hasError = true;
-        el.addEventListener('input', function() {
-          el.classList.remove('error');
-          el.style.borderColor = '';
-          el.style.boxShadow = '';
-        }, { once: true });
-        el.addEventListener('change', function() {
-          el.classList.remove('error');
-          el.style.borderColor = '';
-          el.style.boxShadow = '';
-        }, { once: true });
+      clearError(el);
+      if (!el.value || !el.value.trim()) {
+        markError(el);
+        if (!bad) el.focus();
+        bad = true;
       }
     });
-    if (hasError) return;
+    if (bad) return;
+
+    if (!document.getElementById('ownership').checked || !document.getElementById('permission').checked) {
+      document.querySelectorAll('.check-card').forEach(function(card) {
+        card.style.borderColor = 'rgba(239,68,68,.45)';
+        card.style.background = 'rgba(239,68,68,.06)';
+        setTimeout(function() {
+          card.style.borderColor = '';
+          card.style.background = '';
+        }, 2300);
+      });
+      return;
+    }
+
     var toast = document.getElementById('successToast');
-    toast.classList.add('show');
-    setTimeout(function() { toast.classList.remove('show'); }, 4500);
-    this.reset();
-  });
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
+    setTimeout(function() {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(12px)';
+    }, 4200);
+  }
+
+  renderLabelNameField('labelNameWrapTransferSong', 'labelNameSelectTransferSong');
 </script>
-<script src="js/app.js"></script>
-</body></html>
+</body>
+</html>

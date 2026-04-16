@@ -1,0 +1,1275 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Release</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    :root {
+      --primary: #e63203;
+      --primary-dark: #c22a03;
+      --bg-dark: #111;
+      --bg-darker: #0a0a0a;
+      --bg-input: #1e1e1e;
+      --border: #444;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      color: #fff;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    input, select, textarea {
+      background-color: var(--bg-input);
+      color: white;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    
+    input:hover, select:hover, textarea:hover {
+      border-color: #666;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(230, 50, 3, 0.2);
+    }
+    
+    label {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-section {
+      @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+    }
+    
+    .form-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group:focus-within label {
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(230, 50, 3, 0.3);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn-primary:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgba(230, 50, 3, 0.1);
+    }
+    
+    .btn-toggle {
+      background-color: var(--bg-input);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .btn-toggle.active {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-toggle:hover {
+      background-color: rgba(230, 50, 3, 0.2);
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+    
+    .file-upload {
+      position: relative;
+      overflow: hidden;
+      border: 2px dashed var(--border);
+      border-radius: 0.5rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .file-upload:hover {
+      border-color: var(--primary);
+      background-color: rgba(30, 30, 30, 0.5);
+    }
+    
+    .file-upload input[type="file"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .file-upload-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .file-upload-icon {
+      color: var(--primary);
+      font-size: 2rem;
+    }
+    
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .checkbox-container:hover {
+      transform: translateX(4px);
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      margin-right: 0.75rem;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .checkbox-container input[type="checkbox"]:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .checkbox-container input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute;
+      color: white;
+      font-size: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--bg-darker);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+      font-weight: normal;
+      border: 1px solid var(--border);
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .artist-group {
+      background: rgba(30, 30, 30, 0.3);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .remove-artist {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(230, 50, 3, 0.2);
+      border: none;
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .remove-artist:hover {
+      background: rgba(230, 50, 3, 0.4);
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .toggle-label {
+      margin-right: 1rem;
+      font-weight: 600;
+      color: white;
+    }
+    
+    .file-info {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--primary);
+      display: none;
+    }
+    
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    
+    input:invalid, select:invalid, textarea:invalid {
+      border-color: #ff6b6b;
+    }
+    
+    @media (max-width: 768px) {
+      .form-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="p-4 md:p-6">
+      <form name="ctl00" method="post" action="./Newform.aspx" id="ctl00" enctype="multipart/form-data">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=vvwk5sv6WmbbkBaTUNZXBewglmYttYrGT2uJ6RqIQ_5abB8blRgfYjGR9E5FO6rxrCnOU1tSxcMgFCoMOM9alxBccUVSJZPIo__EztwwWKFyMOJ3_aH971YZUa4cifQiG4DQ9BMS90HUAfsh0N7nDJ4vQkMOYHzPQpL9ZhriC7uI3oYtWaTaVkkmA-QPyudx0&amp;t=5c0e0825" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="825336BC" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="hNREE3wFfpsA+Pg0QiQtsS8g3ribimfWcy8ra8UyQ6Z1PyzDia82qKYTh30cLmmpkxjl+e+OW1gemTHkRVtvupmmwGoGKcc9JF1XIDy2UU+vsN6hYx7R6Oeu3KAG6KLHngDGDOmz4jNzSDpWLPwipKsNSwXRU7nUg6IZcc26PapeCWjNwJdkkUkqyxBTi4RsxML4DiEzWcI55EBzuk31CLx23fspb9/6l2wAbfEjjv2lD9R8t9D98Q1aS3LAQnTSJeptcDX5kznK0d1ulzaAxD4jP6xuolCpyGOS075jyboEA+Gg7/Ba2bCGZn2li9ZaJXIc8T2anLTP9lAEjaiANuFhUpqqsb5Bx00EvyU84K1YnmaeF0CBnZs2uvsVN/R9IF9ifck1s5N3yeDDuClII1VKb3BAoj0C9oRXAmseIEGkAbCKFNXF80/qMB/Qnw5pT4iT2ZJAOZWS33KBha+7GQy6DwDPIGor9HfWOB1y0xZNKTkCIaPr2nXi8BSz1AzVECpzImUeyNNl10e6qI6K5xylSea9zzk5Qo9Y5pC75Vg4FpWG56SaMQWzmj4hUdMOAh1ZatsL1/9R0rTz4nJQKOIvavOFVnLTltht51Pf+DQDb3anZcXUDsZVMNFxyBl4piKEaiT2N8SVE2OqszSkEAoOHzyqi7vIznD0CpwCW9WupMuDdqIEDjPMP77nq/QqlA9qxcWOEzaNvEBKHPNnrZKjFBnYP+4PeKnC8EYNppjiSPq1c/jQZScxdQ3pG0Sz7vuDZM0bVLHE386IZBltIyK2Kl616WgnQuqFFUJBibnVbLOQqiGMofV9KQDhnAe+h1dCT0ZU0t8cJT9VaeVt96yI2Iw0A8t3sDdqHz6cbJ3KX8cLDjZSe8/ohfgc/j5UqgvNFZ9YtBqM0P2JRH8A5EeDbXnRqcMSnBY8cz6KdbZ5pAl11LmGdKCjlwTUdKJYoyKNwJFCHdciA3H2+5mJnWEo3413qV44TxbBYhU+F/s9rsjJG3iElgnA2KfF10poyS3A7FbfgWttZieiXPuPd42YAMDOh42rJOV7eJ40MnQ8KsWEWuq1QxUvZ+4UIt/l3lfeQZt+yLLn8iTY7wx1S208LyGNS2fNwRTIui5uO075CTMCMvqp4UF9u4iGQ4CtjDE4BtLlwft3YIE43/zTjkSfIz0ElaeuO1URMNPrMopak2lvj/wWN3zfdhFaEwWg+ATmbc3hZ0Y3VJ2Dqxlci9zAPBJ/c6dW2vUsyDdRE/CAxn/c07xWBBeR2n4klreO8kEaY47OtTQZujswsIYj/EE/kJmV2woy88FlKIbMtr+qeZ5g+f3+5At3gQ5X2mlXeHRhgimkk847toOFIgv1WuqzkwtHuTWQmf+KFZqcgkwR8rGTx9TTg7ZZpGR1ccPIqmHrMy4Ors0ygZbaWGC67dx3quivgGR8FKiOOzC706z5Os3ioyYU4cgjzuHgccMXJsYl/QHbihMy0lEakwYKSri/LLPDFmdBmW60A1369qwJqzbTJxf8hwvurbconhM8iqaq7EVm668yaMFBgre1rJPnvTsscsqlfaunKqhTO2XqrSGZ8Qipc4zfCrEQX3K+GS3S2f/gLrxryZ74uBJtUgiVEA+HAxwj+92S0174yXMGfYeAgQIIacafoBupqepqab8vSFRGDHEeEoRbGRePacsdl1TH8x5wT0afDe/bF0Km/+R31xuRVOfpWxGstAWOsgChxOH+gHUTiHvCNn7wQOWZy8AV9ltiMtsnQT6k0bmDho7HqzhWuKSwci3xpVxtZwLLxJxF+CruZKHdoUUcQr8IbEthSvO9u2xb5dNxWcBzJkiMSAe6gDlzIUdRivgdkL6sBMF0Epp435CQgtD0n0pFJ47KJOepwx2JKb8yO0a+ig9K74cJ+V9+zH35EuhWaXIPvciaBcYZaWvpvngF/Nh+5xRVI9tZC2YUSoF9FDq+QUMEy/AG2S4jUqA6yXmO+wKWkmPLnC+G9p/XqPnrGj4fM447s3sUX/95kJegKDdZKHp7be+hqO/iZk42dX+FebGel4whtyqbcWhzLlls3shRdDy/cFo6mE3Z3YSykuGOxmNUv6BzQI+Jrj88zVN3dYItPNXy8+a2Dh1T5UX/EkP5Kekao9ZrcoioXDcYN0/LHzQa4E95euU/3av/0c8zETTPL4YkQS8zkUEwe+MlEEYpuo1o3AKjpyJvjPEmZsK189UXx5VuLmH+OEqm66JJfuWtYkxFhinokQhYFUEtQRbgNklwxV2NhjVerWGTM+u14QHyaGtjhay26WduVOcZQKBckY02UTni4qnokmhETWCvjedBGKVx2ZM2RJ2X7a4IOfabT1LXz9LpM4PHcYsMBEvMEqu9zexyyxd+o4SEJTQy+kNtCqDQB5NoMvME06HiN163UW56QfHSWUM0o+52eSQz4ELCpdsLzjDKG0CA77oAChrxVNL2PLw8pHpXTTLgpadZuc5VjPfYHDGrAg2vE0g/aHGhyS0fPvOq9Gy63+hGADJCMPXiDN0uN8KocaYY9oHGMquOreQDmdQZC+s6iaDbPU5fNUCFxGjTkD8Vkw0cJ47XlUG2CFbjLd8yCTs=" />
+         
+
+  <div class="max-w-6xl mx-auto animate__animated animate__fadeIn text-center">
+    <a href="guidelinesform.html" class="btn-primary animate__animated animate__pulse animate__infinite animate__slower" style="display: inline-block; text-decoration: none;">
+      View Submission Rules
+    </a>
+    <h1 class="text-4xl font-bold mt-6 mb-2 bg-gradient-to-r from-[#e63203] to-orange-500 bg-clip-text text-transparent">
+      CREATE RELEASE
+    </h1>
+    <p class="text-gray-400 max-w-2xl mx-auto">
+      Fill out the form below to submit your music for distribution. All fields are required unless marked optional.
+    </p>
+  </div>
+
+
+   <div class="space-y-6" id="release-form" novalidate>
+    
+    <div class="form-section animate__animated animate__fadeIn">
+      
+
+  <div class="space-y-6" id="release-form" novalidate>
+    <h2 class="section-title animate__animated animate__fadeInLeft">Basic Information</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="title">TITLE <span class="text-red-500">*</span></label>
+         <div id="ctl03">
+	
+                                                    <input name="txtSongTitle" type="text" id="txtSongTitle" class="w-full p-3 rounded-lg" placeholder="Enter track title" />
+                                                    
+</div>
+          &nbsp;
+
+                                                    &nbsp;
+     
+      </div>
+
+      <div class="form-group">
+        <label for="youtube-beat">YouTube Beat/Music? <span class="text-red-500">*</span></label>
+      
+            <select name="ddlYoutubeBeat" id="ddlYoutubeBeat" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="Yes">Yes</option>
+	<option value="No">No</option>
+
+</select> 
+        <div class="error-message" id="youtube-beat-error"></div>
+      </div>
+    </div>
+
+    <!-- Main Artists Section -->
+    <h2 class="section-title animate__animated animate__fadeInLeft">
+      Main Artists
+      <button type="button" id="toggle-multi-main" class="btn-toggle">
+        <i class="fas fa-plus"></i> Add Main Artist
+      </button>
+    </h2>
+    <div class="animate__animated animate__fadeIn">
+      <div id="main-artists-container">
+        <!-- Main artists will be added here dynamically -->
+      </div>
+      <button type="button" id="add-main-btn" class="btn-secondary mt-2 hidden">
+        <i class="fas fa-plus"></i> Add Main Artist
+      </button>
+      <div class="error-message" id="main-artist-error">Please enter at least one main artist</div>
+    </div>
+
+    <!-- Featured Artists Section -->
+    <h2 class="section-title animate__animated animate__fadeInLeft">
+      Featured Artists
+      <button type="button" id="toggle-featured" class="btn-toggle">
+        <i class="fas fa-plus"></i> Add Featured
+      </button>
+    </h2>
+    <div class="animate__animated animate__fadeIn">
+      <div id="featured-artists-container">
+        <!-- Featured artists will be added here dynamically -->
+      </div>
+      <button type="button" id="add-featured-btn" class="btn-secondary mt-2 hidden">
+        <i class="fas fa-plus"></i> Add Featured Artist
+      </button>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Credits</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="producer">MUSIC PRODUCER NAME</label>
+     <input name="txtmusicproducer" type="text" id="txtmusicproducer" class="w-full p-3 rounded-lg" placeholder="Producer name" />
+       &nbsp;
+              &nbsp;
+             
+      </div>
+
+      <div class="form-group">
+        <label for="composer">COMPOSER NAME (Artist's real name)</label>
+       
+            <input name="txtcomposer" type="text" id="txtcomposer" class="w-full p-3 rounded-lg" placeholder="Composer name" />
+            &nbsp;
+              &nbsp;
+          
+      </div>
+
+      <div class="form-group">
+        <label for="lyricist">LYRICIST / AUTHOR NAME (Artist's real name)</label>
+       
+            <input name="txtlyricist" type="text" id="txtlyricist" class="w-full p-3 rounded-lg" placeholder="Lyricist name" />
+            &nbsp;
+            &nbsp;
+            
+
+      </div>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Track Details</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="explicit">EXPLICIT <span class="text-red-500">*</span></label>
+         <select name="ddlExplicit" id="ddlExplicit" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="Yes">Yes</option>
+	<option value="No">No</option>
+
+</select> 
+            
+
+        &nbsp;
+      </div>
+
+      <div class="form-group">
+        <label for="category">CATEGORY <span class="text-red-500">*</span></label>
+         <select name="ddlGenre" id="ddlGenre" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="7">Hip-Hop/Rap</option>
+	<option value="8">Hindustani Classsical</option>
+	<option value="9">Devotional</option>
+	<option value="10">Carnatic Classsical</option>
+	<option value="11">Ambient / Instrumental</option>
+	<option value="12">Film</option>
+	<option value="13">Pop</option>
+	<option value="14">Indie</option>
+	<option value="15">Folk</option>
+	<option value="16">Childrens Music</option>
+	<option value="17">Jazz</option>
+
+</select>
+        
+      </div>
+
+      <div class="form-group">
+        <label for="subcategory">SUB CATEGORY</label>
+          <select name="ddlSubCategory" id="ddlSubCategory" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="8">Alternative Hip-Hop</option>
+	<option value="9">Concious Hip-Hop</option>
+	<option value="10">Country Rap</option>
+	<option value="11">Emo Rap</option>
+	<option value="12">Jazz Rap</option>
+	<option value="13">Hip-Hop</option>
+	<option value="14">Pop Rap</option>
+	<option value="15">Trap</option>
+	<option value="16">Instrumental</option>
+	<option value="17">Aarti</option>
+	<option value="18">Bhajan</option>
+	<option value="19">Carol</option>
+	<option value="20">Chalisa</option>
+	<option value="21">Chant</option>
+	<option value="22">Geet</option>
+	<option value="23">Gospel</option>
+	<option value="24">Gurbani</option>
+	<option value="25">Kirtan</option>
+	<option value="26">Mantra</option>
+	<option value="27">Paath</option>
+	<option value="28">Islamic</option>
+	<option value="29">Soft</option>
+	<option value="30">Easy Listening</option>
+	<option value="31">Electronic</option>
+	<option value="32">Acoustic Pop</option>
+	<option value="33">Band Songs</option>
+	<option value="34">Chill Pop</option>
+	<option value="35">Contemporary Pop</option>
+	<option value="36">Country Pop/ Regional Pop</option>
+	<option value="37">Dance Pop</option>
+	<option value="38">Electro Pop</option>
+	<option value="39">Lo-Fi Pop</option>
+	<option value="40">Love Songs</option>
+	<option value="41">Pop Rap</option>
+	<option value="42">Sad Songs</option>
+	<option value="43">Soft Pop</option>
+
+</select>
+            
+
+      </div>
+
+      <div class="form-group">
+        <label for="language">Language</label>
+         <select name="ddlLanguage" id="ddlLanguage" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="24">Hindi</option>
+	<option value="1">English</option>
+	<option value="2">Spanish</option>
+	<option value="3">French</option>
+	<option value="4">German</option>
+	<option value="5">Chinese</option>
+	<option value="6">Gujrati</option>
+	<option value="7">Urdu</option>
+	<option value="8">Bhojpuri</option>
+	<option value="9">Marathi</option>
+	<option value="10">Haryanvi</option>
+	<option value="11">Telugu</option>
+	<option value="12">Chhattisgarhi</option>
+	<option value="13">Konkani</option>
+	<option value="14">Punjabi</option>
+	<option value="15">Sanskrit</option>
+	<option value="16">Bengali</option>
+	<option value="17">Nagpuri</option>
+	<option value="18">Odia</option>
+	<option value="19">Kharia</option>
+	<option value="20">Kannada</option>
+	<option value="21">Malayalam</option>
+	<option value="22">Tamil</option>
+	<option value="23">Kashmiri</option>
+	<option value="25">Nepali</option>
+
+</select>
+            
+
+      </div>
+
+      <div class="form-group">
+        <label for="mood">Mood</label>
+           <select name="ddlMood" id="ddlMood" class="w-full p-3 rounded-lg">
+	<option value="">Select an option</option>
+	<option value="1">Happy</option>
+	<option value="2">Sad</option>
+	<option value="3">Relaxed</option>
+	<option value="6">Romantic</option>
+	<option value="7">Dance</option>
+	<option value="8">Bhangra</option>
+	<option value="9">Partiotic</option>
+	<option value="10">Nostalgic</option>
+	<option value="11">Inspirational</option>
+	<option value="12">Enthusiastic</option>
+	<option value="13">Optimistic</option>
+	<option value="14">Passion</option>
+	<option value="15">Pessimistic</option>
+	<option value="16">Spiritual</option>
+	<option value="17">Peppy</option>
+	<option value="18">Philosophical</option>
+	<option value="19">Mellow</option>
+	<option value="20">Calm</option>
+
+</select>
+        
+
+      </div>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Release Dates</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="release-date">ORIGINAL RELEASE DATE <span class="text-red-500">*</span></label>
+          <input name="txtDate" id="txtDate" class="w-full p-3 rounded-lg" type="date" />         
+        
+      </div>
+
+      <div class="form-group">
+        <label for="go-live-date">GO LIVE DATE <span class="text-red-500">*</span></label>
+        <input name="txtGoLive" id="txtGoLive" type="date" class="w-full p-3 rounded-lg" />
+       
+      </div>
+
+      <div class="form-group">
+        <label for="content-id">YOUTUBE CONTENT ID <span class="text-red-500">*</span></label>
+        <select name="ddlYoutube" id="ddlYoutube" class="w-full p-3 rounded-lg" data-width="100%">
+	<option value="">Select an option</option>
+	<option value="Yes">Yes</option>
+	<option value="No">No</option>
+
+</select> 
+       
+      </div>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Upload Files</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label>COVER ART (3000x3000px) <span class="text-red-500">*</span></label>
+        <div class="file-upload" id="cover-art-upload">
+          <div class="file-upload-label">
+            <span class="file-upload-icon">📁</span>
+            <span>Drag & drop your cover art or click to browse</span>
+            <span class="text-sm text-gray-400">JPEG, PNG (min 3000x3000px)</span>
+          </div>
+         
+             <input type="file" name="flArtwork" id="flArtwork" accept=".png,.jpg,.jpeg" onchange="validateFileName(this)" />                             
+          <div class="file-info" id="cover-art-info"></div>
+        </div>
+        
+             
+      </div>
+
+      <div class="form-group">
+        <label>AUDIO FILE (WAV/MP3/FLAC) <span class="text-red-500">*</span></label>
+        <div class="file-upload" id="audio-file-upload">
+          <div class="file-upload-label">
+            <span class="file-upload-icon">🎵</span>
+            <span>Drag & drop your audio file or click to browse</span>
+            <span class="text-sm text-gray-400">WAV, MP3, FLAC (min 16-bit 44.1kHz)</span>
+          </div>
+        
+              <input type="hidden" name="hddaudio" id="hddaudio" />
+               <input type="file" name="flAudio" id="flAudio" accept=".wav,.mp3" />
+          <div class="file-info" id="audio-file-info"></div>
+        </div>
+         
+                
+          
+      </div>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Callertune Options</h2>
+    <div class="form-section animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="callertune-name">CALLERTUNE CUT NAME</label>
+           <div id="ctl09">
+	
+            <input name="txtCrbt" type="text" id="txtCrbt" class="w-full p-3 rounded-lg" placeholder="Optional callertune name" />
+            
+</div>
+            &nbsp;
+        
+      </div>
+
+      <div class="form-group">
+        <label for="callertune-time">CALLERTUNE TIMING (00:00)</label>
+       
+             <input name="txtTime" type="text" id="txtTime" class="w-full p-3 rounded-lg" placeholder="00:00" />
+         
+       &nbsp;
+            &nbsp;
+
+      </div>
+    </div>
+
+    <h2 class="section-title animate__animated animate__fadeInLeft">Additional Information</h2>
+    <div class="animate__animated animate__fadeIn">
+      <div class="form-group">
+        <label for="comments">Add a comment <span class="tooltip">ℹ️<span class="tooltip-text">Any additional information about your release that might help our team</span></span></label>
+       
+           <textarea name="txtcomment" rows="5" cols="20" id="txtcomment" class="w-full p-3 rounded-lg h-32" aria-describedby=" " placeholder="Any special instructions or notes about your release">
+</textarea>
+
+      </div>
+    </div>
+
+    <div class="mt-8 animate__animated animate__fadeIn">
+      <label class="checkbox-container">
+        <input type="checkbox" id="guidelines-checkbox" checked required disabled/>
+        <span>I agree to the content delivery guidelines <span class="text-red-500">*</span></span>
+      </label>
+     You must agree to the guidelines
+      
+      <label class="checkbox-container">
+        <input type="checkbox" id="rights-checkbox" checked required disabled/>
+        <span>I agree to the Terms & Conditions.
+I hereby declared that Tunefry has full rights to modify artwork or album/song metadata details based on the content Delivery guidelines.<br /> 
+I will not request for the takedown of song for the next 2 years . <span class="text-red-500">*</span></span>
+      </label>
+     You must agree to the rights terms
+    </div>
+
+    <div class="text-center mt-10 animate__animated animate__fadeInUp">
+                 <input type="submit" name="btnsubmit" value="Submit" id="btnsubmit" type="submit" class="btn-primary px-8 py-3 text-lg" />
+        <input type="hidden" name="hfArtistCount" id="hfArtistCount" value="0" />
+        <input type="hidden" name="hfFeaturedArtistCount" id="hfFeaturedArtistCount" value="0" />
+      <p class="text-gray-500 mt-4 text-sm">
+        Your submission will be reviewed within 3-5 business days
+      </p>
+    </div>
+  </div>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Artist Management
+          const mainArtistsContainer = document.getElementById('main-artists-container');
+          const featuredArtistsContainer = document.getElementById('featured-artists-container');
+          const addMainBtn = document.getElementById('add-main-btn');
+          const addFeaturedBtn = document.getElementById('add-featured-btn');
+          const toggleMultiMain = document.getElementById('toggle-multi-main');
+          const toggleFeatured = document.getElementById('toggle-featured');
+      
+          let mainArtistCount = 0;
+          let featuredArtistCount = 0;
+          let multiMainEnabled = false;
+          let featuredEnabled = false;
+      
+          // Initialize with no main artists - will be added when toggled
+      
+          // Toggle multiple main artists
+          toggleMultiMain.addEventListener('click', function() {
+              multiMainEnabled = !multiMainEnabled;
+              this.classList.toggle('active', multiMainEnabled);
+              addMainBtn.classList.toggle('hidden', !multiMainEnabled);
+        
+              if (multiMainEnabled && mainArtistCount === 0) {
+                  addMainArtist();
+              } else if (!multiMainEnabled) {
+                  // Remove all main artists if disabling
+                  mainArtistsContainer.innerHTML = '';
+                  mainArtistCount = 0;
+              }
+          });
+      
+          // Toggle featured artists
+          toggleFeatured.addEventListener('click', function() {
+              featuredEnabled = !featuredEnabled;
+              this.classList.toggle('active', featuredEnabled);
+              addFeaturedBtn.classList.toggle('hidden', !featuredEnabled);
+        
+              if (featuredEnabled && featuredArtistCount === 0) {
+                  addFeaturedArtist();
+              } else if (!featuredEnabled) {
+                  // Remove all featured artists if disabling
+                  featuredArtistsContainer.innerHTML = '';
+                  featuredArtistCount = 0;
+              }
+          });
+      
+          // Function to add a new main artist section
+          function addMainArtist() {
+              mainArtistCount++;
+              const artistId = `main-artist-${mainArtistCount}`;
+
+              const artistGroup = document.createElement('div');
+              artistGroup.className = 'artist-group';
+              artistGroup.id = artistId;
+
+              artistGroup.innerHTML = `
+                  <button type="button" class="remove-artist" data-artist-id="${artistId}">
+                      <i class="fas fa-times"></i>
+                  </button>
+                  <div class="form-section">
+                      <div class="form-group">
+                          <label for="${artistId}-name">MAIN ARTIST NAME <span class="text-red-500">*</span></label>
+                          <input type="text" id="${artistId}-name" name="${artistId}-name" class="w-full p-3 rounded-lg" placeholder="Main artist name" required/>
+                          <div class="error-message" id="${artistId}-name-error">Please enter artist name</div>
+                      </div>
+                      <div class="form-group">
+                          <label for="${artistId}-spotify">MAIN ARTIST (Spotify link)</label>
+                          <input  id="${artistId}-spotify" name="${artistId}-spotify" class="w-full p-3 rounded-lg" placeholder="https://open.spotify.com/artist/..."/>
+                         
+                      </div>
+                      <div class="form-group">
+                          <label for="${artistId}-apple">MAIN ARTIST (Apple link)</label>
+                          <input  id="${artistId}-apple" name="${artistId}-apple" class="w-full p-3 rounded-lg" placeholder="https://music.apple.com/artist/..."/>
+                   
+                      </div>
+                      <div class="form-group">
+                          <label for="${artistId}-instagram">MAIN ARTIST (Instagram)</label>
+                          <input  id="${artistId}-instagram" name="${artistId}-instagram" class="w-full p-3 rounded-lg" placeholder="https://www.instagram.com/artist/..."/>
+                        
+                      </div>
+                  </div>
+       `;
+
+              mainArtistsContainer.appendChild(artistGroup);
+
+              // Update hidden field with current count
+              document.getElementById('hfArtistCount').value = mainArtistCount;
+    
+              // Add animation
+              artistGroup.classList.add('animate__animated', 'animate__fadeIn');
+              setTimeout(() => {
+                  artistGroup.classList.remove('animate__animated', 'animate__fadeIn');
+          }, 1000);
+     
+ 
+        
+          // Add validation for the new fields
+          const nameInput = document.getElementById(`${artistId}-name`);
+      const spotifyInput = document.getElementById(`${artistId}-spotify`);
+      const appleInput = document.getElementById(`${artistId}-apple`);
+        
+      //nameInput.addEventListener('input', validateField);
+      //spotifyInput.addEventListener('input', validateUrlField);
+      //appleInput.addEventListener('input', validateUrlField);
+      }
+      
+      // Function to add a new featured artist section
+      function addFeaturedArtist() {
+          featuredArtistCount++;
+          const artistId = `featured-artist-${featuredArtistCount}`;
+
+          const artistGroup = document.createElement('div');
+          artistGroup.className = 'artist-group';
+          artistGroup.id = artistId;
+
+          artistGroup.innerHTML = `
+              <button type="button" class="remove-artist" data-artist-id="${artistId}">
+                  <i class="fas fa-times"></i>
+              </button>
+              <div class="form-section">
+                  <div class="form-group">
+                      <label for="${artistId}-name">FEATURED ARTIST NAME</label>
+                      <input type="text" id="${artistId}-name" name="${artistId}-name" class="w-full p-3 rounded-lg" placeholder="Featured artist name"/>
+                  </div>
+                  <div class="form-group">
+                      <label for="${artistId}-spotify">FEATURED ARTIST (Spotify link)</label>
+                      <input  id="${artistId}-spotify" name="${artistId}-spotify" class="w-full p-3 rounded-lg" placeholder="https://open.spotify.com/artist/..."/>
+              
+                  </div>
+                  <div class="form-group">
+                      <label for="${artistId}-apple">FEATURED ARTIST (Apple link)</label>
+                      <input  id="${artistId}-apple" name="${artistId}-apple" class="w-full p-3 rounded-lg" placeholder="https://music.apple.com/artist/..."/>
+                  
+                  </div>
+                  <div class="form-group">
+                      <label for="${artistId}-instagram">FEATURED ARTIST (Instagram)</label>
+                      <input  id="${artistId}-instagram" name="${artistId}-instagram" class="w-full p-3 rounded-lg" placeholder="https://www.instagram.com/artist/..."/>
+                     
+                  </div>
+              </div>
+          `;
+
+          featuredArtistsContainer.appendChild(artistGroup);
+    
+                          // Update hidden field with current count
+          document.getElementById('hfFeaturedArtistCount').value = featuredArtistCount;
+    
+                    // Add animation
+    artistGroup.classList.add('animate__animated', 'animate__fadeIn');
+    setTimeout(() => {
+        artistGroup.classList.remove('animate__animated', 'animate__fadeIn');
+                }, 1000);
+          
+        
+      // Add validation for the new fields
+      const spotifyInput = document.getElementById(`${artistId}-spotify`);
+      const appleInput = document.getElementById(`${artistId}-apple`);
+        
+     // spotifyInput.addEventListener('input', validateUrlField);
+    //  appleInput.addEventListener('input', validateUrlField);
+      }
+      
+      // Add event listeners for buttons
+      addMainBtn.addEventListener('click', addMainArtist);
+      addFeaturedBtn.addEventListener('click', addFeaturedArtist);
+      
+      // Remove artist functionality
+      function handleArtistRemoval(e) {
+          if (e.target.closest('.remove-artist')) {
+              const artistId = e.target.closest('.remove-artist').getAttribute('data-artist-id');
+              const artistElement = document.getElementById(artistId);
+              const container = artistElement.parentElement;
+          
+              if (artistElement) {
+                  artistElement.classList.add('animate__animated', 'animate__fadeOut');
+            
+                  setTimeout(() => {
+                      artistElement.remove();
+              
+                  if (container.id === 'main-artists-container') {
+                      mainArtistCount--;
+                      // Ensure at least one main artist remains if multi is enabled
+                      if (multiMainEnabled && mainArtistCount === 0) {
+                          addMainArtist();
+                      }
+                  } else if (container.id === 'featured-artists-container') {
+                      featuredArtistCount--;
+                  }
+              }, 500);
+          }
+      }
+      }
+      
+      mainArtistsContainer.addEventListener('click', handleArtistRemoval);
+      featuredArtistsContainer.addEventListener('click', handleArtistRemoval);
+      
+      // File upload handling
+      function handleFileUpload(inputElement, infoElement, uploadElement) {
+          inputElement.addEventListener('change', function() {
+              if (this.files && this.files[0]) {
+                  const fileName = this.files[0].name;
+                  infoElement.textContent = fileName;
+                  infoElement.style.display = 'block';
+                  uploadElement.style.borderColor = '#666';
+            
+                  // Validate file type and size
+                  if (inputElement.id === 'flArtwork') {
+                      const validTypes = ['image/jpeg', 'image/png'];
+                      if (!validTypes.includes(this.files[0].type)) {
+                          showError('cover-art-error', 'Please upload a JPEG or PNG file');
+                          return;
+                      }
+              
+                      // Check image dimensions (client-side check is limited)
+                      const img = new Image();
+                      img.onload = function() {
+                          if (this.width < 3000 || this.height < 3000) {
+                              showError('cover-art-error', 'Image should be at least 3000x3000px');
+                          } else {
+                              hideError('cover-art-error');
+                          }
+                      };
+                      img.src = URL.createObjectURL(this.files[0]);
+                  } else if (inputElement.id === 'flAudio') {
+                      const validTypes = ['audio/mpeg', 'audio/wav', 'audio/x-wav', 'audio/flac', 'audio/x-flac'];
+                      if (!validTypes.includes(this.files[0].type)) {
+                          showError('audio-file-error', 'Please upload an MP3, WAV, or FLAC file');
+                          return;
+                      }
+              
+                      // Check file size (max 100MB)
+                      if (this.files[0].size > 100 * 1024 * 1024) {
+                          showError('audio-file-error', 'File size should be less than 100MB');
+                      } else {
+                          hideError('audio-file-error');
+                      }
+                  }
+              }
+          });
+        
+          // Drag and drop functionality
+          uploadElement.addEventListener('dragover', function(e) {
+              e.preventDefault();
+              this.style.borderColor = 'var(--primary)';
+              this.style.backgroundColor = 'rgba(30, 30, 30, 0.7)';
+          });
+        
+          uploadElement.addEventListener('dragleave', function(e) {
+              e.preventDefault();
+              this.style.borderColor = 'var(--border)';
+              this.style.backgroundColor = '';
+          });
+        
+          uploadElement.addEventListener('drop', function(e) {
+              e.preventDefault();
+              this.style.borderColor = 'var(--border)';
+              this.style.backgroundColor = '';
+          
+              if (e.dataTransfer.files.length) {
+                  inputElement.files = e.dataTransfer.files;
+                  const event = new Event('change');
+                  inputElement.dispatchEvent(event);
+              }
+          });
+      }
+      
+      // Initialize file upload handlers
+      handleFileUpload(
+        document.getElementById('flArtwork'),
+        document.getElementById('cover-art-info'),
+        document.getElementById('cover-art-upload')
+      );
+      
+      handleFileUpload(
+        document.getElementById('flAudio'),
+        document.getElementById('audio-file-info'),
+        document.getElementById('audio-file-upload')
+      );
+      
+      // Form validation functions
+      function validateField(e) {
+          const field = e.target;
+          const errorId = `${field.id}-error`;
+        
+          if (field.validity.valid) {
+              hideError(errorId);
+              field.style.borderColor = '';
+          } else {
+              showError(errorId, field.validationMessage);
+              field.style.borderColor = '#ff6b6b';
+          }
+      }
+      
+      function validateUrlField(e) {
+          const field = e.target;
+          const errorId = `${field.id}-error`;
+        
+          if (!field.value || isValidUrl(field.value)) {
+              hideError(errorId);
+              field.style.borderColor = '';
+          } else {
+              showError(errorId, 'Please enter a valid URL');
+              field.style.borderColor = '#ff6b6b';
+          }
+      }
+      
+      function isValidUrl(string) {
+          try {
+              new URL(string);
+              return true;
+          } catch (_) {
+              return false;
+          }
+      }
+      
+      function showError(errorId, message) {
+          const errorElement = document.getElementById(errorId);
+          if (errorElement) {
+              errorElement.textContent = message;
+              errorElement.style.display = 'block';
+          }
+      }
+      
+      function hideError(errorId) {
+          const errorElement = document.getElementById(errorId);
+          if (errorElement) {
+              errorElement.style.display = 'none';
+          }
+      }
+      
+      // Add validation to all required fields
+      const requiredFields = document.querySelectorAll('[required]');
+      requiredFields.forEach(field => {
+          field.addEventListener('input', validateField);
+      field.addEventListener('change', validateField);
+      });
+      
+      // Special validation for URLs
+      //const urlFields = document.querySelectorAll('input[type="url"]');
+      //urlFields.forEach(field => {
+      //    field.addEventListener('input', validateUrlField);
+      //});
+      
+      // Special validation for checkboxes
+      const checkboxes = document.querySelectorAll('input[type="checkbox"][required]');
+      checkboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+              const errorId = `${this.id}-error`;
+              if (this.checked) {
+                  hideError(errorId);
+              } else {
+                  showError(errorId, 'This field is required');
+              }
+          });
+      });
+      
+      // Validate callertune time format
+      const callertuneTime = document.getElementById('callertune-time');
+      callertuneTime.addEventListener('input', function() {
+          const pattern = /^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/;
+          if (!this.value || pattern.test(this.value)) {
+              hideError('callertune-time-error');
+              this.style.borderColor = '';
+          } else {
+              showError('callertune-time-error', 'Please use format: 00:00');
+              this.style.borderColor = '#ff6b6b';
+          }
+      });
+      
+      // Form validation and submission
+      const form = document.getElementById('release-form');
+      
+      form.addEventListener('submit', function(e) {
+          e.preventDefault();
+        
+          // Validate all fields
+          let isValid = true;
+        
+          // Validate required fields
+          requiredFields.forEach(field => {
+              if (!field.validity.valid) {
+              isValid = false;
+          const errorId = `${field.id}-error`;
+          showError(errorId, field.validationMessage || 'This field is required');
+          field.style.borderColor = '#ff6b6b';
+            
+          // Add shake animation to invalid fields
+          field.classList.add('animate__animated', 'animate__shakeX');
+          setTimeout(() => {
+              field.classList.remove('animate__animated', 'animate__shakeX');
+      }, 1000);
+      }
+      });
+        
+      // Validate at least one main artist name is filled
+      const mainArtistNames = form.querySelectorAll('[id*="main-artist"][id*="name"]');
+      let hasMainArtistName = false;
+      mainArtistNames.forEach(field => {
+          if (field.value.trim()) {
+          hasMainArtistName = true;
+      }
+      });
+        
+      if (!hasMainArtistName) {
+          isValid = false;
+          showError('main-artist-error', 'Please enter at least one main artist name');
+          if (mainArtistNames[0]) {
+              mainArtistNames[0].style.borderColor = '#ff6b6b';
+              mainArtistNames[0].classList.add('animate__animated', 'animate__shakeX');
+              setTimeout(() => {
+                  mainArtistNames[0].classList.remove('animate__animated', 'animate__shakeX');
+          }, 1000);
+      }
+      } else {
+          hideError('main-artist-error');
+      }
+        
+      // Validate URLs
+      //urlFields.forEach(field => {
+      //    if (field.value && !isValidUrl(field.value)) {
+      //    isValid = false;
+      //const errorId = `${field.id}-error`;
+      //showError(errorId, 'Please enter a valid URL');
+      //field.style.borderColor = '#ff6b6b';
+      //}
+      //});
+        
+      // Validate checkboxes
+      checkboxes.forEach(checkbox => {
+          if (!checkbox.checked) {
+          isValid = false;
+      const errorId = `${checkbox.id}-error`;
+      showError(errorId, 'This field is required');
+      }
+      });
+        
+      // Validate file uploads
+      if (!document.getElementById('cover-art').files.length) {
+          isValid = false;
+          showError('cover-art-error', 'Please upload a cover art file');
+      }
+        
+      if (!document.getElementById('audio-file').files.length) {
+          isValid = false;
+          showError('audio-file-error', 'Please upload an audio file');
+      }
+        
+      if (isValid) {
+          // Form is valid - you would typically send data to server here
+          alert('Form submitted successfully!');
+          
+          // Show success animation
+          const submitBtn = form.querySelector('button[type="submit"]');
+          submitBtn.classList.add('animate__animated', 'animate__bounce');
+          setTimeout(() => {
+              submitBtn.classList.remove('animate__animated', 'animate__bounce');
+            
+          // Reset form after submission
+          form.reset();
+            
+          // Reset file info displays
+          document.querySelectorAll('.file-info').forEach(el => {
+              el.style.display = 'none';
+      });
+            
+      // Reset artist sections
+      mainArtistsContainer.innerHTML = '';
+      featuredArtistsContainer.innerHTML = '';
+      mainArtistCount = 0;
+      featuredArtistCount = 0;
+            
+      // Reset toggles
+      multiMainEnabled = false;
+      featuredEnabled = false;
+      toggleMultiMain.classList.remove('active');
+      toggleFeatured.classList.remove('active');
+      addMainBtn.classList.add('hidden');
+      addFeaturedBtn.classList.add('hidden');
+            
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1000);
+      } else {
+          // Scroll to first invalid field
+          const firstInvalid = form.querySelector(':invalid, [style*="border-color: #ff6b6b"]');
+          if (firstInvalid) {
+              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+      }
+      });
+      
+      // Simple animation triggers
+      const formGroups = document.querySelectorAll('.form-group');
+      
+      formGroups.forEach((group, index) => {
+          // Add slight delay to each form group animation
+          group.style.animationDelay = `${index * 0.05}s`;
+      });
+      
+      // Add focus effects
+      const inputs = form.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+          input.addEventListener('focus', function() {
+              this.parentElement.querySelector('label').style.color = '#e63203';
+          });
+        
+      input.addEventListener('blur', function() {
+          this.parentElement.querySelector('label').style.color = '#e63203';
+      });
+      });
+      
+      // Set minimum dates for date fields
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('release-date').min = today;
+      document.getElementById('go-live-date').min = today;
+      });
+  </script>
+  </div>
+       </form>
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJLRGNJHSP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-LJLRGNJHSP');
+</script>
+</body>
+</html>

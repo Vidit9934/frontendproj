@@ -1,0 +1,66 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TuneFry Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: radial-gradient(circle, #0f0f0f, #000);
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center min-h-screen">
+     
+    <section class="w-full h-screen flex items-center justify-center px-4">
+      <div
+        class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 md:p-12 max-w-md w-full text-white shadow-2xl animate-fadeIn"
+      >
+        <h1 class="text-3xl font-bold text-center mb-6 text-[#e63203]">
+          Welcome Back!
+        </h1>
+
+        <form name="loginForm" method="post" action="./Login.aspx" id="loginForm" class="flex flex-col gap-4">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="bN8gt87+4yvZQREXSGXs4UVuYkMSxFHKqaFkr7qS1L8gBbaMLOQuLQw0T0xdOPKIlEHSMci4cs4Pl7C6sTlHLvIh2gL33RV00yd6u0V6kWQ=" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C2EE9ABB" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+<input type="hidden" name="__PREVIOUSPAGE" id="__PREVIOUSPAGE" value="flJmnabSsjPS9mDl2ALWJZZSTARWIlxbg023TubQp2Xkf8s9LRtt8G0ckxzqVLzQpgkfeWbtIvSpW9bBE49UAZRfNM8qws7FfY4gh0JS7AA1" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="AbJGTxIgECVPwgk/zzpyqAPQuZ5TZAckRrglJCACgOsE8TcHDFG0suPyn82wpJRH9WGFu6ESEWHHHN/howtywgv7AmiHACmuWvPRyKrOYtsxWh39YdSVaxPRqCW5wEfh4Due/bVvyXJb3c2cm8uU5tLtk/ZPWl8EbHslBgePUW/NmRkilgrDqfEh8P9p2/i0z1w/OH5EQoAzVipdYbwtsA==" />
+            
+          
+            <input name="txtusername" type="text" id="txtusername" class="bg-white/5 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e63203]" placeholder="Email/ Username" />
+            &nbsp;
+          
+            <input name="txtpassword" id="txtpassword" type="password" class="bg-white/5 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e63203]" placeholder="Password" />
+            &nbsp;
+          
+          
+            <input type="submit" name="btnLogin" value="Login" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;btnLogin&quot;, &quot;&quot;, true, &quot;submit&quot;, &quot;&quot;, false, false))" id="btnLogin" class="bg-[#e63203] hover:bg-[#c62a02] transition-all font-semibold py-3 rounded-lg mt-2" />
+                <span id="lblMessage"><font color="Red" size="3"></font></span>
+                 
+          <div class="text-center text-sm mt-4">
+            Don't have an account?
+           
+              <a class="text-[#e63203] underline hover:text-[#c62a02] transition-all" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl02&quot;, &quot;&quot;, false, &quot;&quot;, &quot;Register.aspx&quot;, false, true))">Create one</a>
+            
+          </div>
+       </form>
+
+        
+      </div>
+    </section>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LJLRGNJHSP"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-LJLRGNJHSP');
+</script>
+  </body>
+</html>

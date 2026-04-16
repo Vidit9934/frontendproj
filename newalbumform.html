@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>
+	Error Occurred
+</title><link rel="icon" type="image/png" sizes="32x32" href="/images/TuneFry_Icon.png?v=1" /><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+  
+  <!-- Mobile Responsive Fix - Prevents horizontal overflow -->
+  <link rel="stylesheet" href="css/mobile-responsive-fix.css" />
+  
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero h1 {
+      color: white;
+      font-size: 2.5rem;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .error-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .error-container h2 {
+      font-size: 2rem;
+      color: #ff4d4d;
+      margin-bottom: 1rem;
+    }
+
+    .error-container p {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn-home {
+      background: linear-gradient(to right, #d4145a, #3cb878);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.4s ease;
+    }
+
+    .btn-home:hover {
+      background: linear-gradient(to right, #3cb878, #d4145a);
+    }
+  </style>
+</head>
+<body>
+  <form name="ctl01" method="post" action="./Error.aspx?type=HttpException" id="ctl01">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="Q5QmXHmTqXfC6PhCdN3P3iGpzm4pL0149w1dGSIxqxnUcQuEKvms9lvF8HmKRh724kv9TEsfvTqSaII4LlGsoIhWfchLBITqbvATLfIO5WP9jK3NnLd1W7RuVLtc+wJD0ypBE3w7NFsjN7VqMLYMU75yMo2XHN0ATys6ez9195Y86Y+eIOb8SiysnowNdI1I" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="AB827D4F" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+
+    <!-- Header / Nav -->
+    <nav class="bg-black text-white sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://tunefry.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="../images/TuneFry_Icon.png" class="h-10" alt="TuneFry Logo">
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">TuneFry</span>
+        </a>
+        <div class="flex md:order-2 space-x-3">
+           &nbsp;
+  
+  
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+      <h1>Oops! Something went wrong</h1>
+    </section>
+
+    <!-- Error Content -->
+    <section class="error-container">
+      <h2>Error Occurred</h2>
+      <p>
+        <strong>Error Type:</strong> <span id="lblErrorType">HttpException</span>
+      </p>
+      <p>Please try again later or contact support if the problem persists.</p>
+      <a href="Index.aspx" class="btn-home">Go to Home</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="overflow-hidden footer sm:footer-horizontal bg-base-200 text-base-content p-10 bg-black text-white">
+      <aside>
+        <img src="../images/TuneFry White.png" class="h-30" alt="">
+        <p>
+          TuneFry Music Distribution Pvt. Ltd.<br>
+          Empowering artists since 2020
+        </p>
+      </aside>
+      <nav>
+        <h6 class="footer-title">Quick Links</h6>
+        <a href="About.aspx" class="link link-hover">About Us</a>
+        <a href="Services.aspx" class="link link-hover">Services</a>
+        <a href="Blog/Blog.aspx" class="link link-hover">TuneFry Daily</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Contact us</h6>
+        <a class="link link-hover">+91 74280 28995</a>
+        <a class="link link-hover">support@tunefry.com</a>
+      </nav>
+    </footer>
+
+  </form>
+</body>
+</html>
+
