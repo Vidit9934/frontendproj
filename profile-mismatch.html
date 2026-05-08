@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tunefry — Profile Mismatch</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -22,6 +23,10 @@
     #toast { position:fixed; bottom:28px; right:28px; background:rgba(18,14,10,0.97); border:0.5px solid rgba(34,197,94,0.3); border-radius:14px; padding:14px 18px; display:flex; align-items:center; gap:12px; z-index:9999; opacity:0; transform:translateY(10px); transition:opacity .3s,transform .3s; pointer-events:none; }
     textarea.inp { resize:vertical; }
     @media(max-width:600px){.fg2{grid-template-columns:1fr;}}
+    .radio-group{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+    .radio-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.03);cursor:pointer;transition:background .18s,border-color .18s;font-size:13px;color:var(--text-secondary);}
+    .radio-opt:hover{border-color:rgba(242,101,34,0.3);background:rgba(242,101,34,0.04);}
+    .radio-opt input[type="radio"]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
   </style>
 </head>
 <body>
@@ -40,7 +45,7 @@
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
-      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -97,63 +102,36 @@
       <form onsubmit="submitForm(event)" novalidate>
 
         <div class="fg">
-          <label class="lbl">Platform *</label>
-          <select id="platform" class="inp" style="cursor:pointer;" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-            <option value="" style="background:#111;">Select platform</option>
-            <option style="background:#111;">Instagram</option>
-          </select>
+          <label class="lbl" for="songName">Name of the Song <span style="color:var(--accent)">*</span></label>
+          <input id="songName" type="text" name="song_name" class="inp" placeholder="e.g. Midnight Echoes" required onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
         </div>
 
         <div class="fg">
-          <label class="lbl">Song / Release Title *</label>
-          <input id="songTitle" type="text" class="inp" placeholder="e.g. Midnight Echoes" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-        </div>
-
-        <div class="fg2">
-          <div>
-            <label class="lbl">Your Artist Name on Tunefry *</label>
-            <input id="tunefryName" type="text" class="inp" value="Vasu Sharma" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          </div>
-          <div>
-            <label class="lbl">Artist Name Showing on Platform *</label>
-            <input id="platformName" type="text" class="inp" placeholder="e.g. V. Sharma or Vasu Sharma Music" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          </div>
-        </div>
-
-        <div class="fg2">
-          <div>
-            <label class="lbl">Platform Profile / Song URL</label>
-            <input type="text" class="inp" placeholder="Paste the platform link (optional)" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          </div>
-          <div>
-            <label class="lbl">ISRC Code</label>
-            <input type="text" class="inp" placeholder="Optional" onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
-          </div>
+          <label class="lbl" for="spotifyLink">Spotify Link of the Song <span style="color:var(--accent)">*</span></label>
+          <input id="spotifyLink" type="url" name="spotify_link" class="inp" placeholder="https://open.spotify.com/track/..." required onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'">
         </div>
 
         <div class="fg">
-          <label class="lbl">Description *</label>
-          <textarea id="desc" class="inp" rows="4" placeholder="Describe the mismatch in detail. Include any relevant information that can help our team resolve it faster..." onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'"></textarea>
-        </div>
-
-        <div class="fg">
-          <label class="lbl">Screenshot / Evidence <span style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-          <div class="drop-zone" onclick="document.getElementById('fileInp').click()">
-            <input type="file" id="fileInp" accept="image/*,.pdf" style="display:none;" onchange="showFile(this)">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" style="margin:0 auto 10px;display:block;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <div id="fileLabel" style="font-size:13px;color:var(--text-secondary);">Drop screenshot or click to upload</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">JPG, PNG or PDF · Max 5MB</div>
+          <label class="lbl">Correction Type <span style="color:var(--accent)">*</span></label>
+          <div class="radio-group">
+            <label class="radio-opt">
+              <input type="radio" name="correctionType" value="existing" checked>
+              <span>Correct Artist profile (existing profile)</span>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="correctionType" value="new">
+              <span>Correct Artist Name (for new profile)</span>
+            </label>
           </div>
         </div>
 
-        <!-- Error -->
         <div id="errBox" style="display:none;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:rgba(59,130,246,0.1);border:0.5px solid rgba(59,130,246,0.3);font-size:12.5px;color:#60a5fa;margin-bottom:14px;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <span id="errText">Please fill in all required fields.</span>
         </div>
 
-        <button type="submit" class="submit-btn">Submit Mismatch Report</button>
-        <p style="text-align:center;font-size:11.5px;color:var(--text-secondary);margin-top:10px;">Mismatches are typically resolved within 5–7 working days. You will receive an email confirmation.</p>
+        <button type="submit" class="submit-btn">Submit</button>
+        <p style="text-align:center;font-size:11.5px;color:var(--text-secondary);margin-top:10px;">We'll review your request and respond within 3–5 business days.</p>
 
       </form>
     </div>
@@ -169,41 +147,47 @@
 <script>
 function submitForm(e) {
   e.preventDefault();
-  var platform = document.getElementById('platform').value;
-  var song = document.getElementById('songTitle').value.trim();
-  var pName = document.getElementById('platformName').value.trim();
-  var desc = document.getElementById('desc').value.trim();
+  var song = document.getElementById('songName').value.trim();
+  var spotify = document.getElementById('spotifyLink').value.trim();
+  var correctionType = document.querySelector('input[name="correctionType"]:checked');
   var errBox = document.getElementById('errBox');
-  var errText = document.getElementById('errText');
   var missing = [];
-  if (!platform) missing.push('Platform');
-  if (!song) missing.push('Song Title');
-  if (!pName) missing.push('Artist Name on Platform');
-  if (!desc) missing.push('Description');
+  if (!song) missing.push('Song Name');
+  if (!spotify) missing.push('Spotify Link');
   if (missing.length) {
-    errText.textContent = 'Please fill in: ' + missing.join(', ');
+    document.getElementById('errText').textContent = 'Please fill in: ' + missing.join(', ');
     errBox.style.display = 'flex';
-    if (!platform) { document.getElementById('platform').style.borderColor='rgba(59,130,246,0.7)'; document.getElementById('platform').style.boxShadow='0 0 0 3px rgba(59,130,246,0.15)'; }
-    if (!song) { document.getElementById('songTitle').style.borderColor='rgba(59,130,246,0.7)'; document.getElementById('songTitle').style.boxShadow='0 0 0 3px rgba(59,130,246,0.15)'; }
     return;
   }
   errBox.style.display = 'none';
   var btn = e.target.querySelector('.submit-btn');
   btn.textContent = 'Submitting…'; btn.style.opacity = '0.7'; btn.disabled = true;
-  setTimeout(function() {
-    btn.textContent = 'Submit Mismatch Report'; btn.style.opacity = '1'; btn.disabled = false;
+
+  fetch('/api/support/profile-mismatch', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      song_name: song,
+      spotify_link: spotify,
+      correction_type: correctionType ? correctionType.value : 'existing'
+    })
+  })
+  .then(function(res) {
+    return res.ok ? res.json() : res.json().then(function(err) { throw err; });
+  })
+  .then(function() {
+    btn.textContent = 'Submit'; btn.style.opacity = '1'; btn.disabled = false;
     var t = document.getElementById('toast');
     t.style.opacity = '1'; t.style.transform = 'translateY(0)';
     setTimeout(function(){ t.style.opacity='0'; t.style.transform='translateY(10px)'; }, 4000);
     e.target.reset();
-    document.getElementById('fileLabel').textContent = 'Drop screenshot or click to upload';
-  }, 900);
-}
-function showFile(inp) {
-  if (inp.files && inp.files[0]) {
-    document.getElementById('fileLabel').textContent = '✓ ' + inp.files[0].name;
-    document.getElementById('fileLabel').style.color = '#22C55E';
-  }
+  })
+  .catch(function(err) {
+    btn.textContent = 'Submit'; btn.style.opacity = '1'; btn.disabled = false;
+    document.getElementById('errText').textContent = (err && err.message) ? err.message : 'Submission failed. Please try again.';
+    errBox.style.display = 'flex';
+  });
 }
 document.querySelectorAll('.inp').forEach(function(el) {
   el.addEventListener('input', function() { document.getElementById('errBox').style.display='none'; this.style.borderColor=''; this.style.boxShadow=''; });

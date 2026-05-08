@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Refer &amp; Earn</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ── Balance Hero ─────────────────────────────────────── */
+    .earn-balance-card {
+      padding: 32px 36px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      border-color: rgba(242,101,34,0.2);
+      background: linear-gradient(165deg, rgba(242,101,34,0.08) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.015) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .earn-balance-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(ellipse, rgba(242,101,34,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .earn-bal-left {}
+    .earn-bal-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .earn-bal-amount {
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 800;
+      color: var(--text-primary); line-height: 1;
+      margin-bottom: 10px;
+    }
+    .earn-bal-amount span { font-size: 24px; font-weight: 600; color: var(--text-secondary); }
+    .earn-bal-note {
+      font-size: 12.5px; color: var(--text-muted); line-height: 1.6;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .earn-bal-note svg { width:14px; height:14px; stroke:var(--text-muted); fill:none; stroke-width:2; flex-shrink:0; }
+    .btn-redeem {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      background: linear-gradient(145deg, #FF9A60 0%, var(--accent) 50%, #D4520F 100%);
+      border: none; border-radius: 12px;
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+      color: #fff; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(242,101,34,0.35);
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    .btn-redeem:hover {
+      box-shadow: 0 6px 28px rgba(242,101,34,0.5);
+      transform: translateY(-1px);
+    }
+    .btn-redeem svg { width:16px; height:16px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* ── Referral Link Card ───────────────────────────────── */
+    .earn-ref-card {
+      padding: 32px 36px;
+      margin-bottom: 20px;
+    }
+    .earn-ref-heading {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 800;
+      color: var(--text-primary); margin-bottom: 6px;
+    }
+    .earn-ref-sub {
+      font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;
+    }
+    .earn-ref-code-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .earn-ref-code-hint {
+      font-size: 12px; color: var(--text-muted); margin-bottom: 14px;
+    }
+    .earn-link-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 6px 6px 6px 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .earn-link-row:focus-within { border-color: rgba(242,101,34,0.5); }
+    .earn-link-input {
+      flex: 1; background: none; border: none; outline: none;
+      font-size: 13px; color: var(--text-secondary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-width: 0;
+      user-select: text; -webkit-user-select: text; -moz-user-select: text;
+    }
+    .earn-btn-copy {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 9px; border: none;
+      background: var(--accent); color: #fff; cursor: pointer;
+      font-family: var(--font-display); font-size: 13px; font-weight: 700;
+      box-shadow: 0 0 14px rgba(242,101,34,0.3);
+      transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .earn-btn-copy:hover { box-shadow: 0 0 22px rgba(242,101,34,0.5); transform: translateY(-1px); }
+    .earn-btn-share {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 9px;
+      background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12);
+      color: var(--text-primary); cursor: pointer;
+      font-family: var(--font-display); font-size: 13px; font-weight: 700;
+      transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .earn-btn-share:hover { background: rgba(255,255,255,0.11); }
+    .earn-btn-copy svg, .earn-btn-share svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .earn-copied-msg { font-size: 12px; color: var(--accent); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .earn-copied-msg.show { opacity: 1; }
+    .earn-video-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 8px;
+      padding: 9px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      font-size: 13px; font-weight: 600; color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .earn-video-link:hover { border-color: rgba(242,101,34,0.35); color: var(--text-primary); background: rgba(242,101,34,0.06); }
+    .earn-video-link svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* ── How It Works ─────────────────────────────────────── */
+    .earn-section-card {
+      padding: 32px 36px;
+      margin-bottom: 20px;
+    }
+    .earn-section-title {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .earn-section-title svg { width:18px; height:18px; stroke:var(--accent); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .earn-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .earn-step {
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 22px 20px;
+      position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .earn-step:hover {
+      border-color: rgba(242,101,34,0.3);
+      background: rgba(242,101,34,0.04);
+    }
+    .earn-step-num {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .earn-step-num::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .earn-step h3 {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 8px;
+    }
+    .earn-step p {
+      font-size: 12.5px; color: var(--text-secondary); line-height: 1.7;
+    }
+    .earn-step-list {
+      margin-top: 10px;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .earn-step-list-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; color: var(--text-secondary);
+    }
+    .earn-step-list-item svg { width:12px; height:12px; stroke:#22C55E; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+
+    /* ── Why Refer ─────────────────────────────────────────── */
+    .earn-why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .earn-why-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .earn-why-item:hover { border-color: rgba(242,101,34,0.3); }
+    .earn-why-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 11px;
+      background: rgba(242,101,34,0.1);
+      border: 0.5px solid rgba(242,101,34,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .earn-why-icon svg { width:18px; height:18px; stroke:var(--accent); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .earn-why-text h4 {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 4px;
+    }
+    .earn-why-text p { font-size: 12.5px; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ── CTA Card ──────────────────────────────────────────── */
+    .earn-cta-card {
+      padding: 36px;
+      text-align: center;
+      background: linear-gradient(165deg, rgba(242,101,34,0.1) 0%, rgba(255,255,255,0.04) 60%, rgba(255,255,255,0.015) 100%);
+      border-color: rgba(242,101,34,0.2);
+      position: relative; overflow: hidden;
+    }
+    .earn-cta-card::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse, rgba(242,101,34,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .earn-cta-card h2 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 800;
+      color: var(--text-primary); margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .earn-cta-card p {
+      font-size: 13.5px; color: var(--text-secondary);
+      max-width: 480px; margin: 0 auto 24px;
+      line-height: 1.7; position: relative; z-index: 1;
+    }
+    .earn-cta-card .btn-redeem { position: relative; z-index: 1; }
+
+    /* ── Toast ─────────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      padding: 14px 20px; border-radius: 12px;
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 9999;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-success { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.35); color: #22C55E; }
+    .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
+    @media(max-width:900px){
+      .earn-steps-grid { grid-template-columns: 1fr 1fr; }
+      .earn-why-grid { grid-template-columns: 1fr; }
+    }
+    @media(max-width:640px){
+      .earn-balance-card { flex-direction: column; align-items: flex-start; }
+      .earn-bal-amount { font-size: 36px; }
+      .earn-steps-grid { grid-template-columns: 1fr; }
+      .earn-link-row { flex-wrap: wrap; padding: 10px; }
+      .earn-link-input { width: 100%; }
+      .earn-btn-copy, .earn-btn-share { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+    </a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        <span class="nav-label">Overview</span>
+      </a>
+      <a href="stats.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span>
+        <span class="nav-label">Stats &amp; Revenue</span>
+      </a>
+      <a href="withdrawal.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+        <span class="nav-label">Withdraw Earnings</span>
+      </a>
+      <a href="marketplace.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span>
+        <span class="nav-label">Marketplace</span>
+      </a>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+        <span class="nav-label">Tunefry Daily</span>
+        <span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="nav-sub-menu" id="dailySubMenu">
+        <a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a>
+        <a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a>
+      </div>
+      <a href="connect.html" class="nav-item">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="nav-label">Connect</span>
+      </a>
+      <a href="earn.html" class="nav-item active">
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span>
+        <span class="nav-label">Refer &amp; Earn</span>
+      </a>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="search-box">
+      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Create Release</span>
+        </button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Song Upload</span>
+              <span class="create-dropdown-sub">Single track release</span>
+            </div>
+          </a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item">
+            <div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);">
+              <svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <div class="create-dropdown-text">
+              <span class="create-dropdown-title">Album Upload</span>
+              <span class="create-dropdown-sub">Multi-track project</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ────────────────────────────────────────── -->
+  <main class="content">
+
+    <div class="page-label animate-in">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Referrals
+    </div>
+
+    <div class="page-header animate-in animate-in-delay-1">
+      <h1 class="page-title">Refer &amp; Earn</h1>
+      <div class="page-header-actions">
+        <a href="index.html" class="btn btn-outline" style="text-decoration:none;">&#8592; Overview</a>
+      </div>
+    </div>
+
+    <!-- Balance Card -->
+    <div class="glass-card earn-balance-card animate-in animate-in-delay-2">
+      <div class="earn-bal-left">
+        <div class="earn-bal-label">Referral Balance</div>
+        <div class="earn-bal-amount"><span>₹</span>0</div>
+        <div class="earn-bal-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Minimum ₹299 required to buy or upgrade plans.
+        </div>
+      </div>
+      <button class="btn-redeem" onclick="showToast('Redeem feature coming soon!', 'info')">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Redeem Earnings
+      </button>
+    </div>
+
+    <!-- Referral Link Card -->
+    <div class="glass-card earn-ref-card animate-in animate-in-delay-3">
+      <div class="earn-ref-heading">Invite, Earn, and Grow Your Music Career!</div>
+      <div class="earn-ref-sub">Share your referral link and earn 7% of every plan your friend activates.</div>
+
+      <div class="earn-ref-code-label">Your Referral Code</div>
+      <div class="earn-ref-code-hint">(Copy and share this link with your friends!)</div>
+
+      <div class="earn-link-row">
+        <input type="text" id="earnRefUrl" class="earn-link-input" value="https://tunefry.com/Register.aspx?PromoCode=REF28075" readonly>
+        <button class="earn-btn-copy" onclick="copyEarnLink()">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+        <button class="earn-btn-share" onclick="shareEarnLink()">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>
+      </div>
+      <div class="earn-copied-msg" id="earnCopiedMsg">Copied to clipboard!</div>
+
+      <a href="https://www.instagram.com/reel/DINnZYQRUD1/?igsh=MXBxdXFuNTVmaDhpdQ==" target="_blank" rel="noopener noreferrer" class="earn-video-link">
+        <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        Show Referral Video Guide
+      </a>
+    </div>
+
+    <!-- How It Works -->
+    <div class="glass-card earn-section-card animate-in animate-in-delay-4">
+      <div class="earn-section-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        How It Works
+      </div>
+      <div class="earn-steps-grid">
+        <div class="earn-step">
+          <div class="earn-step-num">Step 1</div>
+          <h3>Share Your Code</h3>
+          <p>Copy your referral link and share it via WhatsApp, Instagram, Email, or any platform.</p>
+        </div>
+        <div class="earn-step">
+          <div class="earn-step-num">Step 2</div>
+          <h3>Friend Signs Up &amp; Activates a Plan</h3>
+          <p>Your friend must sign up, upload a song, and activate a plan to count as a valid referral.</p>
+          <div class="earn-step-list">
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Sign up on Tunefry
+            </div>
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Upload a song
+            </div>
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Activate a ₹299 or ₹1,599 plan
+            </div>
+          </div>
+        </div>
+        <div class="earn-step">
+          <div class="earn-step-num">Step 3</div>
+          <h3>Earn Rewards</h3>
+          <p>Earn 7% of their selected plan value directly in your Refer &amp; Earn wallet — automatically.</p>
+        </div>
+        <div class="earn-step">
+          <div class="earn-step-num">Step 4</div>
+          <h3>Use Your Rewards</h3>
+          <p>Redeem your earnings to buy a new plan, upload more songs, or boost your music.</p>
+          <div class="earn-step-list">
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Purchase a new Tunefry plan
+            </div>
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Upload more songs
+            </div>
+            <div class="earn-step-list-item">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+              Boost with promotional services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Refer? -->
+    <div class="glass-card earn-section-card animate-in animate-in-delay-5">
+      <div class="earn-section-title">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Why Refer?
+      </div>
+      <div class="earn-why-grid">
+        <div class="earn-why-item">
+          <div class="earn-why-icon">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div class="earn-why-text">
+            <h4>Unlimited Earnings</h4>
+            <p>The more you refer, the more you earn. No cap — every activation counts.</p>
+          </div>
+        </div>
+        <div class="earn-why-item">
+          <div class="earn-why-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="earn-why-text">
+            <h4>Easy to Use</h4>
+            <p>One link, copy and share — earning is as simple as that.</p>
+          </div>
+        </div>
+        <div class="earn-why-item">
+          <div class="earn-why-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div class="earn-why-text">
+            <h4>Grow Your Music Career</h4>
+            <p>Use your rewards to promote your songs and grow your audience on Tunefry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Card -->
+    <div class="glass-card earn-cta-card animate-in animate-in-delay-5">
+      <h2>Start Referring Today!</h2>
+      <p>Share your unique code and start earning rewards to grow your music career.</p>
+      <button class="btn-redeem" onclick="copyEarnLink()">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy My Referral Code
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+function copyEarnLink() {
+  var inp = document.getElementById('earnRefUrl');
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(inp.value).then(function() { onEarnCopied(); });
+  } else {
+    inp.select();
+    document.execCommand('copy');
+    onEarnCopied();
+  }
+}
+function onEarnCopied() {
+  var msg = document.getElementById('earnCopiedMsg');
+  msg.classList.add('show');
+  setTimeout(function() { msg.classList.remove('show'); }, 2500);
+  showToast('Referral link copied!', 'success');
+}
+function shareEarnLink() {
+  var url = document.getElementById('earnRefUrl').value;
+  if (navigator.share) {
+    navigator.share({ title: 'Join Tunefry', text: 'Use my referral link to join Tunefry and start distributing your music!', url: url });
+  } else {
+    copyEarnLink();
+  }
+}
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast toast-success show';
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+</script>
+</body>
+</html>

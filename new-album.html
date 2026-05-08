@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tunefry — New Album Submission</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -269,9 +270,61 @@
       .form-grid, .form-grid-3, .cover-wrap { grid-template-columns: 1fr; }
       .form-group.col-span-2, .form-group.col-span-3 { grid-column: 1; }
       .cover-preview { width: 100%; height: 210px; }
-      .track-cols { display: none; }
-      .track-row { grid-template-columns: 36px 1fr 1fr; grid-template-rows: auto auto; }
     }
+
+    /* Song accordion */
+    .song-card {
+      border: 0.5px solid rgba(255,255,255,0.08); border-radius: 16px;
+      margin-bottom: 14px; overflow: hidden; background: rgba(255,255,255,0.015);
+    }
+    .song-card-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 22px; cursor: pointer; user-select: none; transition: background .18s;
+    }
+    .song-card-hd:hover { background: rgba(255,255,255,0.025); }
+    .song-card-num {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 2px;
+    }
+    .song-card-name {
+      font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary);
+    }
+    .song-card-actions { display: flex; align-items: center; gap: 8px; }
+    .song-toggle-btn {
+      width: 28px; height: 28px; border-radius: 8px; border: 0.5px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: all .2s;
+    }
+    .song-toggle-btn svg {
+      width: 14px; height: 14px; stroke: var(--text-muted); fill: none; stroke-width: 2;
+      transition: transform .25s; stroke-linecap: round;
+    }
+    .song-card.open .song-toggle-btn svg { transform: rotate(180deg); }
+    .song-remove-btn {
+      width: 28px; height: 28px; border-radius: 8px; border: 0.5px solid rgba(239,68,68,0.25);
+      background: rgba(239,68,68,0.08); color: #EF4444; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; font-size: 16px; transition: all .18s;
+    }
+    .song-remove-btn:hover { background: rgba(239,68,68,0.18); border-color: rgba(239,68,68,0.5); }
+    .song-remove-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+    .song-card-body { padding: 4px 22px 22px; border-top: 0.5px solid rgba(255,255,255,0.06); display: none; }
+    .song-card.open .song-card-body { display: block; }
+    .song-sub-label {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin: 22px 0 12px;
+    }
+    .song-artists-row {
+      display: flex; align-items: center; justify-content: space-between; margin: 20px 0 12px;
+    }
+    .song-artists-row .song-sub-label { margin: 0; }
+    .add-song-btn {
+      width: 100%; padding: 14px; border-radius: 14px;
+      border: 1.5px dashed rgba(242,101,34,0.3); background: rgba(242,101,34,0.04);
+      color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.03em;
+      cursor: pointer; transition: all .2s; margin-top: 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .add-song-btn:hover { border-color: rgba(242,101,34,0.6); background: rgba(242,101,34,0.08); }
   </style>
 </head>
 <body>
@@ -290,7 +343,7 @@
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
-      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -332,147 +385,60 @@
       </div>
     </div>
 
+    <!-- Step 01: Album Info -->
     <div class="glass-card upload-section animate-in animate-in-delay-2">
       <div class="section-eyebrow">Step 01</div>
-      <div class="section-heading">Basic Information</div>
-      <div class="form-grid">
-        <div class="form-group col-span-2">
-          <label class="form-label">Album Title <span class="req">*</span></label>
-          <input id="albumTitle" type="text" class="form-input" placeholder="Enter album title">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Album Type <span class="req">*</span></label>
-          <select class="form-input" id="albumType">
-            <option value="" disabled selected>Select album type</option>
-            <option>Album</option><option>EP</option><option>Mixtape</option><option>Compilation</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">YouTube Beat / Sample? <span class="req">*</span></label>
-          <div class="yn-toggle">
-            <button class="yn-btn" id="ytBeatNo" onclick="setYN('ytBeat', false)">No</button>
-            <button class="yn-btn" id="ytBeatYes" onclick="setYN('ytBeat', true)">Yes</button>
-          </div>
-        </div>
+      <div class="section-heading">Album Information</div>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label class="form-label">Album Name <span class="req">*</span></label>
+        <input id="albumName" type="text" name="album_name" class="form-input" placeholder="Enter your album name" required>
       </div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-3">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
-        <div><div class="section-eyebrow">Step 02</div><div class="section-heading" style="margin-bottom:0;">Main Artists</div></div>
-        <button class="add-artist-btn" onclick="addArtist('main')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Artist</button>
-      </div>
-      <div id="mainArtistsContainer"></div>
-      <div id="mainArtistEmpty" style="padding:20px;text-align:center;border:1.5px dashed rgba(255,255,255,0.08);border-radius:14px;color:var(--text-muted);font-size:13px;">Click <strong style="color:var(--accent);">Add Artist</strong> to add the main artist for this release</div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-3">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
-        <div><div class="section-eyebrow">Step 03</div><div class="section-heading" style="margin-bottom:0;">Featured Artists <span style="font-size:13px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-muted);letter-spacing:0;">(optional)</span></div></div>
-        <button class="add-artist-btn" onclick="addArtist('featured')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Featured</button>
-      </div>
-      <div id="featuredArtistsContainer"></div>
-      <div id="featuredArtistEmpty" style="padding:20px;text-align:center;border:1.5px dashed rgba(255,255,255,0.06);border-radius:14px;color:var(--text-muted);font-size:13px;">No featured artists — click <strong style="color:var(--accent);">Add Featured</strong> to add one</div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-4">
-      <div class="section-eyebrow">Step 04</div>
-      <div class="section-heading">Credits</div>
-      <div class="form-grid">
-        <div class="form-group"><label class="form-label">Music Producer Name</label><input type="text" class="form-input" placeholder="Producer name"></div>
-        <div class="form-group"><label class="form-label">Composer Name <span class="opt-tag">(artist's real name)</span></label><input type="text" class="form-input" placeholder="Composer name"></div>
-        <div class="form-group col-span-2"><label class="form-label">Lyricist / Author Name <span class="opt-tag">(artist's real name)</span></label><input type="text" class="form-input" placeholder="Lyricist name"></div>
-      </div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-4">
-      <div class="section-eyebrow">Step 05</div>
-      <div class="section-heading">Album Metadata</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">Explicit Content <span class="req">*</span></label>
-          <div class="explicit-toggle"><button class="explicit-btn active-no" id="explicitNo" onclick="setYN('explicit', false)">No</button><button class="explicit-btn" id="explicitYes" onclick="setYN('explicit', true)">Yes</button></div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Language</label>
-          <select class="form-input"><option value="" disabled selected>Select language</option><option>Hindi</option><option>English</option><option>Punjabi</option><option>Tamil</option><option>Telugu</option><option>Bengali</option><option>Marathi</option><option>Kannada</option><option>Malayalam</option><option>Other</option></select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Category <span class="req">*</span></label>
-          <select class="form-input"><option value="" disabled selected>Select category</option><option>Hip-Hop / Rap</option><option>Devotional</option><option>Pop</option><option>Indie</option><option>Film</option><option>Jazz</option><option>Ambient / Instrumental</option></select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Sub-Category <span class="opt-tag">(optional)</span></label>
-          <input type="text" class="form-input" placeholder="e.g. Alternative Hip-Hop, Electro Pop">
-        </div>
-        <div class="form-group col-span-2">
-          <label class="form-label">Mood</label>
-          <div class="mood-pills">
-            <button class="mood-pill" onclick="toggleMood(this)">Happy</button><button class="mood-pill" onclick="toggleMood(this)">Sad</button><button class="mood-pill" onclick="toggleMood(this)">Relaxed</button><button class="mood-pill" onclick="toggleMood(this)">Romantic</button><button class="mood-pill" onclick="toggleMood(this)">Dance</button><button class="mood-pill" onclick="toggleMood(this)">Nostalgic</button><button class="mood-pill" onclick="toggleMood(this)">Inspirational</button><button class="mood-pill" onclick="toggleMood(this)">Calm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-5">
-      <div class="section-eyebrow">Step 06</div>
-      <div class="section-heading">Release Dates</div>
-      <div class="form-grid-3">
-        <div class="form-group"><label class="form-label">Original Release Date <span class="req">*</span></label><input type="date" class="form-input" id="originalReleaseDate" style="color-scheme:dark;"><span class="form-hint">Date album was first created or released</span></div>
-        <div class="form-group"><label class="form-label">Go Live Date <span class="req">*</span></label><input type="date" class="form-input" id="goLiveDate" style="color-scheme:dark;"><span class="form-hint">Date album should go live on stores</span></div>
-        <div class="form-group"><label class="form-label">YouTube Content ID <span class="req">*</span></label><div class="yn-toggle"><button class="yn-btn" id="ytCidNo" onclick="setYN('ytCid', false)">No</button><button class="yn-btn" id="ytCidYes" onclick="setYN('ytCid', true)">Yes</button></div></div>
-      </div>
-    </div>
-
-    <div class="glass-card upload-section animate-in animate-in-delay-5">
-      <div class="section-eyebrow">Step 07</div>
-      <div class="section-heading">Cover Art &amp; Album Codes</div>
-      <div class="cover-wrap" style="margin-bottom:18px;">
+      <div class="cover-wrap">
         <div class="cover-preview">
           <img id="coverPreviewImg" alt="Cover preview">
           <div class="cover-placeholder" id="coverPlaceholder">Cover Preview</div>
         </div>
         <div class="drop-zone" id="coverDropZone" style="height:220px;" ondragover="dragOver(event,'coverDropZone')" ondragleave="dragLeave('coverDropZone')" ondrop="coverDrop(event)">
-          <input type="file" id="coverInput" accept="image/*" onchange="handleCover(this)">
+          <input type="file" id="coverInput" name="cover_art" accept="image/*" onchange="handleCover(this)">
           <div class="drop-zone-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
           <div class="drop-zone-text">Drop album cover here</div>
-          <div class="drop-zone-sub">JPEG, PNG<br>Minimum 3000 × 3000 px</div>
+          <div class="drop-zone-sub">JPEG or PNG<br>Minimum 3000 × 3000 px</div>
         </div>
       </div>
-      <div class="form-grid">
-        <div class="form-group"><label class="form-label">Label Name <span class="req">*</span></label><div id="labelNameWrapNewAlbum"></div><span class="form-hint">Free to 1599 plans are locked to Tunefry. 2999 and Label plans can use one custom label name, then choose from dropdown.</span></div>
-        <div class="form-group"><label class="form-label">UPC Code <span class="opt-tag">(optional)</span></label><input type="text" class="form-input" placeholder="Leave blank to auto-generate"></div>
-        <div class="form-group"><label class="form-label">Copyright Year</label><input type="number" class="form-input" id="copyrightYear" min="1900" max="2099"></div>
-        <div class="form-group"><label class="form-label">Copyright Holder</label><input type="text" class="form-input" placeholder="e.g. Your Name / Label"></div>
-      </div>
     </div>
 
-    <div class="glass-card upload-section animate-in animate-in-delay-6">
-      <div class="section-eyebrow">Step 08</div>
-      <div class="section-heading">Track List</div>
-      <div class="track-list-header">
-        <div class="track-count-badge">Track List <span id="trackCount">1</span></div>
-        <button type="button" class="btn-add-track" id="addTrackBtn" onclick="addTrack()">+ Add Track</button>
+    <!-- Step 02: Songs -->
+    <div class="glass-card upload-section animate-in animate-in-delay-3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div>
+          <div class="section-eyebrow">Step 02</div>
+          <div class="section-heading" style="margin-bottom:0;">Songs</div>
+        </div>
+        <div class="track-count-badge">Total <span id="songCount">0</span></div>
       </div>
-      <div class="track-cols">
-        <div class="track-col-label">#</div><div class="track-col-label">Track Title</div><div class="track-col-label">Artist</div><div class="track-col-label">ISRC</div><div class="track-col-label">Audio</div><div class="track-col-label"></div>
-      </div>
-      <div class="track-list" id="trackList"></div>
-      <span class="form-hint" style="display:block;margin-top:10px;">Add tracks in release order. Maximum 20 tracks.</span>
+      <div id="songsContainer"></div>
+      <button type="button" class="add-song-btn" onclick="addSong()">+ Add Another Song</button>
     </div>
 
-    <div class="glass-card upload-section animate-in animate-in-delay-6">
-      <div class="section-eyebrow">Step 09</div>
+    <!-- Step 03: Additional Info -->
+    <div class="glass-card upload-section animate-in animate-in-delay-4">
+      <div class="section-eyebrow">Step 03</div>
       <div class="section-heading">Additional Information</div>
       <div class="form-grid">
-        <div class="form-group"><label class="form-label">Callertune Cut Name <span class="opt-tag">(optional)</span></label><input type="text" class="form-input" placeholder="Optional callertune name"></div>
-        <div class="form-group"><label class="form-label">Callertune Timing <span class="opt-tag">(optional)</span></label><input type="text" class="form-input" placeholder="00:00" maxlength="5" oninput="this.value=this.value.replace(/[^0-9:]/g,'')"></div>
-        <div class="form-group col-span-2"><label class="form-label">Comments <span class="opt-tag">(optional)</span></label><textarea class="form-input" rows="5" placeholder="Any special instructions or notes for review..."></textarea></div>
+        <div class="form-group col-span-2">
+          <label class="form-label">Album Description <span class="opt-tag">(optional)</span></label>
+          <textarea class="form-input" rows="4" name="album_description" placeholder="Describe your album..."></textarea>
+        </div>
+        <div class="form-group col-span-2">
+          <label class="form-label">Additional Comments <span class="opt-tag">(optional)</span></label>
+          <textarea class="form-input" rows="3" name="additional_comments" placeholder="Any special instructions or notes for review..."></textarea>
+        </div>
       </div>
     </div>
 
-    <div class="glass-card upload-section animate-in animate-in-delay-7">
-      <div class="section-eyebrow">Step 10</div>
+    <!-- Step 04: Agreement & Submit -->
+    <div class="glass-card upload-section animate-in animate-in-delay-5">
+      <div class="section-eyebrow">Step 04</div>
       <div class="section-heading">Agreement &amp; Submit</div>
       <label class="terms-check" for="guidelinesCheck"><input type="checkbox" id="guidelinesCheck"><span class="terms-check-text"><strong>Content Delivery Guidelines</strong><br>I agree to the Tunefry content delivery guidelines and confirm this album meets all quality and format requirements.</span></label>
       <label class="terms-check" for="rightsCheck"><input type="checkbox" id="rightsCheck"><span class="terms-check-text"><strong>Terms &amp; Conditions</strong><br>I declare that Tunefry may modify artwork or metadata according to content delivery guidelines. I will not request takedown for the next 2 years.</span></label>
@@ -486,117 +452,116 @@
 </div>
 
 <div id="successToast" style="position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.08));border:0.5px solid rgba(34,197,94,0.3);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;font-size:14px;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:9999;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;max-width:340px;">
-  <span style="font-size:22px;">🎉</span>
+  <span style="font-size:22px;">&#127881;</span>
   <div><strong style="font-family:'Syne',sans-serif;">Album Submitted!</strong><br><span style="font-size:12px;color:rgba(255,255,255,0.7);">We'll review it within 3–5 business days.</span></div>
 </div>
 
 <script src="js/app.js"></script>
 <script>
-  var mainArtistCount = 0;
-  var featuredArtistCount = 0;
-  var trackCounter = 0;
-  var MAX_TRACKS = 20;
-
-  function setYN(prefix, isYes) {
-    var noBtn = document.getElementById(prefix + 'No');
-    var yesBtn = document.getElementById(prefix + 'Yes');
-    if (!noBtn || !yesBtn) return;
-    yesBtn.className = yesBtn.className.indexOf('explicit-btn') > -1 ? (isYes ? 'explicit-btn active-yes' : 'explicit-btn') : (isYes ? 'yn-btn active-yes' : 'yn-btn');
-    noBtn.className = noBtn.className.indexOf('explicit-btn') > -1 ? (isYes ? 'explicit-btn' : 'explicit-btn active-no') : (isYes ? 'yn-btn' : 'yn-btn active-no');
-  }
-
-  function getLabelPlanTier() {
-    var urlPlan = new URLSearchParams(window.location.search).get('plan');
-    var saved = localStorage.getItem('tunefryPlanTier');
-    var raw = (urlPlan || saved || '1599').toLowerCase().trim();
-    if (raw.indexOf('label') > -1) return 'label';
-    if (raw.indexOf('2999') > -1 || raw.indexOf('double') > -1) return '2999';
-    return '1599';
-  }
-
-  function isCustomLabelAllowed() {
-    var tier = getLabelPlanTier();
-    return tier === '2999' || tier === 'label';
-  }
-
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  function saveCustomLabelName(inputId, wrapId, selectId) {
-    var input = document.getElementById(inputId);
-    if (!input) return;
-    var value = input.value.trim();
-    if (value.length < 2) {
-      input.focus();
-      input.style.borderColor = 'rgba(59,130,246,.7)';
-      return;
-    }
-    localStorage.setItem('tunefryCustomLabelName', value);
-    renderLabelNameField(wrapId, selectId);
-  }
-
-  function renderLabelNameField(wrapId, selectId) {
-    var wrap = document.getElementById(wrapId);
-    if (!wrap) return;
-    var savedLabel = (localStorage.getItem('tunefryCustomLabelName') || '').trim();
-
-    if (!isCustomLabelAllowed()) {
-      wrap.innerHTML = '<input type="text" class="form-input" id="' + selectId + '" value="Tunefry" readonly>';
-      return;
-    }
-
-    if (!savedLabel) {
-      wrap.innerHTML = '' +
-        '<div style="display:flex;gap:10px;align-items:center;">' +
-          '<input type="text" class="form-input" id="' + selectId + 'Setup" placeholder="Enter your label name (one-time setup)">' +
-          '<button type="button" onclick="saveCustomLabelName(\'' + selectId + 'Setup\',\'' + wrapId + '\',\'' + selectId + '\')" style="padding:10px 14px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Save</button>' +
-        '</div>';
-      return;
-    }
-
-    var safe = escapeHtml(savedLabel);
-    wrap.innerHTML = '' +
-      '<select class="form-input" id="' + selectId + '">' +
-        '<option value="Tunefry">Tunefry</option>' +
-        '<option value="' + safe + '" selected>' + safe + '</option>' +
-      '</select>';
-  }
+  var songCounter = 0;
+  var songMainArtistCounts = {};
+  var songFeaturedArtistCounts = {};
 
   function toggleMood(btn) { btn.classList.toggle('active'); }
 
-  function addArtist(type) {
+  function setSongYN(noId, yesId, isYes) {
+    var noBt = document.getElementById(noId);
+    var yesBt = document.getElementById(yesId);
+    if (!noBt || !yesBt) return;
+    var isExplicit = noBt.className.indexOf('explicit-btn') > -1;
+    noBt.className = isExplicit ? (isYes ? 'explicit-btn' : 'explicit-btn active-no') : (isYes ? 'yn-btn' : 'yn-btn active-no');
+    yesBt.className = isExplicit ? (isYes ? 'explicit-btn active-yes' : 'explicit-btn') : (isYes ? 'yn-btn active-yes' : 'yn-btn');
+  }
+
+  function updateSongLabel(sid, val) {
+    var el = document.getElementById(sid + '-label');
+    if (el) el.textContent = val.trim() || 'Untitled Song';
+  }
+
+  function toggleSong(sid) {
+    var card = document.getElementById(sid);
+    if (card) card.classList.toggle('open');
+  }
+
+  function addSong() {
+    songCounter++;
+    var sid = 'song-' + songCounter;
+    songMainArtistCounts[sid] = 0;
+    songFeaturedArtistCounts[sid] = 0;
+    var div = document.createElement('div');
+    div.className = 'song-card open';
+    div.id = sid;
+    div.innerHTML = buildSongCardHTML(sid, songCounter);
+    document.getElementById('songsContainer').appendChild(div);
+    updateSongCount();
+    updateRemoveButtons();
+  }
+
+  function removeSong(sid) {
+    var el = document.getElementById(sid);
+    if (!el) return;
+    delete songMainArtistCounts[sid];
+    delete songFeaturedArtistCounts[sid];
+    el.style.transition = 'opacity .2s, transform .2s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-8px)';
+    setTimeout(function() {
+      el.remove();
+      updateSongCount();
+      updateRemoveButtons();
+      renumberSongs();
+    }, 200);
+  }
+
+  function renumberSongs() {
+    var cards = document.querySelectorAll('#songsContainer .song-card');
+    cards.forEach(function(card, i) {
+      var numEl = card.querySelector('.song-card-num');
+      if (numEl) numEl.textContent = 'Track ' + (i + 1);
+    });
+  }
+
+  function updateRemoveButtons() {
+    var cards = document.querySelectorAll('#songsContainer .song-card');
+    cards.forEach(function(card) {
+      var btn = document.getElementById(card.id + '-removebtn');
+      if (btn) btn.disabled = (cards.length === 1);
+    });
+  }
+
+  function updateSongCount() {
+    var c = document.querySelectorAll('#songsContainer .song-card').length;
+    document.getElementById('songCount').textContent = c;
+  }
+
+  function addArtistToSong(sid, type) {
     var isMain = type === 'main';
-    if (isMain) { mainArtistCount++; } else { featuredArtistCount++; }
-    var count = isMain ? mainArtistCount : featuredArtistCount;
-    var id = type + '-artist-' + count;
-    var container = document.getElementById(isMain ? 'mainArtistsContainer' : 'featuredArtistsContainer');
-    var empty = document.getElementById(isMain ? 'mainArtistEmpty' : 'featuredArtistEmpty');
-    empty.style.display = 'none';
-
+    var counts = isMain ? songMainArtistCounts : songFeaturedArtistCounts;
+    counts[sid] = (counts[sid] || 0) + 1;
+    var num = counts[sid];
+    var aid = sid + '-' + type + 'A-' + num;
+    var container = document.getElementById(sid + '-' + (isMain ? 'main' : 'featured') + 'Artists');
+    var empty = document.getElementById(sid + '-' + (isMain ? 'main' : 'featured') + 'Empty');
+    if (empty) empty.style.display = 'none';
     var req = isMain ? '<span class="req">*</span>' : '';
-    var title = isMain ? 'Main Artist #' + count : 'Featured Artist #' + count;
-
+    var title = isMain ? 'Main Artist #' + num : 'Featured Artist #' + num;
     var div = document.createElement('div');
     div.className = 'artist-group';
-    div.id = id;
-    div.innerHTML = '<div class="artist-group-header"><span class="artist-group-label">' + title + '</span><button class="remove-artist-btn" onclick="removeArtist(\'' + id + '\',\'' + type + '\')">&#215;</button></div>' +
+    div.id = aid;
+    div.innerHTML =
+      '<div class="artist-group-header"><span class="artist-group-label">' + title + '</span>' +
+      '<button type="button" class="remove-artist-btn" onclick="removeArtistFromSong(\'' + aid + '\',\'' + sid + '\',\'' + type + '\')">&#215;</button></div>' +
       '<div class="form-grid">' +
       '<div class="form-group col-span-2"><label class="form-label">Artist Name ' + req + '</label><input type="text" class="form-input" placeholder="Artist name"></div>' +
-      '<div class="form-group"><label class="form-label">Spotify Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://open.spotify.com/artist/..."/></div>' +
-      '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://music.apple.com/artist/..."/></div>' +
-      '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..."/></div>' +
+      '<div class="form-group"><label class="form-label">Spotify Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://open.spotify.com/artist/..."></div>' +
+      '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://music.apple.com/artist/..."></div>' +
+      '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..."></div>' +
       '</div>';
     container.appendChild(div);
   }
 
-  function removeArtist(id, type) {
-    var el = document.getElementById(id);
+  function removeArtistFromSong(aid, sid, type) {
+    var el = document.getElementById(aid);
     if (!el) return;
     var isMain = type === 'main';
     el.style.transition = 'opacity .2s, transform .2s';
@@ -604,8 +569,11 @@
     el.style.transform = 'scale(0.97)';
     setTimeout(function() {
       el.remove();
-      var c = document.getElementById(isMain ? 'mainArtistsContainer' : 'featuredArtistsContainer');
-      if (!c.children.length) document.getElementById(isMain ? 'mainArtistEmpty' : 'featuredArtistEmpty').style.display = '';
+      var c = document.getElementById(sid + '-' + (isMain ? 'main' : 'featured') + 'Artists');
+      if (c && !c.children.length) {
+        var empty = document.getElementById(sid + '-' + (isMain ? 'main' : 'featured') + 'Empty');
+        if (empty) empty.style.display = '';
+      }
     }, 220);
   }
 
@@ -628,86 +596,22 @@
     reader.readAsDataURL(file);
   }
 
-  function addTrack() {
-    var list = document.getElementById('trackList');
-    var rows = list.querySelectorAll('.track-row');
-    if (rows.length >= MAX_TRACKS) {
-      document.getElementById('addTrackBtn').disabled = true;
-      return;
-    }
-
-    trackCounter++;
-    var num = rows.length + 1;
-    var uid = 'track-' + trackCounter;
-
-    var row = document.createElement('div');
-    row.className = 'track-row';
-    row.id = uid;
-    row.innerHTML =
-      '<div class="track-num">' + num + '</div>' +
-      '<input type="text" class="track-input" placeholder="Track title" />' +
-      '<input type="text" class="track-input" placeholder="Artist" />' +
-      '<input type="text" class="track-input" placeholder="ISRC (optional)" maxlength="15" />' +
-      '<label class="track-upload-btn" id="upbtn-' + uid + '">' +
-        '<input type="file" accept=".wav,.flac,.mp3" onchange="handleTrackFile(this, \'' + uid + '\')">' +
-        '<svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>' +
-        '<span id="upbtn-label-' + uid + '">Upload</span>' +
-      '</label>' +
-      '<button type="button" class="track-remove-btn" ' + (num === 1 ? 'disabled' : '') + ' onclick="removeTrack(\'' + uid + '\')">' +
-      '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>' +
-      '</button>';
-
-    list.appendChild(row);
-    updateTrackNumbers();
-  }
-
-  function removeTrack(uid) {
-    var row = document.getElementById(uid);
-    if (!row) return;
-    row.style.transition = 'opacity .2s, transform .2s';
-    row.style.opacity = '0';
-    row.style.transform = 'translateX(-8px)';
-    setTimeout(function() {
-      row.remove();
-      updateTrackNumbers();
-    }, 200);
-  }
-
-  function updateTrackNumbers() {
-    var rows = document.querySelectorAll('#trackList .track-row');
-    rows.forEach(function(row, i) {
-      var n = row.querySelector('.track-num');
-      var rem = row.querySelector('.track-remove-btn');
-      if (n) n.textContent = i + 1;
-      if (rem) rem.disabled = (i === 0);
-    });
-    document.getElementById('trackCount').textContent = rows.length;
-    document.getElementById('addTrackBtn').disabled = rows.length >= MAX_TRACKS;
-  }
-
-  function handleTrackFile(input, uid) {
+  function handleSongAudio(input, sid) {
     var file = input.files[0];
     if (!file) return;
-    var label = document.getElementById('upbtn-label-' + uid);
-    var btn = document.getElementById('upbtn-' + uid);
-    var name = file.name.length > 18 ? file.name.substring(0, 16) + '...' : file.name;
-    if (label) label.textContent = name;
-    if (btn) btn.classList.add('has-file');
+    var label = document.getElementById(sid + '-audiolabel');
+    if (label) label.textContent = '\u2713 ' + (file.name.length > 30 ? file.name.substring(0, 28) + '\u2026' : file.name);
   }
 
   function submitAlbum() {
-    var title = document.getElementById('albumTitle');
-    if (!title.value.trim()) {
-      title.focus();
-      title.style.borderColor = '#3B82F6';
-      title.style.boxShadow = '0 0 0 3px rgba(59,130,246,0.18)';
-      setTimeout(function() {
-        title.style.borderColor = 'rgba(255,255,255,0.09)';
-        title.style.boxShadow = 'none';
-      }, 2200);
+    var name = document.getElementById('albumName');
+    if (!name.value.trim()) {
+      name.focus();
+      name.style.borderColor = 'var(--accent)';
+      name.style.boxShadow = '0 0 0 3px rgba(242,101,34,0.18)';
+      setTimeout(function() { name.style.borderColor = ''; name.style.boxShadow = ''; }, 2200);
       return;
     }
-
     if (!document.getElementById('guidelinesCheck').checked || !document.getElementById('rightsCheck').checked) {
       document.querySelectorAll('.terms-check').forEach(function(card) {
         card.style.borderColor = 'rgba(239,68,68,0.45)';
@@ -717,35 +621,170 @@
       return;
     }
 
-    var toast = document.getElementById('successToast');
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-    toast.style.pointerEvents = 'auto';
-    setTimeout(function() {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(12px)';
-      toast.style.pointerEvents = 'none';
-    }, 4000);
+    var submitBtn = document.querySelector('[onclick="submitAlbum()"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting\u2026'; }
+
+    // Collect all songs from accordions
+    var songs = [];
+    document.querySelectorAll('#songsContainer .song-card').forEach(function(card, idx) {
+      var inputs = card.querySelectorAll('.song-card-body input, .song-card-body select, .song-card-body textarea');
+      var song = { index: idx + 1 };
+      inputs.forEach(function(el) { if (el.name) song[el.name] = el.value; });
+      // Collect artists from this song
+      var songMainArtists = [];
+      card.querySelectorAll('[id$="-mainArtists"] .artist-group').forEach(function(ag) {
+        var ins = ag.querySelectorAll('.form-input');
+        songMainArtists.push({ name: ins[0] ? ins[0].value : '', spotify: ins[1] ? ins[1].value : '' });
+      });
+      song.main_artists = songMainArtists;
+      songs.push(song);
+    });
+
+    var fd = new FormData();
+    fd.append('album_name', document.getElementById('albumName').value.trim());
+    fd.append('songs', JSON.stringify(songs));
+    var descEl = document.querySelector('textarea[name="album_description"]');
+    if (descEl) fd.append('album_description', descEl.value.trim());
+    var commentsEl = document.querySelector('textarea[name="additional_comments"]');
+    if (commentsEl) fd.append('additional_comments', commentsEl.value.trim());
+    var coverInput = document.getElementById('coverInput');
+    if (coverInput && coverInput.files[0]) fd.append('cover_art', coverInput.files[0]);
+
+    fetch('/api/release/album/new', {
+      method: 'POST',
+      body: fd,
+      credentials: 'include'
+    })
+    .then(function(res) {
+      return res.ok ? res.json() : res.json().then(function(e) { throw e; });
+    })
+    .then(function() {
+      var toast = document.getElementById('successToast');
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+      toast.style.pointerEvents = 'auto';
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Album'; }
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(12px)';
+        toast.style.pointerEvents = 'none';
+      }, 4000);
+    })
+    .catch(function(err) {
+      alert((err && err.message) ? err.message : 'Submission failed. Please try again.');
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Album'; }
+    });
   }
 
-  renderLabelNameField('labelNameWrapNewAlbum', 'labelNameSelectNewAlbum');
+  function buildSongCardHTML(sid, num) {
+    return (
+      '<div class="song-card-hd" onclick="toggleSong(\'' + sid + '\')">' +
+        '<div><div class="song-card-num">Track ' + num + '</div>' +
+        '<div class="song-card-name" id="' + sid + '-label">Untitled Song</div></div>' +
+        '<div class="song-card-actions">' +
+          '<button type="button" class="song-remove-btn" id="' + sid + '-removebtn" onclick="event.stopPropagation();removeSong(\'' + sid + '\')" disabled>&#215;</button>' +
+          '<button type="button" class="song-toggle-btn"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="song-card-body">' +
+        '<div class="form-grid" style="margin-top:16px;">' +
+          '<div class="form-group col-span-2"><label class="form-label">Song Name <span class="req">*</span></label>' +
+          '<input type="text" class="form-input" placeholder="Song title" oninput="updateSongLabel(\'' + sid + '\',this.value)"></div>' +
+        '</div>' +
+        '<div class="form-grid-3" style="margin-top:16px;">' +
+          '<div class="form-group"><label class="form-label">Duration <span class="req">*</span></label>' +
+          '<input type="text" class="form-input" placeholder="mm:ss" maxlength="5" oninput="this.value=this.value.replace(/[^0-9:]/g,\'\')"></div>' +
+          '<div class="form-group"><label class="form-label">Original Release Date <span class="req">*</span></label>' +
+          '<input type="date" class="form-input" style="color-scheme:dark;"></div>' +
+          '<div class="form-group"><label class="form-label">Go Live Date <span class="req">*</span></label>' +
+          '<input type="date" class="form-input" style="color-scheme:dark;"></div>' +
+        '</div>' +
+        '<div class="form-group" style="margin-top:16px;"><label class="form-label">Audio File <span class="req">*</span></label>' +
+          '<div class="drop-zone" style="height:76px;flex-direction:row;gap:14px;padding:0 20px;" onclick="document.getElementById(\'' + sid + '-audio\').click()">' +
+            '<input type="file" id="' + sid + '-audio" accept=".wav,.flac,.mp3" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleSongAudio(this,\'' + sid + '\')">' +
+            '<div class="drop-zone-icon" style="width:30px;height:30px;flex-shrink:0;"><svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg></div>' +
+            '<div><div class="drop-zone-text" id="' + sid + '-audiolabel" style="font-size:12px;text-align:left;">Drop audio or click to upload</div>' +
+            '<div class="drop-zone-sub" style="text-align:left;">WAV, FLAC or MP3</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-grid" style="margin-top:16px;">' +
+          '<div class="form-group"><label class="form-label">YouTube Content ID <span class="req">*</span></label>' +
+            '<div class="yn-toggle">' +
+              '<button type="button" class="yn-btn active-no" id="' + sid + '-ytCidNo" onclick="setSongYN(\'' + sid + '-ytCidNo\',\'' + sid + '-ytCidYes\',false)">No</button>' +
+              '<button type="button" class="yn-btn" id="' + sid + '-ytCidYes" onclick="setSongYN(\'' + sid + '-ytCidNo\',\'' + sid + '-ytCidYes\',true)">Yes</button>' +
+            '</div></div>' +
+        '</div>' +
+        '<div class="form-grid-3" style="margin-top:16px;">' +
+          '<div class="form-group"><label class="form-label">Genre <span class="req">*</span></label>' +
+            '<select class="form-input"><option value="" disabled selected>Select genre</option>' +
+            '<option>Hip-Hop / Rap</option><option>Devotional</option><option>Pop</option><option>Indie</option>' +
+            '<option>Film</option><option>Jazz</option><option>Ambient / Instrumental</option>' +
+            '<option>R&amp;B / Soul</option><option>Electronic / Dance</option><option>Classical</option>' +
+            '<option>Folk</option><option>Rock</option></select></div>' +
+          '<div class="form-group"><label class="form-label">Sub-Genre <span class="opt-tag">(optional)</span></label>' +
+            '<input type="text" class="form-input" placeholder="e.g. Alternative Pop"></div>' +
+          '<div class="form-group"><label class="form-label">Language <span class="req">*</span></label>' +
+            '<select class="form-input"><option value="" disabled selected>Select language</option>' +
+            '<option>Hindi</option><option>English</option><option>Punjabi</option><option>Tamil</option>' +
+            '<option>Telugu</option><option>Bengali</option><option>Marathi</option>' +
+            '<option>Kannada</option><option>Malayalam</option><option>Other</option></select></div>' +
+        '</div>' +
+        '<div class="form-group" style="margin-top:16px;"><label class="form-label">Mood <span class="opt-tag">(optional)</span></label>' +
+          '<div class="mood-pills">' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Happy</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Sad</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Relaxed</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Romantic</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Dance</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Nostalgic</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Inspirational</button>' +
+            '<button type="button" class="mood-pill" onclick="toggleMood(this)">Calm</button>' +
+          '</div></div>' +
+        '<div class="song-sub-label">Credits</div>' +
+        '<div class="form-grid">' +
+          '<div class="form-group"><label class="form-label">Music Producer <span class="opt-tag">(optional)</span></label>' +
+            '<input type="text" class="form-input" placeholder="Producer name"></div>' +
+          '<div class="form-group"><label class="form-label">Composer <span class="opt-tag">(artist\'s real name)</span></label>' +
+          '<input type="text" class="form-input" placeholder="Composer name"></div>' +
+          '<div class="form-group col-span-2"><label class="form-label">Lyricist / Author <span class="opt-tag">(artist\'s real name)</span></label>' +
+            '<input type="text" class="form-input" placeholder="Lyricist name"></div>' +
+        '</div>' +
+        '<div class="form-grid" style="margin-top:16px;">' +
+          '<div class="form-group"><label class="form-label">Callertune Timing <span class="opt-tag">(optional)</span></label>' +
+            '<input type="text" class="form-input" placeholder="00:00" maxlength="5" oninput="this.value=this.value.replace(/[^0-9:]/g,\'\')"></div>' +
+          '<div class="form-group"><label class="form-label">Callertune Cut Name <span class="opt-tag">(optional)</span></label>' +
+            '<input type="text" class="form-input" placeholder="Optional callertune name"></div>' +
+          '<div class="form-group"><label class="form-label">YouTube Music / Beat <span class="req">*</span></label>' +
+            '<div class="yn-toggle">' +
+              '<button type="button" class="yn-btn active-no" id="' + sid + '-ytBeatNo" onclick="setSongYN(\'' + sid + '-ytBeatNo\',\'' + sid + '-ytBeatYes\',false)">No</button>' +
+              '<button type="button" class="yn-btn" id="' + sid + '-ytBeatYes" onclick="setSongYN(\'' + sid + '-ytBeatNo\',\'' + sid + '-ytBeatYes\',true)">Yes</button>' +
+            '</div></div>' +
+          '<div class="form-group"><label class="form-label">Explicit Content <span class="req">*</span></label>' +
+            '<div class="explicit-toggle">' +
+              '<button type="button" class="explicit-btn active-no" id="' + sid + '-explicitNo" onclick="setSongYN(\'' + sid + '-explicitNo\',\'' + sid + '-explicitYes\',false)">No</button>' +
+              '<button type="button" class="explicit-btn" id="' + sid + '-explicitYes" onclick="setSongYN(\'' + sid + '-explicitNo\',\'' + sid + '-explicitYes\',true)">Yes</button>' +
+            '</div></div>' +
+        '</div>' +
+        '<div class="song-artists-row">' +
+          '<div class="song-sub-label">Main Artists</div>' +
+          '<button type="button" class="add-artist-btn" onclick="addArtistToSong(\'' + sid + '\',\'main\')">' +
+            '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Main Artist</button>' +
+        '</div>' +
+        '<div id="' + sid + '-mainArtists"></div>' +
+        '<div id="' + sid + '-mainEmpty" style="padding:14px;text-align:center;border:1.5px dashed rgba(255,255,255,0.07);border-radius:12px;color:var(--text-muted);font-size:12px;">Click <strong style=\"color:var(--accent)\">Add Main Artist</strong> to add the main artist</div>' +
+        '<div class="song-artists-row" style="margin-top:20px;">' +
+          '<div class="song-sub-label">Featured Artists <span style="font-weight:500;color:var(--text-muted);text-transform:none;letter-spacing:0;">(optional)</span></div>' +
+          '<button type="button" class="add-artist-btn" onclick="addArtistToSong(\'' + sid + '\',\'featured\')">' +
+            '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Featured</button>' +
+        '</div>' +
+        '<div id="' + sid + '-featuredArtists"></div>' +
+        '<div id="' + sid + '-featuredEmpty" style="padding:14px;text-align:center;border:1.5px dashed rgba(255,255,255,0.06);border-radius:12px;color:var(--text-muted);font-size:12px;">No featured artists — click <strong style=\"color:var(--accent)\">Add Featured</strong> to add one</div>' +
+      '</div>'
+    );
+  }
 
   (function init() {
-    var now = new Date();
-    document.getElementById('copyrightYear').value = now.getFullYear();
-
-    var d = new Date();
-    d.setDate(d.getDate() + 14);
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
-    document.getElementById('goLiveDate').value = y + '-' + m + '-' + day;
-    document.getElementById('originalReleaseDate').value = y + '-' + m + '-' + day;
-
-    addTrack();
-    setYN('explicit', false);
-    setYN('ytBeat', false);
-    setYN('ytCid', false);
+    addSong();
   })();
 </script>
 </body>

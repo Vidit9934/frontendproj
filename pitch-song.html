@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tunefry — Pitch Your Song</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -64,7 +65,7 @@
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
-      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -123,7 +124,7 @@
       <div class="fg2">
         <div>
           <label class="lbl" for="songSelect">Choose Song *</label>
-          <select id="songSelect" class="inp">
+          <select id="songSelect" name="song_id" class="inp">
             <option value="">Select song for pitching</option>
             <option>Midnight Echoes</option>
             <option>Neon Dreams</option>
@@ -133,15 +134,11 @@
         </div>
         <div>
           <label class="lbl" for="releaseDate">Release Date *</label>
-          <input id="releaseDate" type="date" class="inp" style="color-scheme:dark;">
+          <input id="releaseDate" type="date" name="release_date" class="inp" style="color-scheme:dark;">
           <p class="helper-note">Recommended pitching window: 7 to 28 days before release.</p>
         </div>
       </div>
 
-      <div class="fg">
-        <label class="lbl" for="spotifyLink">Spotify / Pre-save Link</label>
-        <input id="spotifyLink" type="url" class="inp" placeholder="https://open.spotify.com/... or pre-save link">
-      </div>
     </div>
 
     <div class="glass-card animate-in animate-in-delay-3" style="padding:28px;margin-bottom:20px;">
@@ -165,7 +162,7 @@
 
       <div class="fg">
         <label class="lbl" for="pitchText">Write Your Pitch *</label>
-        <textarea id="pitchText" class="inp" placeholder="Write the final pitch text here. Mention the artist, song story, emotion, sound, and which kind of playlists or listeners it fits." oninput="updatePitchCount()"></textarea>
+        <textarea id="pitchText" name="pitch_text" class="inp" placeholder="Write the final pitch text here. Mention the artist, song story, emotion, sound, and which kind of playlists or listeners it fits." oninput="updatePitchCount()"></textarea>
         <div class="char-count"><span id="pitchCount">0</span> characters</div>
       </div>
 
@@ -236,7 +233,7 @@
 
       <div class="fg">
         <label class="lbl" for="driveLink">Google Drive Link *</label>
-        <input id="driveLink" type="url" class="inp" placeholder="Paste the shareable Drive folder link here">
+        <input id="driveLink" type="url" name="drive_link" class="inp" placeholder="Paste the shareable Drive folder link here">
         <p class="helper-note">Make sure the folder permission is set so the Tunefry team can open and download files.</p>
       </div>
 
@@ -360,11 +357,28 @@ function submitPitch() {
 
   errBox.style.display = 'none';
   var btn = document.querySelector('.submit-btn');
+  var btnOrigHTML = btn.innerHTML;
   btn.innerHTML = 'Submitting...';
   btn.style.opacity = '0.7';
   btn.disabled = true;
-  setTimeout(function() {
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:inline;margin-right:8px;vertical-align:middle;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Submit Pitch Request';
+
+  fetch('/api/pitch/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      song_id: songSelect.value,
+      release_date: releaseDate.value,
+      pitch_text: pitch,
+      drive_link: driveLink,
+      media_confirmed: { photos: true, videos: true, canvas: true, access: true }
+    })
+  })
+  .then(function(res) {
+    return res.ok ? res.json() : res.json().then(function(e) { throw e; });
+  })
+  .then(function() {
+    btn.innerHTML = btnOrigHTML;
     btn.style.opacity = '1';
     btn.disabled = false;
     var t = document.getElementById('toast');
@@ -374,7 +388,14 @@ function submitPitch() {
       t.style.opacity = '0';
       t.style.transform = 'translateY(10px)';
     }, 5000);
-  }, 1000);
+  })
+  .catch(function(err) {
+    btn.innerHTML = btnOrigHTML;
+    btn.style.opacity = '1';
+    btn.disabled = false;
+    errText.textContent = (err && err.message) ? err.message : 'Submission failed. Please try again.';
+    errBox.style.display = 'flex';
+  });
 }
 </script>
 <script src="js/app.js"></script>

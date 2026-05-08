@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Checkout — Tunefry</title>
+<link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --or:#FF6B00; --or-d:rgba(255,107,0,0.11); --or-b:rgba(255,107,0,0.28);
+  --bg:#0C0C0C; --s1:#111; --s2:#181818; --s3:#202020;
+  --bd:rgba(255,255,255,0.07); --bd2:rgba(255,255,255,0.13);
+  --t1:#fff; --t2:rgba(255,255,255,0.62); --t3:rgba(255,255,255,0.35);
+  --gr:#2DCA72; --gr-d:rgba(45,202,114,0.11); --gr-b:rgba(45,202,114,0.28);
+  --font-d:'Syne',sans-serif; --font-b:'DM Sans',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-b);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select{font-family:inherit;border:none;outline:none;background:none;color:inherit}
+
+/* ── Noise overlay ── */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.015;}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 40px;background:rgba(12,12,12,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:.5px solid var(--bd);transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(12,12,12,.97);box-shadow:0 1px 24px rgba(0,0,0,.45)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.logo-sq{width:33px;height:33px;border-radius:8px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:17px;color:#fff;line-height:1}
+.logo-txt{font-family:var(--font-d);font-size:1.18rem;font-weight:700;letter-spacing:-.4px}
+.logo-txt b{color:var(--or)}
+.nav-back{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--t2);padding:7px 14px;border-radius:8px;border:.5px solid var(--bd2);transition:all .2s}
+.nav-back:hover{color:var(--t1);border-color:rgba(255,255,255,.22)}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── PAGE ── */
+.page{max-width:1080px;margin:0 auto;padding:56px 40px 96px}
+.page-eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:10px}
+.page-title{font-family:var(--font-d);font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:36px}
+
+/* ── GRID ── */
+.checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+
+/* ── FORM CARD ── */
+.form-card{background:rgba(255,255,255,0.04);border:.5px solid var(--bd2);border-radius:18px;padding:32px;backdrop-filter:blur(12px)}
+.form-section-title{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--t1);margin-bottom:18px;padding-bottom:14px;border-bottom:.5px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px}
+.form-section-title svg{width:15px;height:15px;stroke:var(--or);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t3)}
+.form-label .req{color:var(--or);margin-left:2px}
+.form-input{padding:11px 14px;background:rgba(255,255,255,0.05);border:.5px solid rgba(255,255,255,0.09);border-radius:10px;font-size:13.5px;color:var(--t1);transition:border-color .2s}
+.form-input::placeholder{color:var(--t3)}
+.form-input:focus{border-color:rgba(255,107,0,0.55);background:rgba(255,107,0,0.04);outline:none}
+.form-input.err{border-color:rgba(239,68,68,0.55)!important}
+
+/* Conditional fields */
+.cond-field{display:none}
+.cond-field.show{display:block}
+
+/* Artist counter */
+.counter-row{display:flex;align-items:center;gap:12px;margin-top:4px}
+.counter-btn{width:36px;height:36px;border-radius:50%;border:.5px solid var(--bd2);background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--t1);cursor:pointer;transition:all .2s;user-select:none}
+.counter-btn:hover{background:var(--or);border-color:var(--or)}
+.counter-btn:disabled{opacity:.35;cursor:not-allowed}
+.counter-btn:disabled:hover{background:rgba(255,255,255,0.06);border-color:var(--bd2)}
+.counter-val{font-family:var(--font-d);font-size:22px;font-weight:800;color:var(--t1);min-width:28px;text-align:center}
+.counter-hint{font-size:12px;color:var(--t3)}
+
+/* ── ORDER SUMMARY ── */
+.summary-card{background:rgba(255,255,255,0.04);border:.5px solid var(--bd2);border-radius:18px;padding:28px;backdrop-filter:blur(12px);position:sticky;top:86px}
+.summary-title{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--t1);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.summary-title svg{width:15px;height:15px;stroke:var(--or);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.plan-badge-row{display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(135deg,rgba(255,107,0,0.12),rgba(255,107,0,0.05));border:.5px solid rgba(255,107,0,0.3);border-radius:12px;margin-bottom:18px}
+.plan-badge-icon{width:40px;height:40px;border-radius:10px;background:rgba(255,107,0,0.15);border:.5px solid rgba(255,107,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.plan-badge-icon svg{width:18px;height:18px;stroke:var(--or);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.plan-badge-name{font-family:var(--font-d);font-size:15px;font-weight:800;color:var(--t1)}
+.plan-badge-sub{font-size:11.5px;color:var(--t2);margin-top:1px}
+
+.summary-line{display:flex;align-items:center;justify-content:space-between;padding:9px 0;font-size:13px;color:var(--t2);border-bottom:.5px solid rgba(255,255,255,0.05)}
+.summary-line:last-of-type{border-bottom:none}
+.summary-line strong{color:var(--t1);font-weight:600}
+.summary-line .or{color:var(--or);font-weight:700}
+.summary-total-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0 0;border-top:.5px solid rgba(255,255,255,0.12);margin-top:4px}
+.summary-total-label{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--t1)}
+.summary-total-price{font-family:var(--font-d);font-size:30px;font-weight:800;color:var(--or)}
+
+/* discount badge */
+.discount-badge{display:inline-flex;align-items:center;gap:5px;background:var(--gr-d);border:.5px solid var(--gr-b);border-radius:100px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--gr);margin-bottom:16px}
+
+/* royalty badge */
+.royalty-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,107,0,0.08);border:.5px solid rgba(255,107,0,0.2);border-radius:100px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--or);margin-bottom:16px;margin-left:6px}
+
+/* ── CTA ── */
+.btn-pay{width:100%;padding:16px;background:linear-gradient(145deg,#FF9A60,var(--or),#CC5500);border:none;border-radius:12px;font-family:var(--font-d);font-size:15px;font-weight:700;letter-spacing:.04em;color:#fff;cursor:pointer;box-shadow:0 4px 24px rgba(255,107,0,0.4);transition:all .25s;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+.btn-pay:hover{box-shadow:0 6px 32px rgba(255,107,0,0.6);transform:translateY(-1px)}
+.btn-pay svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-pay:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+.pay-note{font-size:11.5px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.65}
+.pay-note svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:middle;margin-right:3px;opacity:.7}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:32px;right:32px;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;z-index:9999;transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-success{background:rgba(45,202,114,0.15);border:.5px solid rgba(45,202,114,0.35);color:var(--gr)}
+.toast-error{background:rgba(239,68,68,0.15);border:.5px solid rgba(239,68,68,0.35);color:#EF4444}
+.toast svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── SUCCESS STATE ── */
+.success-card{display:none;background:rgba(45,202,114,0.06);border:.5px solid rgba(45,202,114,0.2);border-radius:18px;padding:48px 40px;text-align:center}
+.success-card.show{display:block}
+.success-icon{width:64px;height:64px;border-radius:50%;background:var(--gr-d);border:.5px solid var(--gr-b);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success-icon svg{width:28px;height:28px;stroke:var(--gr);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.success-h{font-family:var(--font-d);font-size:24px;font-weight:800;color:var(--t1);margin-bottom:10px}
+.success-p{font-size:14px;color:var(--t2);max-width:380px;margin:0 auto 28px;line-height:1.75}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .checkout-grid{grid-template-columns:1fr}
+  .summary-card{position:static}
+  .form-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav{padding:0 20px}
+  .page{padding:40px 20px 80px}
+}
+
+/* Disable text selection outside inputs */
+*{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+input,textarea,[contenteditable]{-webkit-user-select:text;-moz-user-select:text;user-select:text}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="home.html" class="nav-logo">
+    <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:38px;width:auto;display:block;object-fit:contain;">
+  </a>
+  <a href="pricing.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Pricing
+  </a>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="page-eyebrow">Secure Checkout</div>
+  <h1 class="page-title">Complete your plan</h1>
+
+  <!-- Success state -->
+  <div class="success-card" id="successCard">
+    <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="success-h">Order Confirmed! 🎉</div>
+    <p class="success-p">Your plan has been submitted. Our team will reach out on your email shortly to activate your account.</p>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(145deg,#FF9A60,var(--or),#CC5500);border-radius:12px;font-family:var(--font-d);font-size:14px;font-weight:700;color:#fff;box-shadow:0 4px 24px rgba(255,107,0,.4);">Go to Dashboard &rarr;</a>
+  </div>
+
+  <div class="checkout-grid" id="checkoutGrid">
+
+    <!-- LEFT: Form -->
+    <div class="form-card">
+      <div class="form-section-title">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Your Details
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" name="full_name" class="form-input" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone_number" class="form-input" placeholder="+91 98765 43210" maxlength="15" required>
+        </div>
+
+        <!-- Label Name — only for double-artist / label -->
+        <div class="form-group cond-field" id="fieldLabelName">
+          <label class="form-label">Label Name <span class="req">*</span></label>
+          <input type="text" id="labelName" name="label_name" class="form-input" placeholder="Your label or band name">
+        </div>
+
+        <!-- Artists count — only for label plan -->
+        <div class="form-group full cond-field" id="fieldArtists">
+          <label class="form-label" style="margin-bottom:8px;">Number of Artists <span class="req">*</span></label>
+          <div class="counter-row">
+            <button class="counter-btn" id="btnMinus" onclick="changeArtists(-1)" disabled>−</button>
+            <div class="counter-val" id="artistCount">5</div>
+            <button class="counter-btn" id="btnPlus" onclick="changeArtists(1)">+</button>
+            <span class="counter-hint">Minimum 5 artists &middot; each additional artist ₹1,260</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top:8px;">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Payment
+      </div>
+
+      <div style="padding:16px;background:rgba(255,255,255,0.03);border:.5px solid rgba(255,255,255,0.07);border-radius:12px;font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:20px;">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--or);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Payment is processed securely after our team verifies your order. You'll receive a payment link on your phone and email within 2–4 working hours.
+      </div>
+
+      <button class="btn-pay" id="btnPay" onclick="submitOrder()">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Confirm &amp; Pay
+      </button>
+      <div class="pay-note">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Secure order. No card details collected on this page.
+      </div>
+    </div>
+
+    <!-- RIGHT: Summary -->
+    <div class="summary-card">
+      <div class="summary-title">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Order Summary
+      </div>
+
+      <div class="plan-badge-row" id="summaryPlanBadge">
+        <div class="plan-badge-icon" id="summaryIcon">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div>
+          <div class="plan-badge-name" id="summaryPlanName">Single Artist</div>
+          <div class="plan-badge-sub" id="summaryPlanSub">per year · unlimited releases</div>
+        </div>
+      </div>
+
+      <div>
+        <span class="discount-badge">✦ 10% OFF — Anniversary Special</span>
+        <span class="royalty-badge" id="summaryRoyalty">★ 100% Royalties</span>
+      </div>
+
+      <div id="summaryLines" style="margin-top:16px;">
+        <div class="summary-line">
+          <span id="summaryBaseLabel">Base plan</span>
+          <strong id="summaryBasePrice">₹1,439</strong>
+        </div>
+        <div class="summary-line cond-field" id="summaryExtraLine" style="display:none;">
+          <span id="summaryExtraLabel">Extra artists (0 × ₹1,260)</span>
+          <strong id="summaryExtraPrice">₹0</strong>
+        </div>
+        <div class="summary-line">
+          <span>10% discount applied</span>
+          <span class="or" id="summarySavings">- ₹160</span>
+        </div>
+      </div>
+
+      <div class="summary-total-row">
+        <div class="summary-total-label">Total Today</div>
+        <div class="summary-total-price" id="summaryTotal">₹1,439</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" id="toastIcon"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+// ── Plan Data ──────────────────────────────────────────────
+var PLANS = {
+  'free'          : { name:'Free',          sub:'forever free · 1 artist', price:0, origPrice:0, royalty:'75%',  labelField:false, artistCounter:false },
+  'single-song'   : { name:'Single Song',   sub:'one-time · per song',     price:269, origPrice:299, royalty:'85%',  labelField:false, artistCounter:false },
+  'starter'       : { name:'Starter',       sub:'per year · unlimited releases', price:899, origPrice:999, royalty:'90%',  labelField:false, artistCounter:false },
+  'single-artist' : { name:'Single Artist', sub:'per year · unlimited releases', price:1439, origPrice:1599, royalty:'100%', labelField:false, artistCounter:false },
+  'double-artist' : { name:'Double Artist', sub:'per year · 2 artists',    price:2699, origPrice:2999, royalty:'100%', labelField:true, artistCounter:false },
+  'label'         : { name:'Label Plan',    sub:'per year · min. 5 artists', price:6300, origPrice:7000, royalty:'100%', labelField:true, artistCounter:true }
+};
+
+var currentPlan = null;
+var artistCount = 5;
+var PER_ARTIST = 1260;
+
+// ── Init ──────────────────────────────────────────────────
+(function init() {
+  var params = new URLSearchParams(window.location.search);
+  var planKey = params.get('plan') || 'single-artist';
+  if (!PLANS[planKey]) planKey = 'single-artist';
+  currentPlan = planKey;
+  renderPlan();
+})();
+
+function renderPlan() {
+  var p = PLANS[currentPlan];
+  document.title = p.name + ' Checkout — Tunefry';
+
+  // Toggle conditional fields
+  document.getElementById('fieldLabelName').classList.toggle('show', p.labelField);
+  document.getElementById('fieldArtists').classList.toggle('show', p.artistCounter);
+  document.getElementById('summaryExtraLine').style.display = p.artistCounter ? 'flex' : 'none';
+
+  // Require label name
+  document.getElementById('labelName').required = p.labelField;
+
+  // Summary badge
+  document.getElementById('summaryPlanName').textContent = p.name;
+  document.getElementById('summaryPlanSub').textContent = p.sub;
+  document.getElementById('summaryRoyalty').textContent = '★ ' + p.royalty + ' Royalties';
+
+  updatePrice();
+}
+
+function updatePrice() {
+  var p = PLANS[currentPlan];
+  var base = p.price;
+  var extras = 0;
+
+  if (p.artistCounter) {
+    var extraArtists = Math.max(0, artistCount - 5);
+    extras = extraArtists * PER_ARTIST;
+    document.getElementById('summaryExtraLabel').textContent = 'Extra artists (' + extraArtists + ' × ₹' + PER_ARTIST.toLocaleString('en-IN') + ')';
+    document.getElementById('summaryExtraPrice').textContent = '₹' + extras.toLocaleString('en-IN');
+  }
+
+  var total = base + extras;
+  var savings = p.artistCounter ? (p.origPrice - p.price) : (p.origPrice - p.price);
+
+  document.getElementById('summaryBaseLabel').textContent = p.artistCounter ? 'Base plan (5 artists)' : 'Plan price';
+  document.getElementById('summaryBasePrice').textContent = '₹' + base.toLocaleString('en-IN');
+  document.getElementById('summarySavings').textContent = savings > 0 ? '−₹' + savings.toLocaleString('en-IN') : '—';
+  document.getElementById('summaryTotal').textContent = total === 0 ? 'Free' : '₹' + total.toLocaleString('en-IN');
+}
+
+function changeArtists(delta) {
+  var next = artistCount + delta;
+  if (next < 5) return;
+  artistCount = next;
+  document.getElementById('artistCount').textContent = artistCount;
+  document.getElementById('btnMinus').disabled = artistCount <= 5;
+  updatePrice();
+}
+
+// ── Submit ───────────────────────────────────────────────
+function submitOrder() {
+  var fields = ['fullName', 'email', 'phone'];
+  var p = PLANS[currentPlan];
+  if (p.labelField) fields.push('labelName');
+
+  var valid = true;
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    el.classList.remove('err');
+    if (!el.value.trim()) { el.classList.add('err'); valid = false; }
+  });
+
+  // Basic email check
+  var emailEl = document.getElementById('email');
+  if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+    emailEl.classList.add('err');
+    valid = false;
+  }
+
+  if (!valid) { showToast('Please fill in all required fields.', 'error'); return; }
+
+  var btn = document.getElementById('btnPay');
+  btn.disabled = true;
+  btn.textContent = 'Processing…';
+
+  var p = PLANS[currentPlan];
+  var extras = p.artistCounter ? Math.max(0, artistCount - 5) * PER_ARTIST : 0;
+  var payload = {
+    plan: currentPlan,
+    full_name: document.getElementById('fullName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone_number: document.getElementById('phone').value.trim(),
+    label_name: p.labelField ? document.getElementById('labelName').value.trim() : undefined,
+    artist_count: p.artistCounter ? artistCount : undefined,
+    total_amount: p.price + extras
+  };
+
+  fetch('/api/checkout/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    return res.ok ? res.json() : res.json().then(function(e) { throw e; });
+  })
+  .then(function() {
+    document.getElementById('checkoutGrid').style.display = 'none';
+    document.getElementById('successCard').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
+  .catch(function(err) {
+    showToast((err && err.message) ? err.message : 'Submission failed. Please try again.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Confirm &amp; Pay';
+  });
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast ' + (type === 'error' ? 'toast-error' : 'toast-success') + ' show';
+  setTimeout(function() { t.classList.remove('show'); }, 3200);
+}
+
+// Nav scroll
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Spinner keyframe
+var style = document.createElement('style');
+style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>

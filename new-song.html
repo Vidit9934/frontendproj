@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tunefry — New Song Submission</title>
+  <title>Tunefry â€” New Song Submission</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -274,7 +275,7 @@
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
-      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -323,7 +324,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 1 — Basic Information
+         SECTION 1 â€” Basic Information
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-2">
       <div class="section-eyebrow">Step 01</div>
@@ -333,7 +334,7 @@
 
         <div class="form-group col-span-2">
           <label class="form-label">Song Title <span class="req">*</span></label>
-          <input id="songTitle" type="text" class="form-input" placeholder="Enter track title">
+          <input id="songTitle" type="text" name="song_title" class="form-input" placeholder="Enter track title" required>
         </div>
 
         <div class="form-group col-span-2">
@@ -350,7 +351,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 2 — Main Artists
+         SECTION 2 â€” Main Artists
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-2">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
@@ -373,7 +374,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 3 — Featured Artists
+         SECTION 3 â€” Featured Artists
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-3">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
@@ -390,13 +391,13 @@
       <div id="featuredArtistsContainer"></div>
 
       <div id="featuredArtistEmpty" style="padding:20px;text-align:center;border:1.5px dashed rgba(255,255,255,0.06);border-radius:14px;color:var(--text-muted);font-size:13px;">
-        No featured artists — click <strong style="color:var(--accent);">Add Featured</strong> to add one
+        No featured artists â€” click <strong style="color:var(--accent);">Add Featured</strong> to add one
       </div>
     </div>
 
 
     <!-- --------------------------------------------------------------
-         SECTION 4 — Credits
+         SECTION 4 â€” Credits
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-3">
       <div class="section-eyebrow">Step 04</div>
@@ -406,17 +407,17 @@
 
         <div class="form-group">
           <label class="form-label">Music Producer Name</label>
-          <input type="text" class="form-input" placeholder="Producer name" id="producerName">
+          <input type="text" class="form-input" placeholder="Producer name" id="producerName" name="producer_name">
         </div>
 
         <div class="form-group">
           <label class="form-label">Composer Name <span class="opt-tag">(artist's real name)</span></label>
-          <input type="text" class="form-input" placeholder="Composer name" id="composerName">
+          <input type="text" class="form-input" placeholder="Composer name" id="composerName" name="composer_name">
         </div>
 
         <div class="form-group col-span-2">
           <label class="form-label">Lyricist / Author Name <span class="opt-tag">(artist's real name)</span></label>
-          <input type="text" class="form-input" placeholder="Lyricist name" id="lyricistName">
+          <input type="text" class="form-input" placeholder="Lyricist name" id="lyricistName" name="lyricist_name">
         </div>
 
       </div>
@@ -424,7 +425,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 5 — Track Details
+         SECTION 5 â€” Track Details
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-4">
       <div class="section-eyebrow">Step 05</div>
@@ -444,7 +445,7 @@
         <!-- Language -->
         <div class="form-group">
           <label class="form-label">Language</label>
-          <select class="form-input" id="trackLanguage">
+          <select class="form-input" id="trackLanguage" name="language">
             <option value="" disabled selected>Select language</option>
             <option value="24">Hindi</option>
             <option value="1">English</option>
@@ -476,7 +477,7 @@
         <!-- Category / Genre -->
         <div class="form-group">
           <label class="form-label">Category <span class="req">*</span></label>
-          <select class="form-input" id="trackGenre">
+          <select class="form-input" id="trackGenre" name="genre">
             <option value="" disabled selected>Select category</option>
             <option value="7">Hip-Hop / Rap</option>
             <option value="8">Hindustani Classical</option>
@@ -495,7 +496,7 @@
         <!-- Sub-Category -->
         <div class="form-group">
           <label class="form-label">Sub-Category <span class="opt-tag">(optional)</span></label>
-          <select class="form-input" id="trackSubCategory">
+          <select class="form-input" id="trackSubCategory" name="sub_category">
             <option value="" disabled selected>Select sub-category</option>
             <optgroup label="Hip-Hop / Rap">
               <option value="8">Alternative Hip-Hop</option>
@@ -572,7 +573,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 6 — Release Dates
+         SECTION 6 â€” Release Dates
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-4">
       <div class="section-eyebrow">Step 06</div>
@@ -582,13 +583,13 @@
 
         <div class="form-group">
           <label class="form-label">Original Release Date <span class="req">*</span></label>
-          <input type="date" class="form-input" id="originalReleaseDate" style="color-scheme:dark;">
+          <input type="date" class="form-input" id="originalReleaseDate" name="original_release_date" style="color-scheme:dark;" required>
           <span class="form-hint">Date the song was first created or released</span>
         </div>
 
         <div class="form-group">
           <label class="form-label">Go Live Date <span class="req">*</span></label>
-          <input type="date" class="form-input" id="goLiveDate" style="color-scheme:dark;">
+          <input type="date" class="form-input" id="goLiveDate" name="go_live_date" style="color-scheme:dark;" required>
           <span class="form-hint">Date the song should go live on platforms</span>
         </div>
 
@@ -614,7 +615,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 7 — Upload Files
+         SECTION 7 â€” Upload Files
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-5">
       <div class="section-eyebrow">Step 07</div>
@@ -629,14 +630,14 @@
                ondragover="handleDragOver(event,'coverArtZone')"
                ondragleave="handleDragLeave('coverArtZone')"
                ondrop="handleCoverDrop(event)">
-            <input type="file" id="coverArtInput" accept="image/*" onchange="handleCoverArt(this)">
+            <input type="file" id="coverArtInput" name="cover_art" accept="image/*" onchange="handleCoverArt(this)">
             <img id="coverArtPreview" alt="Cover art preview">
             <div class="cover-art-inner" id="coverArtContent">
               <div class="drop-zone-icon">
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
               </div>
               <div class="drop-zone-text">Drop cover art here</div>
-              <div class="drop-zone-sub">JPEG, PNG<br>Min 3000 × 3000 px</div>
+              <div class="drop-zone-sub">JPEG, PNG<br>Min 3000 Ã— 3000 px</div>
             </div>
           </div>
         </div>
@@ -649,14 +650,14 @@
                  ondragover="handleDragOver(event,'audioZone')"
                  ondragleave="handleDragLeave('audioZone')"
                  ondrop="handleAudioDrop(event)">
-              <input type="file" id="audioInput" accept=".wav,.flac,.mp3" onchange="handleAudioFile(this)">
+              <input type="file" id="audioInput" name="audio_file" accept=".wav,.flac,.mp3" onchange="handleAudioFile(this)">
               <div class="audio-inner" id="audioZoneContent">
                 <div class="drop-zone-icon">
                   <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                 </div>
                 <div>
                   <div class="drop-zone-text" style="text-align:left;">Drop audio file here</div>
-                  <div class="drop-zone-sub" style="text-align:left;">.WAV, .MP3, .FLAC — min 16-bit 44.1kHz</div>
+                  <div class="drop-zone-sub" style="text-align:left;">.WAV, .MP3, .FLAC â€” min 16-bit 44.1kHz</div>
                 </div>
               </div>
               <div id="audioFileName"></div>
@@ -681,7 +682,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 8 — Callertune Options
+         SECTION 8 â€” Callertune Options
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-5">
       <div class="section-eyebrow">Step 08</div>
@@ -691,13 +692,13 @@
 
         <div class="form-group">
           <label class="form-label">Callertune Cut Name</label>
-          <input type="text" class="form-input" placeholder="Optional callertune name" id="callerTuneName">
+          <input type="text" class="form-input" placeholder="Optional callertune name" id="callerTuneName" name="callertune_name">
           <span class="form-hint">Name for the callertune version (e.g., chorus, hook)</span>
         </div>
 
         <div class="form-group">
           <label class="form-label">Callertune Timing</label>
-          <input type="text" class="form-input" placeholder="00:00" id="callerTuneTime" maxlength="5" pattern="\d{2}:\d{2}"
+          <input type="text" class="form-input" placeholder="00:00" id="callerTuneTime" name="callertune_time" maxlength="5" pattern="\d{2}:\d{2}"
             oninput="this.value=this.value.replace(/[^0-9:]/g,'')">
           <span class="form-hint">Start time of the callertune segment (mm:ss)</span>
         </div>
@@ -707,7 +708,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 9 — Additional Information
+         SECTION 9 â€” Additional Information
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-6">
       <div class="section-eyebrow">Step 09</div>
@@ -715,7 +716,7 @@
 
       <div class="form-group">
         <label class="form-label">Comments <span class="opt-tag">(optional)</span></label>
-        <textarea class="form-input" rows="5" id="releaseComments"
+        <textarea class="form-input" rows="5" id="releaseComments" name="comments"
           placeholder="Any special instructions or notes about your release..."></textarea>
         <span class="form-hint">Any additional information that might help our review team</span>
       </div>
@@ -723,7 +724,7 @@
 
 
     <!-- --------------------------------------------------------------
-         SECTION 10 — Agreement & Submit
+         SECTION 10 â€” Agreement & Submit
     -------------------------------------------------------------- -->
     <div class="glass-card upload-section animate-in animate-in-delay-7">
       <div class="section-eyebrow">Step 10</div>
@@ -754,7 +755,7 @@
         >
           Submit Release
         </button>
-        <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:12px;line-height:1.6;">Your submission will be reviewed within 3–5 business days. You'll receive an email confirmation.</p>
+        <p style="text-align:center;font-size:12px;color:var(--text-secondary);margin-top:12px;line-height:1.6;">Your submission will be reviewed within 3â€“5 business days. You'll receive an email confirmation.</p>
       </div>
 
     </div>
@@ -767,7 +768,7 @@
 <!-- -- Toast ------------------------------------------------------- -->
 <div id="successToast" style="position:fixed;bottom:28px;right:28px;background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(34,197,94,0.08));border:0.5px solid rgba(34,197,94,0.3);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px;font-size:14px;color:#fff;box-shadow:0 8px 32px rgba(0,0,0,0.5);z-index:9999;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;max-width:340px;">
   <span style="font-size:22px;">??</span>
-  <div><strong style="font-family:'Syne',sans-serif;">Release Submitted!</strong><br><span style="font-size:12px;color:rgba(255,255,255,0.7);">We'll review it within 3–5 business days.</span></div>
+  <div><strong style="font-family:'Syne',sans-serif;">Release Submitted!</strong><br><span style="font-size:12px;color:rgba(255,255,255,0.7);">We'll review it within 3â€“5 business days.</span></div>
 </div>
 
 
@@ -862,6 +863,7 @@
   function addMainArtist() {
     mainArtistCount++;
     var id = 'main-artist-' + mainArtistCount;
+    var idx = mainArtistCount - 1;
     document.getElementById('mainArtistEmpty').style.display = 'none';
     var div = document.createElement('div');
     div.className = 'artist-group';
@@ -873,13 +875,13 @@
       '</div>' +
       '<div class="form-grid">' +
         '<div class="form-group col-span-2"><label class="form-label">Artist Name <span class="req">*</span></label>' +
-          '<input type="text" class="form-input" placeholder="Main artist name" id="' + id + '-name"></div>' +
+          '<input type="text" class="form-input" name="main_artists[' + idx + '][name]" placeholder="Main artist name" id="' + id + '-name"></div>' +
         '<div class="form-group"><label class="form-label">Spotify Link <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://open.spotify.com/artist/..." id="' + id + '-spotify"></div>' +
+          '<input type="url" class="form-input" name="main_artists[' + idx + '][spotify]" placeholder="https://open.spotify.com/artist/..." id="' + id + '-spotify"></div>' +
         '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://music.apple.com/artist/..." id="' + id + '-apple"></div>' +
+          '<input type="url" class="form-input" name="main_artists[' + idx + '][apple_music]" placeholder="https://music.apple.com/artist/..." id="' + id + '-apple"></div>' +
         '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..." id="' + id + '-instagram"></div>' +
+          '<input type="url" class="form-input" name="main_artists[' + idx + '][instagram]" placeholder="https://www.instagram.com/artist/..." id="' + id + '-instagram"></div>' +
       '</div>';
     document.getElementById('mainArtistsContainer').appendChild(div);
   }
@@ -889,6 +891,7 @@
   function addFeaturedArtist() {
     featuredArtistCount++;
     var id = 'featured-artist-' + featuredArtistCount;
+    var idx = featuredArtistCount - 1;
     document.getElementById('featuredArtistEmpty').style.display = 'none';
     var div = document.createElement('div');
     div.className = 'artist-group';
@@ -900,13 +903,13 @@
       '</div>' +
       '<div class="form-grid">' +
         '<div class="form-group col-span-2"><label class="form-label">Artist Name</label>' +
-          '<input type="text" class="form-input" placeholder="Featured artist name" id="' + id + '-name"></div>' +
+          '<input type="text" class="form-input" name="featured_artists[' + idx + '][name]" placeholder="Featured artist name" id="' + id + '-name"></div>' +
         '<div class="form-group"><label class="form-label">Spotify Link <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://open.spotify.com/artist/..." id="' + id + '-spotify"></div>' +
+          '<input type="url" class="form-input" name="featured_artists[' + idx + '][spotify]" placeholder="https://open.spotify.com/artist/..." id="' + id + '-spotify"></div>' +
         '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://music.apple.com/artist/..." id="' + id + '-apple"></div>' +
+          '<input type="url" class="form-input" name="featured_artists[' + idx + '][apple_music]" placeholder="https://music.apple.com/artist/..." id="' + id + '-apple"></div>' +
         '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..." id="' + id + '-instagram"></div>' +
+          '<input type="url" class="form-input" name="featured_artists[' + idx + '][instagram]" placeholder="https://www.instagram.com/artist/..." id="' + id + '-instagram"></div>' +
       '</div>';
     document.getElementById('featuredArtistsContainer').appendChild(div);
   }
@@ -999,15 +1002,79 @@
       });
       return;
     }
-    var toast = document.getElementById('successToast');
-    toast.style.opacity       = '1';
-    toast.style.transform     = 'translateY(0)';
-    toast.style.pointerEvents = 'auto';
-    setTimeout(function() {
-      toast.style.opacity       = '0';
-      toast.style.transform     = 'translateY(12px)';
-      toast.style.pointerEvents = 'none';
-    }, 4000);
+
+    var submitBtn = document.querySelector('[onclick="submitRelease()"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting\u2026'; }
+
+    // Collect main artists
+    var mainArtists = [];
+    document.querySelectorAll('#mainArtistsContainer .artist-group').forEach(function(g) {
+      mainArtists.push({
+        name: (document.getElementById(g.id + '-name') || {}).value || '',
+        spotify: (document.getElementById(g.id + '-spotify') || {}).value || '',
+        apple_music: (document.getElementById(g.id + '-apple') || {}).value || '',
+        instagram: (document.getElementById(g.id + '-instagram') || {}).value || ''
+      });
+    });
+    var featuredArtists = [];
+    document.querySelectorAll('#featuredArtistsContainer .artist-group').forEach(function(g) {
+      featuredArtists.push({
+        name: (document.getElementById(g.id + '-name') || {}).value || '',
+        spotify: (document.getElementById(g.id + '-spotify') || {}).value || '',
+        apple_music: (document.getElementById(g.id + '-apple') || {}).value || '',
+        instagram: (document.getElementById(g.id + '-instagram') || {}).value || ''
+      });
+    });
+
+    var fd = new FormData();
+    fd.append('song_title', document.getElementById('songTitle').value.trim());
+    fd.append('yt_beat', document.getElementById('ytBeatYes').className.indexOf('active') > -1 ? 'yes' : 'no');
+    fd.append('producer_name', document.getElementById('producerName').value.trim());
+    fd.append('composer_name', document.getElementById('composerName').value.trim());
+    fd.append('lyricist_name', document.getElementById('lyricistName').value.trim());
+    fd.append('explicit', document.getElementById('explicitYes').className.indexOf('active') > -1 ? 'yes' : 'no');
+    fd.append('language', document.getElementById('trackLanguage').value);
+    fd.append('genre', document.getElementById('trackGenre').value);
+    fd.append('sub_category', document.getElementById('trackSubCategory').value);
+    fd.append('original_release_date', document.getElementById('originalReleaseDate').value);
+    fd.append('go_live_date', document.getElementById('goLiveDate').value);
+    fd.append('yt_content_id', document.getElementById('ytCidYes').className.indexOf('active') > -1 ? 'yes' : 'no');
+    fd.append('callertune_name', document.getElementById('callerTuneName').value.trim());
+    fd.append('callertune_time', document.getElementById('callerTuneTime').value.trim());
+    fd.append('comments', document.getElementById('releaseComments').value.trim());
+    fd.append('main_artists', JSON.stringify(mainArtists));
+    fd.append('featured_artists', JSON.stringify(featuredArtists));
+    var labelEl = document.getElementById('labelNameSelectNewSong') || document.getElementById('labelNameSetupNewSong');
+    if (labelEl) fd.append('label_name', labelEl.value.trim());
+    var coverInput = document.getElementById('coverArtInput');
+    if (coverInput && coverInput.files[0]) fd.append('cover_art', coverInput.files[0]);
+    var audioInput = document.getElementById('audioInput');
+    if (audioInput && audioInput.files[0]) fd.append('audio_file', audioInput.files[0]);
+
+    fetch('/api/release/song/new', {
+      method: 'POST',
+      body: fd,
+      credentials: 'include'
+    })
+    .then(function(res) {
+      return res.ok ? res.json() : res.json().then(function(e) { throw e; });
+    })
+    .then(function() {
+      var toast = document.getElementById('successToast');
+      toast.style.opacity       = '1';
+      toast.style.transform     = 'translateY(0)';
+      toast.style.pointerEvents = 'auto';
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Release'; }
+      setTimeout(function() {
+        toast.style.opacity       = '0';
+        toast.style.transform     = 'translateY(12px)';
+        toast.style.pointerEvents = 'none';
+      }, 4000);
+    })
+    .catch(function(err) {
+      alert((err && err.message) ? err.message : 'Submission failed. Please try again.');
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Release'; }
+    });
   }
 
   renderLabelNameField('labelNameWrapNewSong', 'labelNameSelectNewSong');

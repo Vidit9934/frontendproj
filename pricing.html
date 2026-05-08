@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Pricing — Tunefry</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -488,6 +489,13 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   .plan{flex:0 0 200px}
 }
 
+/* ── AD BANNER ── */
+.gad-wrap { width:100%; padding:14px 40px; background:var(--s1); border-top:0.5px solid var(--bd); border-bottom:0.5px solid var(--bd); text-align:center; }
+.gad-inner { max-width:728px; margin:0 auto; height:90px; background:var(--s2); border:0.5px solid var(--bd); border-radius:6px; display:flex; align-items:center; justify-content:center; }
+.gad-inner span { font-size:11px; color:var(--t3); letter-spacing:0.3px; }
+@media(max-width:768px) { .gad-wrap { padding:10px 16px; } .gad-inner { height:60px; max-width:100%; } }
+@media(max-width:480px) { .gad-wrap { padding:8px 12px; } .gad-inner { height:50px; } }
+
 /* Disable text selection */
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
@@ -544,6 +552,13 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 
   <p class="sub au au-d2">Simple and flexible pricing for every artist.</p>
 </section>
+
+<!-- AD BANNER -->
+<div class="gad-wrap">
+  <div class="gad-inner">
+    <span>Google Ad (728×90)</span>
+  </div>
+</div>
 
 <!-- ================================================================
      PLANS
@@ -626,7 +641,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li>
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Urgent releases</li>
     </ul>
-    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <a href="checkout.html?plan=single-song" class="plan-cta out">Choose Plan</a>
     <div class="plan-info">48 working hrs approval &middot; Live within 4 working days*</div>
   </div>
 
@@ -657,7 +672,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <li class="excluded"><span class="ck cross"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>No playlist pitching</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>3-day support response</li>
     </ul>
-    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <a href="checkout.html?plan=starter" class="plan-cta out">Choose Plan</a>
     <div class="plan-info">48 working hrs approval &middot; Live within 4 working days*</div>
   </div>
 
@@ -687,7 +702,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
     </ul>
-    <a href="index.html" class="plan-cta solid">Start Distributing</a>
+    <a href="checkout.html?plan=single-artist" class="plan-cta solid">Start Distributing</a>
     <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
@@ -717,7 +732,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Mail / call / WhatsApp support</li>
     </ul>
-    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <a href="checkout.html?plan=double-artist" class="plan-cta out">Choose Plan</a>
     <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
@@ -747,7 +762,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lifetime legacy</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Priority mail / call / WhatsApp</li>
     </ul>
-    <a href="index.html" class="plan-cta out">Choose Plan</a>
+    <a href="checkout.html?plan=label" class="plan-cta out">Choose Plan</a>
     <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
   </div>
 
@@ -912,6 +927,13 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     </form>
   </div>
 </section>
+
+<!-- AD BANNER -->
+<div style="width:100%;padding:20px 40px;background:var(--s1);border-top:0.5px solid var(--bd);text-align:center;">
+  <div style="max-width:728px;margin:0 auto;height:90px;background:var(--bg);border:0.5px solid var(--bd);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+    <span style="font-size:11px;color:var(--t3);letter-spacing:0.3px;">Google Ad (728×90)</span>
+  </div>
+</div>
 
 <!-- ================================================================
      FOOTER

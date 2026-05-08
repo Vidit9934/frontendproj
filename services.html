@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Artist Services — Tunefry</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -350,6 +351,13 @@ footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40
   .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
 }
 
+/* ── AD BANNER ── */
+.gad-wrap { width:100%; padding:14px 40px; background:var(--s1); border-top:0.5px solid var(--bd); border-bottom:0.5px solid var(--bd); text-align:center; }
+.gad-inner { max-width:728px; margin:0 auto; height:90px; background:var(--s2); border:0.5px solid var(--bd); border-radius:6px; display:flex; align-items:center; justify-content:center; }
+.gad-inner span { font-size:11px; color:var(--t3); letter-spacing:0.3px; }
+@media(max-width:768px) { .gad-wrap { padding:10px 16px; } .gad-inner { height:60px; max-width:100%; } }
+@media(max-width:480px) { .gad-wrap { padding:8px 12px; } .gad-inner { height:50px; } }
+
 /* Disable text selection */
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
@@ -403,6 +411,13 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     <p class="hero-sub">From distribution to marketing consultation, playlist pitching to radio pitching — real services built for independent artists since 2020.</p>
   </div>
 </section>
+
+<!-- AD BANNER -->
+<div class="gad-wrap">
+  <div class="gad-inner">
+    <span>Google Ad (728×90)</span>
+  </div>
+</div>
 
 <!-- ── SERVICES GRID ── -->
 <div class="services-section" style="padding-top:60px;">
@@ -654,6 +669,13 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     </div>
   </div>
 </section>
+
+<!-- AD BANNER -->
+<div style="width:100%;padding:20px 40px;background:var(--s1);border-top:0.5px solid var(--bd);text-align:center;">
+  <div style="max-width:728px;margin:0 auto;height:90px;background:var(--bg);border:0.5px solid var(--bd);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+    <span style="font-size:11px;color:var(--t3);letter-spacing:0.3px;">Google Ad (728×90)</span>
+  </div>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer>

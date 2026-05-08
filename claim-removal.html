@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tunefry — Claim Removal</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -213,7 +214,7 @@
       <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
       <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
       <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
-      <a href="refer-earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
     </nav>
   </aside>
 
@@ -283,68 +284,36 @@
         Claim Details
       </div>
 
-      <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label">Platform <span class="req">*</span></label>
-          <select class="form-input" id="platform">
-            <option value="">Select platform</option>
-            <option value="youtube">YouTube Content ID</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Type of Claim <span class="req">*</span></label>
-          <select class="form-input" id="claimType">
-            <option value="">Select claim type</option>
-            <option value="copyright">Copyright Claim</option>
-            <option value="ownership">Ownership Dispute</option>
-            <option value="distribution">Distribution Error</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label">Song Title <span class="req">*</span></label>
-          <input type="text" class="form-input" id="songTitle" placeholder="Enter the song title">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Artist Name <span class="req">*</span></label>
-          <input type="text" class="form-input" id="artistName" value="Vasu Sharma">
-        </div>
-      </div>
-
-      <div class="form-row-2">
-        <div class="form-group">
-          <label class="form-label">Claim / Reference ID</label>
-          <input type="text" class="form-input" id="claimId" placeholder="e.g. YT claim ID or dispute reference">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Claim URL</label>
-          <input type="url" class="form-input" id="claimUrl" placeholder="Paste the URL where the claim appears">
-        </div>
+      <div class="form-group">
+        <label class="form-label">Name of the Song <span class="req">*</span></label>
+        <input type="text" class="form-input" id="songName" name="song_name" placeholder="Enter the song name" required>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Description <span class="req">*</span></label>
-        <textarea class="form-input" id="description" rows="5" placeholder="Describe the claim in detail. Include any relevant information such as when you first noticed it, any correspondence you've had with the platform, etc."></textarea>
+        <label class="form-label">Artist Name <span class="req">*</span></label>
+        <input type="text" class="form-input" id="artistName" name="artist_name" placeholder="Your artist name" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">YouTube Link <span class="req">*</span></label>
+        <input type="url" class="form-input" id="youtubeLink" name="youtube_link" placeholder="https://www.youtube.com/watch?v=..." required>
       </div>
 
       <div class="section-divider"></div>
 
       <div class="form-group">
-        <label class="form-label">Evidence Upload</label>
+        <label class="form-label">Supporting Documentation, License etc. <span style="color:var(--text-muted);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;">(Optional)</span></label>
         <div class="file-upload-zone" id="uploadZone" onclick="document.getElementById('evidenceFile').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-          <input type="file" id="evidenceFile" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFileSelect(event)">
+          <input type="file" id="evidenceFile" name="evidence" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFileSelect(event)">
           <div class="file-upload-icon">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           </div>
-          <div class="file-upload-title">Drag & drop your evidence here</div>
-          <div class="file-upload-sub">or click to browse files</div>
+          <div class="file-upload-title">Click to upload files</div>
+          <div class="file-upload-sub">or drag &amp; drop here</div>
           <div class="file-upload-types">
+            <span class="file-type-pill">PDF</span>
             <span class="file-type-pill">JPG</span>
             <span class="file-type-pill">PNG</span>
-            <span class="file-type-pill">PDF</span>
             <span class="file-type-pill">Max 10MB</span>
           </div>
         </div>
@@ -354,14 +323,15 @@
             <div class="file-preview-name" id="fileName"></div>
             <div class="file-preview-size" id="fileSize"></div>
           </div>
-          <span class="file-preview-remove" onclick="removeFile()">×</span>
+          <span class="file-preview-remove" onclick="removeFile()">&#215;</span>
         </div>
       </div>
 
-      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+      <div style="display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:8px;">
+        <p style="font-size:11.5px;color:var(--text-muted);">Claim will be released within 48 hrs* (working days)</p>
         <button class="btn-submit" onclick="submitClaim()">
           <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          Submit Claim Removal
+          Submit
         </button>
       </div>
     </div>
@@ -385,17 +355,17 @@
   function handleDrop(e) {
     e.preventDefault();
     document.getElementById('uploadZone').classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
+    var file = e.dataTransfer.files[0];
     if (file) processFile(file);
   }
   function handleFileSelect(e) {
-    const file = e.target.files[0];
+    var file = e.target.files[0];
     if (file) processFile(file);
   }
   function processFile(file) {
     if (file.size > 10 * 1024 * 1024) { showToast('error', 'File too large. Max 10MB allowed.'); return; }
-    const allowed = ['image/jpeg','image/png','application/pdf'];
-    if (!allowed.includes(file.type)) { showToast('error', 'Invalid file type. Use JPG, PNG, or PDF.'); return; }
+    var allowed = ['image/jpeg','image/png','application/pdf'];
+    if (allowed.indexOf(file.type) === -1) { showToast('error', 'Invalid file type. Use PDF, JPG, or PNG.'); return; }
     document.getElementById('fileName').textContent = file.name;
     document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(0) + ' KB';
     document.getElementById('filePreview').classList.add('show');
@@ -406,10 +376,10 @@
   }
 
   function submitClaim() {
-    let valid = true;
-    const requiredFields = ['platform', 'claimType', 'songTitle', 'artistName', 'description'];
-    requiredFields.forEach(id => {
-      const el = document.getElementById(id);
+    var required = ['songName', 'artistName', 'youtubeLink'];
+    var valid = true;
+    required.forEach(function(id) {
+      var el = document.getElementById(id);
       if (!el.value.trim()) {
         el.classList.add('input-error');
         valid = false;
@@ -421,13 +391,48 @@
       showToast('error', 'Please fill in all required fields.');
       return;
     }
-    showToast('success', 'Claim removal request submitted. Our team will contact you within 3–5 working days.');
+    var btn = document.querySelector('.btn-submit');
+    var btnOriginal = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    var fd = new FormData();
+    fd.append('song_name', document.getElementById('songName').value.trim());
+    fd.append('artist_name', document.getElementById('artistName').value.trim());
+    fd.append('youtube_link', document.getElementById('youtubeLink').value.trim());
+    var fileInput = document.getElementById('evidenceFile');
+    if (fileInput.files && fileInput.files[0]) {
+      fd.append('evidence', fileInput.files[0]);
+    }
+
+    fetch('/api/support/claim-removal', {
+      method: 'POST',
+      body: fd,
+      credentials: 'include'
+    })
+    .then(function(res) {
+      return res.ok ? res.json() : res.json().then(function(e) { throw e; });
+    })
+    .then(function() {
+      showToast('success', 'Claim removal submitted. Claim will be released within 48 hrs* (working days).');
+      document.getElementById('songName').value = '';
+      document.getElementById('artistName').value = '';
+      document.getElementById('youtubeLink').value = '';
+      removeFile();
+      btn.disabled = false;
+      btn.innerHTML = btnOriginal;
+    })
+    .catch(function(err) {
+      showToast('error', (err && err.message) ? err.message : 'Submission failed. Please try again.');
+      btn.disabled = false;
+      btn.innerHTML = btnOriginal;
+    });
   }
 
   function showToast(type, msg) {
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toastMsg');
-    const toastIcon = document.getElementById('toastIcon');
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toastMsg');
+    var toastIcon = document.getElementById('toastIcon');
     toastMsg.textContent = msg;
     toast.className = 'toast';
     if (type === 'success') {
@@ -438,12 +443,12 @@
       toastIcon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
     }
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4500);
+    setTimeout(function() { toast.classList.remove('show'); }, 4500);
   }
 
-  document.querySelectorAll('.form-input').forEach(el => {
-    el.addEventListener('input', () => el.classList.remove('input-error'));
-    el.addEventListener('change', () => el.classList.remove('input-error'));
+  document.querySelectorAll('.form-input').forEach(function(el) {
+    el.addEventListener('input', function() { el.classList.remove('input-error'); });
+    el.addEventListener('change', function() { el.classList.remove('input-error'); });
   });
 </script>
 <script src="js/app.js"></script>
