@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -256,6 +256,23 @@
       .cover-art-zone { width: 100%; height: 200px; }
     }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -322,6 +339,11 @@
       </div>
     </div>
 
+    <a href="submission-rules.html" target="_blank" style="display:flex;align-items:center;gap:12px;padding:13px 18px;background:rgba(242,101,34,0.07);border:0.5px solid rgba(242,101,34,0.22);border-left:3px solid #F26522;border-radius:12px;margin-bottom:20px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(242,101,34,0.11)'" onmouseout="this.style.background='rgba(242,101,34,0.07)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span style="font-size:12.5px;color:var(--text-secondary);flex:1;">Before submitting, please review our <strong style="color:var(--accent);">Submission Rules &amp; Terms of Service</strong> — including processing timelines, content policies, and artist responsibilities.</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(242,101,34,0.6)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
 
     <!-- --------------------------------------------------------------
          SECTION 1 — Basic Information
@@ -496,76 +518,35 @@
         <!-- Sub-Category -->
         <div class="form-group">
           <label class="form-label">Sub-Category <span class="opt-tag">(optional)</span></label>
-          <select class="form-input" id="trackSubCategory" name="sub_category">
+          <select class="form-input" id="trackSubCategory" name="sub_category" disabled>
             <option value="" disabled selected>Select sub-category</option>
-            <optgroup label="Hip-Hop / Rap">
-              <option value="8">Alternative Hip-Hop</option>
-              <option value="9">Conscious Hip-Hop</option>
-              <option value="10">Country Rap</option>
-              <option value="11">Emo Rap</option>
-              <option value="12">Jazz Rap</option>
-              <option value="13">Hip-Hop</option>
-              <option value="14">Pop Rap</option>
-              <option value="15">Trap</option>
-            </optgroup>
-            <optgroup label="Devotional">
-              <option value="17">Aarti</option>
-              <option value="18">Bhajan</option>
-              <option value="19">Carol</option>
-              <option value="20">Chalisa</option>
-              <option value="21">Chant</option>
-              <option value="22">Geet</option>
-              <option value="23">Gospel</option>
-              <option value="24">Gurbani</option>
-              <option value="25">Kirtan</option>
-              <option value="26">Mantra</option>
-              <option value="27">Paath</option>
-              <option value="28">Islamic</option>
-            </optgroup>
-            <optgroup label="Ambient / Instrumental">
-              <option value="16">Instrumental</option>
-              <option value="29">Soft</option>
-              <option value="30">Easy Listening</option>
-              <option value="31">Electronic</option>
-            </optgroup>
-            <optgroup label="Pop">
-              <option value="32">Acoustic Pop</option>
-              <option value="33">Band Songs</option>
-              <option value="34">Chill Pop</option>
-              <option value="35">Contemporary Pop</option>
-              <option value="36">Country Pop / Regional Pop</option>
-              <option value="37">Dance Pop</option>
-              <option value="38">Electro Pop</option>
-              <option value="39">Lo-Fi Pop</option>
-              <option value="40">Love Songs</option>
-              <option value="41">Pop Rap</option>
-              <option value="42">Sad Songs</option>
-              <option value="43">Soft Pop</option>
-            </optgroup>
           </select>
         </div>
 
         <!-- Mood -->
-        <div class="form-group col-span-2">
+        <div class="form-group">
           <label class="form-label">Mood</label>
-          <div class="mood-pills">
-            <button class="mood-pill" onclick="toggleMood(this)">Happy</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Sad</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Relaxed</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Romantic</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Dance</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Bhangra</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Patriotic</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Nostalgic</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Inspirational</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Enthusiastic</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Optimistic</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Passion</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Spiritual</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Peppy</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Mellow</button>
-            <button class="mood-pill" onclick="toggleMood(this)">Calm</button>
-          </div>
+          <select class="form-input" id="trackMood" name="mood">
+            <option value="">Select an option</option>
+            <option value="1">Happy</option>
+            <option value="2">Sad</option>
+            <option value="3">Relaxed</option>
+            <option value="6">Romantic</option>
+            <option value="7">Dance</option>
+            <option value="8">Bhangra</option>
+            <option value="9">Patriotic</option>
+            <option value="10">Nostalgic</option>
+            <option value="11">Inspirational</option>
+            <option value="12">Enthusiastic</option>
+            <option value="13">Optimistic</option>
+            <option value="14">Passion</option>
+            <option value="15">Pessimistic</option>
+            <option value="16">Spiritual</option>
+            <option value="17">Peppy</option>
+            <option value="18">Philosophical</option>
+            <option value="19">Mellow</option>
+            <option value="20">Calm</option>
+          </select>
         </div>
 
       </div>
@@ -792,9 +773,6 @@
     document.getElementById('explicitNo').className  = isExplicit ? 'explicit-btn' : 'explicit-btn active-no';
   }
 
-  /* -- Mood pill toggle ------------------------------------------ */
-  function toggleMood(btn) { btn.classList.toggle('active'); }
-
   function getLabelPlanTier() {
     var urlPlan = new URLSearchParams(window.location.search).get('plan');
     var saved = localStorage.getItem('tunefryPlanTier');
@@ -908,8 +886,6 @@
           '<input type="url" class="form-input" name="featured_artists[' + idx + '][spotify]" placeholder="https://open.spotify.com/artist/..." id="' + id + '-spotify"></div>' +
         '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label>' +
           '<input type="url" class="form-input" name="featured_artists[' + idx + '][apple_music]" placeholder="https://music.apple.com/artist/..." id="' + id + '-apple"></div>' +
-        '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label>' +
-          '<input type="url" class="form-input" name="featured_artists[' + idx + '][instagram]" placeholder="https://www.instagram.com/artist/..." id="' + id + '-instagram"></div>' +
       '</div>';
     document.getElementById('featuredArtistsContainer').appendChild(div);
   }
@@ -1021,8 +997,7 @@
       featuredArtists.push({
         name: (document.getElementById(g.id + '-name') || {}).value || '',
         spotify: (document.getElementById(g.id + '-spotify') || {}).value || '',
-        apple_music: (document.getElementById(g.id + '-apple') || {}).value || '',
-        instagram: (document.getElementById(g.id + '-instagram') || {}).value || ''
+        apple_music: (document.getElementById(g.id + '-apple') || {}).value || ''
       });
     });
 
@@ -1036,6 +1011,7 @@
     fd.append('language', document.getElementById('trackLanguage').value);
     fd.append('genre', document.getElementById('trackGenre').value);
     fd.append('sub_category', document.getElementById('trackSubCategory').value);
+    fd.append('mood', document.getElementById('trackMood').value);
     fd.append('original_release_date', document.getElementById('originalReleaseDate').value);
     fd.append('go_live_date', document.getElementById('goLiveDate').value);
     fd.append('yt_content_id', document.getElementById('ytCidYes').className.indexOf('active') > -1 ? 'yes' : 'no');
@@ -1051,6 +1027,27 @@
     var audioInput = document.getElementById('audioInput');
     if (audioInput && audioInput.files[0]) fd.append('audio_file', audioInput.files[0]);
 
+    /* ===== BACKEND CONTRACT =========================================
+     * POST /api/release/song/new
+     * Content-Type: multipart/form-data  (set automatically by browser)
+     * Auth: session cookie (credentials: 'include')
+     *
+     * Text fields: song_title, yt_beat (yes|no), producer_name,
+     *   composer_name, lyricist_name, explicit (yes|no), language,
+     *   genre, sub_category, original_release_date (YYYY-MM-DD),
+     *   go_live_date (YYYY-MM-DD), yt_content_id (yes|no),
+     *   callertune_name, callertune_time (mm:ss), comments, label_name
+     * JSON-encoded text fields:
+     *   main_artists      = [{name, spotify, apple_music, instagram}]
+     *   featured_artists  = [{name, spotify, apple_music}]
+     * File fields:
+     *   cover_art   (image/*, required)
+     *   audio_file  (.wav/.flac/.mp3, required)
+     *
+     * Expected response:
+     *   2xx -> { ok: true, release_id: string }
+     *   4xx/5xx -> { message: string }   (shown to user via alert)
+     * ================================================================ */
     fetch('/api/release/song/new', {
       method: 'POST',
       body: fd,
@@ -1078,6 +1075,60 @@
   }
 
   renderLabelNameField('labelNameWrapNewSong', 'labelNameSelectNewSong');
+
+  /* -- Sub-category dynamic filtering ----------------------------- */
+  (function() {
+    var genreEl = document.getElementById('trackGenre');
+    var subEl   = document.getElementById('trackSubCategory');
+
+    var subcats = {
+      'Hip-Hop / Rap': [
+        {value:'8',text:'Alternative Hip-Hop'},{value:'9',text:'Conscious Hip-Hop'},
+        {value:'10',text:'Country Rap'},{value:'11',text:'Emo Rap'},
+        {value:'12',text:'Jazz Rap'},{value:'13',text:'Hip-Hop'},
+        {value:'14',text:'Pop Rap'},{value:'15',text:'Trap'}
+      ],
+      'Devotional': [
+        {value:'17',text:'Aarti'},{value:'18',text:'Bhajan'},
+        {value:'19',text:'Carol'},{value:'20',text:'Chalisa'},
+        {value:'21',text:'Chant'},{value:'22',text:'Geet'},
+        {value:'23',text:'Gospel'},{value:'24',text:'Gurbani'},
+        {value:'25',text:'Kirtan'},{value:'26',text:'Mantra'},
+        {value:'27',text:'Paath'},{value:'28',text:'Islamic'}
+      ],
+      'Ambient / Instrumental': [
+        {value:'16',text:'Instrumental'},{value:'29',text:'Soft'},
+        {value:'30',text:'Easy Listening'},{value:'31',text:'Electronic'}
+      ],
+      'Pop': [
+        {value:'32',text:'Acoustic Pop'},{value:'33',text:'Band Songs'},
+        {value:'34',text:'Chill Pop'},{value:'35',text:'Contemporary Pop'},
+        {value:'36',text:'Country Pop / Regional Pop'},{value:'37',text:'Dance Pop'},
+        {value:'38',text:'Electro Pop'},{value:'39',text:'Lo-Fi Pop'},
+        {value:'40',text:'Love Songs'},{value:'41',text:'Pop Rap'},
+        {value:'42',text:'Sad Songs'},{value:'43',text:'Soft Pop'}
+      ]
+    };
+
+    genreEl.addEventListener('change', function() {
+      var idx = genreEl.selectedIndex;
+      if (idx < 0) return;
+      var cat = genreEl.options[idx].text;
+      subEl.querySelectorAll('optgroup').forEach(function(g) { g.remove(); });
+      subEl.value = '';
+      var opts = subcats[cat];
+      if (!opts) { subEl.disabled = true; return; }
+      var group = document.createElement('optgroup');
+      group.label = cat;
+      opts.forEach(function(o) {
+        var el = document.createElement('option');
+        el.value = o.value; el.textContent = o.text;
+        group.appendChild(el);
+      });
+      subEl.appendChild(group);
+      subEl.disabled = false;
+    });
+  })();
 </script>
 </body>
 </html>

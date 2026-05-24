@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Royalties &amp; Payments</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .topic-hero { padding: 36px 40px; margin-bottom: 24px; display: flex; align-items: center; gap: 22px; }
+    .topic-hero-icon { width: 60px; height: 60px; flex-shrink: 0; border-radius: 16px; background: rgba(34,197,94,0.12); border: 0.5px solid rgba(34,197,94,0.22); color: #22C55E; display: flex; align-items: center; justify-content: center; }
+    .topic-hero-icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .topic-hero-info {}
+    .topic-hero-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .topic-hero-sub { font-size: 13px; color: var(--text-secondary); }
+
+    .back-link { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--text-secondary); text-decoration: none; margin-bottom: 20px; transition: color 0.2s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .section-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .section-title svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .videos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px; }
+    @media (max-width: 640px) { .videos-grid { grid-template-columns: 1fr; } }
+    .video-placeholder { border-radius: 14px; overflow: hidden; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09); }
+    .video-placeholder iframe { width: 100%; height: 200px; display: block; border: none; }
+    .video-label { padding: 12px 14px; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); }
+
+    .faq-card { padding: 32px; margin-bottom: 24px; }
+    .faq-card-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .faq-card-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+    .faq-item { border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text-primary); gap: 16px; user-select: none; transition: color 0.2s ease; }
+    .faq-question:hover { color: var(--accent); }
+    .faq-question.open { color: var(--accent); }
+    .faq-chevron { width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; transition: all 0.25s ease; }
+    .faq-chevron svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.25s ease; }
+    .faq-question.open .faq-chevron { background: rgba(242,101,34,0.12); border-color: rgba(242,101,34,0.25); }
+    .faq-question.open .faq-chevron svg { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s ease; font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+    .faq-answer.open { max-height: 300px; padding-bottom: 16px; }
+  </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+    </a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
+      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="withdrawal.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="nav-label">Withdraw Earnings</span></a>
+      <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+      <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
+      <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="search-box">
+      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="text" placeholder="Search catalog...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="song-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
+          <div class="create-dropdown-divider"></div>
+          <a href="album-upload.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
+        </div>
+      </div>
+      <a href="profile.html" class="user-avatar" title="Profile" style="text-decoration:none;">V</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="page-label">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Support
+    </div>
+
+    <a href="help.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Help Center
+    </a>
+
+    <!-- Hero -->
+    <div class="glass-card topic-hero">
+      <div class="topic-hero-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <div class="topic-hero-info">
+        <div class="topic-hero-title">Royalties &amp; Payments</div>
+        <div class="topic-hero-sub">How your earnings are collected, calculated, and paid out to you.</div>
+      </div>
+    </div>
+
+    <!-- Tutorial Videos -->
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+      Tutorial Videos
+    </div>
+    <div class="videos-grid">
+      <div class="video-placeholder">
+        <iframe src="" data-src="" allowfullscreen title="How royalties are calculated"></iframe>
+        <div class="video-label">How Royalties Are Calculated</div>
+      </div>
+      <div class="video-placeholder">
+        <iframe src="" data-src="" allowfullscreen title="Withdrawing your earnings"></iframe>
+        <div class="video-label">Withdrawing Your Earnings</div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="glass-card faq-card">
+      <div class="faq-card-title">Frequently Asked Questions</div>
+      <div class="faq-card-sub">Common questions about royalties, streams, and payouts</div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          When are royalties paid?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">Royalties are collected and processed monthly. Streaming platforms report earnings with a 60–90 day delay, so streams from January typically appear in your dashboard by April. Payments are initiated to your registered bank account or UPI ID once your balance reaches the minimum threshold.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How are streams counted and valued?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">Each platform counts streams differently — Spotify requires a track to play for at least 30 seconds before it registers. The per-stream rate varies by platform, region, and the listener's subscription type. On average, streaming rates range from ₹0.003 to ₹0.08 per stream.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What is the minimum payout threshold?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">The minimum payout is ₹500. Earnings below this amount remain in your account and accumulate. Once your balance reaches ₹500 or above, you can initiate a withdrawal from the Withdraw Earnings page. There are no fees for withdrawals.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Why do my earnings look lower than expected?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">Earning fluctuations are normal. Factors include the listener's country, platform, subscription tier, and the time of reporting. High streams from free-tier listeners in lower-rate regions will appear lower. Check your Stats page to break down earnings by platform and region.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How do I update my bank account or UPI details?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">Go to Profile → Payment Settings to update your bank account or UPI ID. For security, changes to payment details may require verification. Pending payouts are held until verification is complete.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Are YouTube Content ID earnings included in my dashboard?
+          <div class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="faq-answer">Yes — if you opted into YouTube Content ID for your releases, those earnings are collected and shown in your Stats dashboard under "YouTube" revenue. YouTube reports with a slightly longer delay than audio streaming platforms.</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  function toggleFaq(el) {
+    var answer = el.nextElementSibling;
+    var isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-question').forEach(function(q) {
+      q.classList.remove('open');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      el.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>

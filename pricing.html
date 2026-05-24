@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -263,9 +263,32 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
   font-size:11.5px;font-weight:500;
   padding:5px 12px;border-radius:8px;
   margin-bottom:18px;width:fit-content;
+  position:relative;
 }
 .royalty.or{color:var(--or);background:var(--or-d);border:.5px solid var(--or-b)}
 .royalty.gr{color:var(--gr);background:var(--gr-d);border:.5px solid var(--gr-b)}
+
+/* Royalty info (i) button + tooltip */
+.rit{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;height:14px;border-radius:50%;
+  border:1px solid currentColor;
+  font-size:9px;font-family:Georgia,serif;font-style:italic;font-weight:700;
+  cursor:default;flex-shrink:0;opacity:.6;
+  position:relative;
+}
+.rit:hover{opacity:1;}
+.rit::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1c1c1c;color:rgba(255,255,255,.82);
+  font-size:11.5px;font-family:'DM Sans',sans-serif;font-style:normal;font-weight:400;
+  padding:9px 13px;border-radius:9px;border:.5px solid rgba(255,255,255,.13);
+  width:220px;line-height:1.55;white-space:normal;text-align:left;
+  pointer-events:none;opacity:0;transition:opacity .18s;
+  z-index:200;box-shadow:0 8px 28px rgba(0,0,0,.6);
+}
+.rit:hover::after{opacity:1;}
 
 .plan-div{height:.5px;background:var(--bd);margin-bottom:18px}
 
@@ -417,42 +440,30 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 /* ================================================================
    FOOTER
    ================================================================ */
-.footer{border-top:.5px solid var(--bd);background:var(--bg)}
-.footer-inner{
-  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
-  gap:40px;padding:60px 40px 40px;
-  max-width:1200px;margin:0 auto;
-}
-.footer-brand{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-.footer-brand-logo{display:inline-flex;align-items:center;font-size:0;line-height:0;margin-bottom:14px}
-.footer-brand-logo img{height:30px;width:auto;max-width:160px;display:block;object-fit:contain}
-.footer-brand p{font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:18px;max-width:280px}
-.footer-socials{display:flex;gap:10px}
-.footer-socials a{
-  width:34px;height:34px;border-radius:8px;
-  background:var(--s2);border:.5px solid var(--bd);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .25s,border-color .25s;
-}
-.footer-socials a:hover{background:var(--s3);border-color:var(--bd2)}
-.footer-socials a svg{width:15px;height:15px;stroke:var(--t3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
-
-.footer-col h4{font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--t1);margin-bottom:16px;letter-spacing:.3px}
-.footer-col a{display:block;font-size:13px;color:var(--t3);padding:5px 0;transition:color .25s}
-.footer-col a:hover{color:var(--or)}
-
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 40px;border-top:.5px solid var(--bd);
-  font-size:12px;color:var(--t3);
-  max-width:1200px;margin:0 auto;
-}
+footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40px 0; }
+.footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
+.footer-brand p { font-size:13px; color:var(--t3); margin:14px 0 22px; line-height:1.8; max-width:280px; }
+.footer-logo { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+.footer-logo-sq { width:30px; height:30px; border-radius:8px; background:var(--or); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:14px; color:#fff; }
+.footer-logo-txt { font-family:var(--font-d); font-size:1.05rem; font-weight:700; color:var(--t1); }
+.footer-logo-txt b { color:var(--or); }
+.footer-socials { display:flex; gap:8px; }
+.social-btn { width:34px; height:34px; border-radius:9px; background:var(--s2); border:0.5px solid var(--bd); display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.social-btn:hover { border-color:var(--or-b); background:var(--or-d); }
+.social-btn svg { width:14px; height:14px; stroke:var(--t3); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+.social-btn:hover svg { stroke:var(--or); }
+.footer-col h4 { font-family:var(--font-d); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--t3); margin-bottom:18px; }
+.footer-col a { display:block; font-size:13.5px; color:var(--t2); padding:5px 0; transition:color .2s; }
+.footer-col a:hover { color:var(--or); }
+.footer-bottom { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:24px 0; border-top:0.5px solid var(--bd); font-size:12.5px; color:var(--t3); }
+.footer-bottom a { color:var(--t3); transition:color .2s; }
+.footer-bottom a:hover { color:var(--t1); }
 
 /* ================================================================
    RESPONSIVE: 1100px
    ================================================================ */
 @media(max-width:1100px){
-  .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:36px}
 }
 
 /* ================================================================
@@ -500,6 +511,23 @@ input,textarea,select{font-family:inherit;border:none;outline:none;background:no
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -603,7 +631,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <span class="price-val">0</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">forever free</div>
-    <div class="royalty or">&#9733; 75% royalties</div>
+    <div class="royalty or">&#9733; 75% royalties <span class="rit" data-tip="Tunefry retains 25% as a commission. You keep 75% of all streaming royalties earned on every platform.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck faded"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
@@ -629,7 +657,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <span class="price-val">269</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per song</div>
-    <div class="royalty or">&#9733; 85% royalties</div>
+    <div class="royalty or">&#9733; 85% royalties <span class="rit" data-tip="Tunefry retains 15% as a commission. You keep 85% of all streaming royalties earned on every platform.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
@@ -657,7 +685,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <span class="price-val">899</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
-    <div class="royalty or">&#9733; 90% royalties</div>
+    <div class="royalty or">&#9733; 90% royalties <span class="rit" data-tip="Tunefry retains 10% as a commission. You keep 90% of all streaming royalties earned on every platform.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck orange"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases</li>
@@ -688,7 +716,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <span class="price-val">1,439</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; unlimited releases</div>
-    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="royalty gr">&#10003; 100% royalties <span class="rit" data-tip="You keep 100% of all streaming royalties on every platform. Tunefry charges a flat annual fee only — zero per-stream commission.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases</li>
@@ -717,7 +745,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
       <span class="price-val">2,699</span>
     </div>
     <div class="price-per" style="margin-bottom:12px">per year &middot; 2 artists</div>
-    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="royalty gr">&#10003; 100% royalties <span class="rit" data-tip="You keep 100% of all streaming royalties on every platform. Tunefry charges a flat annual fee only — zero per-stream commission.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
@@ -739,20 +767,20 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
   <!-- LABEL PLAN -->
   <div class="plan au au-d4">
     <div class="plan-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg></div>
-    <div class="plan-name">Label Plan <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="For record labels — minimum 5 artists, unlimited max, 100% royalties">i</span></div>
+    <div class="plan-name">Label Plan <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.08);font-size:10px;color:var(--t3);cursor:help;font-family:serif;vertical-align:middle;margin-left:4px;" title="Label Plan covers up to 5 artists. If the number of artists on this plan exceeds 5, royalties will be subject to reduction. Contact support before adding more artists.">i</span></div>
     <div class="plan-tag">Scale your roster</div>
     <div style="font-size:12px; color:var(--t3); text-decoration:line-through; margin-bottom:2px;">&#8377;7,000</div>
     <div class="plan-price">
       <span class="price-cur">&#8377;</span>
       <span class="price-val">6,300</span>
     </div>
-    <div class="price-per" style="margin-bottom:12px">per year &middot; min. 5 artists, unlimited max</div>
-    <div class="royalty gr">&#10003; 100% royalties</div>
+    <div class="price-per" style="margin-bottom:12px">per year &middot; up to 5 artists</div>
+    <div class="royalty gr">&#10003; 100% royalties <span class="rit" data-tip="You keep 100% of all streaming royalties on every platform. Tunefry charges a flat annual fee only — zero per-stream commission. Note: this plan covers a maximum of 5 artists. Royalties will be reduced if the artist count exceeds 5.">i</span></div>
     <div class="plan-div"></div>
     <ul class="plan-feats">
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Custom label name</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Instagram account linking</li>
-      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (min. 5 artists)</li>
+      <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Unlimited releases (up to 5 artists)</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100+ DSPs</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>100% performing royalties</li>
       <li><span class="ck green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Playlist &amp; radio pitching</li>
@@ -764,6 +792,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     </ul>
     <a href="checkout.html?plan=label" class="plan-cta out">Choose Plan</a>
     <div class="plan-info">24 working hrs approval &middot; Live within 48 working hrs*</div>
+    <div class="plan-info" style="margin-top:6px;color:rgba(239,68,68,0.7);">&#9888; Max. 5 artists. Royalties will be reduced if artist count exceeds 5.</div>
   </div>
 
 </div>
@@ -881,7 +910,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         <span>What is the Label Plan?</span>
         <div class="faq-icon">+</div>
       </div>
-      <div class="faq-a"><p>The Label Plan is designed for record labels and managers handling multiple artists. It covers a minimum of 5 artist profiles (with unlimited max) with unlimited releases each, a custom label name, and all premium features including Content ID, YouTube OAC, and priority support.</p></div>
+      <div class="faq-a"><p>The Label Plan is designed for record labels and managers handling multiple artists. It covers up to 5 artist profiles with unlimited releases each, a custom label name, and all premium features including Content ID, YouTube OAC, and priority support. If the number of artists on the plan exceeds 5, royalties will be subject to reduction.</p></div>
     </div>
 
     <div class="faq-item au au-d5" onclick="toggleFaq(this)">
@@ -938,53 +967,54 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 <!-- ================================================================
      FOOTER
      ================================================================ -->
-<footer class="footer">
+<footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="home.html" class="footer-brand-logo" aria-label="Tunefry home">
-        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry">
-      </a>
-      <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
+      <div class="footer-logo">
+        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:32px;width:auto;display:block;object-fit:contain;">
+      </div>
+      <p>Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
       <div class="footer-socials">
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <a href="#" aria-label="Twitter">
-          <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
         </a>
-        <a href="#" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        <a href="#" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 11.75a29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
         </a>
-        <a href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         </a>
       </div>
     </div>
     <div class="footer-col">
-      <h4>Platform</h4>
+      <h4>Quick Links</h4>
       <a href="home.html">Home</a>
       <a href="pricing.html">Pricing</a>
       <a href="services.html">Artist Services</a>
       <a href="daily.html">Tunefry Daily</a>
     </div>
     <div class="footer-col">
-      <h4>Resources</h4>
-      <a href="#">Help Center</a>
-      <a href="#">Release Guide</a>
-      <a href="#">Royalty Calculator</a>
-      <a href="#">API Docs</a>
+      <h4>Services</h4>
+      <a href="distribution.html">Distribution</a>
+      <a href="playlist-pitching.html">Playlist Pitching</a>
+      <a href="content-id.html">Content ID</a>
+      <a href="callertune.html">Caller Tune</a>
+      <a href="song-transfer.html">Song Transfer &amp; Portability</a>
     </div>
     <div class="footer-col">
-      <h4>Company</h4>
-      <a href="#">About Us</a>
-      <a href="#">Careers</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <h4>Support &amp; Legal</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span>
-    <span>Made with love in India</span>
+    <a href="mailto:support@tunefry.com">support@tunefry.com</a>
   </div>
 </footer>
 

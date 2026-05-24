@@ -1,0 +1,791 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>12 Hidden Revenue Streams You're Missing - Tunefry Daily</title>
+<link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & VARIABLES ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--or:#FF6B00;
+--bg:#0C0C0C;
+--s1:#131313;
+--s2:#191919;
+--s3:#202020;
+--bd:rgba(255,255,255,0.07);
+--bd2:rgba(255,255,255,0.12);
+--t1:#FFFFFF;
+--t2:rgba(255,255,255,0.62);
+--t3:rgba(255,255,255,0.36);
+--gr:#2DCA72;
+--pu:rgba(139,92,246,0.9);
+--pk:rgba(244,114,182,0.9);
+--font-display:'Syne',sans-serif;
+--font-body:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+font-family:var(--font-body);
+background:var(--bg);
+color:var(--t1);
+font-weight:400;
+font-size:14px;
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale;
+overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img{display:block;max-width:100%;height:auto}
+button,input{font-family:inherit;border:none;outline:none;background:none;color:inherit}
+::selection{background:var(--or);color:#000}
+
+/* ===== ANIMATE ON SCROLL ===== */
+.au{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.23,1,.32,1),transform .55s cubic-bezier(.23,1,.32,1)}
+.au.in{opacity:1;transform:none}
+
+/* ===== NAV ===== */
+.nav{
+position:sticky;top:0;z-index:1000;
+height:64px;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 40px;
+background:rgba(10,10,10,0.90);
+backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+border-bottom:0.5px solid var(--bd);
+transition:background .3s;
+}
+.nav.scrolled{background:rgba(10,10,10,0.98);box-shadow:0 1px 28px rgba(0,0,0,.5)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:34px;height:34px;border-radius:9px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:16px;color:#fff;flex-shrink:0}
+.logo-txt{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fff}
+.logo-txt b{color:var(--or)}
+.nav-ctr{display:flex;align-items:center;gap:2px}
+.nav-ctr a{font-size:13px;font-weight:400;color:rgba(255,255,255,0.55);padding:7px 14px;border-radius:8px;text-decoration:none;transition:all .2s}
+.nav-ctr a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-ctr a.on{color:#fff;background:rgba(255,255,255,.07)}
+.nav-refer{color:var(--or)!important}
+.nav-refer:hover{background:rgba(255,107,0,.08)!important}
+.nav-rt{display:flex;align-items:center;gap:10px}
+.btn-ghost{font-size:13px;color:rgba(255,255,255,0.65);padding:8px 18px;border-radius:8px;border:0.5px solid var(--bd2);text-decoration:none;transition:all .2s;cursor:pointer;font-family:var(--font-body)}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.btn-or{font-size:13px;font-weight:600;color:#fff;background:var(--or);padding:9px 20px;border-radius:8px;text-decoration:none;box-shadow:0 0 20px rgba(255,107,0,.3);transition:all .2s;font-family:var(--font-display);cursor:pointer}
+.btn-or:hover{box-shadow:0 0 32px rgba(255,107,0,.5);transform:translateY(-1px)}
+
+/* ===== MOBILE MENU ===== */
+.nav-ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px}
+.nav-ham span{width:20px;height:1.5px;background:var(--t2);transition:transform .25s,opacity .25s}
+.nav-ham.open span:nth-child(1){transform:rotate(45deg) translate(3.5px,3.5px)}
+.nav-ham.open span:nth-child(2){opacity:0}
+.nav-ham.open span:nth-child(3){transform:rotate(-45deg) translate(3.5px,-3.5px)}
+.mobile-menu{
+display:none;position:fixed;top:62px;left:0;right:0;bottom:0;
+background:rgba(12,12,12,0.96);backdrop-filter:blur(16px);
+z-index:998;padding:24px 20px;
+flex-direction:column;gap:6px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:15px;padding:12px 0;color:var(--t2);border-bottom:0.5px solid var(--bd)}
+.mobile-menu a.on{color:var(--or)}
+.mobile-menu .mob-btns{display:flex;gap:10px;margin-top:18px}
+
+/* ===== TAG ===== */
+.tag{
+display:inline-block;
+font-size:10.5px;font-weight:500;
+padding:3px 10px;border-radius:6px;
+letter-spacing:.03em;text-transform:uppercase;
+}
+.tag-pu{background:rgba(139,92,246,0.18);color:rgba(167,139,250,1)}
+.tag-gr{background:rgba(45,202,114,0.14);color:#2DCA72}
+.tag-or{background:rgba(255,107,0,0.14);color:var(--or)}
+.tag-pk{background:rgba(244,114,182,0.14);color:rgba(244,114,182,1)}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb{
+max-width:1320px;margin:0 auto;
+padding:24px 36px 0;
+}
+.breadcrumb a{
+display:inline-flex;align-items:center;gap:6px;
+font-size:13px;color:var(--t3);
+transition:color .2s;
+}
+.breadcrumb a:hover{color:var(--t2)}
+
+/* ===== ARTICLE HEADER ===== */
+.art-header{
+max-width:780px;margin:0 auto;
+padding:32px 36px 0;
+}
+.art-meta-top{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.art-date{font-size:12px;color:var(--t3)}
+.art-read-time{font-size:12px;color:var(--t3)}
+.art-sep{width:3px;height:3px;border-radius:50%;background:var(--t3);flex-shrink:0}
+.art-title{
+font-family:var(--font-display);font-weight:800;
+font-size:clamp(28px,4vw,44px);
+line-height:1.12;letter-spacing:-.03em;
+margin-bottom:18px;
+}
+.art-excerpt{
+font-size:16px;color:var(--t2);line-height:1.65;
+margin-bottom:24px;border-left:3px solid var(--or);padding-left:16px;
+}
+.art-byline{
+display:flex;align-items:center;justify-content:space-between;
+padding:16px 0;border-top:0.5px solid var(--bd);border-bottom:0.5px solid var(--bd);
+margin-bottom:32px;flex-wrap:wrap;gap:12px;
+}
+.art-author{display:flex;align-items:center;gap:10px}
+.art-avatar{
+width:36px;height:36px;border-radius:50%;
+background:var(--or);
+display:flex;align-items:center;justify-content:center;
+font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;
+flex-shrink:0;
+}
+.art-author-name{font-size:13px;font-weight:500}
+.art-author-role{font-size:11.5px;color:var(--t3)}
+.art-share{display:flex;align-items:center;gap:8px}
+.art-share-label{font-size:12px;color:var(--t3)}
+.share-btn{
+width:32px;height:32px;border-radius:7px;
+border:0.5px solid var(--bd);
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;transition:border-color .2s,background .2s;
+}
+.share-btn:hover{border-color:var(--bd2);background:rgba(255,255,255,0.04)}
+.share-btn svg{width:14px;height:14px;fill:none;stroke:var(--t3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== HERO IMAGE ===== */
+.art-hero-img{
+max-width:780px;margin:0 auto;
+padding:0 36px;margin-bottom:44px;
+}
+.art-hero-img img{
+width:100%;border-radius:14px;
+border:0.5px solid var(--bd);
+object-fit:cover;max-height:420px;
+}
+.art-hero-caption{
+font-size:11.5px;color:var(--t3);text-align:center;margin-top:10px;
+}
+
+/* ===== ARTICLE LAYOUT ===== */
+.art-wrap{
+display:grid;grid-template-columns:1fr 272px;
+max-width:1320px;margin:0 auto;
+padding:0 36px 80px;gap:0;
+}
+.art-main{padding-right:44px}
+.art-aside{border-left:0.5px solid var(--bd);padding-left:32px;padding-top:0}
+
+/* ===== ARTICLE PROSE ===== */
+.prose{font-size:15.5px;line-height:1.78;color:var(--t2)}
+.prose h2{
+font-family:var(--font-display);font-weight:800;font-size:22px;
+color:var(--t1);letter-spacing:-.02em;
+margin:36px 0 14px;
+}
+.prose h3{
+font-family:var(--font-display);font-weight:700;font-size:17px;
+color:var(--t1);letter-spacing:-.01em;
+margin:28px 0 10px;
+}
+.prose p{margin-bottom:20px}
+.prose strong{color:var(--t1);font-weight:600}
+.prose a{color:var(--or);text-decoration:underline;text-underline-offset:3px}
+.prose a:hover{filter:brightness(1.15)}
+.prose ul,.prose ol{margin:0 0 20px 0;padding-left:0;list-style:none}
+.prose ul li,.prose ol li{
+position:relative;padding-left:20px;margin-bottom:10px;
+}
+.prose ul li::before{
+content:'';position:absolute;left:0;top:10px;
+width:6px;height:6px;border-radius:50%;background:var(--or);
+}
+.prose ol{counter-reset:ol-counter}
+.prose ol li{counter-increment:ol-counter}
+.prose ol li::before{
+content:counter(ol-counter);
+position:absolute;left:0;top:0;
+font-family:var(--font-display);font-weight:800;font-size:13px;
+color:var(--or);
+}
+.prose blockquote{
+margin:28px 0;padding:20px 24px;
+background:var(--s1);border-left:3px solid var(--or);
+border-radius:0 10px 10px 0;
+}
+.prose blockquote p{
+font-family:var(--font-display);font-weight:700;font-size:17px;
+color:var(--t1);line-height:1.5;margin:0;letter-spacing:-.01em;
+}
+.prose blockquote cite{
+display:block;font-size:12px;color:var(--t3);margin-top:8px;font-style:normal;
+}
+.art-divider{
+border:none;border-top:0.5px solid var(--bd);
+margin:36px 0;
+}
+
+/* ===== ARTICLE TAGS ===== */
+.art-tags{
+display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;padding-top:28px;
+border-top:0.5px solid var(--bd);
+}
+.art-tag-item{
+padding:5px 14px;border-radius:7px;font-size:12px;
+border:0.5px solid var(--bd);color:var(--t3);cursor:pointer;
+transition:border-color .2s,color .2s,background .2s;
+}
+.art-tag-item:hover{border-color:var(--bd2);color:var(--t2);background:rgba(255,255,255,0.03)}
+
+/* ===== SIDEBAR BLOCKS ===== */
+.side-block{margin-bottom:32px}
+.side-title{
+font-family:var(--font-display);font-weight:700;font-size:14px;
+letter-spacing:-.01em;margin-bottom:16px;
+}
+.nl-card{
+background:var(--s1);border:0.5px solid var(--bd);border-radius:12px;
+padding:24px 20px;text-align:center;
+}
+.nl-ico{
+width:44px;height:44px;border-radius:10px;
+background:rgba(255,107,0,0.1);
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 14px;font-size:20px;
+}
+.nl-h{font-family:var(--font-display);font-weight:700;font-size:15px;margin-bottom:6px}
+.nl-p{font-size:12.5px;color:var(--t2);line-height:1.55;margin-bottom:16px}
+.nl-input{
+width:100%;padding:10px 14px;border-radius:8px;
+background:var(--s2);border:0.5px solid var(--bd2);
+font-size:12.5px;color:var(--t1);margin-bottom:10px;
+}
+.nl-input::placeholder{color:var(--t3)}
+.nl-btn{
+width:100%;padding:10px 0;border-radius:8px;
+background:var(--or);color:#000;font-size:13px;font-weight:500;
+cursor:pointer;transition:filter .2s;
+}
+.nl-btn:hover{filter:brightness(1.12)}
+.nl-note{font-size:10.5px;color:var(--t3);margin-top:10px}
+
+/* related in sidebar */
+.rel-list{display:flex;flex-direction:column;gap:16px}
+.rel-item{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.rel-item:hover .rel-title{color:var(--or)}
+.rel-thumb{
+width:64px;height:64px;border-radius:8px;overflow:hidden;flex-shrink:0;
+background:var(--s2);border:0.5px solid var(--bd);
+}
+.rel-thumb img{width:100%;height:100%;object-fit:cover}
+.rel-title{font-size:12.5px;font-weight:500;line-height:1.42;transition:color .2s;margin-bottom:4px}
+.rel-date{font-size:11px;color:var(--t3)}
+
+/* topics */
+.topic-cloud{display:flex;flex-wrap:wrap;gap:6px}
+.topic-tag{
+padding:5px 12px;border-radius:7px;
+font-size:11.5px;color:var(--t3);
+border:0.5px solid var(--bd);
+cursor:pointer;transition:border-color .2s,color .2s,background .2s;
+}
+.topic-tag:hover{border-color:var(--bd2);color:var(--t2);background:rgba(255,255,255,0.03)}
+
+/* ===== RELATED ARTICLES SECTION ===== */
+.related-section{
+max-width:1320px;margin:0 auto;
+padding:0 36px 80px;
+border-top:0.5px solid var(--bd);
+}
+.rel-sec-head{
+display:flex;align-items:center;gap:14px;
+font-family:var(--font-display);font-size:13px;font-weight:700;
+color:var(--t2);text-transform:uppercase;letter-spacing:.06em;
+margin-bottom:22px;padding-top:44px;
+}
+.rel-sec-head::after{content:'';flex:1;height:0.5px;background:var(--bd)}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rel-card{
+border-radius:12px;border:0.5px solid var(--bd);
+overflow:hidden;background:var(--s1);
+cursor:pointer;transition:border-color .25s,transform .25s;
+}
+.rel-card:hover{border-color:var(--bd2);transform:translateY(-3px)}
+.rel-card-img{height:160px;overflow:hidden;position:relative}
+.rel-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.23,1,.32,1)}
+.rel-card:hover .rel-card-img img{transform:scale(1.05)}
+.rel-card-body{padding:16px 18px 20px}
+.rel-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rel-card-date{font-size:11.5px;color:var(--t3)}
+.rel-card-title{
+font-family:var(--font-display);font-weight:700;font-size:14px;
+line-height:1.42;letter-spacing:-.01em;
+display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.rel-card-foot{
+display:flex;align-items:center;justify-content:space-between;
+margin-top:12px;padding-top:10px;border-top:0.5px solid var(--bd);
+font-size:11.5px;color:var(--t3);
+}
+.rel-card-arrow{font-size:14px;color:var(--or);transition:transform .2s}
+.rel-card:hover .rel-card-arrow{transform:translateX(3px)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--s1);border-top:0.5px solid var(--bd);padding:64px 40px 0}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.footer-brand p{font-size:13px;color:var(--t3);margin:14px 0 22px;line-height:1.8;max-width:280px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.footer-socials{display:flex;gap:8px}
+.social-btn{width:34px;height:34px;border-radius:9px;background:var(--s2);border:0.5px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.social-btn:hover{border-color:var(--or-b);background:var(--or-d)}
+.social-btn svg{width:14px;height:14px;stroke:var(--t3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.social-btn:hover svg{stroke:var(--or)}
+.footer-col h4{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13.5px;color:var(--t2);padding:5px 0;transition:color .2s}
+.footer-col a:hover{color:var(--or)}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-top:0.5px solid var(--bd);font-size:12.5px;color:var(--t3)}
+.footer-bottom a{color:var(--t3);transition:color .2s}
+.footer-bottom a:hover{color:var(--t1)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .art-wrap{display:block}
+  .art-main{padding-right:0;padding-bottom:36px}
+  .art-aside{border-left:none;border-top:0.5px solid var(--bd);padding-left:0;padding-top:28px;margin-top:0}
+  .rel-grid{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+  .nav{padding:0 20px}
+  .nav-ctr,.nav-rt{display:none}
+  .nav-ham{display:flex}
+  .breadcrumb{padding:20px 20px 0}
+  .art-header{padding:24px 20px 0}
+  .art-hero-img{padding:0 20px}
+  .art-wrap{padding:0 20px 60px}
+  .art-title{font-size:28px}
+  .related-section{padding:0 20px 60px}
+  footer{padding:44px 20px 0}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:520px){
+  .rel-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+}
+
+/* Disable text selection */
+* { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <a href="home.html" class="nav-logo">
+    <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:38px;width:auto;display:block;object-fit:contain;">
+  </a>
+  <div class="nav-ctr">
+    <a href="home.html">Home</a>
+    <a href="daily.html" class="on">Tunefry Daily</a>
+    <a href="services.html">Artist Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="refer-earn.html" class="nav-refer">Refer &amp; Earn</a>
+  </div>
+  <div class="nav-rt">
+    <a href="login.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or">Start Distributing</a>
+  </div>
+  <div class="nav-ham" id="ham">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobMenu">
+  <a href="home.html">Home</a>
+  <a href="daily.html" class="on">Tunefry Daily</a>
+  <a href="services.html">Artist Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="refer-earn.html" style="color:var(--or)">Refer &amp; Earn</a>
+  <div class="mob-btns">
+    <a href="login.html" class="btn-ghost">Log in</a>
+    <a href="index.html" class="btn-or">Start Distributing</a>
+  </div>
+</div>
+
+<!-- ===================== BREADCRUMB ===================== -->
+<div class="breadcrumb au">
+  <a href="daily.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Tunefry Daily
+  </a>
+</div>
+
+<!-- ===================== ARTICLE HEADER ===================== -->
+<div class="art-header au">
+  <div class="art-meta-top">
+    <span class="tag tag-pu">Tunefry Daily</span>
+    <span class="art-sep"></span>
+    <span class="art-date">April 5, 2026</span>
+    <span class="art-sep"></span>
+    <span class="art-read-time">8 min read</span>
+  </div>
+  <h1 class="art-title">12 Hidden Revenue Streams You're Missing When Understanding Music Royalties</h1>
+  <p class="art-excerpt">Most independent artists only scratch the surface of royalty collection. We break down every revenue channel available to you and show you exactly how to claim what you're owed.</p>
+  <div class="art-byline">
+    <div class="art-author">
+      <div class="art-avatar">T</div>
+      <div>
+        <div class="art-author-name">Tunefry Team</div>
+        <div class="art-author-role">Music Industry Insights</div>
+      </div>
+    </div>
+    <div class="art-share">
+      <span class="art-share-label">Share</span>
+      <div class="share-btn" title="Share on Twitter">
+        <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
+      </div>
+      <div class="share-btn" title="Share on Instagram">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+      <div class="share-btn" title="Copy link">
+        <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HERO IMAGE ===================== -->
+<div class="art-hero-img au">
+  <img src="https://www.tunefry.com/uploads/understanding music royalties.jpg" alt="Understanding music royalties">
+  <div class="art-hero-caption">A comprehensive guide to every royalty stream available to independent artists in 2026</div>
+</div>
+
+<!-- ===================== ARTICLE WRAP ===================== -->
+<div class="art-wrap">
+
+  <!-- MAIN CONTENT -->
+  <div class="art-main au">
+    <div class="prose">
+
+      <p>If you've released music independently and collected royalties through a single distributor, you've likely left money on the table. The royalty landscape is fragmented across dozens of collection societies, platforms, and licensing bodies — and most artists only tap into one or two of them.</p>
+
+      <p>This guide walks you through all 12 streams, who manages each one, and exactly what you need to do to start collecting.</p>
+
+      <h2>The Two Types of Royalties You Need to Understand First</h2>
+
+      <p>Before diving into the 12 streams, you need to understand the fundamental split that governs all music royalties:</p>
+
+      <p><strong>Master royalties</strong> flow to the owner of the sound recording — typically the artist or their label. <strong>Publishing royalties</strong> flow to the songwriter and their publisher. If you write and record your own music, you're entitled to both. Most independent artists don't claim both.</p>
+
+      <blockquote>
+        <p>"Every unclaimed royalty is a permanent loss. There's no going back to collect earnings from streams that happened years ago if you weren't registered at the time."</p>
+        <cite>— Tunefry Research Team</cite>
+      </blockquote>
+
+      <h2>The 12 Revenue Streams</h2>
+
+      <h3>1. Mechanical Royalties (Digital)</h3>
+      <p>Every time someone streams your song, a mechanical royalty is generated for the underlying composition. In India, this is collected by the <strong>Indian Performing Right Society (IPRS)</strong> and distributed to registered songwriters. If you're not a member, you're not collecting these.</p>
+
+      <h3>2. Performance Royalties</h3>
+      <p>When your music plays on radio, in a café, at a live venue, or in a film, performance royalties are due. IPRS handles this in India. Internationally, PROs like ASCAP, BMI, PRS for Music, and SOCAN collect on your behalf — but only if you're registered with the correct society for each territory.</p>
+
+      <h3>3. Streaming Master Royalties</h3>
+      <p>This is the stream most artists know about — the per-stream payment from Spotify, Apple Music, JioSaavn, Gaana, and others. Your distributor collects and passes these through. Ensure your distributor covers all active platforms and that your ISRC codes are correctly registered.</p>
+
+      <h3>4. YouTube Content ID</h3>
+      <p>When your music appears in user-generated content on YouTube, Content ID claims monetise those videos on your behalf. Without Content ID registration, every video using your song earns revenue for YouTube — not you. Tunefry's distribution includes Content ID at no extra cost.</p>
+
+      <h3>5. Neighbouring Rights</h3>
+      <p>When a master recording (not just the composition) is played on radio or in public spaces, neighbouring rights payments are owed to the rights holder. In India, the Phonographic Performance Limited (PPL) manages these. International neighbouring rights are collected by organisations like PPL UK and GVL in Germany.</p>
+
+      <h3>6. Sync Licensing</h3>
+      <p>Films, TV shows, advertisements, and video games all need to license music. A single sync placement can earn anywhere from ₹50,000 to several lakhs. You can pitch directly to music supervisors, list your catalogue on sync libraries, or work through a licensing agent.</p>
+
+      <h3>7. CRBT (Caller Ring Back Tones)</h3>
+      <p>In India, CRBT remains a significant revenue source. Every time a caller hears your song as someone's ring tone, a royalty is generated. These are collected by telecom operators and passed through to rights holders. Make sure your distributor has active CRBT deals with Airtel, Jio, Vi, and BSNL.</p>
+
+      <h3>8. Micro-sync (Short-form Video)</h3>
+      <p>Instagram Reels, YouTube Shorts, and similar platforms have their own licensing pools. When your music is used in short-form video content, micro-sync royalties are generated. These are often collected through your distributor's licensing agreements with these platforms — confirm your distributor has these deals active.</p>
+
+      <h3>9. Physical Sales Royalties</h3>
+      <p>CDs, vinyl, and cassettes may feel outdated but vinyl sales are at a 30-year high globally. If you press physical copies, mechanical royalties are due on each unit sold. IPRS membership covers you for domestic sales; international mechanicals require registration with the relevant society in each territory.</p>
+
+      <h3>10. Background Music Licensing</h3>
+      <p>Hotels, retail stores, restaurants, and gyms pay licensing fees to play music in their spaces. In India, this falls under PPL's blanket licensing scheme. You don't need to do anything beyond ensuring your recordings are registered with PPL — they collect on your behalf.</p>
+
+      <h3>11. Live Performance Royalties</h3>
+      <p>When you perform your original songs live, publishing royalties are owed — even if you're the one performing them. Venues with IPRS licences report their set lists, and IPRS distributes royalties to registered members. Always set-list your originals, even at small shows.</p>
+
+      <h3>12. International Unclaimed Royalties</h3>
+      <p>This is the most overlooked stream. Royalties generated internationally — particularly in the US, UK, and EU — sit unclaimed if you're not registered with the relevant societies. Services like SoundExchange (US digital radio), SOCAN (Canada), and PRS (UK) hold funds for unregistered rights holders for a limited window before the money is redistributed.</p>
+
+      <hr class="art-divider">
+
+      <h2>Your Action Plan</h2>
+
+      <ol>
+        <li>Join IPRS as a songwriter/composer to start collecting mechanical and performance royalties in India.</li>
+        <li>Register your recordings with PPL India for neighbouring rights and CRBT collection.</li>
+        <li>Ensure your distributor has Content ID, CRBT, and short-form video licensing active on all releases.</li>
+        <li>Register with SoundExchange if you have any US digital radio play — it's free and there's no deadline to join, but unclaimed funds have a window.</li>
+        <li>Audit your existing releases: check that all ISRC and ISWC codes are correctly assigned and that your catalogue is registered with every relevant society.</li>
+      </ol>
+
+      <p>The royalty system rewards artists who understand it. Most of the registrations above are free or have a small one-time membership fee. The money you leave unclaimed by not registering is simply redistributed to those who did.</p>
+
+    </div>
+
+    <!-- Article tags -->
+    <div class="art-tags">
+      <span class="art-tag-item">Royalties</span>
+      <span class="art-tag-item">Distribution</span>
+      <span class="art-tag-item">IPRS</span>
+      <span class="art-tag-item">PPL India</span>
+      <span class="art-tag-item">Content ID</span>
+      <span class="art-tag-item">CRBT</span>
+      <span class="art-tag-item">Sync Licensing</span>
+      <span class="art-tag-item">Independent Artists</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="art-aside">
+
+    <!-- Newsletter -->
+    <div class="side-block au">
+      <div class="nl-card">
+        <div class="nl-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="nl-h">Stay in the loop</div>
+        <div class="nl-p">Get the latest music industry insights delivered to your inbox every week.</div>
+        <input type="email" class="nl-input" placeholder="your@email.com">
+        <button class="nl-btn">Subscribe Free</button>
+        <div class="nl-note">No spam. Unsubscribe anytime.</div>
+      </div>
+    </div>
+
+    <!-- Related in sidebar -->
+    <div class="side-block au">
+      <div class="side-title">Related articles</div>
+      <div class="rel-list">
+        <div class="rel-item" onclick="window.location.href='article.html'">
+          <div class="rel-thumb">
+            <img src="https://www.tunefry.com/uploads/Indian music distribution.png" alt="Indian music distribution">
+          </div>
+          <div>
+            <div class="rel-title">The Beginner's Roadmap to Playlist Pitching Through an Indian Music Distribution Platform</div>
+            <div class="rel-date">March 30, 2026</div>
+          </div>
+        </div>
+        <div class="rel-item" onclick="window.location.href='article.html'">
+          <div class="rel-thumb">
+            <img src="https://www.tunefry.com/uploads/a-contemporary-workspace-photograph-show_hsp35n5rQ9a2moQZgM9yCA_QrtKtFWnT-aatRhzG9RlMQ (1).jpeg" alt="Release strategy">
+          </div>
+          <div>
+            <div class="rel-title">Building a Release Strategy Around 100% Royalties to Maximize Catalog Value</div>
+            <div class="rel-date">March 18, 2026</div>
+          </div>
+        </div>
+        <div class="rel-item" onclick="window.location.href='article.html'">
+          <div class="rel-thumb">
+            <img src="https://www.tunefry.com/uploads/Distribute Music Online.jpg" alt="Distribute music online">
+          </div>
+          <div>
+            <div class="rel-title">The Truth About Unlimited Upload Plans When You Distribute Music Online</div>
+            <div class="rel-date">March 26, 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topics -->
+    <div class="side-block au">
+      <div class="side-title">Topics</div>
+      <div class="topic-cloud">
+        <span class="topic-tag">Royalties</span>
+        <span class="topic-tag">Spotify</span>
+        <span class="topic-tag">Distribution</span>
+        <span class="topic-tag">Playlist Pitching</span>
+        <span class="topic-tag">JioSaavn</span>
+        <span class="topic-tag">Content ID</span>
+        <span class="topic-tag">CRBT</span>
+        <span class="topic-tag">Analytics</span>
+        <span class="topic-tag">India</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== RELATED ARTICLES ===================== -->
+<div class="related-section">
+  <div class="rel-sec-head au">More from Tunefry Daily</div>
+  <div class="rel-grid au">
+    <!-- Related 1 -->
+    <div class="rel-card" onclick="window.location.href='article.html'">
+      <div class="rel-card-img">
+        <img src="https://www.tunefry.com/uploads/Indian music distribution.png" alt="Playlist pitching guide">
+      </div>
+      <div class="rel-card-body">
+        <div class="rel-card-meta">
+          <span class="tag tag-gr">Guide</span>
+          <span class="rel-card-date">March 30, 2026</span>
+        </div>
+        <div class="rel-card-title">The Beginner's Roadmap to Playlist Pitching Through an Indian Music Distribution Platform</div>
+        <div class="rel-card-foot">
+          <span>Tunefry Team</span>
+          <span class="rel-card-arrow">&rarr;</span>
+        </div>
+      </div>
+    </div>
+    <!-- Related 2 -->
+    <div class="rel-card" onclick="window.location.href='article.html'">
+      <div class="rel-card-img">
+        <img src="https://www.tunefry.com/uploads/a-contemporary-workspace-photograph-show_hsp35n5rQ9a2moQZgM9yCA_QrtKtFWnT-aatRhzG9RlMQ (1).jpeg" alt="Release strategy">
+      </div>
+      <div class="rel-card-body">
+        <div class="rel-card-meta">
+          <span class="tag tag-pu">Tunefry Daily</span>
+          <span class="rel-card-date">March 18, 2026</span>
+        </div>
+        <div class="rel-card-title">Building a Release Strategy Around 100% Royalties to Maximize Catalog Value</div>
+        <div class="rel-card-foot">
+          <span>Tunefry Team</span>
+          <span class="rel-card-arrow">&rarr;</span>
+        </div>
+      </div>
+    </div>
+    <!-- Related 3 -->
+    <div class="rel-card" onclick="window.location.href='article.html'">
+      <div class="rel-card-img">
+        <img src="https://www.tunefry.com/uploads/Lucid_Origin_Highquality_closeup_of_a_computer_screen_displayi_3.jpg" alt="Release calendar">
+      </div>
+      <div class="rel-card-body">
+        <div class="rel-card-meta">
+          <span class="tag tag-pu">Tunefry Daily</span>
+          <span class="rel-card-date">March 14, 2026</span>
+        </div>
+        <div class="rel-card-title">Distribute Music in India Like a Brand: Building a Release Calendar</div>
+        <div class="rel-card-foot">
+          <span>Tunefry Team</span>
+          <span class="rel-card-arrow">&rarr;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:32px;width:auto;display:block;object-fit:contain;">
+      </div>
+      <p>Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 11.75a29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="home.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="services.html">Artist Services</a>
+      <a href="daily.html">Tunefry Daily</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="distribution.html">Distribution</a>
+      <a href="playlist-pitching.html">Playlist Pitching</a>
+      <a href="content-id.html">Content ID</a>
+      <a href="callertune.html">Caller Tune</a>
+      <a href="song-transfer.html">Song Transfer &amp; Portability</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support &amp; Legal</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span>
+    <a href="mailto:support@tunefry.com">support@tunefry.com</a>
+  </div>
+</footer>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+(function(){
+  var els=document.querySelectorAll('.au');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in')});
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+var ham=document.getElementById('ham');
+var mobMenu=document.getElementById('mobMenu');
+ham.addEventListener('click',function(){
+  ham.classList.toggle('open');
+  mobMenu.classList.toggle('open');
+});
+
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+});
+</script>
+</body>
+</html>

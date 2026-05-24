@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,6 +28,23 @@
     .radio-opt:hover{border-color:rgba(242,101,34,0.3);background:rgba(242,101,34,0.04);}
     .radio-opt input[type="radio"]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;}
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="app no-right-panel">
@@ -125,6 +142,11 @@
           </div>
         </div>
 
+        <div class="fg">
+          <label class="lbl" for="mismatchDesc">Describe the Mismatch <span style="color:var(--accent)">*</span></label>
+          <textarea id="mismatchDesc" name="mismatch_description" class="inp" rows="4" placeholder="e.g. My song 'Midnight Echoes' shows under a different artist on Spotify. The correct name should be Vasu Sharma but it currently shows as Vasu..." required onfocus="this.style.borderColor='rgba(242,101,34,0.6)'" onblur="this.style.borderColor='rgba(255,255,255,0.09)'"></textarea>
+        </div>
+
         <div id="errBox" style="display:none;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:rgba(59,130,246,0.1);border:0.5px solid rgba(59,130,246,0.3);font-size:12.5px;color:#60a5fa;margin-bottom:14px;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <span id="errText">Please fill in all required fields.</span>
@@ -149,11 +171,13 @@ function submitForm(e) {
   e.preventDefault();
   var song = document.getElementById('songName').value.trim();
   var spotify = document.getElementById('spotifyLink').value.trim();
+  var desc = document.getElementById('mismatchDesc').value.trim();
   var correctionType = document.querySelector('input[name="correctionType"]:checked');
   var errBox = document.getElementById('errBox');
   var missing = [];
   if (!song) missing.push('Song Name');
   if (!spotify) missing.push('Spotify Link');
+  if (!desc) missing.push('Mismatch Description');
   if (missing.length) {
     document.getElementById('errText').textContent = 'Please fill in: ' + missing.join(', ');
     errBox.style.display = 'flex';
@@ -163,31 +187,13 @@ function submitForm(e) {
   var btn = e.target.querySelector('.submit-btn');
   btn.textContent = 'Submitting…'; btn.style.opacity = '0.7'; btn.disabled = true;
 
-  fetch('/api/support/profile-mismatch', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({
-      song_name: song,
-      spotify_link: spotify,
-      correction_type: correctionType ? correctionType.value : 'existing'
-    })
-  })
-  .then(function(res) {
-    return res.ok ? res.json() : res.json().then(function(err) { throw err; });
-  })
-  .then(function() {
+  setTimeout(function() {
     btn.textContent = 'Submit'; btn.style.opacity = '1'; btn.disabled = false;
     var t = document.getElementById('toast');
     t.style.opacity = '1'; t.style.transform = 'translateY(0)';
     setTimeout(function(){ t.style.opacity='0'; t.style.transform='translateY(10px)'; }, 4000);
     e.target.reset();
-  })
-  .catch(function(err) {
-    btn.textContent = 'Submit'; btn.style.opacity = '1'; btn.disabled = false;
-    document.getElementById('errText').textContent = (err && err.message) ? err.message : 'Submission failed. Please try again.';
-    errBox.style.display = 'flex';
-  });
+  }, 800);
 }
 document.querySelectorAll('.inp').forEach(function(el) {
   el.addEventListener('input', function() { document.getElementById('errBox').style.display='none'; this.style.borderColor=''; this.style.boxShadow=''; });

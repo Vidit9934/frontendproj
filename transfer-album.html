@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -269,6 +269,23 @@
     @media(max-width:900px) { .track-row { grid-template-columns: 38px 1fr 1fr; grid-template-rows: auto auto; } }
     @media(max-width:700px) { .form-grid, .form-grid-3 { grid-template-columns:1fr; } .form-group.col-span-2, .form-group.col-span-3 { grid-column:1; } }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="app no-right-panel">
@@ -314,6 +331,12 @@
       <div class="page-header-actions"><a href="index.html" class="btn btn-outline">&#8592; Overview</a></div>
     </div>
 
+    <a href="submission-rules.html" target="_blank" style="display:flex;align-items:center;gap:12px;padding:13px 18px;background:rgba(242,101,34,0.07);border:0.5px solid rgba(242,101,34,0.22);border-left:3px solid #F26522;border-radius:12px;margin-bottom:20px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(242,101,34,0.11)'" onmouseout="this.style.background='rgba(242,101,34,0.07)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span style="font-size:12.5px;color:var(--text-secondary);flex:1;">Before submitting, please review our <strong style="color:var(--accent);">Submission Rules &amp; Terms of Service</strong> — including processing timelines, content policies, and artist responsibilities.</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(242,101,34,0.6)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+
     <!-- Step 01: Album Info -->
     <div class="glass-card transfer-section animate-in animate-in-delay-2">
       <div class="section-eyebrow">Step 01</div>
@@ -323,6 +346,10 @@
         <div class="form-group">
           <label class="form-label">UPC Code <span class="req">*</span></label>
           <input id="upcCode" type="text" name="upc_code" class="form-input" placeholder="e.g. 012345678901" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ISRC Code <span class="req">*</span></label>
+          <input type="text" class="form-input" id="albumIsrc" name="isrc" placeholder="e.g. USABC1234567" maxlength="12" required>
         </div>
         <div class="form-group">
           <label class="form-label">Album Name <span class="req">*</span></label>
@@ -488,7 +515,7 @@
       '<div class="form-group col-span-2"><label class="form-label">Artist Name ' + req + '</label><input type="text" class="form-input" placeholder="Artist name"></div>' +
       '<div class="form-group"><label class="form-label">Spotify Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://open.spotify.com/artist/..."></div>' +
       '<div class="form-group"><label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://music.apple.com/artist/..."></div>' +
-      '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..."></div>' +
+      (isMain ? '<div class="form-group col-span-2"><label class="form-label">Instagram <span class="opt-tag">(optional)</span></label><input type="url" class="form-input" placeholder="https://www.instagram.com/artist/..."></div>' : '') +
       '</div>';
     container.appendChild(div);
   }
@@ -538,12 +565,18 @@
 
   function submitTransferAlbum() {
     var upc = document.getElementById('upcCode');
+    var isrc = document.getElementById('albumIsrc');
     var name = document.getElementById('albumName');
     var bad = false;
     if (!upc.value.trim()) {
       upc.style.borderColor = 'rgba(59,130,246,.7)'; upc.style.boxShadow = '0 0 0 3px rgba(59,130,246,.12)';
       setTimeout(function(){ upc.style.borderColor=''; upc.style.boxShadow=''; }, 2200);
       if (!bad) { upc.focus(); bad = true; }
+    }
+    if (!isrc.value.trim()) {
+      isrc.style.borderColor = 'rgba(59,130,246,.7)'; isrc.style.boxShadow = '0 0 0 3px rgba(59,130,246,.12)';
+      setTimeout(function(){ isrc.style.borderColor=''; isrc.style.boxShadow=''; }, 2200);
+      if (!bad) { isrc.focus(); bad = true; }
     }
     if (!name.value.trim()) {
       name.style.borderColor = 'rgba(59,130,246,.7)'; name.style.boxShadow = '0 0 0 3px rgba(59,130,246,.12)';
@@ -579,6 +612,7 @@
 
     var fd = new FormData();
     fd.append('upc_code', upc.value.trim());
+    fd.append('isrc_code', isrc.value.trim());
     fd.append('album_name', name.value.trim());
     fd.append('songs', JSON.stringify(songs));
     var descEl = document.querySelector('textarea[name="album_description"]');
@@ -588,6 +622,23 @@
     var coverInput = document.getElementById('coverInput');
     if (coverInput && coverInput.files[0]) fd.append('cover_art', coverInput.files[0]);
 
+    /* ===== BACKEND CONTRACT =========================================
+     * POST /api/release/album/transfer
+     * Content-Type: multipart/form-data  (set automatically by browser)
+     * Auth: session cookie (credentials: 'include')
+     *
+     * Text fields: upc_code, album_name, album_description,
+     *   additional_comments
+     * JSON-encoded text field:
+     *   songs = [{ title, isrc, duration, main_artists:[{name,...}] }]
+     * File fields:
+     *   cover_art      (image/*, required)
+     *   audio_<sid>    (.wav/.flac/.mp3, one per song)
+     *
+     * Expected response:
+     *   2xx -> { ok: true, transfer_id: string }
+     *   4xx/5xx -> { message: string }
+     * ================================================================ */
     fetch('/api/release/album/transfer', {
       method: 'POST',
       body: fd,
@@ -641,10 +692,7 @@
         '</div>' +
         '<div class="form-grid" style="margin-top:16px;">' +
           '<div class="form-group"><label class="form-label">YouTube Content ID <span class="req">*</span></label>' +
-            '<div class="yn-toggle">' +
-              '<button type="button" class="yn-btn active-no" id="' + sid + '-ytCidNo" onclick="setSongYN(\'' + sid + '-ytCidNo\',\'' + sid + '-ytCidYes\',false)">No</button>' +
-              '<button type="button" class="yn-btn" id="' + sid + '-ytCidYes" onclick="setSongYN(\'' + sid + '-ytCidNo\',\'' + sid + '-ytCidYes\',true)">Yes</button>' +
-            '</div></div>' +
+            '<select class="form-input" id="' + sid + '-ytCid"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>' +
         '</div>' +
         '<div class="form-grid-3" style="margin-top:16px;">' +
           '<div class="form-group"><label class="form-label">Genre <span class="req">*</span></label>' +
@@ -687,15 +735,9 @@
           '<div class="form-group"><label class="form-label">Callertune Cut Name <span class="opt-tag">(optional)</span></label>' +
             '<input type="text" class="form-input" placeholder="Optional callertune name"></div>' +
           '<div class="form-group"><label class="form-label">YouTube Music / Beat <span class="req">*</span></label>' +
-            '<div class="yn-toggle">' +
-              '<button type="button" class="yn-btn active-no" id="' + sid + '-ytBeatNo" onclick="setSongYN(\'' + sid + '-ytBeatNo\',\'' + sid + '-ytBeatYes\',false)">No</button>' +
-              '<button type="button" class="yn-btn" id="' + sid + '-ytBeatYes" onclick="setSongYN(\'' + sid + '-ytBeatNo\',\'' + sid + '-ytBeatYes\',true)">Yes</button>' +
-            '</div></div>' +
+            '<select class="form-input" id="' + sid + '-ytBeat"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>' +
           '<div class="form-group"><label class="form-label">Explicit Content <span class="req">*</span></label>' +
-            '<div class="explicit-toggle">' +
-              '<button type="button" class="explicit-btn active-no" id="' + sid + '-explicitNo" onclick="setSongYN(\'' + sid + '-explicitNo\',\'' + sid + '-explicitYes\',false)">No</button>' +
-              '<button type="button" class="explicit-btn" id="' + sid + '-explicitYes" onclick="setSongYN(\'' + sid + '-explicitNo\',\'' + sid + '-explicitYes\',true)">Yes</button>' +
-            '</div></div>' +
+            '<select class="form-input" id="' + sid + '-explicit"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>' +
         '</div>' +
         '<div class="form-group" style="margin-top:16px;"><label class="form-label">ISRC No <span class="opt-tag">(optional — preserves existing ISRC)</span></label>' +
           '<input type="text" class="form-input" placeholder="e.g. USABC1234567" maxlength="12"></div>' +

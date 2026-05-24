@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -273,6 +273,23 @@
     .toast.toast-success { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.35); color: #22C55E; }
     .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -318,6 +335,35 @@
   </header>
 
   <main class="content">
+
+    <!-- ===== BACKEND CONTRACT (read-only page) =========================
+         GET /api/billing/current-plan
+         Auth: session cookie (credentials: 'include')
+
+         Expected response shape:
+         {
+           plan: {
+             id: string,
+             name: string,                 -> [data-bind="plan.name"]
+             tier: 'starter'|'pro'|'label',
+             price_inr: number,            -> [data-bind="plan.price"]
+             billing_cycle: 'monthly'|'yearly',
+             started_at: 'YYYY-MM-DD',     -> [data-bind="plan.started_at"]
+             renews_at: 'YYYY-MM-DD',      -> [data-bind="plan.renews_at"]
+             auto_renew: boolean
+           },
+           usage: {
+             releases_used: number,        -> [data-bind="usage.releases_used"]
+             releases_limit: number,       -> [data-bind="usage.releases_limit"]
+             storage_used_mb: number,
+             storage_limit_mb: number
+           },
+           invoices: [{ id, date, amount_inr, status, pdf_url }]  -> invoice list
+         }
+         Endpoints expected from action buttons on this page:
+           POST /api/billing/cancel       (Cancel plan)
+           POST /api/billing/auto-renew   (Toggle auto-renew, body: {enabled:boolean})
+    ============================================================== -->
     <div class="page-label">
       <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       Account
@@ -394,7 +440,7 @@
           <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
           Renew Plan
         </button>
-        <button class="btn-upgrade" onclick="showToast('success','Redirecting to upgrade options...')">
+        <button class="btn-upgrade" onclick="window.location.href='pricing.html'">
           <svg viewBox="0 0 24 24"><polyline points="17 11 12 6 7 11"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
           Upgrade Plan
         </button>

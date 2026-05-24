@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -378,38 +378,24 @@ cursor:pointer;transition:border-color .2s,color .2s,background .2s;
 .topic-tag:hover{border-color:var(--bd2);color:var(--t2);background:rgba(255,255,255,0.03)}
 
 /* ===== FOOTER ===== */
-.footer{
-border-top:0.5px solid var(--bd);
-padding:56px 36px 0;
-background:var(--s1);
-}
-.footer-inner{max-width:1320px;margin:0 auto}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;padding-bottom:44px}
-.footer-brand{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-.footer-brand-logo{display:inline-flex;align-items:center;font-size:0;line-height:0;margin-bottom:14px}
-.footer-brand-logo img{height:30px;width:auto;max-width:160px;display:block;object-fit:contain}
-.footer-brand-desc{font-size:13px;color:var(--t3);line-height:1.6;margin:14px 0 18px;max-width:260px}
-.footer-socials{display:flex;gap:8px}
-.footer-socials a{
-width:34px;height:34px;border-radius:8px;
-border:0.5px solid var(--bd);
-display:flex;align-items:center;justify-content:center;
-transition:border-color .2s,background .2s;
-}
-.footer-socials a:hover{border-color:var(--bd2);background:rgba(255,255,255,0.04)}
-.footer-socials svg{width:15px;height:15px;fill:none;stroke:var(--t3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.footer-col h4{
-font-family:var(--font-display);font-weight:700;font-size:13px;
-margin-bottom:16px;color:var(--t1);
-}
-.footer-col li{margin-bottom:9px}
-.footer-col a{font-size:13px;color:var(--t3);transition:color .2s}
-.footer-col a:hover{color:var(--t2)}
-.footer-bottom{
-display:flex;align-items:center;justify-content:space-between;
-padding:20px 0;border-top:0.5px solid var(--bd);
-font-size:12px;color:var(--t3);
-}
+footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40px 0; }
+.footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
+.footer-brand p { font-size:13px; color:var(--t3); margin:14px 0 22px; line-height:1.8; max-width:280px; }
+.footer-logo { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+.footer-logo-sq { width:30px; height:30px; border-radius:8px; background:var(--or); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:14px; color:#fff; }
+.footer-logo-txt { font-family:var(--font-d); font-size:1.05rem; font-weight:700; color:var(--t1); }
+.footer-logo-txt b { color:var(--or); }
+.footer-socials { display:flex; gap:8px; }
+.social-btn { width:34px; height:34px; border-radius:9px; background:var(--s2); border:0.5px solid var(--bd); display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.social-btn:hover { border-color:var(--or-b); background:var(--or-d); }
+.social-btn svg { width:14px; height:14px; stroke:var(--t3); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+.social-btn:hover svg { stroke:var(--or); }
+.footer-col h4 { font-family:var(--font-d); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--t3); margin-bottom:18px; }
+.footer-col a { display:block; font-size:13.5px; color:var(--t2); padding:5px 0; transition:color .2s; }
+.footer-col a:hover { color:var(--or); }
+.footer-bottom { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:24px 0; border-top:0.5px solid var(--bd); font-size:12.5px; color:var(--t3); }
+.footer-bottom a { color:var(--t3); transition:color .2s; }
+.footer-bottom a:hover { color:var(--t1); }
 
 /* ===== MOBILE MENU TOGGLE ===== */
 .nav-ham{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px}
@@ -463,8 +449,7 @@ border-bottom:0.5px solid var(--bd);
   .row-card{flex-direction:column}
   .row-card-img{width:100%;min-height:160px}
   .row-card-body{padding:16px}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
-  .footer-brand-logo{margin-bottom:12px}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:36px}
   .tabs{gap:0}
   .tab{padding:8px 10px 10px;font-size:12px}
 }
@@ -483,6 +468,23 @@ border-bottom:0.5px solid var(--bd);
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -560,7 +562,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 
     <!-- Featured -->
     <div class="sec-label au">Featured article</div>
-    <div class="feat au">
+    <div class="feat au" onclick="window.location.href='article.html'">
       <div class="feat-img">
         <img src="https://www.tunefry.com/uploads/understanding music royalties.jpg" alt="Understanding music royalties - featured article">
       </div>
@@ -571,7 +573,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         <div class="feat-date">April 5, 2026</div>
         <div class="feat-title">12 Hidden Revenue Streams You're Missing When Understanding Music Royalties</div>
         <div class="feat-exc">Most independent artists only scratch the surface of royalty collection. We break down every revenue channel available to you and show you exactly how to claim what you're owed.</div>
-        <a href="#" class="btn-read">Read Article &rarr;</a>
+        <a href="article.html" class="btn-read">Read Article &rarr;</a>
       </div>
     </div>
 
@@ -579,7 +581,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     <div class="sec-label au">Latest articles</div>
     <div class="card-grid au">
       <!-- Card 1 -->
-      <div class="card">
+      <div class="card" onclick="window.location.href='article.html'">
         <div class="card-img">
           <img src="https://www.tunefry.com/uploads/Indian music distribution.png" alt="Indian music distribution guide">
         </div>
@@ -596,7 +598,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         </div>
       </div>
       <!-- Card 2 -->
-      <div class="card">
+      <div class="card" onclick="window.location.href='article.html'">
         <div class="card-img">
           <img src="https://www.tunefry.com/uploads/Distribute Music Online.jpg" alt="Distribute music online with unlimited uploads">
         </div>
@@ -613,7 +615,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         </div>
       </div>
       <!-- Card 3 -->
-      <div class="card">
+      <div class="card" onclick="window.location.href='article.html'">
         <div class="card-img">
           <img src="https://www.tunefry.com/uploads/1000156552.jpg" alt="Chote Se Bada new release announcement">
         </div>
@@ -635,7 +637,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     <div class="sec-label au">More articles</div>
     <div class="row-cards au">
       <!-- Row 1 -->
-      <div class="row-card">
+      <div class="row-card" onclick="window.location.href='article.html'">
         <div class="row-card-img">
           <img src="https://www.tunefry.com/uploads/a-contemporary-workspace-photograph-show_hsp35n5rQ9a2moQZgM9yCA_QrtKtFWnT-aatRhzG9RlMQ (1).jpeg" alt="Building a release strategy for maximum catalog value">
         </div>
@@ -652,7 +654,7 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         </div>
       </div>
       <!-- Row 2 -->
-      <div class="row-card">
+      <div class="row-card" onclick="window.location.href='article.html'">
         <div class="row-card-img">
           <img src="https://www.tunefry.com/uploads/Lucid_Origin_Highquality_closeup_of_a_computer_screen_displayi_3.jpg" alt="Distribute music in India like a brand">
         </div>
@@ -787,66 +789,54 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 </div>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
+<footer>
   <div class="footer-inner">
-    <div class="footer-grid">
-      <!-- Brand -->
-      <div class="footer-brand">
-        <a href="home.html" class="footer-brand-logo" aria-label="Tunefry home">
-          <img src="PHOTOS/tunefry-logo.png" alt="Tunefry">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:32px;width:auto;display:block;object-fit:contain;">
+      </div>
+      <p>Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <p class="footer-brand-desc">Empowering independent artists with the tools, distribution, and insights they need to build sustainable music careers.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="#" aria-label="Twitter/X">
-            <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2 29 29 0 00-.46 5.25 29 29 0 00.46 5.25 2.78 2.78 0 001.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.25z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
-          </a>
-          <a href="#" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
-        </div>
-      </div>
-      <!-- Quick Links -->
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="pricing.html">Pricing</a></li>
-          <li><a href="services.html">Artist Services</a></li>
-          <li><a href="daily.html">Tunefry Daily</a></li>
-        </ul>
-      </div>
-      <!-- Services -->
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="#">Distribution</a></li>
-          <li><a href="#">Playlist Pitching</a></li>
-          <li><a href="#">Content ID</a></li>
-          <li><a href="#">Caller Tune</a></li>
-        </ul>
-      </div>
-      <!-- Support / Legal -->
-      <div class="footer-col">
-        <h4>Support &amp; Legal</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-        </ul>
+        <a href="#" class="social-btn" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 11.75a29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</p>
-      <p>support@tunefry.com</p>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="home.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="services.html">Artist Services</a>
+      <a href="daily.html">Tunefry Daily</a>
     </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="distribution.html">Distribution</a>
+      <a href="playlist-pitching.html">Playlist Pitching</a>
+      <a href="content-id.html">Content ID</a>
+      <a href="callertune.html">Caller Tune</a>
+      <a href="song-transfer.html">Song Transfer &amp; Portability</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support &amp; Legal</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span>
+    <a href="mailto:support@tunefry.com">support@tunefry.com</a>
   </div>
 </footer>
 

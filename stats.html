@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,6 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -102,6 +119,26 @@
   <!-- ─── Main Content ────────────────────────────────────────── -->
   <main class="content">
 
+    <!-- ===== BACKEND CONTRACT (read-only page) =========================
+         GET /api/stats/overview?range=12m
+         Auth: session cookie (credentials: 'include')
+
+         Expected response shape:
+         {
+           total_streams: number,            -> [data-bind="total_streams"]
+           total_streams_change_pct: number,  -> [data-bind="total_streams_change"]
+           total_revenue: number (USD),       -> [data-bind="total_revenue"]
+           total_revenue_change_pct: number,  -> [data-bind="total_revenue_change"]
+           revenue_chart:  [{month, value}],  -> rendered into <canvas id="revenueChart">
+           streams_chart:  [{month, value}],  -> rendered into <canvas id="streamsChart">
+           platform_split: [{name, pct, color}], -> <canvas id="platformChart"> + .platform-legend
+           top_tracks: {
+             monthly: [{rank, title, type, streams, revenue, trend_pct, top_platform}],
+             yearly:  [{rank, title, type, streams, revenue, trend_pct, top_platform}]
+           }                                  -> <table.data-table tbody>  (toggle via #toggleMonthly/#toggleYearly)
+         }
+         All numeric values formatted client-side; backend may send raw numbers.
+    ============================================================== -->
     <div class="page-label animate-in">
       <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg>
       Analytics
@@ -110,10 +147,19 @@
     <div class="page-header animate-in animate-in-delay-1">
       <h1 class="page-title">Stats & Revenue</h1>
       <div class="page-header-actions">
-        <button class="btn btn-outline">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Last 12 Months
-        </button>
+        <div style="position:relative;">
+          <button class="btn btn-outline" id="rangeBtn" onclick="toggleRangeDD(event)" style="gap:8px;">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="rangeLabel">Last 12 Months</span>
+            <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div id="rangeDD" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:rgba(18,14,10,0.97);border:0.5px solid rgba(255,255,255,0.12);border-radius:10px;padding:5px;min-width:160px;z-index:200;box-shadow:0 8px 28px rgba(0,0,0,0.55);">
+            <button onclick="setRange('3m','Last 3 Months')" id="ropt-3m" style="display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:none;color:var(--text-secondary);font-size:13px;font-family:var(--font-display);font-weight:600;cursor:pointer;border-radius:7px;transition:background .15s,color .15s;" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color=this.classList.contains('r-active')?'var(--accent)':'var(--text-secondary)'">Last 3 Months</button>
+            <button onclick="setRange('6m','Last 6 Months')" id="ropt-6m" style="display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:none;color:var(--text-secondary);font-size:13px;font-family:var(--font-display);font-weight:600;cursor:pointer;border-radius:7px;transition:background .15s,color .15s;" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color=this.classList.contains('r-active')?'var(--accent)':'var(--text-secondary)'">Last 6 Months</button>
+            <button onclick="setRange('12m','Last 12 Months')" id="ropt-12m" style="display:block;width:100%;text-align:left;padding:8px 12px;background:rgba(242,101,34,0.08);border:none;color:var(--accent);font-size:13px;font-family:var(--font-display);font-weight:600;cursor:pointer;border-radius:7px;" class="r-active">Last 12 Months</button>
+            <button onclick="setRange('all','All Time')" id="ropt-all" style="display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:none;color:var(--text-secondary);font-size:13px;font-family:var(--font-display);font-weight:600;cursor:pointer;border-radius:7px;transition:background .15s,color .15s;" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color=this.classList.contains('r-active')?'var(--accent)':'var(--text-secondary)'">All Time</button>
+          </div>
+        </div>
         <a href="withdrawal.html" class="btn btn-primary" style="text-decoration:none;">
           <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
           Withdraw Earnings
@@ -125,13 +171,13 @@
     <div class="stats-grid-2 animate-in animate-in-delay-2" style="isolation: isolate;">
       <div class="glass-card mini-stat-card">
         <div class="mini-stat-label">Total Streams</div>
-        <div class="mini-stat-value" data-count="230797">230,797</div>
-        <div class="mini-stat-change text-green">+12.4%</div>
+        <div class="mini-stat-value" data-bind="total_streams" data-count="230797">230,797</div>
+        <div class="mini-stat-change text-green" data-bind="total_streams_change">+12.4%</div>
       </div>
       <div class="glass-card mini-stat-card">
         <div class="mini-stat-label">Total Revenue</div>
-        <div class="mini-stat-value">$2,641</div>
-        <div class="mini-stat-change text-green">+18.2%</div>
+        <div class="mini-stat-value" data-bind="total_revenue">$2,641</div>
+        <div class="mini-stat-change text-green" data-bind="total_revenue_change">+18.2%</div>
       </div>
     </div>
 
@@ -388,6 +434,32 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="js/app.js"></script>
 <script>
+function toggleRangeDD(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('rangeDD');
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+function setRange(key, label) {
+  document.getElementById('rangeLabel').textContent = label;
+  ['3m','6m','12m','all'].forEach(function(k) {
+    var el = document.getElementById('ropt-' + k);
+    if (k === key) {
+      el.style.background = 'rgba(242,101,34,0.08)';
+      el.style.color = 'var(--accent)';
+      el.classList.add('r-active');
+    } else {
+      el.style.background = 'transparent';
+      el.style.color = 'var(--text-secondary)';
+      el.classList.remove('r-active');
+    }
+  });
+  document.getElementById('rangeDD').style.display = 'none';
+}
+document.addEventListener('click', function() {
+  var dd = document.getElementById('rangeDD');
+  if (dd) dd.style.display = 'none';
+});
+
 function switchTopTracks(period) {
   var monthly = document.getElementById('toggleMonthly');
   var yearly  = document.getElementById('toggleYearly');

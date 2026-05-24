@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -196,6 +196,23 @@
     .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     @media(max-width:600px){.form-row-2{grid-template-columns:1fr;}}
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -405,6 +422,19 @@
       fd.append('evidence', fileInput.files[0]);
     }
 
+    /* ===== BACKEND CONTRACT =========================================
+     * POST /api/support/claim-removal
+     * Content-Type: multipart/form-data  (set automatically by browser)
+     * Auth: session cookie (credentials: 'include')
+     *
+     * Text fields: song_name, artist_name, youtube_link
+     * File field:
+     *   evidence  (.jpg/.jpeg/.png/.pdf, required)
+     *
+     * Expected response:
+     *   2xx -> { ok: true, ticket_id: string }
+     *   4xx/5xx -> { message: string }
+     * ================================================================ */
     fetch('/api/support/claim-removal', {
       method: 'POST',
       body: fd,

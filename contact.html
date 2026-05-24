@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Tunefry</title>
+<link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--s1:#111111;--s2:#181818;--or:#FF6B00;--or-d:rgba(255,107,0,0.10);--or-b:rgba(255,107,0,0.25);--bd:rgba(255,255,255,0.07);--bd2:rgba(255,255,255,0.13);--t1:#FFFFFF;--t2:rgba(255,255,255,0.62);--t3:rgba(255,255,255,0.36);--gr:#2DCA72;--gr-d:rgba(45,202,114,0.11);--gr-b:rgba(45,202,114,0.28);--ease:cubic-bezier(.22,1,.36,1);--font-d:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}body{font-family:var(--font-b);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.6;}a{text-decoration:none;color:inherit;}ul{list-style:none;}
+.au{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);}.au.vis{opacity:1;transform:none;}.au-d1{transition-delay:.1s;}.au-d2{transition-delay:.2s;}.au-d3{transition-delay:.3s;}
+.nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 40px;background:rgba(10,10,10,0.90);backdrop-filter:blur(20px);border-bottom:.5px solid var(--bd);transition:background .3s;}.nav.scrolled{background:rgba(10,10,10,0.98);box-shadow:0 1px 28px rgba(0,0,0,.5);}
+.nav-ctr{display:flex;align-items:center;gap:2px;}.nav-ctr a{font-size:13px;color:var(--t2);padding:7px 14px;border-radius:8px;transition:all .2s;}.nav-ctr a:hover{color:var(--t1);background:rgba(255,255,255,.05);}
+.nav-refer{color:var(--or)!important;}.nav-refer:hover{background:rgba(255,107,0,.08)!important;}
+.nav-rt{display:flex;align-items:center;gap:10px;}.btn-ghost{font-size:13px;color:var(--t2);padding:8px 18px;border-radius:8px;border:.5px solid var(--bd2);transition:all .2s;}.btn-ghost:hover{color:var(--t1);border-color:rgba(255,255,255,.25);}
+.btn-or{font-size:13px;font-weight:600;color:#fff;background:var(--or);padding:9px 20px;border-radius:8px;box-shadow:0 0 20px rgba(255,107,0,.3);transition:all .2s;font-family:var(--font-d);}.btn-or:hover{box-shadow:0 0 32px rgba(255,107,0,.5);transform:translateY(-1px);}
+.nav-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}.nav-ham span{display:block;width:20px;height:1.5px;background:var(--t2);border-radius:2px;transition:transform .3s,opacity .3s;}.nav-ham.open span:nth-child(1){transform:rotate(45deg) translate(3px,3px);}.nav-ham.open span:nth-child(2){opacity:0;}.nav-ham.open span:nth-child(3){transform:rotate(-45deg) translate(3px,-3px);}
+.mob-menu{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:999;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);flex-direction:column;padding:32px 28px;gap:4px;}.mob-menu.open{display:flex;}.mob-menu a{font-size:15px;color:var(--t2);padding:14px 0;border-bottom:.5px solid var(--bd);transition:color .2s;}.mob-menu a:hover{color:var(--or);}
+.mob-btns{display:flex;flex-direction:column;gap:10px;margin-top:20px;}.mob-btns a{border-bottom:none;text-align:center;padding:12px;border-radius:10px;}.mob-btns .btn-ghost{border:.5px solid var(--bd2);}.mob-btns .btn-or{background:var(--or);color:#fff;font-family:var(--font-d);font-weight:700;}
+/* HERO */
+.contact-hero{padding:80px 40px 64px;text-align:center;border-bottom:.5px solid var(--bd);position:relative;overflow:hidden;}
+.contact-hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(255,107,0,.10) 0%,transparent 70%);pointer-events:none;}
+.contact-hero h1{font-family:var(--font-d);font-size:clamp(36px,5vw,60px);font-weight:800;letter-spacing:-2px;margin-bottom:14px;}
+.contact-hero h1 em{color:var(--or);font-style:normal;}
+.contact-hero p{font-size:16px;color:var(--t2);max-width:480px;margin:0 auto;font-weight:300;}
+/* LAYOUT */
+.contact-layout{max-width:1100px;margin:0 auto;padding:72px 40px;display:grid;grid-template-columns:1fr 420px;gap:56px;}
+/* FORM */
+.contact-form-wrap h2{font-family:var(--font-d);font-size:24px;font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
+.contact-form-wrap .sub{font-size:14px;color:var(--t3);margin-bottom:32px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:12.5px;color:var(--t3);margin-bottom:8px;font-weight:500;letter-spacing:.3px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--s1);border:.5px solid var(--bd2);border-radius:10px;padding:12px 16px;font-family:var(--font-b);font-size:14px;color:var(--t1);outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--or-b);}
+.form-group select{appearance:none;cursor:pointer;}
+.form-group select option{background:var(--s2);}
+.form-group textarea{resize:vertical;min-height:130px;}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--t3);}
+.btn-submit{width:100%;background:var(--or);color:#fff;font-family:var(--font-d);font-weight:700;font-size:14px;padding:14px;border-radius:10px;border:none;cursor:pointer;box-shadow:0 0 24px rgba(255,107,0,.3);transition:all .25s;margin-top:8px;}
+.btn-submit:hover{box-shadow:0 0 36px rgba(255,107,0,.5);transform:translateY(-1px);}
+.form-note{font-size:12px;color:var(--t3);margin-top:12px;text-align:center;}
+/* SIDEBAR */
+.contact-sidebar{}
+.contact-card{background:var(--s1);border:.5px solid var(--bd);border-radius:14px;padding:28px 24px;margin-bottom:16px;}
+.contact-card h3{font-family:var(--font-d);font-size:14px;font-weight:700;margin-bottom:16px;}
+.contact-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.contact-item:last-child{margin-bottom:0;}
+.ci-icon{width:36px;height:36px;border-radius:8px;background:var(--or-d);border:.5px solid var(--or-b);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci-icon svg{width:16px;height:16px;stroke:var(--or);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.ci-text .label{font-size:11px;color:var(--t3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px;}
+.ci-text .val{font-size:14px;color:var(--t1);}
+.ci-text a{color:var(--t1);transition:color .2s;}.ci-text a:hover{color:var(--or);}
+.hours-list{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.hour-row{display:flex;justify-content:space-between;font-size:13px;}.hour-row .day{color:var(--t3);}.hour-row .time{color:var(--t2);}
+/* FAQ */
+.faq-section{background:var(--s1);border-top:.5px solid var(--bd);border-bottom:.5px solid var(--bd);padding:72px 40px;}
+.faq-inner{max-width:760px;margin:0 auto;}
+.faq-title{font-family:var(--font-d);font-size:clamp(24px,3vw,36px);font-weight:800;letter-spacing:-1px;margin-bottom:40px;}
+.faq-item{border-bottom:.5px solid var(--bd);padding:24px 0;}
+.faq-item:last-child{border-bottom:none;}
+.faq-item h3{font-family:var(--font-d);font-size:16px;font-weight:700;margin-bottom:10px;}
+.faq-item p{font-size:14.5px;color:var(--t2);line-height:1.75;}
+/* SUCCESS */
+.form-success{display:none;text-align:center;padding:40px 20px;}
+.form-success .check{width:56px;height:56px;border-radius:50%;background:var(--gr-d);border:.5px solid var(--gr-b);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.form-success .check svg{width:24px;height:24px;stroke:var(--gr);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.form-success h3{font-family:var(--font-d);font-size:20px;font-weight:700;margin-bottom:8px;}
+.form-success p{font-size:14px;color:var(--t2);}
+footer{background:var(--s1);border-top:.5px solid var(--bd);padding:64px 40px 0;}.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px;}.footer-brand p{font-size:13px;color:var(--t3);margin:14px 0 22px;line-height:1.8;max-width:280px;}.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px;}.footer-logo-sq{width:30px;height:30px;border-radius:8px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:14px;color:#fff;}.footer-logo-txt{font-family:var(--font-d);font-size:1.05rem;font-weight:700;color:var(--t1);}.footer-logo-txt b{color:var(--or);}.footer-socials{display:flex;gap:8px;}.social-btn{width:34px;height:34px;border-radius:9px;background:var(--s2);border:.5px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all .2s;}.social-btn:hover{border-color:var(--or-b);background:var(--or-d);}.social-btn svg{width:14px;height:14px;stroke:var(--t3);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}.social-btn:hover svg{stroke:var(--or);}.footer-col h4{font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:18px;}.footer-col a{display:block;font-size:13.5px;color:var(--t2);padding:5px 0;transition:color .2s;}.footer-col a:hover{color:var(--or);}.footer-bottom{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:24px 0;border-top:.5px solid var(--bd);font-size:12.5px;color:var(--t3);}.footer-bottom a{color:var(--t3);transition:color .2s;}.footer-bottom a:hover{color:var(--t1);}
+@media(max-width:1024px){.contact-layout{grid-template-columns:1fr;gap:40px;}.footer-inner{grid-template-columns:1fr 1fr;gap:36px;}}
+@media(max-width:768px){.nav-ctr,.nav-rt{display:none;}.nav-ham{display:flex;}.nav{padding:0 20px;}.contact-hero{padding:56px 20px 48px;}.contact-layout{padding:48px 20px;}.form-row{grid-template-columns:1fr;}.faq-section{padding:48px 20px;}.footer-inner{grid-template-columns:1fr;gap:28px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="home.html" class="nav-logo"><img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:38px;width:auto;display:block;object-fit:contain;"></a>
+  <div class="nav-ctr"><a href="home.html">Home</a><a href="daily.html">Tunefry Daily</a><a href="services.html">Artist Services</a><a href="pricing.html">Pricing</a><a href="refer-earn.html" class="nav-refer">Refer &amp; Earn</a></div>
+  <div class="nav-rt"><a href="login.html" class="btn-ghost">Log in</a><a href="signup.html" class="btn-or">Start Distributing</a></div>
+  <button class="nav-ham" id="navHam" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="home.html">Home</a><a href="daily.html">Tunefry Daily</a><a href="services.html">Artist Services</a><a href="pricing.html">Pricing</a><a href="refer-earn.html" style="color:var(--or)">Refer &amp; Earn</a>
+  <div class="mob-btns"><a href="login.html" class="btn-ghost">Log in</a><a href="signup.html" class="btn-or">Start Distributing</a></div>
+</div>
+
+<div class="contact-hero">
+  <div class="au">
+    <h1>Contact <em>Us</em></h1>
+    <p>Feel free to contact us any time. We'll get back to you as soon as we can!</p>
+  </div>
+</div>
+
+<div class="contact-layout">
+  <!-- FORM -->
+  <div class="contact-form-wrap au">
+    <h2>Send Us a Message</h2>
+    <p class="sub">We typically respond within 24 hours on business days.</p>
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Arjun"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="arjun@example.com"></div>
+      <div class="form-group">
+        <label>Subject</label>
+        <select>
+          <option value="" disabled selected>Select a topic</option>
+          <option>Distribution &amp; Releases</option>
+          <option>Royalties &amp; Payments</option>
+          <option>Content ID &amp; Copyright</option>
+          <option>Account &amp; Billing</option>
+          <option>Song Transfer</option>
+          <option>Playlist Pitching</option>
+          <option>Technical Issue</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Describe your issue or question in detail..."></textarea></div>
+      <button class="btn-submit" onclick="submitForm()">Send Message</button>
+      <p class="form-note">By submitting, you agree to our <a href="privacy.html" style="color:var(--or)">Privacy Policy</a>.</p>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3>Message Sent!</h3>
+      <p>Thanks for reaching out. Our team will get back to you within 24 hours at the email address you provided.</p>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="contact-sidebar au au-d1">
+    <div class="contact-card">
+      <h3>Contact Details</h3>
+      <div class="contact-item">
+        <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="ci-text"><div class="label">Email</div><div class="val"><a href="mailto:support@tunefry.com">support@tunefry.com</a></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="ci-text"><div class="label">Phone</div><div class="val"><a href="tel:+917428028995">+91 7428028995</a></div></div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="ci-text"><div class="label">Address</div><div class="val">j57, Paryavaran complex,<br>saket, delhi, 110030</div></div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>Support Hours</h3>
+      <div class="hours-list">
+        <div class="hour-row"><span class="day">Monday – Friday</span><span class="time">9 AM – 7 PM IST</span></div>
+        <div class="hour-row"><span class="day">Saturday</span><span class="time">10 AM – 4 PM IST</span></div>
+        <div class="hour-row"><span class="day">Sunday</span><span class="time">Closed</span></div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <h3>Quick Links</h3>
+      <a href="help.html" style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--t2);padding:8px 0;border-bottom:.5px solid var(--bd);transition:color .2s;" onmouseover="this.style.color='var(--or)'" onmouseout="this.style.color='var(--t2)'">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Help Center
+      </a>
+      <a href="terms.html" style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--t2);padding:8px 0;border-bottom:.5px solid var(--bd);transition:color .2s;" onmouseover="this.style.color='var(--or)'" onmouseout="this.style.color='var(--t2)'">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;flex-shrink:0;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Terms of Service
+      </a>
+      <a href="refund.html" style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--t2);padding:8px 0;transition:color .2s;" onmouseover="this.style.color='var(--or)'" onmouseout="this.style.color='var(--t2)'">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;flex-shrink:0;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Refund Policy
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="faq-section">
+  <div class="faq-inner">
+    <h2 class="faq-title au">Frequently Asked Questions</h2>
+    <div class="faq-item au">
+      <h3>What is TuneFry?</h3>
+      <p>TuneFry is a music promotion marketplace that helps artists get real visibility with playlisting, content promotion, and expert guidance.</p>
+    </div>
+    <div class="faq-item au au-d1">
+      <h3>How does TuneFry promote music?</h3>
+      <p>We use curated playlists, social media influencer collaborations, and targeted strategies based on your music genre and goals.</p>
+    </div>
+    <div class="faq-item au au-d2">
+      <h3>How can I join Tunefry?</h3>
+      <p>Joining Tunefry is simple — you just need to create an account, complete your artist profile, and upload your music content to start sharing it with the world.</p>
+    </div>
+    <div class="faq-item au au-d3">
+      <h3>Is there a fee to use Tunefry?</h3>
+      <p>Tunefry offers both free and premium plans; the premium plan unlocks extra distribution, analytics, and marketing support for professional growth.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo"><img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:32px;width:auto;display:block;object-fit:contain;"></div>
+      <p>Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" class="social-btn" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M4 4l11.73 16h4.27L8.27 4z"/><path d="M4 20l6.77-6.77"/><path d="M20 4l-6.77 6.77"/></svg></a>
+        <a href="#" class="social-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 11.75a29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg></a>
+        <a href="#" class="social-btn" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><a href="home.html">Home</a><a href="pricing.html">Pricing</a><a href="services.html">Artist Services</a><a href="daily.html">Tunefry Daily</a></div>
+    <div class="footer-col"><h4>Services</h4><a href="distribution.html">Distribution</a><a href="playlist-pitching.html">Playlist Pitching</a><a href="content-id.html">Content ID</a><a href="callertune.html">Caller Tune</a><a href="song-transfer.html">Song Transfer &amp; Portability</a></div>
+    <div class="footer-col"><h4>Support &amp; Legal</h4><a href="contact.html">Contact Us</a><a href="terms.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a><a href="refund.html">Refund Policy</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Tunefry Artist Services Pvt. Ltd. All rights reserved.</span><a href="mailto:support@tunefry.com">support@tunefry.com</a></div>
+</footer>
+<script>
+function submitForm(){
+  document.getElementById('contactForm').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+}
+(function(){var els=document.querySelectorAll('.au');if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vis');});return;}var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('vis');io.unobserve(en.target);}});},{threshold:0.05,rootMargin:'0px 0px 60px 0px'});els.forEach(function(e){io.observe(e);});document.querySelectorAll('.contact-hero .au').forEach(function(e){e.classList.add('vis');});})();
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);});
+document.getElementById('navHam').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('mobMenu').classList.toggle('open');});
+</script>
+</body>
+</html>

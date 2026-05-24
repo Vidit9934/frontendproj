@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -313,8 +313,8 @@ ul { list-style:none; }
 
 /* ── FOOTER ── */
 footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40px 0; }
-.footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:52px; margin-bottom:52px; }
-.footer-logo-row { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
+.footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
+.footer-logo { display:flex; align-items:center; gap:10px; margin-bottom:4px; }
 .footer-logo-sq { width:30px; height:30px; border-radius:8px; background:var(--or); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-weight:800; font-size:14px; color:#fff; }
 .footer-logo-txt { font-family:var(--font-d); font-size:1.05rem; font-weight:700; color:var(--t1); }
 .footer-logo-txt b { color:var(--or); }
@@ -362,6 +362,23 @@ footer { background:var(--s1); border-top:0.5px solid var(--bd); padding:64px 40
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -681,10 +698,10 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="footer-logo-row">
-        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:30px;width:auto;display:block;object-fit:contain;">
+      <div class="footer-logo">
+        <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:32px;width:auto;display:block;object-fit:contain;">
       </div>
-      <p>India's fastest-growing music distribution platform. Get your music heard on 100+ streaming services worldwide.</p>
+      <p>Empowering independent artists to distribute, promote, and monetize their music globally. Your sound, your terms.</p>
       <div class="footer-socials">
         <a href="#" class="social-btn" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -709,17 +726,18 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="services.html">Distribution</a>
-      <a href="services.html">Playlist Pitching</a>
-      <a href="services.html">Content ID</a>
-      <a href="services.html">Caller Tune</a>
+      <a href="distribution.html">Distribution</a>
+      <a href="playlist-pitching.html">Playlist Pitching</a>
+      <a href="content-id.html">Content ID</a>
+      <a href="callertune.html">Caller Tune</a>
+      <a href="song-transfer.html">Song Transfer &amp; Portability</a>
     </div>
     <div class="footer-col">
-      <h4>Legal</h4>
-      <a href="#">Terms of Service</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Refund Policy</a>
-      <a href="mailto:support@tunefry.com">support@tunefry.com</a>
+      <h4>Support &amp; Legal</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
     </div>
   </div>
   <div class="footer-bottom">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -251,6 +251,23 @@
     .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     .input-error { border-color: #3B82F6 !important; }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -296,6 +313,33 @@
   </header>
 
   <main class="content">
+
+    <!-- ===== BACKEND CONTRACT (read-only + edit page) ==================
+         GET  /api/profile        -> populates the form below
+         POST /api/profile        -> saves edits (multipart/form-data if photo changed,
+                                                  application/json otherwise)
+         Auth: session cookie (credentials: 'include')
+
+         Expected response / payload shape:
+         {
+           full_name: string,        -> #fullName
+           artist_name: string,      -> #artistName
+           email: string,            -> #email
+           phone: string,            -> #phone
+           dob: 'YYYY-MM-DD',        -> #dob
+           gender: string,           -> #gender
+           city: string,             -> #city
+           state: string,            -> #state
+           country: string,          -> #country
+           bio: string,              -> #bio
+           spotify_url: string,      -> #spotify
+           instagram_handle: string, -> #instagram
+           youtube_url: string,      -> #youtube
+           photo_url: string         -> <img id="profilePhoto">
+         }
+         File upload field on save:
+           photo  (image/*, optional)
+    ============================================================== -->
     <div class="page-label">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       Account

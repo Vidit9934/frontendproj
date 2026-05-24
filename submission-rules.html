@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tunefry — Submission Rules & Terms</title>
+  <link rel="icon" type="image/png" href="PHOTOS/favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .rule-card {
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .rule-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--accent), rgba(242,101,34,0.2));
+      border-radius: 0 2px 2px 0;
+    }
+    .rule-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: rgba(242,101,34,0.12);
+      border: 0.5px solid rgba(242,101,34,0.3);
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .rule-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .rule-sub {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 16px 0 8px;
+    }
+    .rule-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rule-list li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding-left: 18px;
+      position: relative;
+    }
+    .rule-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(242,101,34,0.5);
+    }
+    .rule-list li strong { color: var(--text-primary); font-weight: 700; }
+    .rule-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .rule-body strong { color: var(--text-primary); font-weight: 700; }
+    .rule-warn {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      background: rgba(239,68,68,0.07);
+      border: 0.5px solid rgba(239,68,68,0.2);
+      border-radius: 10px;
+      margin-top: 14px;
+    }
+    .rule-warn svg { width: 15px; height: 15px; stroke: #EF4444; fill: none; stroke-width: 2; stroke-linecap: round; flex-shrink: 0; margin-top: 1px; }
+    .rule-warn p { font-size: 12px; color: rgba(239,68,68,0.9); line-height: 1.65; margin: 0; }
+    .rule-warn strong { color: #EF4444; font-weight: 700; }
+    .rule-info {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      background: rgba(242,101,34,0.07);
+      border: 0.5px solid rgba(242,101,34,0.2);
+      border-radius: 10px;
+      margin-top: 14px;
+    }
+    .rule-info svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; flex-shrink: 0; margin-top: 1px; }
+    .rule-info p { font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin: 0; }
+    .rule-info strong { color: var(--accent); font-weight: 700; }
+    .rule-divider { height: 0.5px; background: rgba(255,255,255,0.06); margin: 18px 0; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .summary-item {
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .summary-item-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .summary-item-val { font-family: var(--font-display); font-size: 14px; font-weight: 800; color: var(--text-primary); }
+
+    .plan-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .plan-badge.blue { background: rgba(59,130,246,0.12); color: #3B82F6; border: 0.5px solid rgba(59,130,246,0.25); }
+    .plan-badge.green { background: rgba(34,197,94,0.12); color: #22C55E; border: 0.5px solid rgba(34,197,94,0.25); }
+
+    @keyframes fadeSlideUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .animate-in { animation: fadeSlideUp .5s cubic-bezier(.22,1,.36,1) both; }
+    .animate-in-delay-1 { animation-delay: .06s; }
+    .animate-in-delay-2 { animation-delay: .12s; }
+    .animate-in-delay-3 { animation-delay: .20s; }
+  </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<div class="app no-right-panel">
+
+  <!-- Sidebar -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar">
+    <a href="home.html" class="sidebar-logo">
+      <img src="PHOTOS/tunefry-logo.png" alt="Tunefry" style="height:34px;width:auto;display:block;object-fit:contain;">
+    </a>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="nav-label">Overview</span></a>
+      <a href="stats.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-8"/></svg></span><span class="nav-label">Stats &amp; Revenue</span></a>
+      <a href="withdrawal.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="nav-label">Withdraw Earnings</span></a>
+      <a href="marketplace.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></span><span class="nav-label">Marketplace</span></a>
+      <div class="nav-item nav-dropdown-trigger" id="dailyNavTrigger" onclick="toggleDailyDropdown(this)"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span><span class="nav-label">Tunefry Daily</span><span class="nav-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+      <div class="nav-sub-menu" id="dailySubMenu"><a href="ai-blog.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Write a Blog</a><a href="daily.html" class="nav-sub-item"><span class="nav-sub-dot"></span>Tunefry Daily</a></div>
+      <a href="connect.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">Connect</span></a>
+      <a href="earn.html" class="nav-item"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/><polyline points="16 3 21 3 21 8"/><line x1="21" y1="3" x2="12" y2="12"/></svg></span><span class="nav-label">Refer &amp; Earn</span></a>
+    </nav>
+  </aside>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Open navigation">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="search-box">
+      <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="text" placeholder="Search...">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+      <div class="create-release-wrap">
+        <button class="btn-create" onclick="toggleCreateDropdown(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Create Release</span></button>
+        <div class="create-dropdown" id="createDropdown" onclick="event.stopPropagation()">
+          <a href="new-song.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(242,101,34,0.15);border:0.5px solid rgba(242,101,34,0.3);"><svg viewBox="0 0 24 24" stroke="#F26522" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Song Upload</span><span class="create-dropdown-sub">Single track release</span></div></a>
+          <div class="create-dropdown-divider"></div>
+          <a href="new-album.html" class="create-dropdown-item"><div class="create-dropdown-icon" style="background:rgba(59,130,246,0.15);border:0.5px solid rgba(59,130,246,0.3);"><svg viewBox="0 0 24 24" stroke="#3B82F6" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="create-dropdown-text"><span class="create-dropdown-title">Album Upload</span><span class="create-dropdown-sub">Multi-track project</span></div></a>
+        </div>
+      </div>
+      <div class="user-avatar" title="Profile">V</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content">
+
+    <div class="page-label animate-in">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Policies
+    </div>
+
+    <div class="page-header animate-in animate-in-delay-1">
+      <div>
+        <h1 class="page-title">Submission Rules &amp; Terms</h1>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:4px;">Read these carefully before submitting any release. Effective May 2026.</p>
+      </div>
+      <div class="page-header-actions">
+        <button onclick="window.close()" class="btn btn-outline">&#8592; Close</button>
+      </div>
+    </div>
+
+    <!-- Key Stats Strip -->
+    <div class="summary-grid animate-in animate-in-delay-2">
+      <div class="summary-item">
+        <div class="summary-item-label">Business Hours</div>
+        <div class="summary-item-val">11 AM – 5 PM IST</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Working Days</div>
+        <div class="summary-item-val">Mon – Fri Only</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Recommended Lead Time</div>
+        <div class="summary-item-val">7–10 Working Days</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-item-label">Playlist Pitch Deadline</div>
+        <div class="summary-item-val">20–25 Days Prior</div>
+      </div>
+    </div>
+
+    <!-- Rule 1 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-2">
+      <div class="rule-num">01</div>
+      <div class="rule-title">Working Hours &amp; Business Days</div>
+      <ul class="rule-list">
+        <li>Tunefry Artist Services Pvt. Ltd. operates from <strong>11:00 AM to 5:00 PM (IST)</strong>.</li>
+        <li>Working days are <strong>Monday to Friday only</strong>.</li>
+        <li><strong>Saturdays, Sundays, and Government Holidays are non-working days</strong> and are not counted in any approval, release, support, or processing timelines.</li>
+      </ul>
+    </div>
+
+    <!-- Rule 2 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-2">
+      <div class="rule-num">02</div>
+      <div class="rule-title">Release Submission &amp; Processing Timeline</div>
+      <p class="rule-body">To ensure smooth processing and avoid delays, artists are strongly advised to submit releases <strong>at least 7–10 days before the intended live date</strong>.</p>
+      <div class="rule-sub">Important Guidelines</div>
+      <ul class="rule-list">
+        <li>Any timeline mentioned in your plan (such as 24 working hours approval or Live within 48 working hours) is intended for <strong>urgent release requests only</strong> and <strong>cannot be guaranteed for every release</strong>.</li>
+        <li>Artists requiring an urgent release must <strong>inform the Tunefry team via email or chat support</strong> at the time of submission.</li>
+        <li>Urgent release timelines are only applicable if the release is submitted <strong>before 12:00 PM (IST)</strong> on a working day.</li>
+        <li>If any issue, metadata error, copyright concern, artwork issue, audio issue, or DSP rejection occurs, the release may be delayed by <strong>up to 72 working hours or more</strong>, depending on the issue.</li>
+        <li>Tunefry will make reasonable efforts to process urgent releases, but <strong>final approval depends on DSPs (Spotify, Apple Music, YouTube Music, etc.)</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- Rule 3 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-2">
+      <div class="rule-num">03</div>
+      <div class="rule-title">Playlist Pitching Policy</div>
+      <p class="rule-body">For editorial playlist pitching and radio pitching consideration:</p>
+      <ul class="rule-list">
+        <li>Songs must be submitted <strong>20–25 days before the scheduled release date</strong>.</li>
+        <li>Artists must specifically <strong>inform the Tunefry team</strong> that they wish to pitch the song for playlists.</li>
+        <li>Playlist placement is <strong>not guaranteed</strong>, as acceptance depends entirely on DSP/editorial teams.</li>
+      </ul>
+    </div>
+
+    <!-- Rule 4 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-2">
+      <div class="rule-num">04</div>
+      <div class="rule-title">Catalogue Transfer &amp; Migration Policy</div>
+      <ul class="rule-list">
+        <li>Catalogue transfer or migration requests may take <strong>up to 10 working days</strong> for proper processing.</li>
+        <li>Artists must provide <strong>accurate metadata</strong>, including: Song title, Artist names, ISRC codes, UPC/EAN, Release dates, and Existing DSP links.</li>
+      </ul>
+      <div class="rule-sub">Disclaimer</div>
+      <ul class="rule-list">
+        <li>Tunefry will <strong>not be responsible for any stream loss, profile mismatch, or metadata issues</strong> if incorrect or incomplete information is provided by the artist.</li>
+        <li>Wrong metadata may result in <strong>loss of previous streams, playlist placements, or merging issues</strong> on DSPs.</li>
+      </ul>
+      <div class="rule-warn">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p>Always double-check your ISRC and UPC codes before submitting a transfer request. Errors here can permanently affect your streaming history.</p>
+      </div>
+    </div>
+
+    <!-- Rule 5 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3">
+      <div class="rule-num">05</div>
+      <div class="rule-title">Content ID Eligibility Policy</div>
+      <p class="rule-body">Content ID is available only for eligible content.</p>
+      <div class="rule-sub">Content ID Cannot Be Approved If</div>
+      <ul class="rule-list">
+        <li>The beat/music is downloaded from <strong>YouTube</strong>.</li>
+        <li>The instrumental is marked as <strong>"Free Beat"</strong>, <strong>"Free for Profit Beat"</strong>, or similar.</li>
+        <li>The music is derived from non-exclusive publicly available sources.</li>
+      </ul>
+      <div class="rule-divider"></div>
+      <div class="rule-sub">Required Documentation</div>
+      <p class="rule-body">To claim Content ID, artists must provide:</p>
+      <ul class="rule-list">
+        <li>A <strong>valid commercial beat license</strong>, or</li>
+        <li>Proper ownership documentation proving exclusive rights.</li>
+      </ul>
+      <div class="rule-info">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>Tunefry reserves the right to reject Content ID requests if ownership cannot be verified.</p>
+      </div>
+    </div>
+
+    <!-- Rule 6 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3">
+      <div class="rule-num">06</div>
+      <div class="rule-title">Main Artist &amp; Collaboration Policy</div>
+      <div class="rule-sub">Single Artist, Starter, Single Song &amp; Free Plans <span class="plan-badge blue" style="margin-left:6px;">Basic</span></div>
+      <ul class="rule-list">
+        <li>Only <strong>one primary/main artist</strong> is allowed.</li>
+        <li>Additional artists may only be added as <strong>Featured Artists (Feat.)</strong>.</li>
+        <li>Adding a <strong>second primary artist is not permitted</strong> under these plans.</li>
+      </ul>
+      <div class="rule-divider"></div>
+      <div class="rule-sub">Double Artist Plan &amp; Label Plan <span class="plan-badge green" style="margin-left:6px;">Pro</span></div>
+      <ul class="rule-list">
+        <li>Artists may add <strong>multiple main/primary artists</strong>.</li>
+        <li>Collaboration releases with multiple primary artists are supported.</li>
+      </ul>
+    </div>
+
+    <!-- Rule 7 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3">
+      <div class="rule-num">07</div>
+      <div class="rule-title">Album / EP / Mixtape Processing Policy</div>
+      <p class="rule-body">Albums, EPs, and mixtapes require additional processing and platform review time.</p>
+      <div class="rule-sub">Submission Guidelines</div>
+      <ul class="rule-list">
+        <li>Artists should submit albums, EPs, or mixtapes <strong>15–20 days before the live date</strong>.</li>
+        <li>Album projects generally require a <strong>minimum of 10 working days</strong> for processing and delivery.</li>
+      </ul>
+      <div class="rule-divider"></div>
+      <div class="rule-sub">Delay Policy</div>
+      <ul class="rule-list">
+        <li>If all metadata, artwork, and audio files are correct, the release will be processed for the intended date.</li>
+        <li>In case of errors, metadata issues, copyright concerns, DSP review, or technical issues, the release may be delayed by <strong>up to 72 working hours or more</strong>.</li>
+        <li><strong>Non-working days and holidays are excluded from timeline calculations</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- Rule 8 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3">
+      <div class="rule-num">08</div>
+      <div class="rule-title">Approval &amp; Delivery Timeline Disclaimer</div>
+      <p class="rule-body">All approval and delivery timelines mentioned in subscription plans are <strong>estimated timelines only</strong>.</p>
+      <p class="rule-body">Tunefry does <strong>not guarantee fixed approval or live dates</strong>, as music platforms may: review content manually, reject metadata, delay releases, or request additional verification.</p>
+      <div class="rule-sub">Final Publishing Timelines Depend On</div>
+      <ul class="rule-list">
+        <li>Correct submission</li>
+        <li>DSP review process</li>
+        <li>Copyright checks</li>
+        <li>Metadata accuracy</li>
+        <li>Technical approval</li>
+      </ul>
+    </div>
+
+    <!-- Rule 9 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3">
+      <div class="rule-num">09</div>
+      <div class="rule-title">Artist Responsibility</div>
+      <div class="rule-sub">The Artist Is Solely Responsible For</div>
+      <ul class="rule-list">
+        <li>Copyright ownership</li>
+        <li>Sample clearance</li>
+        <li>Beat licenses</li>
+        <li>Metadata accuracy</li>
+        <li>Trademark or legal disputes</li>
+      </ul>
+      <div class="rule-divider"></div>
+      <div class="rule-sub">Violations May Result In</div>
+      <ul class="rule-list">
+        <li>Release takedown</li>
+        <li>Revenue withholding</li>
+        <li>Content ID removal</li>
+        <li>Account suspension or termination</li>
+      </ul>
+      <div class="rule-warn">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p><strong>Any false claims or copyright violations</strong> may result in permanent account termination with no refund. Ensure you hold full rights to all content before submitting.</p>
+      </div>
+    </div>
+
+    <!-- Rule 10 -->
+    <div class="glass-card rule-card animate-in animate-in-delay-3" style="margin-bottom:0;">
+      <div class="rule-num">10</div>
+      <div class="rule-title">Support Response Timeline</div>
+      <ul class="rule-list">
+        <li>Premium plans receive <strong>faster priority support</strong>.</li>
+        <li>Free and lower-tier plans may experience <strong>longer response times</strong>.</li>
+        <li>Support is available only during <strong>working hours and business days</strong>.</li>
+        <li>Response times are not guaranteed and depend on ticket volume at the time of request.</li>
+      </ul>
+      <div class="rule-info" style="margin-top:16px;">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>For the fastest support, always include your <strong>artist name, release title, and submission date</strong> in your support message.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:20px 24px;border-radius:14px;background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.07);text-align:center;">
+      <p style="font-size:12px;color:var(--text-muted);line-height:1.7;">These rules are subject to change. Tunefry reserves the right to update policies at any time. Continued use of the platform constitutes acceptance of the latest terms.</p>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:6px;">Tunefry Artist Services Pvt. Ltd. &nbsp;·&nbsp; Last updated: May 2026</p>
+    </div>
+
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

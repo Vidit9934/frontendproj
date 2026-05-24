@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -148,6 +148,23 @@
 
     @media(max-width:700px){ .form-grid{grid-template-columns:1fr;} .form-group.col-span-2{grid-column:1;} }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="app no-right-panel">
@@ -185,6 +202,12 @@
       <div><h1 class="page-title">Transfer Existing Song</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px;">Move a released song from another distributor without losing momentum.</p></div>
       <div class="page-header-actions"><a href="index.html" class="btn btn-outline">&#8592; Overview</a></div>
     </div>
+
+    <a href="submission-rules.html" target="_blank" style="display:flex;align-items:center;gap:12px;padding:13px 18px;background:rgba(242,101,34,0.07);border:0.5px solid rgba(242,101,34,0.22);border-left:3px solid #F26522;border-radius:12px;margin-bottom:20px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(242,101,34,0.11)'" onmouseout="this.style.background='rgba(242,101,34,0.07)'">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F26522" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span style="font-size:12.5px;color:var(--text-secondary);flex:1;">Before submitting, please review our <strong style="color:var(--accent);">Submission Rules &amp; Terms of Service</strong> — including processing timelines, content policies, and artist responsibilities.</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(242,101,34,0.6)" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
 
     <!-- Step 01: Identifiers -->
     <div class="glass-card transfer-section animate-in animate-in-delay-2">
@@ -515,10 +538,11 @@
           '<label class="form-label">Apple Music Link <span class="opt-tag">(optional)</span></label>' +
           '<input class="form-input" type="url" name="' + prefix + '[' + (num-1) + '][apple_music]" placeholder="https://music.apple.com/artist/...">' +
         '</div>' +
-        '<div class="form-group col-span-2">' +
+        (isFeatured ? '' :
+          '<div class="form-group col-span-2">' +
           '<label class="form-label">Instagram <span class="opt-tag">(optional)</span></label>' +
           '<input class="form-input" type="url" name="' + prefix + '[' + (num-1) + '][instagram]" placeholder="https://www.instagram.com/artist/...">' +
-        '</div>' +
+          '</div>') +
       '</div>';
     container.appendChild(card);
   }
@@ -605,8 +629,7 @@
       featuredArtists.push({
         name: inputs[0] ? inputs[0].value.trim() : '',
         spotify: inputs[1] ? inputs[1].value.trim() : '',
-        apple_music: inputs[2] ? inputs[2].value.trim() : '',
-        instagram: inputs[3] ? inputs[3].value.trim() : ''
+        apple_music: inputs[2] ? inputs[2].value.trim() : ''
       });
     });
 
@@ -630,6 +653,25 @@
     var audioInput = document.querySelector('#audioFileZone input[type="file"]');
     if (audioInput && audioInput.files[0]) fd.append('audio_file', audioInput.files[0]);
 
+    /* ===== BACKEND CONTRACT =========================================
+     * POST /api/release/song/transfer
+     * Content-Type: multipart/form-data  (set automatically by browser)
+     * Auth: session cookie (credentials: 'include')
+     *
+     * Text fields: upc_code, isrc_code, song_title, yt_beat (yes|no),
+     *   explicit (yes|no), category, sub_category, language, mood,
+     *   original_release_date, go_live_date, yt_content_id (yes|no)
+     * JSON-encoded text fields:
+     *   main_artists      = [{name, spotify, apple_music, instagram}]
+     *   featured_artists  = [{name, spotify, apple_music}]
+     * File fields:
+     *   cover_art   (image/jpeg|image/png, required)
+     *   audio_file  (.wav/.mp3/.flac, required)
+     *
+     * Expected response:
+     *   2xx -> { ok: true, transfer_id: string }
+     *   4xx/5xx -> { message: string }
+     * ================================================================ */
     fetch('/api/release/song/transfer', {
       method: 'POST',
       body: fd,

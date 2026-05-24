@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -117,6 +117,26 @@ a{text-decoration:none;color:inherit;}
 .perk-icon{width:20px;height:20px;border-radius:6px;background:rgba(34,197,94,0.12);border:0.5px solid rgba(34,197,94,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .perk-icon svg{width:11px;height:11px;stroke:#22C55E;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
 
+/* Promo code row */
+.promo-wrap{position:relative;}
+.promo-tag{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--green);background:rgba(34,197,94,0.12);border:0.5px solid rgba(34,197,94,0.28);padding:3px 8px;border-radius:6px;pointer-events:none;transition:opacity .2s;}
+.promo-tag.hidden{opacity:0;}
+
+/* Captcha */
+.captcha-wrap{display:flex;align-items:center;gap:10px;}
+.captcha-challenge{
+  flex-shrink:0;padding:11px 16px;
+  background:rgba(255,255,255,0.04);
+  border:0.5px solid rgba(255,255,255,0.10);
+  border-radius:12px;font-size:14px;font-family:var(--font-d);font-weight:700;
+  color:var(--t1);letter-spacing:1.5px;white-space:nowrap;
+  user-select:none;-webkit-user-select:none;
+}
+.captcha-input{flex:1;}
+.captcha-refresh{background:none;border:none;cursor:pointer;color:var(--t3);padding:4px 6px;transition:color .2s;flex-shrink:0;}
+.captcha-refresh:hover{color:var(--t1);}
+.captcha-refresh svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
 /* Bottom */
 .auth-bottom{text-align:center;margin-top:20px;font-size:13px;color:var(--t2);}
 .auth-bottom a{color:var(--or);font-weight:600;margin-left:5px;transition:opacity .2s;}
@@ -139,6 +159,23 @@ a{text-decoration:none;color:inherit;}
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -204,11 +241,30 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="form-label">Promo Code <span style="color:var(--t3);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <div class="promo-wrap">
+            <input type="text" id="signupPromo" class="form-input" placeholder="Enter promo code" autocomplete="off" oninput="checkPromo(this.value)" style="text-transform:uppercase;letter-spacing:.5px;">
+            <span class="promo-tag hidden" id="promoTag">Applied ✓</span>
+          </div>
+        </div>
+
         <div class="terms-row">
           <input type="checkbox" class="terms-check" id="termsCheck">
           <label for="termsCheck" class="terms-text">
             I agree to Tunefry's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm I own or have rights to distribute the music I upload.
           </label>
+        </div>
+
+        <div class="form-group" style="margin-bottom:20px;">
+          <label class="form-label">Verification</label>
+          <div class="captcha-wrap">
+            <div class="captcha-challenge" id="captchaChallenge"></div>
+            <input type="text" id="captchaAnswer" class="form-input captcha-input" placeholder="Answer" autocomplete="off" inputmode="numeric">
+            <button type="button" class="captcha-refresh" onclick="newCaptcha()" title="New challenge">
+              <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            </button>
+          </div>
         </div>
 
         <button type="submit" class="btn-submit">Create Free Account</button>
@@ -248,12 +304,26 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 </footer>
 
 <script>
+var _captchaA = 0, _captchaB = 0;
+function newCaptcha() {
+  _captchaA = Math.floor(Math.random() * 9) + 1;
+  _captchaB = Math.floor(Math.random() * 9) + 1;
+  document.getElementById('captchaChallenge').textContent = _captchaA + ' + ' + _captchaB + ' =';
+  document.getElementById('captchaAnswer').value = '';
+}
+
+function checkPromo(val) {
+  var tag = document.getElementById('promoTag');
+  tag.classList.toggle('hidden', val.trim().length === 0);
+}
+
 function handleSignup(e) {
   e.preventDefault();
   var first  = document.getElementById('signupFirst').value.trim();
   var email  = document.getElementById('signupEmail').value.trim();
   var pw     = document.getElementById('signupPw').value;
   var terms  = document.getElementById('termsCheck').checked;
+  var captcha = parseInt(document.getElementById('captchaAnswer').value.trim(), 10);
   var errBox  = document.getElementById('signupError');
   var errText = document.getElementById('signupErrorText');
 
@@ -272,6 +342,11 @@ function handleSignup(e) {
   if (!terms) {
     errText.textContent = 'Please accept the Terms of Service to continue.';
     errBox.classList.add('show'); return;
+  }
+  if (isNaN(captcha) || captcha !== _captchaA + _captchaB) {
+    errText.textContent = 'Verification answer is incorrect. Please try again.';
+    errBox.classList.add('show');
+    newCaptcha(); return;
   }
 
   errBox.classList.remove('show');
@@ -314,6 +389,8 @@ function checkStrength(pw) {
   text.innerHTML = l.label;
   text.style.color = score >= 3 ? '#22C55E' : score >= 2 ? '#3B82F6' : 'rgba(255,255,255,0.38)';
 }
+
+newCaptcha();
 
 document.querySelectorAll('.form-input').forEach(function(inp){
   inp.addEventListener('input', function(){

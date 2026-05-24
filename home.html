@@ -276,7 +276,9 @@ ul { list-style:none; }
 .yt-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,0.5);border-color:rgba(255,107,0,0.3);}
 .yt-thumb{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
 .yt-thumb-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.yt-play-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,107,0,0.9);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;}
+.yt-thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;}
+.yt-thumb-img.loaded{opacity:1;}
+.yt-play-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,107,0,0.9);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;position:relative;z-index:1;}
 .yt-card:hover .yt-play-btn{transform:scale(1.12);background:var(--or);}
 .yt-info{padding:14px 16px;}
 .yt-title{font-family:var(--font-d);font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -300,7 +302,9 @@ ul { list-style:none; }
 .yt-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,0.5);border-color:rgba(255,107,0,0.3);}
 .yt-thumb{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
 .yt-thumb-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.yt-play-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,107,0,0.9);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;}
+.yt-thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;}
+.yt-thumb-img.loaded{opacity:1;}
+.yt-play-btn{width:52px;height:52px;border-radius:50%;background:rgba(255,107,0,0.9);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;position:relative;z-index:1;}
 .yt-card:hover .yt-play-btn{transform:scale(1.12);background:var(--or);}
 .yt-info{padding:14px 16px;}
 .yt-title{font-family:var(--font-d);font-size:13px;font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -367,9 +371,57 @@ section { padding:96px 40px; }
 .stat-block-val { font-family:var(--font-d); font-size:44px; font-weight:800; color:var(--or); line-height:1; }
 .stat-block-lbl { font-size:13px; color:var(--t3); margin-top:8px; }
 
-/* ── Artist Grid ── */
-.artist-grid { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:16px; }
-.artist-card { perspective:1000px; cursor:pointer; height:300px; min-width:0; }
+/* ── Artist Carousel ── */
+.ac-wrap { position:relative; padding:0 46px; }
+.artist-grid {
+  display:flex; gap:16px;
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  -ms-overflow-style:none; scrollbar-width:none;
+  padding-bottom:4px;
+}
+.artist-grid::-webkit-scrollbar { display:none; }
+.artist-card {
+  perspective:1000px; cursor:pointer;
+  height:300px; min-width:240px; flex:0 0 240px;
+  scroll-snap-align:start;
+}
+/* artist front photo */
+.ac-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; border-radius:16px;
+  opacity:0; transition:opacity .3s;
+}
+.ac-img.loaded { opacity:1; }
+/* gradient scrim over photo */
+.ac-scrim {
+  position:absolute; inset:0; border-radius:16px;
+  background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,0) 55%);
+}
+/* back promo image (shown when no video) */
+.ac-back-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; border-radius:16px 16px 0 0;
+}
+/* carousel arrows */
+.ac-arr {
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:38px; height:38px; border-radius:50%;
+  background:rgba(9,8,7,.72); border:0.5px solid var(--bd2);
+  color:#fff; font-size:16px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:10; transition:background .15s;
+  backdrop-filter:blur(6px); user-select:none;
+}
+.ac-arr:hover { background:var(--or); border-color:var(--or); }
+.ac-arr.prev { left:4px; }
+.ac-arr.next { right:4px; }
+/* view-all link */
+.ac-view-all {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:28px; font-size:13px; font-weight:600;
+  color:var(--or); text-decoration:none; transition:gap .2s;
+}
+.ac-view-all:hover { gap:10px; }
 
 /* ── FEATURES / BENTO ── */
 .features { background:var(--bg); }
@@ -557,8 +609,10 @@ footer {
   .stats-band-wrap { padding:32px 20px; }
   .stat-block { padding:28px 18px; }
   .stat-block-val { font-size:36px; }
-  .artist-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); gap:14px; }
-  .artist-card { height:260px; }
+  .ac-wrap { padding:0; }
+  .artist-grid { gap:12px; }
+  .artist-card { height:260px; min-width:200px; flex:0 0 200px; }
+  .ac-arr { display:none; }
   .testi-grid { grid-template-columns:1fr; }
   .bento-grid { grid-template-columns:1fr; }
   .bento-card.large { flex-direction:column; grid-column:span 1; }
@@ -571,8 +625,7 @@ footer {
 @media(max-width:500px) {
   .hero-badge { font-size:10px; padding:5px 12px; }
   .platform-pill { padding:8px 18px; margin-right:8px; font-size:12px; }
-  .artist-grid { gap:12px; }
-  .artist-card { height:220px; }
+  .artist-card { height:220px; min-width:170px; flex:0 0 170px; }
   .stats-band-wrap { padding:24px 16px; }
   .stat-block { padding:24px 14px; }
   .stat-block-val { font-size:30px; }
@@ -716,10 +769,41 @@ footer {
 @media(max-width:768px) { .gad-wrap { padding:10px 16px; } .gad-inner { height:60px; max-width:100%; } }
 @media(max-width:480px) { .gad-wrap { padding:8px 12px; } .gad-inner { height:50px; } }
 
+/* ── TRENDING CARDS ── */
+.tr-card { flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s; cursor:pointer; }
+.tr-card:hover { transform:translateY(-4px); }
+.tr-art { height:160px; position:relative; overflow:hidden; }
+.tr-art-bg { position:absolute; inset:0; }
+.tr-cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s; }
+.tr-cover.loaded { opacity:1; }
+.tr-badge { position:absolute; top:8px; right:8px; border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff; }
+.tr-badge.hot { background:var(--or); }
+.tr-badge.rising { background:rgba(45,202,114,0.9); }
+.tr-info { padding:10px 12px; }
+.tr-track { font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tr-artist { font-size:11px; color:var(--t3); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
 /* Disable text selection */
 * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:text; user-select:text; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -1223,170 +1307,260 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
 <!-- ── OUR ARTISTS & PROJECTS ── -->
 <section class="pad-section" style="background:var(--s1); border-top:0.5px solid var(--bd);">
   <div class="sec-inner">
-    <div class="sec-head au" style="text-align:center; margin-bottom:48px;">
-      <div class="sec-eyebrow">Meet the Artists</div>
-      <h2 class="sec-title">Our Artists &amp; Projects</h2>
-      <p class="sec-sub" style="max-width:540px; margin:0 auto;">Hover or tap an artist card to see their story and hear directly from them.</p>
+    <div class="sec-head au" style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:40px;">
+      <div>
+        <div class="sec-eyebrow">Meet the Artists</div>
+        <h2 class="sec-title" style="margin-bottom:8px;">Our Artists &amp; Projects</h2>
+        <p class="sec-sub" style="max-width:480px; margin:0;">Hover or tap a card to see their story and hear directly from them.</p>
+      </div>
+      <a href="artists.html" class="ac-view-all">View All Artists <span>&#8594;</span></a>
     </div>
-    <div class="artist-grid">
 
-      <!-- Artist 1 — replace name/gradient/YouTube ID -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1a0a2e,#16213e);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,0.3),rgba(139,92,246,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+    <div class="ac-wrap">
+      <!-- prev arrow -->
+      <button class="ac-arr prev" onclick="acScroll(-1)" aria-label="Previous">&#8249;</button>
+
+      <div class="artist-grid" id="artistCarousel">
+
+        <!--
+          ════════════════════════════════════════════════════════════
+          HOW TO ADD / EDIT AN ARTIST CARD
+          ────────────────────────────────────────────────────────────
+          Front face:
+            • data-photo="path/to/photo.jpg"   ← artist photo (optional)
+            • data-grad="linear-gradient(...)" ← fallback gradient if no photo
+            • data-name="Artist Name"
+            • data-meta="Genre · City"
+
+          Back face — choose ONE:
+            • data-video="YOUTUBE_VIDEO_ID"    ← shows embedded YouTube video
+            • data-promo="path/to/promo.jpg"   ← shows promo image instead
+            (if both provided, video takes priority)
+
+          Copy any card block below and update the data- attributes.
+          ════════════════════════════════════════════════════════════
+        -->
+
+        <!-- Artist 1 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#1a0a2e,#16213e)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_1"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <!-- FRONT -->
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#1a0a2e,#16213e);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,0.3),rgba(139,92,246,0.3));"></div>
+              <!-- photo slot — JS sets src and adds .loaded -->
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_1 with actual YouTube video ID -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_1?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <!-- BACK -->
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <!-- promo image (shown when no video) -->
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <!-- video slot — JS loads iframe on flip -->
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Artist 2 -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#0d1f0d,#1a3a1a);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,202,114,0.3),rgba(6,182,212,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+        <!-- Artist 2 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#0d1f0d,#1a3a1a)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_2"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#0d1f0d,#1a3a1a);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,202,114,0.3),rgba(6,182,212,0.3));"></div>
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_2 -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_2?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Artist 3 -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1f0a0a,#3a1a1a);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(239,68,68,0.3),rgba(255,107,0,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+        <!-- Artist 3 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#1f0a0a,#3a1a1a)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_3"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#1f0a0a,#3a1a1a);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(239,68,68,0.3),rgba(255,107,0,0.3));"></div>
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_3 -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_3?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Artist 4 -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#0a1a2e,#0a0a3a);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(168,85,247,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+        <!-- Artist 4 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#0a1a2e,#0a0a3a)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_4"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#0a1a2e,#0a0a3a);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(168,85,247,0.3));"></div>
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_4 -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_4?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Artist 5 -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1a1500,#2e2200);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(234,179,8,0.3),rgba(255,107,0,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+        <!-- Artist 5 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#1a1500,#2e2200)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_5"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1500,#2e2200);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(234,179,8,0.3),rgba(255,107,0,0.3));"></div>
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_5 -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_5?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Artist 6 -->
-      <div class="artist-card"
-           onmouseenter="this.querySelector('.flip-inner').style.transform='rotateY(180deg)'"
-           onmouseleave="this.querySelector('.flip-inner').style.transform='rotateY(0)'"
-           onclick="(function(el){var fi=el.querySelector('.flip-inner'); fi.style.transform=fi.style.transform==='rotateY(180deg)'?'rotateY(0)':'rotateY(180deg)'})(this)">
-        <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#0f0a1a,#1a0f2e);display:flex;align-items:flex-end;">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(236,72,153,0.3),rgba(139,92,246,0.3));"></div>
-            <div style="position:relative;padding:20px;width:100%;">
-              <div style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+        <!-- Artist 6 -->
+        <div class="artist-card"
+             data-photo=""
+             data-grad="linear-gradient(135deg,#0f0a1a,#1a0f2e)"
+             data-name="Artist Name"
+             data-meta="Genre · City"
+             data-video="VIDEO_ID_6"
+             data-promo=""
+             onmouseenter="acIn(this)" onmouseleave="acOut(this)" onclick="acTap(this)">
+          <div class="flip-inner" style="position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);transform-style:preserve-3d;">
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;display:flex;align-items:flex-end;">
+              <div class="ac-bg" style="position:absolute;inset:0;background:linear-gradient(135deg,#0f0a1a,#1a0f2e);"></div>
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(236,72,153,0.3),rgba(139,92,246,0.3));"></div>
+              <img class="ac-img" alt="" src="" onerror="this.style.display='none'">
+              <div class="ac-scrim"></div>
+              <div style="position:relative;padding:20px;width:100%;z-index:1;">
+                <div class="ac-name" style="font-family:var(--font-d);font-size:20px;font-weight:800;color:#fff;">Artist Name</div>
+                <div class="ac-meta" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">Genre · City</div>
+              </div>
             </div>
-          </div>
-          <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;">
-            <div style="position:relative;padding-bottom:75%;height:0;overflow:hidden;">
-              <!-- REPLACE VIDEO_ID_6 -->
-              <iframe src="about:blank" data-src="https://www.youtube.com/embed/VIDEO_ID_6?autoplay=1&mute=1&controls=0&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
-            </div>
-            <div style="padding:12px 16px;background:rgba(0,0,0,0.8);">
-              <div style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name<!-- REPLACE --></div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial â–¶</div>
+            <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:16px;overflow:hidden;background:#0a0a0a;display:flex;flex-direction:column;">
+              <div style="position:relative;flex:1;overflow:hidden;">
+                <img class="ac-back-img" src="" alt="" style="display:none;" onerror="this.style.display='none'">
+                <div class="ac-video-wrap" style="position:absolute;inset:0;overflow:hidden;display:none;">
+                  <iframe src="about:blank" data-src="" style="position:absolute;inset:0;width:100%;height:100%;border:none;" loading="lazy" allowfullscreen allow="autoplay"></iframe>
+                </div>
+              </div>
+              <div style="padding:12px 16px;background:rgba(0,0,0,0.85);flex-shrink:0;">
+                <div class="ac-back-name" style="font-family:var(--font-d);font-size:13px;font-weight:700;color:#fff;">Artist Name</div>
+                <div class="ac-back-hint" style="font-size:11px;color:rgba(255,255,255,0.5);">Watch testimonial &#9654;</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
+      </div><!-- /artist-grid -->
+
+      <!-- next arrow -->
+      <button class="ac-arr next" onclick="acScroll(1)" aria-label="Next">&#8250;</button>
+    </div><!-- /ac-wrap -->
   </div>
 </section>
 
@@ -1401,52 +1575,29 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
   </div>
   <div class="yt-slider-wrap">
     <div class="yt-track" id="ytTrack">
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_A')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a0a2e,#2d1060);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <!-- Set data-video-id to your real YouTube video ID to enable thumbnail + playback -->
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_A" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a0a2e,#2d1060);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">How to Distribute Your Music</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_B')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a1a2e,#0a3060);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_B" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a1a2e,#0a3060);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">Playlist Pitching Guide</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_C')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0d1f0d,#1a3a1a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_C" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0d1f0d,#1a3a1a);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">Understanding Music Royalties</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_D')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1f0a0a,#3a1a1a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_D" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1f0a0a,#3a1a1a);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">Artist Success Story</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_E')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a1500,#3a2e00);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_E" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a1500,#3a2e00);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">Tunefry vs Other Distributors</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_F')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">Getting Started on Tunefry</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_A')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a0a2e,#2d1060);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">How to Distribute Your Music</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_B')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a1a2e,#0a3060);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">Playlist Pitching Guide</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_C')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0d1f0d,#1a3a1a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">Understanding Music Royalties</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_D')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1f0a0a,#3a1a1a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">Artist Success Story</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_E')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#1a1500,#3a2e00);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
-        <div class="yt-info"><div class="yt-title">Tunefry vs Other Distributors</div><div class="yt-channel">Tunefry Official</div></div>
-      </div>
-      <div class="yt-card" onclick="openYT('YOUTUBE_VIDEO_ID_F')">
-        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3a);"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
+      <div class="yt-card" data-video-id="YOUTUBE_VIDEO_ID_F" onclick="openYT(this.dataset.videoId)">
+        <div class="yt-thumb"><div class="yt-thumb-bg" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3a);"><img class="yt-thumb-img" src="" alt="" onerror="this.style.display='none'"><div class="yt-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div></div>
         <div class="yt-info"><div class="yt-title">Getting Started on Tunefry</div><div class="yt-channel">Tunefry Official</div></div>
       </div>
     </div>
@@ -1474,68 +1625,98 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
         <div class="sec-eyebrow">What's Hot</div>
         <h2 class="sec-title" style="margin-bottom:0;">Trending On Tunefry</h2>
       </div>
-      <a href="#" style="font-size:13px; color:var(--or); white-space:nowrap;">View all &rarr;</a>
+      <a href="trending.html" style="font-size:13px; color:var(--or); white-space:nowrap;">View all &rarr;</a>
     </div>
     <div style="display:flex; gap:14px; overflow-x:auto; padding-bottom:12px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,0.1) transparent;">
 
-      <!-- Trending Card — repeat/replace with real releases -->
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(255,107,0,0.4),rgba(139,92,246,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:var(--or); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">🔥 Hot</div>
+      <!-- Trending Card — set data-track, data-artist, data-cover, data-genre to populate -->
+      <div class="tr-card au"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(255,107,0,0.4),rgba(139,92,246,0.4),#111)"
+           data-badge="hot" data-genre="pop">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge hot">🔥 Hot</div>
         </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
-        </div>
-      </div>
-
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(45,202,114,0.4),rgba(6,182,212,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:var(--or); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">🔥 Hot</div>
-        </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
         </div>
       </div>
 
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(59,130,246,0.4),rgba(168,85,247,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:var(--or); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">🔥 Hot</div>
+      <div class="tr-card au au-d1"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(45,202,114,0.4),rgba(6,182,212,0.4),#111)"
+           data-badge="hot" data-genre="folk">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge hot">🔥 Hot</div>
         </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
-        </div>
-      </div>
-
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(236,72,153,0.4),rgba(255,107,0,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:rgba(45,202,114,0.9); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">↑ Rising</div>
-        </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
         </div>
       </div>
 
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(234,179,8,0.4),rgba(45,202,114,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:rgba(45,202,114,0.9); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">↑ Rising</div>
+      <div class="tr-card au au-d2"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(59,130,246,0.4),rgba(168,85,247,0.4),#111)"
+           data-badge="hot" data-genre="hiphop">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge hot">🔥 Hot</div>
         </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
         </div>
       </div>
 
-      <div style="flex:0 0 160px; border-radius:12px; overflow:hidden; background:var(--s2); border:0.5px solid var(--bd); transition:transform .3s;" onmouseenter="this.style.transform='translateY(-4px)'" onmouseleave="this.style.transform=''">
-        <div style="height:160px; background:linear-gradient(135deg,rgba(139,92,246,0.4),rgba(59,130,246,0.4),#111); position:relative;">
-          <div style="position:absolute; top:8px; right:8px; background:var(--or); border-radius:6px; padding:3px 8px; font-size:10px; font-weight:700; color:#fff;">🔥 Hot</div>
+      <div class="tr-card au au-d3"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(236,72,153,0.4),rgba(255,107,0,0.4),#111)"
+           data-badge="rising" data-genre="rnb">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge rising">↑ Rising</div>
         </div>
-        <div style="padding:10px 12px;">
-          <div style="font-family:var(--font-d); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track Name<!-- REPLACE --></div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px;">Artist Name<!-- REPLACE --></div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
+        </div>
+      </div>
+
+      <div class="tr-card au au-d4"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(234,179,8,0.4),rgba(45,202,114,0.4),#111)"
+           data-badge="rising" data-genre="punjabi">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge rising">↑ Rising</div>
+        </div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
+        </div>
+      </div>
+
+      <div class="tr-card au au-d1"
+           data-track="Track Name" data-artist="Artist Name"
+           data-cover="" data-grad="linear-gradient(135deg,rgba(139,92,246,0.4),rgba(59,130,246,0.4),#111)"
+           data-badge="hot" data-genre="electronic">
+        <div class="tr-art">
+          <div class="tr-art-bg"></div>
+          <img class="tr-cover" src="" alt="" onerror="this.style.display='none'">
+          <div class="tr-badge hot">🔥 Hot</div>
+        </div>
+        <div class="tr-info">
+          <div class="tr-track">Track Name</div>
+          <div class="tr-artist">Artist Name</div>
         </div>
       </div>
 
@@ -1960,17 +2141,18 @@ input,textarea,[contenteditable] { -webkit-user-select:text; -moz-user-select:te
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="services.html">Distribution</a>
-      <a href="services.html">Playlist Pitching</a>
-      <a href="services.html">Content ID</a>
-      <a href="services.html">Caller Tune</a>
+      <a href="distribution.html">Distribution</a>
+      <a href="playlist-pitching.html">Playlist Pitching</a>
+      <a href="content-id.html">Content ID</a>
+      <a href="callertune.html">Caller Tune</a>
+      <a href="song-transfer.html">Song Transfer &amp; Portability</a>
     </div>
     <div class="footer-col">
-      <h4>Legal</h4>
-      <a href="#">Terms of Service</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Refund Policy</a>
-      <a href="mailto:support@tunefry.com">support@tunefry.com</a>
+      <h4>Support &amp; Legal</h4>
+      <a href="contact.html">Contact Us</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -2016,18 +2198,26 @@ document.getElementById('navHam').addEventListener('click', function(){
   document.getElementById('mobMenu').classList.toggle('open');
 });
 
-function openYT(id){
-  if(!id||id.startsWith('YOUTUBE')){alert('Add a real YouTube video ID to enable this video.');return;}
-  document.getElementById('ytFrame').src='https://www.youtube.com/embed/'+id+'?autoplay=1';
-  document.getElementById('ytLb').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeYT(){
-  document.getElementById('ytFrame').src='';
-  document.getElementById('ytLb').classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeYT();});
+/* ── YouTube card init: clone for infinite scroll + load thumbnails ── */
+(function(){
+  var track = document.getElementById('ytTrack');
+  if(!track) return;
+  var originals = Array.prototype.slice.call(track.querySelectorAll('.yt-card'));
+  originals.forEach(function(card){ track.appendChild(card.cloneNode(true)); });
+  track.querySelectorAll('.yt-card').forEach(function(card){
+    var id = card.getAttribute('data-video-id') || '';
+    if(!id || id.startsWith('YOUTUBE')) return;
+    var img = card.querySelector('.yt-thumb-img');
+    if(!img) return;
+    img.onerror = function(){
+      if(img.src.indexOf('maxresdefault') > -1){
+        img.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
+      }
+    };
+    img.onload = function(){ img.classList.add('loaded'); };
+    img.src = 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+  });
+})();
 
 function openYT(id){
   if(!id||id.startsWith('YOUTUBE')){alert('Add a real YouTube video ID to enable this video.');return;}
@@ -2059,6 +2249,117 @@ function homeFaqToggle(el){
     ico.textContent = '+';
     el.style.borderColor = 'rgba(255,107,0,0.3)';
   }
+}
+
+/* ── Artist Carousel ── */
+(function(){
+  var carr = document.getElementById('artistCarousel');
+  if(!carr) return;
+
+  carr.querySelectorAll('.artist-card').forEach(function(card){
+    var photo = card.getAttribute('data-photo');
+    var grad  = card.getAttribute('data-grad');
+    var name  = card.getAttribute('data-name');
+    var meta  = card.getAttribute('data-meta');
+    var vid   = card.getAttribute('data-video');
+    var promo = card.getAttribute('data-promo');
+
+    if(name){ card.querySelector('.ac-name').textContent = name; }
+    if(meta){ card.querySelector('.ac-meta').textContent = meta; }
+    var bn = card.querySelector('.ac-back-name');
+    if(name && bn){ bn.textContent = name; }
+
+    if(grad){ var bg = card.querySelector('.ac-bg'); if(bg) bg.style.background = grad; }
+
+    if(photo){
+      var img = card.querySelector('.ac-img');
+      img.onload = function(){ img.classList.add('loaded'); };
+      img.src = photo;
+    }
+
+    var vWrap = card.querySelector('.ac-video-wrap');
+    var bImg  = card.querySelector('.ac-back-img');
+    var hint  = card.querySelector('.ac-back-hint');
+    if(vid && vid.indexOf('VIDEO_ID') === -1 && vid !== ''){
+      vWrap.style.display = 'block';
+      vWrap.querySelector('iframe').setAttribute('data-src',
+        'https://www.youtube.com/embed/' + vid + '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + vid);
+      if(hint) hint.textContent = 'Watch testimonial \u25B6';
+    } else if(promo){
+      bImg.src = promo; bImg.style.display = 'block';
+      if(hint) hint.textContent = 'View promo \u25B6';
+    } else {
+      if(hint) hint.textContent = 'Coming soon';
+    }
+  });
+
+  var drag = false, sx = 0, sl = 0;
+  carr.addEventListener('mousedown', function(e){ drag=true; sx=e.pageX; sl=carr.scrollLeft; });
+  document.addEventListener('mouseup', function(){ drag=false; });
+  carr.addEventListener('mousemove', function(e){
+    if(!drag) return;
+    e.preventDefault();
+    carr.scrollLeft = sl - (e.pageX - sx);
+  });
+})();
+
+function acIn(card){
+  if(card.dataset.locked === '1') return;
+  card.querySelector('.flip-inner').style.transform = 'rotateY(180deg)';
+  acLoadIframe(card);
+}
+function acOut(card){
+  if(card.dataset.locked === '1') return;
+  card.querySelector('.flip-inner').style.transform = 'rotateY(0)';
+}
+function acTap(card){
+  if(card.dataset.locked === '1'){
+    card.dataset.locked = '0';
+    card.querySelector('.flip-inner').style.transform = 'rotateY(0)';
+  } else {
+    card.dataset.locked = '1';
+    card.querySelector('.flip-inner').style.transform = 'rotateY(180deg)';
+    acLoadIframe(card);
+  }
+}
+function acLoadIframe(card){
+  var iframe = card.querySelector('.ac-video-wrap iframe');
+  if(iframe && iframe.src === 'about:blank' && iframe.getAttribute('data-src')){
+    iframe.src = iframe.getAttribute('data-src');
+  }
+}
+/* ── Trending card init ── */
+(function(){
+  document.querySelectorAll('.tr-card').forEach(function(card){
+    var bg     = card.querySelector('.tr-art-bg');
+    var img    = card.querySelector('.tr-cover');
+    var badge  = card.querySelector('.tr-badge');
+    var trackEl  = card.querySelector('.tr-track');
+    var artistEl = card.querySelector('.tr-artist');
+    var grad  = card.getAttribute('data-grad');
+    var cover = card.getAttribute('data-cover');
+    var badgeType = card.getAttribute('data-badge');
+    var track  = card.getAttribute('data-track');
+    var artist = card.getAttribute('data-artist');
+    if(bg && grad) bg.style.background = grad;
+    if(trackEl && track) trackEl.textContent = track;
+    if(artistEl && artist) artistEl.textContent = artist;
+    if(badge){
+      badge.className = 'tr-badge ' + (badgeType === 'rising' ? 'rising' : 'hot');
+      badge.textContent = badgeType === 'rising' ? '↑ Rising' : '🔥 Hot';
+    }
+    if(img && cover){
+      img.onload = function(){ img.classList.add('loaded'); };
+      img.src = cover;
+    }
+  });
+})();
+
+function acScroll(dir){
+  var carr = document.getElementById('artistCarousel');
+  if(!carr) return;
+  var card = carr.querySelector('.artist-card');
+  carr.scrollBy({ left: dir * ((card ? card.offsetWidth : 240) + 16) * 2, behavior:'smooth' });
 }
 </script>
 </body>

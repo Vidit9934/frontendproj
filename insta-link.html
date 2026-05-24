@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -248,6 +248,23 @@
     .toast.toast-error { background: rgba(59,130,246,0.15); border: 0.5px solid rgba(59,130,246,0.35); color: #3B82F6; }
     .toast svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1006293335410308');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1006293335410308&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -339,35 +356,35 @@
     <div class="glass-card instructions-card">
       <div class="instructions-title">
         <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-        How to Link Your Instagram
+        How to Link Your Accounts
       </div>
       <div class="steps-list">
         <div class="step-item">
           <div class="step-number">1</div>
           <div class="step-content">
-            <div class="step-heading">Enter your Instagram username below</div>
-            <div class="step-detail">Use your exact Instagram handle without the @ symbol.</div>
+            <div class="step-heading">Enter your Instagram and/or Facebook profile URL</div>
+            <div class="step-detail">Paste the full URL of your artist profile on each platform.</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">2</div>
           <div class="step-content">
-            <div class="step-heading">Go to your Instagram profile settings</div>
-            <div class="step-detail">Open Instagram app → Profile → Edit Profile → Bio section.</div>
+            <div class="step-heading">Enter the song name you want to link</div>
+            <div class="step-detail">Type the exact release name as submitted to Tunefry.</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">3</div>
           <div class="step-content">
-            <div class="step-heading">Add your Tunefry artist page URL to your Bio/Website</div>
-            <div class="step-detail">Copy the URL below and paste it in your Instagram website or bio field.</div>
+            <div class="step-heading">Select which platforms to link</div>
+            <div class="step-detail">Choose Instagram, Facebook, or both — at least one is required.</div>
           </div>
         </div>
         <div class="step-item">
           <div class="step-number">4</div>
           <div class="step-content">
-            <div class="step-heading">Click Verify below — our system will check the link</div>
-            <div class="step-detail">Once verified, your accounts will be linked and Instagram features will unlock.</div>
+            <div class="step-heading">Submit — our team will process the request</div>
+            <div class="step-detail">Linking may take up to 24 hours after submission.</div>
           </div>
         </div>
       </div>
@@ -378,45 +395,45 @@
       <div class="link-form-title">Link Your Account</div>
 
       <div class="form-group">
+        <label class="form-label">Instagram URL <span class="req">*</span></label>
+        <input type="url" class="form-input" id="instagramUrl" placeholder="https://www.instagram.com/yourprofile/">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Facebook URL <span style="font-size:11px;color:var(--text-secondary);text-transform:none;font-weight:500;">(optional)</span></label>
+        <input type="url" class="form-input" id="facebookUrl" placeholder="https://www.facebook.com/yourpage/">
+      </div>
+
+      <div class="form-group">
         <label class="form-label">Song Name <span class="req">*</span></label>
-        <select class="form-input" id="songName">
-          <option value="">Select song</option>
-          <option value="midnight-echoes">Midnight Echoes</option>
-          <option value="city-lights">City Lights</option>
-          <option value="lost-in-rain">Lost in Rain</option>
-          <option value="saathiya">Saathiya</option>
-        </select>
+        <input type="text" class="form-input" id="songName" placeholder="Enter song name as submitted">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Instagram Username <span class="req">*</span></label>
-        <div class="input-with-prefix" id="usernameWrap">
-          <span class="input-prefix">@</span>
-          <input type="text" id="instagramUsername" placeholder="yourhandle" value="">
-        </div>
+        <label class="form-label">Artist Name</label>
+        <input type="text" class="form-input" id="artistName" value="Your Artist Name" readonly style="opacity:0.6;cursor:not-allowed;">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Your Tunefry Artist URL</label>
-        <div class="url-row">
-          <div class="url-input-wrap">
-            <input type="text" class="form-input" id="artistUrl" value="https://tunefry.com/artist/vasusharma" disabled>
-          </div>
-          <button class="btn-copy" id="copyBtn" onclick="copyUrl()">
-            <svg viewBox="0 0 24 24" id="copyIcon"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            <span id="copyLabel">Copy</span>
-          </button>
+        <label class="form-label">Link on Platforms <span class="req">*</span></label>
+        <div style="display:flex;gap:20px;padding:4px 0;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);cursor:pointer;">
+            <input type="checkbox" id="chkInstagram" value="instagram" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;"> Instagram
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-primary);cursor:pointer;">
+            <input type="checkbox" id="chkFacebook" value="facebook" style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;"> Facebook
+          </label>
         </div>
       </div>
 
       <div class="verify-note">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>Verification may take up to 24 hours. Make sure your Instagram profile is set to <strong style="color:var(--text-primary);">Public</strong> before clicking Verify.</span>
+        <span>Linking may take up to 24 hours after submission. Make sure your profiles are set to <strong style="color:var(--text-primary);">Public</strong>.</span>
       </div>
 
-      <button class="btn-verify" onclick="verifyInstagram()">
+      <button class="btn-verify" onclick="submitLinkRequest()">
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Verify &amp; Link Account
+        Submit Link Request
       </button>
     </div>
 
@@ -457,59 +474,47 @@
 </div>
 
 <script>
-  function copyUrl() {
-    const url = document.getElementById('artistUrl').value;
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.getElementById('copyBtn');
-      const lbl = document.getElementById('copyLabel');
-      const icon = document.getElementById('copyIcon');
-      btn.classList.add('copied');
-      lbl.textContent = 'Copied!';
-      icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        lbl.textContent = 'Copy';
-        icon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>';
-      }, 2000);
-    });
-  }
+  function submitLinkRequest() {
+    var instaUrl = document.getElementById('instagramUrl').value.trim();
+    var songName = document.getElementById('songName').value.trim();
+    var chkInsta = document.getElementById('chkInstagram').checked;
+    var chkFb = document.getElementById('chkFacebook').checked;
 
-  function verifyInstagram() {
-    const song = document.getElementById('songName');
-    const username = document.getElementById('instagramUsername').value.trim();
-    const wrap = document.getElementById('usernameWrap');
-    if (!song.value) {
-      song.classList.add('input-error');
-      showToast('error', 'Please select a song name.');
+    if (!instaUrl) {
+      document.getElementById('instagramUrl').style.borderColor = '#3B82F6';
+      showToast('error', 'Please enter your Instagram profile URL.');
       return;
     }
-    if (!username) {
-      wrap.style.borderColor = '#3B82F6';
-      showToast('error', 'Please enter your Instagram username.');
+    if (!songName) {
+      document.getElementById('songName').style.borderColor = '#3B82F6';
+      showToast('error', 'Please enter the song name.');
       return;
     }
-    song.classList.remove('input-error');
-    wrap.style.borderColor = '';
-    // Simulate verification request
-    showToast('success', 'Verification request sent! We\'ll check your Instagram link within 24 hours.');
-    setTimeout(() => {
-      const badge = document.getElementById('connectionBadge');
+    if (!chkInsta && !chkFb) {
+      showToast('error', 'Please select at least one platform to link.');
+      return;
+    }
+
+    document.getElementById('instagramUrl').style.borderColor = '';
+    document.getElementById('songName').style.borderColor = '';
+
+    setTimeout(function() {
+      showToast('success', 'Link request submitted! Processing may take up to 24 hours.');
+      document.getElementById('instagramUrl').value = '';
+      document.getElementById('facebookUrl').value = '';
+      document.getElementById('songName').value = '';
+      document.getElementById('chkInstagram').checked = false;
+      document.getElementById('chkFacebook').checked = false;
+      var badge = document.getElementById('connectionBadge');
       badge.className = 'connection-badge connected';
       badge.innerHTML = '<span class="status-dot"></span>Pending Verification';
-    }, 1000);
+    }, 800);
   }
 
-  document.getElementById('instagramUsername').addEventListener('input', function() {
-    document.getElementById('usernameWrap').style.borderColor = '';
-  });
-  document.getElementById('songName').addEventListener('change', function() {
-    this.classList.remove('input-error');
-  });
-
   function showToast(type, msg) {
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toastMsg');
-    const toastIcon = document.getElementById('toastIcon');
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toastMsg');
+    var toastIcon = document.getElementById('toastIcon');
     toastMsg.textContent = msg;
     toast.className = 'toast';
     if (type === 'success') {
@@ -520,7 +525,7 @@
       toastIcon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
     }
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3500);
+    setTimeout(function() { toast.classList.remove('show'); }, 3500);
   }
 </script>
 <script src="js/app.js"></script>
